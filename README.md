@@ -31,8 +31,12 @@ Bu projeyi geliştirmenin temel amaçları aşağıda listelenmiştir.
 
 ## İçerik Planı
 
-- [ ] **Bölüm 00 Proje Tanıtımı ve Solution Açılması:** Projenin amacı anlatılır, teknoloji seçimine değinilir ve Solution açılır.
-- [ ] **Bölüm 01 Domain Model Tasarımı:** User, Lighthouse, Photo, Comment vb temel sınıflar belirlenir.
+- [x] **Bölüm 00 Proje Tanıtımı ve Solution Açılması:** Projenin amacı anlatılır, teknoloji seçimine değinilir ve Solution açılır. [Video](https://youtu.be/xO4S60bfZPU)
+- [x] **Bölüm 01 Domain Model Tasarımı:** User, Lighthouse, Photo, Comment vb temel sınıflar belirlenir.
+  - [Video 01](https://youtu.be/fIsvAwxnnIQ)
+  - [Video 02](https://youtu.be/dDZHq-vI18U)
+  - [Video 03](https://youtu.be/cCW44l7fgX0)
+  - [Video 04](https://youtu.be/_cta_s9zM1U)
 - [ ] **Bölüm 02 CRUD Sözleşmelerinin İnşaası:** Repository/Service katmanları için interface tasarımları ve abstraction katmanı.
 - [ ] ...
 
