@@ -1,7 +1,7 @@
 namespace LighthouseSocial.Domain.Countries;
 
-public class CountryRegister(IEnumerable<Country> countries)
-    : ICountryRegister
+public class CountryRegistry(IEnumerable<Country> countries)
+    : ICountryRegistry
 {
     private readonly Dictionary<int, Country> _countries = countries.ToDictionary(c => c.Id);
 

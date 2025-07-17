@@ -1,6 +1,6 @@
 namespace LighthouseSocial.Domain.Countries;
 
-public interface ICountryRegister
+public interface ICountryRegistry
 {
     Country GetById(int id);
     IReadOnlyList<Country> GetAll();
