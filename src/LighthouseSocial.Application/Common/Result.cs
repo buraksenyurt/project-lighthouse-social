@@ -1,5 +1,3 @@
-using System;
-
 namespace LighthouseSocial.Application.Common;
 
 public class Result<T>
