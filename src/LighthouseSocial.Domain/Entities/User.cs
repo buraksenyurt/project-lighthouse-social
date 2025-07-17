@@ -13,6 +13,6 @@ public class User
         Fullname = fullname;
         Email = email;
     }
-    // Photos
-    // Comments
+    public List<Photo> Photos { get; set; }
+    public List<Comment> Comments { get; set; }
 }
