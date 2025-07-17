@@ -13,6 +13,6 @@ public class User
         Fullname = fullname;
         Email = email;
     }
-    public List<Photo> Photos { get; set; }
-    public List<Comment> Comments { get; set; }
+    public List<Photo> Photos { get; } = [];
+    public List<Comment> Comments { get; } = [];
 }
