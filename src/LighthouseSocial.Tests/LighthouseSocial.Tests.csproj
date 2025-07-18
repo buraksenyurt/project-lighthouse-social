@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <Folder Include="Features\Comment\" />
-    <Folder Include="Features\Photo\" />
   </ItemGroup>
 
 </Project>
