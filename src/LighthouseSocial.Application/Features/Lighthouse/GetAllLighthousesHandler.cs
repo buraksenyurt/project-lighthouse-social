@@ -1,4 +1,3 @@
-using System;
 using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Domain.Interfaces;

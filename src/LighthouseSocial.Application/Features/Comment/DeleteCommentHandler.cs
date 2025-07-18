@@ -3,14 +3,9 @@ using LighthouseSocial.Domain.Interfaces;
 
 namespace LighthouseSocial.Application.Features.Comment;
 
-public class DeleteCommandHandler
+public class DeleteCommentHandler(ICommentRepository repository)
 {
-    private readonly ICommentRepository _repository;
-
-    public DeleteCommandHandler(ICommentRepository repository)
-    {
-        _repository = repository;
-    }
+    private readonly ICommentRepository _repository = repository;
 
     public async Task<Result> HandleAsync(Guid commentId)
     {

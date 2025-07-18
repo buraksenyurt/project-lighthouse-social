@@ -4,14 +4,9 @@ using LighthouseSocial.Domain.Interfaces;
 
 namespace LighthouseSocial.Application.Features.Comment;
 
-public class GetCommentsByPhotoHandler
+public class GetCommentsByPhotoHandler(ICommentRepository repository)
 {
-    private readonly ICommentRepository _repository;
-
-    public GetCommentsByPhotoHandler(ICommentRepository repository)
-    {
-        _repository = repository;
-    }
+    private readonly ICommentRepository _repository = repository;
 
     public async Task<Result<IEnumerable<CommentDto>>> HandleAsync(Guid photoId)
     {
