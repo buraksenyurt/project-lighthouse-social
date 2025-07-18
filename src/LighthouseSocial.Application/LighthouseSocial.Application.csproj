@@ -10,4 +10,8 @@
     <ProjectReference Include="..\LighthouseSocial.Domain\LighthouseSocial.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
+  </ItemGroup>
+
 </Project>
