@@ -2,12 +2,12 @@ namespace LighthouseSocial.Application.Common;
 
 public class Result<T>
 {
-    public bool Succes { get; }
+    public bool Success { get; }
     public T? Data { get; }
     public string? ErrorMessage { get; }
     private Result(bool success, T? data, string? errorMessage)
     {
-        Succes = success;
+        Success = success;
         Data = data;
         ErrorMessage = errorMessage;
     }
