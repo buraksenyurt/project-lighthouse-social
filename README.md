@@ -31,20 +31,41 @@ Bu projeyi geliştirmenin temel amaçları aşağıda listelenmiştir.
 
 ## İçerik Planı
 
-- [x] **Bölüm 00 Proje Tanıtımı ve Solution Açılması:** Projenin amacı anlatılır, teknoloji seçimine değinilir ve Solution açılır. [Video](https://youtu.be/xO4S60bfZPU)
+- [x] **Bölüm 00 Proje Tanıtımı ve Solution Açılması:** Projenin amacı anlatılır, teknoloji seçimine değinilir ve Solution açılır.
+  - [Video 00](https://youtu.be/xO4S60bfZPU)
 - [x] **Bölüm 01 Domain Model Tasarımı:** User, Lighthouse, Photo, Comment vb temel sınıflar belirlenir.
   - [Video 01](https://youtu.be/fIsvAwxnnIQ)
   - [Video 02](https://youtu.be/dDZHq-vI18U)
   - [Video 03](https://youtu.be/cCW44l7fgX0)
   - [Video 04](https://youtu.be/_cta_s9zM1U)
-- [ ] **Bölüm 02 CRUD Sözleşmelerinin İnşaası:** Repository/Service katmanları için interface tasarımları ve abstraction katmanı.
+- [ ] **Bölüm 02 Application Katmanı, CRUD Sözleşmelerinin İnşaası... :** Repository/Service katmanları için interface tasarımları ve application katmanının yazılması.
+  - [Video 05](https://youtu.be/SmnrE73VvUo)
+  - [Video 06](https://youtu.be/x6u7uMxw8qU)
 - [ ] ...
+
+## Sonarqube
+
+Teknik borçlanmanın önüne geçmek için statik kod analiz aracı olarak Sonarqube kullanılmakta. Local ortamda docker-compose ise ayağa kaldırılan üründe tarama başlatmak için aşağıdaki hazırlıklar yeterli.
+
+```bash
+# Dotnet için gerekli tarama aracının yüklenmesi
+dotnet tool install --global dotnet-sonarscanner
+
+# Solution klasöründe ise aşağıdaki komutların çalıştırılması yeterli
+# token bilgisi sizin kurulumunuza göre değişecektir.
+dotnet sonarscanner begin /k:"Project-Ligthouse-Social" /d:sonar.host.url="http://localhost:9000"  /d:sonar.token="sizin_için_üretilen_token"
+
+dotnet build
+
+dotnet sonarscanner end /d:sonar.token="sizin_için_üretilen_token"
+```
 
 ## Kontrol Listesi
 
 - [ ] C# dilinin temel özelliklerine yer verildi mi?
 - [ ] OOP prensipleri uygulandı mı?
 - [ ] SOLID prensiplerine yer verildi mi?
+- [ ] Kod bazlı teknik borçlardan arındırıldı mı?
 - [ ] Projede en az bir Rest tabanlı Web Api kullanıldı mı?
 - [ ] Projede gRPC tabanlı bir servis kullanıldı mı?
 - [ ] Razor tabanlı Web uygulaması geliştirildi mi?
