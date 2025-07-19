@@ -1,0 +1,67 @@
+using FluentValidation;
+using FluentValidation.Results;
+using LighthouseSocial.Application.Dtos;
+using LighthouseSocial.Application.Features.Comment;
+using LighthouseSocial.Domain.Interfaces;
+using Moq;
+
+namespace LighthouseSocial.Tests.Features.Comment;
+
+public class AddCommentHandlerTests
+{
+    private readonly Mock<ICommentRepository> _repositoryMock;
+    private readonly Mock<IValidator<CommentDto>> _validatorMock;
+    private readonly AddCommentHandler _handler;
+    public AddCommentHandlerTests()
+    {
+        _repositoryMock = new Mock<ICommentRepository>();
+        _validatorMock = new Mock<IValidator<CommentDto>>();
+        _handler = new AddCommentHandler(_repositoryMock.Object, _validatorMock.Object);
+    }
+
+    [Fact]
+    public async Task HandleAsync_ShouldReturnSuccess_WhenInputIsValid()
+    {
+        // Arrange
+        var dto = new CommentDto(Guid.NewGuid(), Guid.NewGuid(), "Lovely photo", 5);
+
+        _validatorMock.Setup(v => v.Validate(It.IsAny<CommentDto>())).Returns(new ValidationResult());
+
+        // Act
+        var result = await _handler.HandleAsync(dto);
+
+        // Assert
+        Assert.True(result.Success);
+        Assert.NotEqual(Guid.Empty, result.Data);
+
+        _repositoryMock.Verify(r => r.AddAsync(It.IsAny<Domain.Entities.Comment>()), Times.Once);
+    }
+
+    [Fact]
+    public async Task HandleAsync_ShouldReturnFail_WhenValidationFails()
+    {
+        // Arrange
+        var dto = new CommentDto(Guid.Empty, Guid.Empty, string.Empty, 11);
+        var validationFailures = new List<ValidationFailure>
+        {
+            new("Text","Comment text cannot be empty"),
+            new("Rating","Rating value must be between 1 and 10"),
+            new("PhotoId","Invalid Photo Id"),
+            new("UserId","Invalid User Id")
+        };
+
+        _validatorMock
+            .Setup(v => v.Validate(It.IsAny<CommentDto>()))
+            .Returns(new ValidationResult(validationFailures));
+
+        // Act
+        var result = await _handler.HandleAsync(dto);
+
+        // Assert
+        Assert.False(result.Success);
+        Assert.Contains("Comment text cannot be empty", result.ErrorMessage);
+        Assert.Contains("Rating value must be between 1 and 10", result.ErrorMessage);
+        Assert.Contains("Invalid Photo Id", result.ErrorMessage);
+        Assert.Contains("Invalid User Id", result.ErrorMessage);
+    }
+}

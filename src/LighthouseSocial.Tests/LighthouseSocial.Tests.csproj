@@ -24,8 +24,4 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Comment\" />
-  </ItemGroup>
-
 </Project>
