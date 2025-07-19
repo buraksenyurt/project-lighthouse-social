@@ -1,3 +1,5 @@
+using FluentValidation;
+using FluentValidation.Results;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.Photo;
 using LighthouseSocial.Domain.Interfaces;
@@ -9,23 +11,29 @@ public class UploadPhotoHandlerTests
 {
     private readonly Mock<IPhotoStorageService> _storageMock;
     private readonly Mock<IPhotoRepository> _repositoryMock;
+    private readonly Mock<IValidator<PhotoDto>> _validatorMock;
     private readonly UploadPhotoHandler _handler;
     public UploadPhotoHandlerTests()
     {
         _storageMock = new Mock<IPhotoStorageService>();
         _repositoryMock = new Mock<IPhotoRepository>();
-        _handler = new UploadPhotoHandler(_repositoryMock.Object, _storageMock.Object);
+        _validatorMock = new Mock<IValidator<PhotoDto>>();
+        _handler = new UploadPhotoHandler(_repositoryMock.Object, _storageMock.Object, _validatorMock.Object);
     }
     [Fact]
     public async Task HandleAsync_ShouldReturnSuccess_WhenValidInput()
     {
         // Arrange
-        var dto = new PhotoDto(Guid.Empty, "SunDownOfCapeTown.jpg", DateTime.UtcNow, "Nikon", Guid.NewGuid(), Guid.NewGuid());
+        var dto = new PhotoDto(Guid.Empty, "SunDownOfCapeTown.jpg", DateTime.UtcNow, "DSLR", Guid.NewGuid(), Guid.NewGuid());
 
         var stream = new MemoryStream([24, 42, 32]);
 
         _storageMock.Setup(s => s.SaveAsync(It.IsAny<Stream>(), dto.FileName))
                     .ReturnsAsync("uploads/SunDownOfCapeTown.jpg");
+
+        _validatorMock
+            .Setup(v => v.Validate(It.IsAny<PhotoDto>()))
+            .Returns(new ValidationResult());
 
         // Act
         var result = await _handler.HandleAsync(dto, stream);
@@ -37,15 +45,34 @@ public class UploadPhotoHandlerTests
     }
 
     [Fact]
-    public async Task HandleAsync_ShouldFail_WhenContentIsEmpty()
+    public async Task HandleAsync_ShouldReturnFail_WhenValidationFails()
     {
-        var dto = new PhotoDto(Guid.Empty, "CapeTown_01.jpg", DateTime.UtcNow, "Canon Marc 5", Guid.NewGuid(), Guid.NewGuid());
+        // Arrange
+        var dto = new PhotoDto(Guid.Empty, string.Empty, DateTime.Now.AddDays(2), "Noname", Guid.Empty, Guid.Empty);
 
-        using var emptyStream = new MemoryStream();
+        var validationFailures = new List<ValidationFailure>
+        {
+            new("FileName","Filename can not be empty."),
+            new("UploadedAt","Upload date must be in the past or now."),
+            new("CameraType","Camera type is not recognized"),
+            new("UserId","UserId is required."),
+            new("UserId","LighthouseId is required.")
+        };
 
-        var result = await _handler.HandleAsync(dto, emptyStream);
+        _validatorMock
+            .Setup(v => v.Validate(It.IsAny<PhotoDto>()))
+            .Returns(new ValidationResult(validationFailures));
 
+        // Act
+        var stream = new MemoryStream([24, 42, 32]);
+        var result = await _handler.HandleAsync(dto, stream);
+
+        // Assert
         Assert.False(result.Success);
-        Assert.Equal("Photo content is empty", result.ErrorMessage);
+        Assert.Contains("Filename can not be empty.", result.ErrorMessage);
+        Assert.Contains("Upload date must be in the past or now.", result.ErrorMessage);
+        Assert.Contains("Camera type is not recognized", result.ErrorMessage);
+        Assert.Contains("UserId is required.", result.ErrorMessage);
+        Assert.Contains("LighthouseId is required.", result.ErrorMessage);
     }
 }
