@@ -1,9 +1,13 @@
+using System.Linq.Expressions;
 using FluentValidation;
 using FluentValidation.Results;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.Comment;
+using LighthouseSocial.Domain.Entities;
+using LighthouseSocial.Domain.Enumerations;
 using LighthouseSocial.Domain.Interfaces;
 using Moq;
+using Xunit.Sdk;
 
 namespace LighthouseSocial.Tests.Features.Comment;
 
@@ -11,12 +15,20 @@ public class AddCommentHandlerTests
 {
     private readonly Mock<ICommentRepository> _repositoryMock;
     private readonly Mock<IValidator<CommentDto>> _validatorMock;
+    private readonly Mock<IUserRepository> _userRepositoryMock;
+    private readonly Mock<IPhotoRepository> _photoRepositoryMock;
     private readonly AddCommentHandler _handler;
     public AddCommentHandlerTests()
     {
         _repositoryMock = new Mock<ICommentRepository>();
         _validatorMock = new Mock<IValidator<CommentDto>>();
-        _handler = new AddCommentHandler(_repositoryMock.Object, _validatorMock.Object);
+        _userRepositoryMock = new Mock<IUserRepository>();
+        _photoRepositoryMock = new Mock<IPhotoRepository>();
+        _handler = new AddCommentHandler(
+            _repositoryMock.Object,
+            _validatorMock.Object,
+            _userRepositoryMock.Object,
+            _photoRepositoryMock.Object);
     }
 
     [Fact]
@@ -26,6 +38,19 @@ public class AddCommentHandlerTests
         var dto = new CommentDto(Guid.NewGuid(), Guid.NewGuid(), "Lovely photo", 5);
 
         _validatorMock.Setup(v => v.Validate(It.IsAny<CommentDto>())).Returns(new ValidationResult());
+        _userRepositoryMock.Setup(u => u.GetByIdAsync(It.IsAny<Guid>()))
+       .ReturnsAsync(new User(Guid.NewGuid().ToString(), "tester"));
+
+        _photoRepositoryMock.Setup(p => p.GetByIdAsync(It.IsAny<Guid>()))
+            .ReturnsAsync(new Domain.Entities.Photo(
+                Guid.NewGuid(),
+                Guid.NewGuid(),
+                "EndOfTheWorld.jpg",
+                new Domain.ValueObjects.PhotoMetada("50mm", "1280x1280", "Canon Mark 5", DateTime.Now.AddDays(-7))
+            ));
+
+        _repositoryMock.Setup(r => r.ExistsForUserAsync(It.IsAny<Guid>(), It.IsAny<Guid>()))
+            .ReturnsAsync(false);
 
         // Act
         var result = await _handler.HandleAsync(dto);

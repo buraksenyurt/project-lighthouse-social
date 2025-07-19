@@ -6,20 +6,36 @@ using LighthouseSocial.Domain.ValueObjects;
 
 namespace LighthouseSocial.Application.Features.Comment;
 
-public class AddCommentHandler(ICommentRepository repository,IValidator<CommentDto> validator)
+public class AddCommentHandler(ICommentRepository repository, IValidator<CommentDto> validator, IUserRepository userRepository, IPhotoRepository photoRepository)
 {
     private readonly ICommentRepository _repository = repository;
     private readonly IValidator<CommentDto> _validator = validator;
+    private readonly IUserRepository _userRepository = userRepository;
+    private readonly IPhotoRepository _photoRepository = photoRepository;
 
     public async Task<Result<Guid>> HandleAsync(CommentDto dto)
     {
         //todo@buraksenyurt Aşağıdaki kullanım şeklide diğer handle metotlarında da aynı. Kod tekrarını nasıl önleriz?
-        var validation= _validator.Validate(dto);
+        var validation = _validator.Validate(dto);
         if (!validation.IsValid)
         {
             var errors = string.Join("; ", validation.Errors.Select(e => e.ErrorMessage));
             return Result<Guid>.Fail(errors);
         }
+
+        var user = await _userRepository.GetByIdAsync(dto.UserId);
+        if (user is null)
+            return Result<Guid>.Fail("User does not exist");
+
+        var photo = await _photoRepository.GetByIdAsync(dto.PhotoId);
+        if (photo is null)
+            return Result<Guid>.Fail("Photo does not exist");
+
+        var alreadyCommented = await _repository.ExistsForUserAsync(dto.UserId, dto.PhotoId);
+        if (alreadyCommented)
+            return Result<Guid>.Fail("User has already commented...");
+
+        //todo@buraksenyurt Yorum içeriği kontrolü için bir servis entegrasyonu yapalım
 
         var comment = new Domain.Entities.Comment(dto.UserId, dto.PhotoId, dto.Text, Rating.FromValue(dto.Rating));
 
