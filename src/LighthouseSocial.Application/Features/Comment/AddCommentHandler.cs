@@ -6,12 +6,18 @@ using LighthouseSocial.Domain.ValueObjects;
 
 namespace LighthouseSocial.Application.Features.Comment;
 
-public class AddCommentHandler(ICommentRepository repository, IValidator<CommentDto> validator, IUserRepository userRepository, IPhotoRepository photoRepository)
+public class AddCommentHandler(ICommentRepository repository,
+    IValidator<CommentDto> validator,
+    IUserRepository userRepository,
+    IPhotoRepository photoRepository,
+    ICommentAuditor commentAuditor
+    )
 {
     private readonly ICommentRepository _repository = repository;
     private readonly IValidator<CommentDto> _validator = validator;
     private readonly IUserRepository _userRepository = userRepository;
     private readonly IPhotoRepository _photoRepository = photoRepository;
+    private readonly ICommentAuditor _commentAuditor = commentAuditor;
 
     public async Task<Result<Guid>> HandleAsync(CommentDto dto)
     {
@@ -35,7 +41,11 @@ public class AddCommentHandler(ICommentRepository repository, IValidator<Comment
         if (alreadyCommented)
             return Result<Guid>.Fail("User has already commented...");
 
-        //todo@buraksenyurt Yorum içeriği kontrolü için bir servis entegrasyonu yapalım
+        var isCommentClean = await _commentAuditor.IsTextCleanAsync(dto.Text);
+        if (!isCommentClean)
+        {
+            return Result<Guid>.Fail("Comment contains inappropriate language");
+        }
 
         var comment = new Domain.Entities.Comment(dto.UserId, dto.PhotoId, dto.Text, Rating.FromValue(dto.Rating));
 

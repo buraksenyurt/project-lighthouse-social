@@ -17,6 +17,7 @@ public class AddCommentHandlerTests
     private readonly Mock<IValidator<CommentDto>> _validatorMock;
     private readonly Mock<IUserRepository> _userRepositoryMock;
     private readonly Mock<IPhotoRepository> _photoRepositoryMock;
+    private readonly Mock<ICommentAuditor> _commentAuditorMock;
     private readonly AddCommentHandler _handler;
     public AddCommentHandlerTests()
     {
@@ -24,11 +25,15 @@ public class AddCommentHandlerTests
         _validatorMock = new Mock<IValidator<CommentDto>>();
         _userRepositoryMock = new Mock<IUserRepository>();
         _photoRepositoryMock = new Mock<IPhotoRepository>();
+        _commentAuditorMock = new Mock<ICommentAuditor>();
+
         _handler = new AddCommentHandler(
             _repositoryMock.Object,
             _validatorMock.Object,
             _userRepositoryMock.Object,
-            _photoRepositoryMock.Object);
+            _photoRepositoryMock.Object,
+            _commentAuditorMock.Object
+            );
     }
 
     [Fact]
@@ -51,6 +56,8 @@ public class AddCommentHandlerTests
 
         _repositoryMock.Setup(r => r.ExistsForUserAsync(It.IsAny<Guid>(), It.IsAny<Guid>()))
             .ReturnsAsync(false);
+
+        _commentAuditorMock.Setup(a => a.IsTextCleanAsync(dto.Text)).ReturnsAsync(true);
 
         // Act
         var result = await _handler.HandleAsync(dto);
