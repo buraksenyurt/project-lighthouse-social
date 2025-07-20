@@ -3,14 +3,11 @@ using LighthouseSocial.Domain.Interfaces;
 
 namespace LighthouseSocial.Infrastructure.Auditors;
 
-public class ExternalCommentAuditor
+public class ExternalCommentAuditor(HttpClient httpClient)
     : ICommentAuditor
 {
-    private readonly HttpClient _httpClient;
-    public ExternalCommentAuditor(HttpClient httpClient)
-    {
-        _httpClient = httpClient;
-    }
+    private readonly HttpClient _httpClient = httpClient;
+
     public async Task<bool> IsTextCleanAsync(string text)
     {
         var response = await
