@@ -7,3 +7,12 @@ services:
         SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: "true"
       ports:
         - "9000:9000"
+
+  judge-dredd:
+    build:
+      context: /src/JudgeDredd
+      dockerfile: Dockerfile
+    container_name: dc-judgedredd
+    ports:
+      - "5005:8080"
+    restart: unless-stopped
