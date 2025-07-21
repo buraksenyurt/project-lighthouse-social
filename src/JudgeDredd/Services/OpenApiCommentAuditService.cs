@@ -8,7 +8,7 @@ public class OpenApiCommentAuditService(IConfiguration configuration)
     private readonly string _apiKey = configuration["OpenApi:ModerationApiKey"] ?? string.Empty;
     public async Task<bool> IsFlagged(string comment)
     {
-        if(string.IsNullOrEmpty(comment))
+        if (string.IsNullOrEmpty(comment))
         {
             return false;
         }

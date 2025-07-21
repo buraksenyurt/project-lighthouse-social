@@ -1,7 +1,6 @@
-﻿namespace JudgeDredd.Services
+﻿namespace JudgeDredd.Services;
+
+public interface ICommentAuditService
 {
-    public interface ICommentAuditService
-    {
-        Task<bool> IsFlagged(string comment);
-    }
+    Task<bool> IsFlagged(string comment);
 }

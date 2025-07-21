@@ -7,7 +7,7 @@ Content-Type: application/json
   "Comment":"I Hate you"
 }
 
-### 
+### This is a comment that will be rejected by the Judge Dredd service
 
 POST {{JudgeDredd_HostAddress}}/moderate/
 Accept: application/json
@@ -15,3 +15,5 @@ Content-Type: application/json
 {
   "Comment":"It's a lovely photo. Great, thanks."
 }
+
+### This is a comment that will be accepted by the Judge Dredd service
