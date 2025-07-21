@@ -1,0 +1,17 @@
+@JudgeDredd_HostAddress = http://localhost:5014
+
+POST {{JudgeDredd_HostAddress}}/moderate/
+Accept: application/json
+Content-Type: application/json
+{
+  "Comment":"I Hate you"
+}
+
+### 
+
+POST {{JudgeDredd_HostAddress}}/moderate/
+Accept: application/json
+Content-Type: application/json
+{
+  "Comment":"It's a lovely photo. Great, thanks."
+}
