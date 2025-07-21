@@ -41,6 +41,8 @@ Bu projeyi geliştirmenin temel amaçları aşağıda listelenmiştir.
 - [ ] **Bölüm 02 Application Katmanı, CRUD Sözleşmelerinin İnşaası... :** Repository/Service katmanları için interface tasarımları ve application katmanının yazılması.
   - [Video 05](https://youtu.be/SmnrE73VvUo)
   - [Video 06](https://youtu.be/x6u7uMxw8qU)
+  - [Video 07](https://youtu.be/P_uRenWyE54)
+  - [Video 08](https://youtu.be/MrqTqc9d2q8)
 - [ ] ...
 
 ## Sonarqube
@@ -58,6 +60,18 @@ dotnet sonarscanner begin /k:"Project-Ligthouse-Social" /d:sonar.host.url="http:
 dotnet build
 
 dotnet sonarscanner end /d:sonar.token="sizin_için_üretilen_token"
+```
+
+## JudgeDredd Servisi için Dockerize İşlemleri
+
+```bash
+# docker-compose dosyasında JudgeDredd klasörü için servis bildirimi yapılır
+# sonrasında docker-compose dosyasının olduğu klasörde build işlemi başlatılır
+docker-compose build
+# ardından hizmetler ayağa kaldırılır
+docker compose up -d
+
+# Test için 5005 portundan hizmet veren servise talep gönderilebilir
 ```
 
 ## Kontrol Listesi
