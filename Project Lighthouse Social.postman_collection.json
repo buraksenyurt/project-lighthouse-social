@@ -1,0 +1,71 @@
+{
+	"info": {
+		"_postman_id": "6ea9255e-7f7f-4af3-bc97-a295fc853624",
+		"name": "Project Lighthouse Social",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1401662"
+	},
+	"item": [
+		{
+			"name": "Moderate Service",
+			"item": [
+				{
+					"name": "Bad Words Sample",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Comment\": \"I Hate you\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5005/moderate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5005",
+							"path": [
+								"moderate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Good Sample",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Comment\": \"It's a lovely photo. Great, thanks.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5005/moderate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5005",
+							"path": [
+								"moderate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
