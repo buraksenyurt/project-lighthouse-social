@@ -1,3 +1,3 @@
 namespace LighthouseSocial.Domain.ValueObjects;
 
-public record Coordinates(double Latitude, double Longitude);
+public readonly record struct Coordinates(double Latitude, double Longitude);

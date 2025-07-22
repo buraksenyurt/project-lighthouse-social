@@ -1,6 +1,6 @@
 namespace LighthouseSocial.Domain.ValueObjects;
 
-public record Rating(int Value)
+public readonly record struct Rating(int Value)
 {
     public static Rating FromValue(int value)
     {
