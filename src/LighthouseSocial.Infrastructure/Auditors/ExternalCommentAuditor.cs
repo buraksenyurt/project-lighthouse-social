@@ -11,7 +11,7 @@ public class ExternalCommentAuditor(HttpClient httpClient)
     public async Task<bool> IsTextCleanAsync(string text)
     {
         //todo@buraksenyurt Adres bilgisi runtime sahibi uygulamadan gelmeli
-        //todo@buraksenyurt HashiCorp Consule ile Service Discovery entegrasyonu yapılmalı 
+        //todo@buraksenyurt HashiCorp Consul ile Service Discovery entegrasyonu yapılmalı 
         var response = await
             _httpClient.PostAsJsonAsync("http://localhost:5005/moderate"
             , new { comment = text });
