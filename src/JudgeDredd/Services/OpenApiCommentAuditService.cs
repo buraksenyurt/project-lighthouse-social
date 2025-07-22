@@ -16,6 +16,8 @@ public class OpenApiCommentAuditService(IConfiguration configuration)
         ModerationClient client = new("omni-moderation-latest", _apiKey);
         var response = await client.ClassifyTextAsync(comment);
 
+        //todo@buraksenyurt Daha önceden flagged=true işaretlenmiş yorumları tekrar sorgulamamak için caching kullanılabilir (Redis mesela)
+
         return !response.Value.Flagged;
     }
 }

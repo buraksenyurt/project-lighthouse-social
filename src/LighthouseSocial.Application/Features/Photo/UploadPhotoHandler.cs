@@ -26,7 +26,7 @@ public class UploadPhotoHandler(IPhotoRepository repository, IPhotoStorageServic
 
         var savedPath = await _storageService.SaveAsync(content, dto.FileName);
 
-        var metadata = new PhotoMetada(
+        var metadata = new PhotoMetadata(
             "N/A",
             "Unknown",
             dto.CameraType,

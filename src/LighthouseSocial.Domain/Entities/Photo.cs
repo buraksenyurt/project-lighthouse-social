@@ -10,12 +10,12 @@ public class Photo
     public Guid LighthouseId { get; private set; }
     public string Filename { get; private set; }
     public DateTime UploadDate { get; private set; }
-    public PhotoMetada Metadata { get; private set; }
+    public PhotoMetadata Metadata { get; private set; }
     public List<Comment> Comments { get; } = [];
 
     protected Photo() { }
 
-    public Photo(Guid userId, Guid lighthouseId, string filename, PhotoMetada metadata)
+    public Photo(Guid userId, Guid lighthouseId, string filename, PhotoMetadata metadata)
     {
         UserId = userId;
         LighthouseId = lighthouseId;

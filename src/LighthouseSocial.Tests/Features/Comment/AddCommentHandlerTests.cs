@@ -51,7 +51,7 @@ public class AddCommentHandlerTests
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 "EndOfTheWorld.jpg",
-                new Domain.ValueObjects.PhotoMetada("50mm", "1280x1280", "Canon Mark 5", DateTime.Now.AddDays(-7))
+                new Domain.ValueObjects.PhotoMetadata("50mm", "1280x1280", "Canon Mark 5", DateTime.Now.AddDays(-7))
             ));
 
         _repositoryMock.Setup(r => r.ExistsForUserAsync(It.IsAny<Guid>(), It.IsAny<Guid>()))

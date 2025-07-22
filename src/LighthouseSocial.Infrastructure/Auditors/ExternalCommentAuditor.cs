@@ -10,9 +10,11 @@ public class ExternalCommentAuditor(HttpClient httpClient)
 
     public async Task<bool> IsTextCleanAsync(string text)
     {
+        //todo@buraksenyurt Adres bilgisi runtime sahibi uygulamadan gelmeli
+        //todo@buraksenyurt HashiCorp Consule ile Service Discovery entegrasyonu yapılmalı 
         var response = await
-            _httpClient.PostAsJsonAsync("https://api.audit/analyze/comment"
-            , new { content = text });
+            _httpClient.PostAsJsonAsync("http://localhost:5005/moderate"
+            , new { comment = text });
 
         var result = await response.Content.ReadFromJsonAsync<AuditResult>();
         return result?.IsClean ?? true;
