@@ -26,6 +26,7 @@ public class PhotoRepository
                 new Domain.ValueObjects.PhotoMetadata(
                     "50mm", "1280x1280", "Canon Mark 5", DateTime.Now.AddDays(-7)));
     }
+    //todo@buraksenyurt Fotoğraf var mı için Photo nesnesi döndürmek yerine bool dönen IsExist gibi bir fonksiyone koyabiliriz.
 
     public async Task<IEnumerable<Photo>> GetByLighthouseIdAsync(Guid lighthouseId)
     {

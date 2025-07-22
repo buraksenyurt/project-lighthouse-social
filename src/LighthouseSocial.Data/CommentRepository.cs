@@ -8,7 +8,7 @@ public class CommentRepository
 {
     public async Task AddAsync(Comment comment)
     {
-        throw new NotImplementedException();
+        //todo@buraksenyurt İşlem sonucu olarak üretilen Comment'e ait Guid nesnesi dönülmeli
     }
 
     public async Task DeleteAsync(Guid commentId)
