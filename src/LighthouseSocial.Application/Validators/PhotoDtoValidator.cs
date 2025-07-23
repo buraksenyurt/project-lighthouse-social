@@ -11,7 +11,7 @@ public class PhotoDtoValidator
     {
         RuleFor(o => o.FileName)
             .NotEmpty().WithMessage("Filename can not be empty.")
-            .MaximumLength(255).WithMessage("Filename is too long.")
+            .MaximumLength(50).WithMessage("Filename is too long.")
             .Matches(@"\.(jpg|jpeg|png|gif)$")
             .WithMessage("Only image files are allowed (.jpg, .jpeg, .png, .gif).");
 

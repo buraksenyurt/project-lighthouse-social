@@ -22,7 +22,7 @@ public class AddCommentHandlerIntegrationTests
     }
 
     [Fact]
-    public async Task HandleAsync_Should_Accept_Inappropriate_Comment()
+    public async Task HandleAsync_Should_Accept_Appropriate_Comment()
     {
         if (Environment.GetEnvironmentVariable("CI") == "true")
             return;
@@ -31,5 +31,17 @@ public class AddCommentHandlerIntegrationTests
         var result = await _handler.HandleAsync(dto);
 
         Assert.True(result.Success);
+    }
+
+        [Fact]
+    public async Task HandleAsync_Should_Reject_Inappropriate_Comment()
+    {
+        if (Environment.GetEnvironmentVariable("CI") == "true")
+            return;
+
+        var dto = new CommentDto(Guid.NewGuid(), Guid.NewGuid(), "I hate you.", 1);
+        var result = await _handler.HandleAsync(dto);
+
+        Assert.False(result.Success);
     }
 }

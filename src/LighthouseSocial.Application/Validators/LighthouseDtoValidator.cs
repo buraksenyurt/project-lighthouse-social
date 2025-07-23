@@ -11,9 +11,10 @@ public class LighthouseDtoValidator
         RuleFor(o => o.Name)
             .NotEmpty()
             .WithMessage("Name is required.")
-            .MaximumLength(25)
+            .MaximumLength(50)
             .WithMessage("Name length must be less than 25");
 
+        //todo@buraksenyurt Tablodaki Primary Key tasarımı nedeniyle kaldırabiliriz
         RuleFor(o => o.CountryId)
             .InclusiveBetween(0, 255)
             .WithMessage("CountryId must be between 0 and 255");
