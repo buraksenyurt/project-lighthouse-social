@@ -24,6 +24,25 @@ Bu projeyi geliştirmenin temel amaçları aşağıda listelenmiştir.
 - Temel yazılım prensiplerini keşfetmek, uygulamak ve sorgulamak.
 - Yazılım mimarilerinin ihtiyaçlarını fark etmeye çalışıp, tartışmak, uygulamak.
 
+## Bu Çalışma Kimlere Göre
+
+Minimum Profil;
+
+- Temel seviyede C# ile programlama bilgisine sahiptir.
+- Temel seviyede Nesne Yönelimli Programlama _(Object Oriented Programming)_ bilgisi vardır.
+- Temiz kod kavramı ve standartları hakkında farkındalık sahibidir.
+- Doğrudan uygulamak yerine, sorgular, araştırır, ikna olur ve sonra uygular.
+
+İdeal Profil;
+
+- SOLID prensiplerini sorgular.
+- Teknik Borç ile mücadele yöntemleri hakkında fikir sahibidir.
+- Yazılım mimarilerine meraklıdır.
+- Kendi sistemlerinde docker kullanır.
+- Web Api dışında farklı servis geliştirme standartları olduğunu bilir.
+- Dağıtık sistemlerin zorluklarına aşinadır.
+- Doğrudan uygulamak yerine, sorgular, araştırır, ikna olur ve sonra uygular.
+
 ## Zorluklar _(Challenges)_
 
 - Kullanıcıların paylaştığı fotoğrafları nasıl ve nerede tutacağız? _(Boyut, depolama yeri, yazma/okuma hızları, dağıtık topoloji kullanımları)_
