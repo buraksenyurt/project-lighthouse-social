@@ -6,8 +6,8 @@ public class DefaultCommentAuditor
     : ICommentAuditor
 {
     private static readonly string[] BannedWords = ["badword", "racist", "curse"];
-    public Task<bool> IsTextCleanAsync(string text)
+    public ValueTask<bool> IsTextCleanAsync(string text)
     {
-        return Task.FromResult(!BannedWords.Any(w => text.Contains(w, StringComparison.OrdinalIgnoreCase)));
+        return ValueTask.FromResult(!BannedWords.Any(w => text.Contains(w, StringComparison.OrdinalIgnoreCase)));
     }
 }
