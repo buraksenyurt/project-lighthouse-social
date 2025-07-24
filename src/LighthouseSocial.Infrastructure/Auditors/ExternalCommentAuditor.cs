@@ -6,9 +6,7 @@ namespace LighthouseSocial.Infrastructure.Auditors;
 public class ExternalCommentAuditor(HttpClient httpClient)
     : ICommentAuditor
 {
-    private readonly HttpClient _httpClient = httpClient;
-
-    public async Task<bool> IsTextCleanAsync(string text)
+    public async ValueTask<bool> IsTextCleanAsync(string text)
     {
         //todo@buraksenyurt Adres bilgisi runtime sahibi uygulamadan gelmeli
         //todo@buraksenyurt HashiCorp Consul ile Service Discovery entegrasyonu yapılmalı 
