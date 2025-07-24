@@ -121,15 +121,17 @@ docker compose up -d
 
 ## Kontrol Listesi
 
-- [ ] C# dilinin temel özelliklerine yer verildi mi?
-- [ ] OOP prensipleri uygulandı mı?
-- [ ] SOLID prensiplerine yer verildi mi?
-- [ ] Kod bazlı teknik borçlardan arındırıldı mı?
+Proje ve video anlatım serisi sona erdiğinde aşağıdaki sorulara cevap verebiliyor olmalıyız.
+
+- [ ] **C#** dilinin temel özelliklerine yer verildi mi?
+- [ ] **OOP** _(Object Oriented Programming)_ prensipleri uygulandı mı?
+- [ ] **SOLID** prensiplerine yer verildi mi?
+- [ ] Kod bazlı **teknik borç**lardan arındırıldı mı?
 - [ ] Belli bir yazılım mimari stiline evrildi mi?
-- [ ] Projede en az bir Rest tabanlı Web Api kullanıldı mı?
-- [ ] Projede gRPC tabanlı bir servis kullanıldı mı?
-- [ ] Razor tabanlı Web uygulaması geliştirildi mi?
+- [ ] Projede en az bir **Rest** tabanlı Web Api kullanıldı mı?
+- [ ] Projede **gRPC** tabanlı bir servis kullanıldı mı?
+- [ ] **Razor** tabanlı Web uygulaması geliştirildi mi?
 - [ ] Farklı dillerde yazılmış servisler kullanıldı mı?
 - [ ] Bir dağıtık sistem kurgusu tesis edildi mi?
-- [ ] Dağıtık sistem kurgusu tesis edildiyse relaibility için gerekli tedbirler alındı mı?
+- [ ] Dağıtık sistem kurgusu tesis edildiyse **resilience** için gerekli tedbirler alındı mı?
 - [ ] Dağıtık sistem kurugusu için izleme, loglama, alarm mekanizmaları vs kullanıldı mı?
