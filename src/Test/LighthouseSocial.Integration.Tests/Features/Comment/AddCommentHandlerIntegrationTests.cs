@@ -3,6 +3,7 @@ using LighthouseSocial.Application.Features.Comment;
 using LighthouseSocial.Application.Validators;
 using LighthouseSocial.Data;
 using LighthouseSocial.Infrastructure.Auditors;
+using Dapper;
 
 namespace LighthouseSocial.Integration.Tests.Features.Comment;
 
@@ -13,9 +14,13 @@ public class AddCommentHandlerIntegrationTests
     public AddCommentHandlerIntegrationTests()
     {
         var validator = new CommentDtoValidator();
-        var userRepository = new UserRepository();
-        var photoRepository = new PhotoRepository();
-        var commentRepository = new CommentRepository();
+        //todo@buraksenyurt Entegrasyon testi de olsa Connection bilgisi Secure Vault üstünden gelmeli
+        var connectionString = "Host=localhost;Port=5432;Database=lighthousedb;Username=johndoe;Password=somew0rds";
+        var factory = new NpgsqlConnectionFactory(connectionString);
+
+        var userRepository = new UserRepository(factory);
+        var photoRepository = new PhotoRepository(factory);
+        var commentRepository = new CommentRepository(factory);
         var commentAuditor = new ExternalCommentAuditor(new HttpClient());
 
         _handler = new AddCommentHandler(commentRepository, validator, userRepository, photoRepository, commentAuditor);
