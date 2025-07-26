@@ -10,4 +10,10 @@
     <ProjectReference Include="..\LighthouseSocial.Domain\LighthouseSocial.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.66" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.7" />
+    <PackageReference Include="Npgsql" Version="9.0.3" />
+  </ItemGroup>
+
 </Project>
