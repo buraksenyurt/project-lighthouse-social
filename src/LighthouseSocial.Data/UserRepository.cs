@@ -1,13 +1,21 @@
+using Dapper;
 using LighthouseSocial.Domain.Entities;
 using LighthouseSocial.Domain.Interfaces;
 
 namespace LighthouseSocial.Data;
 
-public class UserRepository
+public class UserRepository(IDbConnectionFactory connFactory) 
     : IUserRepository
 {
+    private readonly IDbConnectionFactory _connFactory = connFactory;
+
     public async Task<User> GetByIdAsync(Guid userId)
     {
-        return new User("Can Kloud Van Dam", "can@somemail.com");
+        const string sql = "SELECT id, external_id, full_name, email, joined_at FROM users WHERE id = @Id";
+
+        using var conn = _connFactory.CreateConnection();
+        var user = await conn.QuerySingleAsync<User>(sql, new { Id = userId });
+
+        return user;
     }
 }

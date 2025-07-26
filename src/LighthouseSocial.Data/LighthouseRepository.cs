@@ -77,10 +77,11 @@ public class LighthouseRepository(IDbConnectionFactory connFactory)
 
         using var conn = _connFactory.CreateConnection();
 
+        //todo@buraksenyurt QueryAsync yerine QuerySingleAsync kullanılamaz mı?
         var result = await conn.QueryAsync<Lighthouse, Country, Lighthouse>(sql,
             map: (l, c) =>
             {
-                var lighthouse = new Lighthouse(l.Name, c, new Domain.ValueObjects.Coordinates(l.Location.Latitude, l.Location.Longitude));
+                var lighthouse = new Lighthouse(l.Name, c, new Coordinates(l.Location.Latitude, l.Location.Longitude));
                 typeof(EntityBase).GetProperty(nameof(EntityBase.Id))?.SetValue(lighthouse, l.Id);
                 return lighthouse;
             },
