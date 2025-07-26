@@ -61,13 +61,17 @@ Minimum Profil;
   - [Video 02](https://youtu.be/dDZHq-vI18U)
   - [Video 03](https://youtu.be/cCW44l7fgX0)
   - [Video 04](https://youtu.be/_cta_s9zM1U)
-- [ ] **Bölüm 02 Application Katmanı, CRUD Sözleşmelerinin İnşaası... :** Repository/Service katmanları için interface tasarımları ve application katmanının yazılması.
+- [x] **Bölüm 02 Application Katmanı, CRUD Sözleşmelerinin İnşaası... :** Repository/Service katmanları için interface tasarımları ve application katmanının yazılması.
   - [Video 05](https://youtu.be/SmnrE73VvUo)
   - [Video 06](https://youtu.be/x6u7uMxw8qU)
   - [Video 07](https://youtu.be/P_uRenWyE54)
   - [Video 08](https://youtu.be/MrqTqc9d2q8)
 - [x] **Ara Bölüm, Sonarqube:** Kod tabanı büyüdükçe ortaya çıkabilecek teknik borçları önlemek için baştan tedbir alıyoruz.[Video 09](https://youtu.be/XUiG1MwSq1o)
   - [Video 10](https://youtu.be/54GMi9i2W-4)
+  - [Video 11](https://youtu.be/PU9SqkPt41o)
+  - [Video 12](https://youtu.be/vdFRhsLcqhM)
+- [ ] **Bölüm 03 Persistance katmanının inşaası:** Postgresql tabanlı veritabanı hazırlıkları, Concrete Repository sınıflarınının oluşturulması.
+  - [Video 13](https://youtu.be/z8G9iThiiDE)
 
 ## Sonarqube
 
