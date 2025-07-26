@@ -11,4 +11,5 @@ public class Country
         Id = id;
         Name = name;
     }
+    public static Country Create(int id, string name) => new(id, name);
 }
