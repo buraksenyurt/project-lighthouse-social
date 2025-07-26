@@ -13,6 +13,12 @@ public class AddCommentHandler(ICommentRepository repository,
     ICommentAuditor commentAuditor
     )
 {
+    /*
+        Bu ve diğer Handler'ların kullandığı bileşen sayısı giderek artabilir.
+        Daha yönetilebilir şekilde ele alınmaları lazım. Bir üst contract implementasyonunda,
+        düşünülebilir.
+    */
+    //todo@buraksenyurt İhtiyaç duyulan bileşenlerin daha yönetilebilir ele alınması lazım.
     private readonly ICommentRepository _repository = repository;
     private readonly IValidator<CommentDto> _validator = validator;
     private readonly IUserRepository _userRepository = userRepository;

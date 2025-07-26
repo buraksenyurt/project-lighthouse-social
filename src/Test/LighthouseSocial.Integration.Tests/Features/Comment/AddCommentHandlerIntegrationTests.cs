@@ -33,7 +33,7 @@ public class AddCommentHandlerIntegrationTests
         Assert.True(result.Success);
     }
 
-        [Fact]
+    [Fact]
     public async Task HandleAsync_Should_Reject_Inappropriate_Comment()
     {
         if (Environment.GetEnvironmentVariable("CI") == "true")
