@@ -14,10 +14,7 @@ public class UploadPhotoHandler(IPhotoRepository repository, IPhotoStorageServic
 
     public async Task<Result<Guid>> HandleAsync(PhotoDto dto, Stream content)
     {
-        // if (content == null || content.Length == 0)
-        //     return Result<Guid>.Fail("Photo content is empty");
-
-        var validation= _validator.Validate(dto);
+        var validation = _validator.Validate(dto);
         if (!validation.IsValid)
         {
             var errors = string.Join("; ", validation.Errors.Select(e => e.ErrorMessage));
@@ -27,13 +24,13 @@ public class UploadPhotoHandler(IPhotoRepository repository, IPhotoStorageServic
         var savedPath = await _storageService.SaveAsync(content, dto.FileName);
 
         var metadata = new PhotoMetadata(
-            "N/A",
-            "Unknown",
+            dto.Lens,
+            dto.Resolution,
             dto.CameraType,
             dto.UploadedAt
         );
 
-        var photo = new Domain.Entities.Photo(dto.UserId, dto.LighthouseId, savedPath, metadata);
+        var photo = new Domain.Entities.Photo(dto.Id, dto.UserId, dto.LighthouseId, savedPath, metadata);
 
         await _repository.AddAsync(photo);
 

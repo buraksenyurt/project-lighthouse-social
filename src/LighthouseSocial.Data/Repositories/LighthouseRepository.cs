@@ -15,7 +15,7 @@ public class LighthouseRepository(IDbConnectionFactory connFactory)
     public async Task AddAsync(Lighthouse lighthouse)
     {
         string sql = @"
-            INSERT INTO lighthouses (id, name, country_id, latitue, longitude) 
+            INSERT INTO lighthouses (id, name, country_id, latitude, longitude) 
             VALUES (@Id, @Name, @CountryId, @Latitude, @Longitude);";
 
         using var conn = _connFactory.CreateConnection();
@@ -40,8 +40,7 @@ public class LighthouseRepository(IDbConnectionFactory connFactory)
     public async Task<IEnumerable<Lighthouse>> GetAllAsync()
     {
         const string sql = @"
-        SELECT l.id, l.name, l.country_id, c.name AS country_name,
-               l.latitude, l.longitude
+        SELECT l.id, l.name, l.country_id, c.name AS country_name, l.latitude, l.longitude
         FROM lighthouses l
         INNER JOIN countries c ON l.country_id = c.id;
         ";
@@ -56,8 +55,7 @@ public class LighthouseRepository(IDbConnectionFactory connFactory)
         {
             var country = Country.Create((int)row.country_id, (string)row.country_name);
             var coordinates = new Coordinates((double)row.latitude, (double)row.longitude);
-            var lighthouse = new Lighthouse((string)row.name, country, coordinates);
-            //todo@buraksenyurt BaseEntity.Id bilgisi set edilmeli? (Reflection kullanmayalım)
+            var lighthouse = new Lighthouse((Guid)row.id, (string)row.name, country, coordinates);
             list.Add(lighthouse);
         }
 
@@ -68,8 +66,7 @@ public class LighthouseRepository(IDbConnectionFactory connFactory)
     {
         string sql = @"
             SELECT 
-                l.id, l.name, l.country_id, l.latitude, l.longitude,
-                c.id AS Id, c.name AS Name
+                l.id, l.name, l.country_id, l.latitude, l.longitude, c.id AS Id, c.name AS Name
             FROM lighthouses l
             INNER JOIN countries c ON l.country_id = c.id
             WHERE l.id = @Id;
@@ -77,11 +74,10 @@ public class LighthouseRepository(IDbConnectionFactory connFactory)
 
         using var conn = _connFactory.CreateConnection();
 
-        //todo@buraksenyurt QueryAsync yerine QuerySingleAsync kullanılamaz mı?
         var result = await conn.QueryAsync<Lighthouse, Country, Lighthouse>(sql,
             map: (l, c) =>
             {
-                var lighthouse = new Lighthouse(l.Name, c, new Coordinates(l.Location.Latitude, l.Location.Longitude));
+                var lighthouse = new Lighthouse(l.Id, l.Name, c, new Coordinates(l.Location.Latitude, l.Location.Longitude));
                 typeof(EntityBase).GetProperty(nameof(EntityBase.Id))?.SetValue(lighthouse, l.Id);
                 return lighthouse;
             },
@@ -89,7 +85,7 @@ public class LighthouseRepository(IDbConnectionFactory connFactory)
             splitOn: "Id"
         );
 
-        return result.FirstOrDefault();
+        return result.SingleOrDefault();
     }
 
     public async Task UpdateAsync(Lighthouse lighthouse)

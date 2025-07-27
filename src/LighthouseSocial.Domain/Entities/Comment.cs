@@ -12,8 +12,9 @@ public class Comment
     public Rating Rating { get; private set; }
     public DateTime CreatedAt { get; private set; }
     protected Comment() { }
-    public Comment(Guid userId, Guid photoId, string text, Rating rating)
+    public Comment(Guid id, Guid userId, Guid photoId, string text, Rating rating)
     {
+        Id = Guid.Empty != id ? id : Guid.NewGuid();
         UserId = userId;
         PhotoId = photoId;
         Text = text;

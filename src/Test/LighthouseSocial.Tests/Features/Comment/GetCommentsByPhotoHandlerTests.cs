@@ -23,8 +23,8 @@ namespace LighthouseSocial.Tests.Features.Comment
             var photoId = Guid.NewGuid();
             var comments = new List<Domain.Entities.Comment>
             {
-                new(Guid.NewGuid(), photoId, "Nice shot!", Rating.FromValue(7)),
-                new(Guid.NewGuid(), photoId, "Love this lighthouse!", Rating.FromValue(8))
+                new(Guid.NewGuid(),Guid.NewGuid(), photoId, "Nice shot!", Rating.FromValue(7)),
+                new(Guid.NewGuid(),Guid.NewGuid(), photoId, "Love this lighthouse!", Rating.FromValue(8))
             };
 
             _repositoryMock

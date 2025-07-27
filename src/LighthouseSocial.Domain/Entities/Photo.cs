@@ -15,8 +15,9 @@ public class Photo
 
     protected Photo() { }
 
-    public Photo(Guid userId, Guid lighthouseId, string filename, PhotoMetadata metadata)
+    public Photo(Guid id, Guid userId, Guid lighthouseId, string filename, PhotoMetadata metadata)
     {
+        Id = id != Guid.Empty ? id : Guid.NewGuid();
         UserId = userId;
         LighthouseId = lighthouseId;
         Filename = filename;

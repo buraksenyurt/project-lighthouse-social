@@ -103,3 +103,4 @@ CREATE TABLE users(
 );
 CREATE UNIQUE INDEX idx_users_external_id ON users (external_id); -- External Id için tekillik garantisi
 CREATE UNIQUE INDEX idx_users_email ON users (email); -- email için tekillik garantisi
+CREATE UNIQUE INDEX ux_lighthouses_identity ON lighthouses (name, country_id, latitude, longitude); -- Denizfeneri verisi için tekillik garantisi

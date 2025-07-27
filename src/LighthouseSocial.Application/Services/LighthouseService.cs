@@ -5,17 +5,13 @@ using LighthouseSocial.Domain.Entities;
 
 namespace LighthouseSocial.Application.Services;
 
-public class LighthouseService
+public class LighthouseService(CreateLighthouseHandler createLighthouseHandler, GetAllLighthousesHandler getAllLighthousesHandler, DeleteLighthouseHandler deleteLighthouseHandler, GetLighthouseByIdHandler getLighthouseByIdHandler)
     : ILighthouseService
 {
-    private readonly CreateLighthouseHandler _createLighthouseHandler;
-    private readonly GetAllLighthousesHandler _getAllLighthousesHandler;
-
-    public LighthouseService(CreateLighthouseHandler createLighthouseHandler, GetAllLighthousesHandler getAllLighthousesHandler)
-    {
-        _createLighthouseHandler = createLighthouseHandler;
-        _getAllLighthousesHandler = getAllLighthousesHandler;
-    }
+    private readonly CreateLighthouseHandler _createLighthouseHandler = createLighthouseHandler;
+    private readonly DeleteLighthouseHandler _deleteLighthouseHandler = deleteLighthouseHandler;
+    private readonly GetAllLighthousesHandler _getAllLighthousesHandler = getAllLighthousesHandler;
+    private readonly GetLighthouseByIdHandler _getLighthouseByIdHandler = getLighthouseByIdHandler;
 
     public async Task<Guid> CreateAsync(LighthouseDto dto)
     {
@@ -27,9 +23,13 @@ public class LighthouseService
         return result.Data;
     }
 
-    public Task DeleteAsync(Guid id)
+    public async Task DeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var _ = await _deleteLighthouseHandler.HandleAsync(id);
+        //if (!result.Success)
+        //{
+        //    throw new InvalidOperationException($"Failed to create lighthouse: {result.ErrorMessage}");
+        //}
     }
 
     public async Task<IEnumerable<LighthouseDto>> GetAllAsync()
@@ -38,22 +38,27 @@ public class LighthouseService
         return result.Success ? result.Data : [];
     }
 
-    public Task<LighthouseDto?> GetByIdAsync(Guid id)
+    public async Task<LighthouseDto?> GetByIdAsync(Guid id)
+    {
+        var result = await _getLighthouseByIdHandler.HandleAsync(id);
+        if (!result.Success)
+        {
+            throw new InvalidOperationException($"Failed to get lighthouse by id: {result.ErrorMessage}");
+        }
+        return result.Data;
+    }
+
+    public async Task<IEnumerable<Photo>> GetPhotosByIdAsync(Guid photoId)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<Photo>> GetPhotosByIdAsync(Guid photoId)
+    public async Task<IEnumerable<LighthouseDto>> GetTopAsync(TopDto topDto)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<LighthouseDto>> GetTopAsync(TopDto topDto)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task UpdateAsync(Guid id, LighthouseDto dto)
+    public async Task UpdateAsync(Guid id, LighthouseDto dto)
     {
         throw new NotImplementedException();
     }

@@ -8,8 +8,9 @@ public class User
     public string Fullname { get; set; }
     public string Email { get; set; }
     protected User() { }
-    public User(string fullname, string email)
+    public User(Guid id, string fullname, string email)
     {
+        Id = id != Guid.Empty ? id : Guid.NewGuid();
         Fullname = fullname;
         Email = email;
     }

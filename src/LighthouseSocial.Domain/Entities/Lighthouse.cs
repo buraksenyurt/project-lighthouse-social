@@ -14,8 +14,9 @@ public class Lighthouse : EntityBase
 
     protected Lighthouse() { }
 
-    public Lighthouse(string name, Country country, Coordinates location)
+    public Lighthouse(Guid id, string name, Country country, Coordinates location)
     {
+        Id = id != Guid.Empty ? id : Guid.NewGuid();
         Name = name ?? throw new ArgumentNullException(nameof(name));
         Country = country ?? throw new ArgumentNullException(nameof(country));
         CountryId = country.Id;

@@ -15,34 +15,50 @@ var services = new ServiceCollection();
 services.AddLogging(builder => builder.AddConsole());
 
 var connStr = config.GetConnectionString("LighthouseDb");
-services.AddDatabase(connStr);
+//todo@buraksenyurt Connection string bilgisini güvenli bir şekilde saklamalıyız. Secure Vault, Azure Key Vault gibi çözümler kullanılabilir.
+services.AddDatabase(connStr ?? "Host=localhost;Port=5432;Database=lighthousedb;Username=johndoe;Password=somew0rds");
 services.AddApplication();
 
 var serviceProvider = services.BuildServiceProvider();
 var lighthouseService = serviceProvider.GetRequiredService<ILighthouseService>();
+var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
+
 
 try
 {
+    var id = Guid.Parse("4C2D0945-53D3-459B-B523-AD6A8B212554");
 
-    var newLighthouse = new LighthouseDto(Id: Guid.NewGuid(),
-        Name: "Test Lighthouse",
-        CountryId: 90,
-        Latitude: 37.7749,
-        Longitude: -122.4194);
+    await lighthouseService.DeleteAsync(id); //todo@buraksenyurt Geriye birşey döndürmüyor. Nasıl değerlendirilebilir?
 
-    var newId = await lighthouseService.CreateAsync(newLighthouse);
-    Console.WriteLine($"Created new lighthouse with ID: {newId}");
+    var newLighthouse = new LighthouseDto(
+        Id: id,
+        Name: "Cape Espichel",
+        CountryId: 42, // Portekiz
+        Latitude: 38.533,
+        Longitude: 9.12);
+
+    var addedId = await lighthouseService.CreateAsync(newLighthouse);
+    Console.WriteLine($"Lighthouse created with ID: {addedId}");
+
+    var lighthouse = await lighthouseService.GetByIdAsync(id);
+    if (lighthouse is not null)
+    {
+        Console.WriteLine($"Lighthouse found: {lighthouse.Name} (ID: {lighthouse.Id}) in {lighthouse.CountryId}");
+    }
+    else
+    {
+        logger.LogWarning("Lighthouse {lighthouse.Id} not found.", id);
+    }
 
     var allLighthouses = await lighthouseService.GetAllAsync();
     Console.WriteLine("All Lighthouses:");
-    foreach (var lighthouse in allLighthouses)
+    foreach (var l in allLighthouses)
     {
-        Console.WriteLine($"- {lighthouse.Name} (ID: {lighthouse.Id})");
+        Console.WriteLine($"- {l.Name} (ID: {l.Id})");
     }
 }
 catch (Exception ex)
 {
-    var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
     logger.LogError(ex, "An error occurred while processing lighthouses.");
 }
 finally

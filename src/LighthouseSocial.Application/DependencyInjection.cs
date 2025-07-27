@@ -15,6 +15,8 @@ public static class DependencyInjection
         services.AddScoped<ILighthouseService, LighthouseService>();
         services.AddScoped<CreateLighthouseHandler>();
         services.AddScoped<GetAllLighthousesHandler>();
+        services.AddScoped<DeleteLighthouseHandler>();
+        services.AddScoped<GetLighthouseByIdHandler>();
         services.AddScoped<IValidator<LighthouseDto>, LighthouseDtoValidator>();
 
         return services;

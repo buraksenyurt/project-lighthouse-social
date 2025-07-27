@@ -24,7 +24,7 @@ public class UploadPhotoHandlerTests
     public async Task HandleAsync_ShouldReturnSuccess_WhenValidInput()
     {
         // Arrange
-        var dto = new PhotoDto(Guid.Empty, "SunDownOfCapeTown.jpg", DateTime.UtcNow, "DSLR", Guid.NewGuid(), Guid.NewGuid());
+        var dto = new PhotoDto(Guid.Empty, "SunDownOfCapeTown.jpg", DateTime.UtcNow, "DSLR", Guid.NewGuid(), Guid.NewGuid(), "16Mp", "50mm");
 
         var stream = new MemoryStream([24, 42, 32]);
 
@@ -48,7 +48,7 @@ public class UploadPhotoHandlerTests
     public async Task HandleAsync_ShouldReturnFail_WhenValidationFails()
     {
         // Arrange
-        var dto = new PhotoDto(Guid.Empty, string.Empty, DateTime.Now.AddDays(2), "Noname", Guid.Empty, Guid.Empty);
+        var dto = new PhotoDto(Guid.Empty, string.Empty, DateTime.Now.AddDays(2), "Noname", Guid.Empty, Guid.Empty, "16Mp", "50mm");
 
         var validationFailures = new List<ValidationFailure>
         {

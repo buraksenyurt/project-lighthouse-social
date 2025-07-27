@@ -53,7 +53,7 @@ public class AddCommentHandler(ICommentRepository repository,
             return Result<Guid>.Fail("Comment contains inappropriate language");
         }
 
-        var comment = new Domain.Entities.Comment(dto.UserId, dto.PhotoId, dto.Text, Rating.FromValue(dto.Rating));
+        var comment = new Domain.Entities.Comment(Guid.NewGuid(), dto.UserId, dto.PhotoId, dto.Text, Rating.FromValue(dto.Rating));
 
         await _repository.AddAsync(comment);
 

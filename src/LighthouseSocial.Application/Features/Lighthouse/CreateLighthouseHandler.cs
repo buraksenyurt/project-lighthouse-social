@@ -26,19 +26,19 @@ public class CreateLighthouseHandler(ILighthouseRepository repository, ICountryR
         try
         {
             //todo@buraksenyurt Çok sık değişmeyecek Country bilgileri önbelleğe alınabilir.(Redis, MemoryCache vb.)
-            country = await  _countryRegistry.GetByIdAsync(dto.CountryId);
+            country = await _countryRegistry.GetByIdAsync(dto.CountryId);
+
+            var location = new Coordinates(dto.Latitude, dto.Longitude);
+            var lighthouse = new Domain.Entities.Lighthouse(dto.Id, dto.Name, country, location);
+
+            await _repository.AddAsync(lighthouse);
+
+            return Result<Guid>.Ok(lighthouse.Id);
         }
         catch (Exception ex)
         {
             //todo@buraksenyurt: Eğer mümkünse exception'ları loglamalıyız.
             return Result<Guid>.Fail($"Invalid country Id: {dto.CountryId}, {ex.Message}");
         }
-
-        var location = new Coordinates(dto.Latitude, dto.Longitude);
-        var lighthouse = new Domain.Entities.Lighthouse(dto.Name, country, location);
-
-        await _repository.AddAsync(lighthouse);
-
-        return Result<Guid>.Ok(lighthouse.Id);
     }
 }
