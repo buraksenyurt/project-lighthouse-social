@@ -2,7 +2,7 @@ using Dapper;
 using LighthouseSocial.Domain.Entities;
 using LighthouseSocial.Domain.Interfaces;
 
-namespace LighthouseSocial.Data;
+namespace LighthouseSocial.Data.Repositories;
 
 public class CommentRepository(IDbConnectionFactory connFactory)
     : ICommentRepository

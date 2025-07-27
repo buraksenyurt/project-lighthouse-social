@@ -1,23 +1,20 @@
 namespace LighthouseSocial.Domain.Countries;
 
+[Obsolete("This class is obsolete and will be removed in a future version. Use the new CountryRepository instead.")]
 public class CountryRegistry(IEnumerable<Country> countries)
     : ICountryRegistry
 {
-    // Bunun yeri doğru mu? Data'yı Referans edemeyiz zira Data, Domain'i referans ediyor.
-    // Circular Dependency sorunu oluştur.
-    
-    //todo@buraksenyurt Veritabanından beslenmesi gerekiyor?
     private readonly Dictionary<int, Country> _countries = countries.ToDictionary(c => c.Id);
 
-    public IReadOnlyList<Country> GetAll()
+    public Task<IReadOnlyList<Country>> GetAllAsync()
     {
-        return [.. _countries.Values];
+        return Task.FromResult<IReadOnlyList<Country>>([.. _countries.Values]);
     }
 
-    public Country GetById(int id)
+    public Task<Country> GetByIdAsync(int id)
     {
-        return _countries.TryGetValue(id, out var country)
-            ? country 
-            : throw new KeyNotFoundException($"Country id not found:{id}");
+        return Task.FromResult(_countries.TryGetValue(id, out var country)
+             ? country
+             : throw new KeyNotFoundException($"Country id not found:{id}"));
     }
 }

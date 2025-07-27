@@ -1,3 +1,5 @@
+using LighthouseSocial.Data.Repositories;
+using LighthouseSocial.Domain.Countries;
 using LighthouseSocial.Domain.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,6 +15,7 @@ public static class DependencyInjection
         services.AddScoped<IPhotoRepository, PhotoRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ICountryRegistry, CountryRepository>();
 
         return services;
     }

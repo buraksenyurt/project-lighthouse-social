@@ -4,7 +4,7 @@ using LighthouseSocial.Domain.Entities;
 using LighthouseSocial.Domain.Interfaces;
 using LighthouseSocial.Domain.ValueObjects;
 
-namespace LighthouseSocial.Data;
+namespace LighthouseSocial.Data.Repositories;
 
 public class PhotoRepository(IDbConnectionFactory connFactory)
     : IPhotoRepository

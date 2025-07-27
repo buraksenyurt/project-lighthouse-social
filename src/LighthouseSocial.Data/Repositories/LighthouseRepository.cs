@@ -5,7 +5,7 @@ using LighthouseSocial.Domain.Entities;
 using LighthouseSocial.Domain.Interfaces;
 using LighthouseSocial.Domain.ValueObjects;
 
-namespace LighthouseSocial.Data;
+namespace LighthouseSocial.Data.Repositories;
 
 public class LighthouseRepository(IDbConnectionFactory connFactory)
         : ILighthouseRepository
@@ -22,11 +22,11 @@ public class LighthouseRepository(IDbConnectionFactory connFactory)
 
         await conn.ExecuteAsync(sql, new
         {
-            Id = lighthouse.Id,
-            Name = lighthouse.Name,
-            CountryId = lighthouse.CountryId,
-            Latitude = lighthouse.Location.Latitude,
-            Longitude = lighthouse.Location.Longitude
+            lighthouse.Id,
+            lighthouse.Name,
+            lighthouse.CountryId,
+            lighthouse.Location.Latitude,
+            lighthouse.Location.Longitude
         });
     }
 
@@ -44,7 +44,7 @@ public class LighthouseRepository(IDbConnectionFactory connFactory)
                l.latitude, l.longitude
         FROM lighthouses l
         INNER JOIN countries c ON l.country_id = c.id;
-    ";
+        ";
 
         using var conn = _connFactory.CreateConnection();
 
@@ -73,7 +73,7 @@ public class LighthouseRepository(IDbConnectionFactory connFactory)
             FROM lighthouses l
             INNER JOIN countries c ON l.country_id = c.id
             WHERE l.id = @Id;
-        ";
+            ";
 
         using var conn = _connFactory.CreateConnection();
 
@@ -107,11 +107,11 @@ public class LighthouseRepository(IDbConnectionFactory connFactory)
 
         await conn.ExecuteAsync(sql, new
         {
-            Id = lighthouse.Id,
-            Name = lighthouse.Name,
-            CountryId = lighthouse.CountryId,
-            Latitude = lighthouse.Location.Latitude,
-            Longitude = lighthouse.Location.Longitude
+            lighthouse.Id,
+            lighthouse.Name,
+            lighthouse.CountryId,
+            lighthouse.Location.Latitude,
+            lighthouse.Location.Longitude
         });
     }
 }

@@ -25,7 +25,8 @@ public class CreateLighthouseHandler(ILighthouseRepository repository, ICountryR
         Country? country;
         try
         {
-            country = _countryRegistry.GetById(dto.CountryId);
+            //todo@buraksenyurt Çok sık değişmeyecek Country bilgileri önbelleğe alınabilir.(Redis, MemoryCache vb.)
+            country = await  _countryRegistry.GetByIdAsync(dto.CountryId);
         }
         catch (Exception ex)
         {

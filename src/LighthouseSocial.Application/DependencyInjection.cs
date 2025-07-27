@@ -4,7 +4,6 @@ using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.Lighthouse;
 using LighthouseSocial.Application.Services;
 using LighthouseSocial.Application.Validators;
-using LighthouseSocial.Domain.Countries;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LighthouseSocial.Application;
@@ -16,7 +15,6 @@ public static class DependencyInjection
         services.AddScoped<ILighthouseService, LighthouseService>();
         services.AddScoped<CreateLighthouseHandler>();
         services.AddScoped<GetAllLighthousesHandler>();
-        services.AddScoped<ICountryRegistry, CountryRegistry>();
         services.AddScoped<IValidator<LighthouseDto>, LighthouseDtoValidator>();
 
         return services;

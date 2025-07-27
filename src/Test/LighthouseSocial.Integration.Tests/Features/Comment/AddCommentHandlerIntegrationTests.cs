@@ -2,6 +2,7 @@ using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.Comment;
 using LighthouseSocial.Application.Validators;
 using LighthouseSocial.Data;
+using LighthouseSocial.Data.Repositories;
 using LighthouseSocial.Infrastructure.Auditors;
 
 namespace LighthouseSocial.Integration.Tests.Features.Comment;
