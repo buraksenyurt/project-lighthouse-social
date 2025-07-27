@@ -3,7 +3,6 @@ using LighthouseSocial.Application.Features.Comment;
 using LighthouseSocial.Application.Validators;
 using LighthouseSocial.Data;
 using LighthouseSocial.Infrastructure.Auditors;
-using Dapper;
 
 namespace LighthouseSocial.Integration.Tests.Features.Comment;
 
@@ -31,7 +30,8 @@ public class AddCommentHandlerIntegrationTests
     {
         if (Environment.GetEnvironmentVariable("CI") == "true")
             return;
-
+            
+        //todo@buraksenyurt Sistemde var olan UserId, PhotoId bilgileri ile test edilebilir
         var dto = new CommentDto(Guid.NewGuid(), Guid.NewGuid(), "It's a lovely day.", 7);
         var result = await _handler.HandleAsync(dto);
 
@@ -44,6 +44,7 @@ public class AddCommentHandlerIntegrationTests
         if (Environment.GetEnvironmentVariable("CI") == "true")
             return;
 
+        //todo@buraksenyurt Sistemde var olan UserId, PhotoId bilgileri ile test edilebilir
         var dto = new CommentDto(Guid.NewGuid(), Guid.NewGuid(), "I hate you.", 1);
         var result = await _handler.HandleAsync(dto);
 

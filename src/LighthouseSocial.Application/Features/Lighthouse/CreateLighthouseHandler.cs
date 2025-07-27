@@ -1,4 +1,4 @@
-using FluentValidation;
+﻿using FluentValidation;
 using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Domain.Countries;
@@ -7,6 +7,7 @@ using LighthouseSocial.Domain.ValueObjects;
 
 namespace LighthouseSocial.Application.Features.Lighthouse;
 
+//todo@buraksenyurt Bu ve diğer Handler sınıfları Application dışına kapatılacak şekilde düzenlenmeli.
 public class CreateLighthouseHandler(ILighthouseRepository repository, ICountryRegistry countryRegistry, IValidator<LighthouseDto> validator)
 {
     private readonly ILighthouseRepository _repository = repository;
@@ -14,8 +15,6 @@ public class CreateLighthouseHandler(ILighthouseRepository repository, ICountryR
     private readonly IValidator<LighthouseDto> _validator = validator;
     public async Task<Result<Guid>> HandleAsync(LighthouseDto dto)
     {
-        // if (string.IsNullOrWhiteSpace(dto.Name))
-        //     return Result<Guid>.Fail("Lighthouse name is required.");
         var validation = _validator.Validate(dto);
         if (!validation.IsValid)
         {
@@ -30,6 +29,7 @@ public class CreateLighthouseHandler(ILighthouseRepository repository, ICountryR
         }
         catch (Exception ex)
         {
+            //todo@buraksenyurt: Eğer mümkünse exception'ları loglamalıyız.
             return Result<Guid>.Fail($"Invalid country Id: {dto.CountryId}, {ex.Message}");
         }
 
