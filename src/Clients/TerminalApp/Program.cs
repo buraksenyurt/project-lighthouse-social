@@ -56,6 +56,14 @@ try
     {
         Console.WriteLine($"- {l.Name} (ID: {l.Id})");
     }
+
+    //todo@buraksenyurt Tam bir flow test edelim
+
+    // Deniz feneri bilgisi ekle
+    // Deniz fenerine fotoğraf ekle
+    // Deniz feneri fotoğrafına birkaç yorum ekle
+    // Fotoğraf ID'sine göre deniz feneri ve yorumları listele
+    // Deniz feneri bilgisinde güncelleme yap
 }
 catch (Exception ex)
 {

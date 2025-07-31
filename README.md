@@ -70,8 +70,12 @@ Minimum Profil;
   - [Video 10](https://youtu.be/54GMi9i2W-4)
   - [Video 11](https://youtu.be/PU9SqkPt41o)
   - [Video 12](https://youtu.be/vdFRhsLcqhM)
-- [ ] **Bölüm 03 Persistance katmanının inşaası:** Postgresql tabanlı veritabanı hazırlıkları, Concrete Repository sınıflarınının oluşturulması.
+- [x] **Bölüm 03 Persistance katmanının inşaası:** Postgresql tabanlı veritabanı hazırlıkları, Concrete Repository sınıflarınının oluşturulması.
   - [Video 13](https://youtu.be/z8G9iThiiDE)
+  - [Video 14](https://youtu.be/pA8xsOmsZpI)
+- [ ] **Bölüm 04 Basit İstemci Uygulamasının Geliştirilmesi:** Application katmanını kullanan basit bir terminal uygulamasının geliştirilmesi ve başarılı şekilde çalışır hale getirilmesi.
+  - [Video 15](https://youtu.be/ovhQM9L_hhQ)
+  - [Video 16](https://youtu.be/Frbquqiq4Us)
 
 ## Sonarqube
 
