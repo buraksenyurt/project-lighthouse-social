@@ -73,9 +73,12 @@ Minimum Profil;
 - [x] **Bölüm 03 Persistance katmanının inşaası:** Postgresql tabanlı veritabanı hazırlıkları, Concrete Repository sınıflarınının oluşturulması.
   - [Video 13](https://youtu.be/z8G9iThiiDE)
   - [Video 14](https://youtu.be/pA8xsOmsZpI)
-- [ ] **Bölüm 04 Basit İstemci Uygulamasının Geliştirilmesi:** Application katmanını kullanan basit bir terminal uygulamasının geliştirilmesi ve başarılı şekilde çalışır hale getirilmesi.
+- [x] **Bölüm 04 Basit İstemci Uygulamasının Geliştirilmesi:** Application katmanını kullanan basit bir terminal uygulamasının geliştirilmesi ve başarılı şekilde çalışır hale getirilmesi.
   - [Video 15](https://youtu.be/ovhQM9L_hhQ)
   - [Video 16](https://youtu.be/Frbquqiq4Us)
+- [ ] **Bölüm 05] Infrastructure Katmanında Geliştirmeler:** Fotoğraf saklama, doğrulama, bildirim gönderimi vb altyapı bileşenlerinin geliştirilmesi.
+  - [Video 17](https://youtu.be/RnCqWo9Bhs8)
+  - [Video 18](https://youtu.be/pfPqZ1SkHdM) 
 
 ## Sonarqube
 
@@ -126,6 +129,7 @@ docker compose up -d
 - [ ] **CLI Aracı:** CLI _(Command Line Interface)_ kullanma bilgisi olanlar son kullanıcılar için bir terminal aracı geliştirilebilir mi?
 - [ ] **Public API:** Projenin genel kullanıma açık bir API hizmeti olabilir mi? Örneğin, deniz feneri bilgilerini dış dünyaya açabiliriz. Bu, standart web arayüzü dışında bir hizmettir, farklı uygulamaların işine de yarar.
 - [ ] **Raporlama:** Projemiz ne tür raporlar sunabilir? Dünyanın en popüler fotoğraflarına sahip deniz fenerleri, en iyi fotoğraflara sahip kullanıcılar, en çok uğranılan deniz fenerlerinin olduğu ülkeler, faal olan deniz fenerleri listesi vb Bu raporlar nasıl bir uygulama baz alınabilir.
+- [ ] **Entegrasyon Testleri:** Projede ilerledikçe servis ve bileşenlerin sayısı artıyor. Bu durumda entegrasyon testleri nasıl bir strateji ile iyileştirilebilir? Örneğin, **JudgeDredd** ya da **PhotoStorage** bileşenlerinin dahil olduğu vakalar için entegrasyon testleri yazılabilir ve çalışma zamanı olarak da bir TestContainer kullanılabilir.
 
 ## Kontrol Listesi
 
