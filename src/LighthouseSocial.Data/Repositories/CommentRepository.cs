@@ -11,7 +11,7 @@ public class CommentRepository(IDbConnectionFactory connFactory)
     public async Task AddAsync(Comment comment)
     {
         string sql = @"INSERT INTO comments (id, user_id, photo_id, text, rating, created_at)
-                    VALUES (@Id, @UserId, @PhotoId, @Text, @Rating, @CreatedAt)";
+                    VALUES (@Id, @UserId, @PhotoId, @Text, @Rating, @CreatedAt);";
 
         using var conn = _connFactory.CreateConnection();
 
@@ -28,7 +28,7 @@ public class CommentRepository(IDbConnectionFactory connFactory)
 
     public async Task DeleteAsync(Guid commentId)
     {
-        const string sql = "DELETE FROM comments WHERE id = @Id";
+        const string sql = "DELETE FROM comments WHERE id = @Id;";
 
         using var conn = _connFactory.CreateConnection();
         await conn.ExecuteAsync(sql, new { Id = commentId });
@@ -37,7 +37,7 @@ public class CommentRepository(IDbConnectionFactory connFactory)
     public async Task<bool> ExistsForUserAsync(Guid userId, Guid photoId)
     {
         const string sql = @"SELECT COUNT(1) FROM comments 
-            WHERE user_id = @UserId AND photo_id = @PhotoId";
+            WHERE user_id = @UserId AND photo_id = @PhotoId;";
 
         using var conn = _connFactory.CreateConnection();
         
@@ -47,7 +47,7 @@ public class CommentRepository(IDbConnectionFactory connFactory)
 
     public async Task<Comment> GetByIdAsync(Guid commentId)
     {
-        const string sql = "SELECT id, user_id, photo_id, text, rating, created_at FROM comments WHERE id = @Id";
+        const string sql = "SELECT id, user_id, photo_id, text, rating, created_at FROM comments WHERE id = @Id;";
 
         using var conn = _connFactory.CreateConnection();
 
@@ -58,7 +58,7 @@ public class CommentRepository(IDbConnectionFactory connFactory)
     {
         const string sql = @"SELECT id, user_id, photo_id, text, rating, created_at FROM comments 
                             WHERE photo_id = @PhotoId 
-                            ORDER BY created_at DESC";
+                            ORDER BY created_at DESC;";
 
         using var conn = _connFactory.CreateConnection();
 

@@ -15,28 +15,34 @@ public class PhotoRepository(IDbConnectionFactory connFactory)
     {
         const string sql = @"
             INSERT INTO photos (id, user_id, lighthouse_id, filename, upload_date, lens, resolution, camera_model, taken_at)
-            VALUES (@Id, @UserId, @LighthouseId, @FileName, @UploadDate, @Lens, @Resolution, @CameraModel, @TakenAt)";
+            VALUES (@Id, @UserId, @LighthouseId, @FileName, @UploadDate, @Lens, @Resolution, @CameraModel, @TakenAt);";
 
         using var conn = _connFactory.CreateConnection();
+
         var metadata = photo.Metadata;
 
-        await conn.ExecuteAsync(sql, new
+        var parameters = new DynamicParameters();
+        parameters.Add("Id", photo.Id);
+        parameters.Add("UserId", photo.UserId);
+        parameters.Add("LighthouseId", photo.LighthouseId);
+        parameters.Add("FileName", photo.Filename);
+        parameters.Add("UploadDate", photo.UploadDate);
+        parameters.Add("Lens", photo.Metadata?.Lens);
+        parameters.Add("Resolution", photo.Metadata?.Resolution);
+        parameters.Add("CameraModel", photo.Metadata?.CameraModel);
+        parameters.Add("TakenAt", photo.Metadata?.TakenAt);
+
+        var result = await conn.ExecuteAsync(sql, parameters);
+
+        if (result == 0)
         {
-            photo.Id,
-            photo.UserId,
-            photo.LighthouseId,
-            photo.Filename,
-            photo.UploadDate,
-            metadata.Lens,
-            metadata.Resolution,
-            metadata.CameraModel,
-            metadata.TakenAt
-        });
+            throw new InvalidOperationException("Failed to insert photo into the database.");
+        }
     }
 
     public async Task DeleteAsync(Guid id)
     {
-        const string sql = "DELETE FROM photos WHERE id = @Id";
+        const string sql = "DELETE FROM photos WHERE id = @Id;";
 
         using var conn = _connFactory.CreateConnection();
 
@@ -48,7 +54,7 @@ public class PhotoRepository(IDbConnectionFactory connFactory)
         const string sql = @"
             SELECT id, user_id, lighthouse_id, filename, upload_date, lens, resolution, camera_model, taken_at 
             FROM photos 
-            WHERE id = @Id";
+            WHERE id = @Id;";
 
         using var conn = _connFactory.CreateConnection();
 
@@ -62,7 +68,7 @@ public class PhotoRepository(IDbConnectionFactory connFactory)
             SELECT id, user_id, lighthouse_id, filename, upload_date, lens, resolution, camera_model, taken_at 
             FROM photos 
             WHERE lighthouse_id = @LighthouseId 
-            ORDER BY upload_date DESC";
+            ORDER BY upload_date DESC;";
 
         using var conn = _connFactory.CreateConnection();
 
@@ -76,7 +82,7 @@ public class PhotoRepository(IDbConnectionFactory connFactory)
             SELECT id, user_id, lighthouse_id, filename, upload_date, lens, resolution, camera_model, taken_at
             FROM photos 
             WHERE user_id = @UserId 
-            ORDER BY upload_date DESC";
+            ORDER BY upload_date DESC;";
 
         using var conn = _connFactory.CreateConnection();
 

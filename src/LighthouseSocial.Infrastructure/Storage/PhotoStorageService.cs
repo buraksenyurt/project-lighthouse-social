@@ -43,7 +43,7 @@ namespace LighthouseSocial.Infrastructure.Storage
         public async Task<string> SaveAsync(Stream content, string fileName)
         {
             bool found = await _minioClient.BucketExistsAsync(new BucketExistsArgs().WithBucket(_bucket));
-            if(!found)
+            if (!found)
             {
                 await _minioClient.MakeBucketAsync(new MakeBucketArgs().WithBucket(_bucket));
             }

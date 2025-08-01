@@ -62,20 +62,11 @@ try
     //}
 
     var photoService = serviceProvider.GetRequiredService<IPhotoService>();
-    var file = File.OpenRead(Path.Combine(Environment.CurrentDirectory,"cape_espichel.jpg"));
-    var created = photoService.UploadAsync(
+    var file = File.OpenRead(Path.Combine(Environment.CurrentDirectory, "cape_espichel.jpg"));
+    var createdId = await photoService.UploadAsync(
         new PhotoDto(Guid.NewGuid(), "cape_espichel.jpg", DateTime.UtcNow.AddDays(-7), "DSLR", Guid.NewGuid(), id, "16Mp", "135mm")
-        , file).ContinueWith(t =>
-        {
-            if (t.IsCompletedSuccessfully)
-            {
-                Console.WriteLine($"Photo uploaded successfully with ID: {t.Result}");
-            }
-            else
-            {
-                logger.LogError(t.Exception, "Failed to upload photo.");
-            }
-        });
+        , file);
+    Console.WriteLine("Photo uploaded successfully with ID: " + createdId);
 
 
     //todo@buraksenyurt Tam bir flow test edelim
