@@ -40,5 +40,19 @@ services:
     depends_on:
       - postgres
 
+  minio:
+    container_name: dc-minio-server
+    image: minio/minio:latest
+    ports:
+      - "9008:9000"
+      - "9009:9001"
+    volumes:
+      - minio_data:/home/storage/data
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: password
+    command: server --console-address ":9001" /data    
+
 volumes:
   postgres_data:
+  minio_data:  
