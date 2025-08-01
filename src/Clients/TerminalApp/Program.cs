@@ -2,6 +2,8 @@
 using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Data;
+using LighthouseSocial.Infrastructure;
+using LighthouseSocial.Infrastructure.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -18,6 +20,8 @@ var connStr = config.GetConnectionString("LighthouseDb");
 //todo@buraksenyurt Connection string bilgisini güvenli bir şekilde saklamalıyız. Secure Vault, Azure Key Vault gibi çözümler kullanılabilir.
 services.AddDatabase(connStr ?? "Host=localhost;Port=5432;Database=lighthousedb;Username=johndoe;Password=somew0rds");
 services.AddApplication();
+services.AddInfrastructure();
+services.Configure<MinioSettings>(config.GetSection("Minio"));
 
 var serviceProvider = services.BuildServiceProvider();
 var lighthouseService = serviceProvider.GetRequiredService<ILighthouseService>();
@@ -28,34 +32,51 @@ try
 {
     var id = Guid.Parse("4C2D0945-53D3-459B-B523-AD6A8B212554");
 
-    await lighthouseService.DeleteAsync(id); //todo@buraksenyurt Geriye birşey döndürmüyor. Nasıl değerlendirilebilir?
+    //await lighthouseService.DeleteAsync(id); //todo@buraksenyurt Geriye birşey döndürmüyor. Nasıl değerlendirilebilir?
 
-    var newLighthouse = new LighthouseDto(
-        Id: id,
-        Name: "Cape Espichel",
-        CountryId: 42, // Portekiz
-        Latitude: 38.533,
-        Longitude: 9.12);
+    //var newLighthouse = new LighthouseDto(
+    //    Id: id,
+    //    Name: "Cape Espichel",
+    //    CountryId: 42, // Portekiz
+    //    Latitude: 38.533,
+    //    Longitude: 9.12);
 
-    var addedId = await lighthouseService.CreateAsync(newLighthouse);
-    Console.WriteLine($"Lighthouse created with ID: {addedId}");
+    //var addedId = await lighthouseService.CreateAsync(newLighthouse);
+    //Console.WriteLine($"Lighthouse created with ID: {addedId}");
 
-    var lighthouse = await lighthouseService.GetByIdAsync(id);
-    if (lighthouse is not null)
-    {
-        Console.WriteLine($"Lighthouse found: {lighthouse.Name} (ID: {lighthouse.Id}) in {lighthouse.CountryId}");
-    }
-    else
-    {
-        logger.LogWarning("Lighthouse {lighthouse.Id} not found.", id);
-    }
+    //var lighthouse = await lighthouseService.GetByIdAsync(id);
+    //if (lighthouse is not null)
+    //{
+    //    Console.WriteLine($"Lighthouse found: {lighthouse.Name} (ID: {lighthouse.Id}) in {lighthouse.CountryId}");
+    //}
+    //else
+    //{
+    //    logger.LogWarning("Lighthouse {lighthouse.Id} not found.", id);
+    //}
 
-    var allLighthouses = await lighthouseService.GetAllAsync();
-    Console.WriteLine("All Lighthouses:");
-    foreach (var l in allLighthouses)
-    {
-        Console.WriteLine($"- {l.Name} (ID: {l.Id})");
-    }
+    //var allLighthouses = await lighthouseService.GetAllAsync();
+    //Console.WriteLine("All Lighthouses:");
+    //foreach (var l in allLighthouses)
+    //{
+    //    Console.WriteLine($"- {l.Name} (ID: {l.Id})");
+    //}
+
+    var photoService = serviceProvider.GetRequiredService<IPhotoService>();
+    var file = File.OpenRead(Path.Combine(Environment.CurrentDirectory,"cape_espichel.jpg"));
+    var created = photoService.UploadAsync(
+        new PhotoDto(Guid.NewGuid(), "cape_espichel.jpg", DateTime.UtcNow.AddDays(-7), "DSLR", Guid.NewGuid(), id, "16Mp", "135mm")
+        , file).ContinueWith(t =>
+        {
+            if (t.IsCompletedSuccessfully)
+            {
+                Console.WriteLine($"Photo uploaded successfully with ID: {t.Result}");
+            }
+            else
+            {
+                logger.LogError(t.Exception, "Failed to upload photo.");
+            }
+        });
+
 
     //todo@buraksenyurt Tam bir flow test edelim
 

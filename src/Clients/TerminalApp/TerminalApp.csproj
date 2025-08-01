@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\LighthouseSocial.Application\LighthouseSocial.Application.csproj" />
     <ProjectReference Include="..\..\LighthouseSocial.Data\LighthouseSocial.Data.csproj" />
+    <ProjectReference Include="..\..\LighthouseSocial.Infrastructure\LighthouseSocial.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
