@@ -1,4 +1,5 @@
 ﻿using LighthouseSocial.Domain.Interfaces;
+using LighthouseSocial.Infrastructure.Configuration;
 using Microsoft.Extensions.Options;
 using Minio;
 using Minio.DataModel.Args;
@@ -10,13 +11,15 @@ public class PhotoStorageService
 {
     private readonly IMinioClient _minioClient;
     private readonly string _bucket;
-    public PhotoStorageService(IOptions<MinioSettings> options)
+    public PhotoStorageService(IOptions<MinioSettings> options, VaultConfigurationService vaultConfigurationService)
     {
+        var (accessKey, secretKey) = vaultConfigurationService.GetMinioCredentialsAsync().GetAwaiter().GetResult();
+
         var settings = options.Value;
         _bucket = settings.BucketName;
         _minioClient = new MinioClient()
             .WithEndpoint(settings.Endpoint)
-            .WithCredentials(settings.AccessKey, settings.SecretKey)
+            .WithCredentials(accessKey, secretKey)
             .WithSSL(settings.UseSSL)
             .Build();
     }

@@ -29,7 +29,7 @@ public class VaultSecretManager
         {
             _logger.LogInformation("Retrieving secret from Vault at path: {SecretPath}, key: {Key}", secretPath, key);
 
-            var secret = await _vaultClient.V1.Secrets.KeyValue.V2.ReadSecretAsync(path:secretPath, mountPoint: _settings.MountPoint);
+            var secret = await _vaultClient.V1.Secrets.KeyValue.V2.ReadSecretAsync(path: secretPath, mountPoint: _settings.MountPoint);
             if (secret.Data.Data.TryGetValue(key, out var value))
             {
                 _logger.LogInformation("Successfully retrieved secret for key: {Key}", key);
@@ -51,10 +51,10 @@ public class VaultSecretManager
         try
         {
             _logger.LogInformation("Retrieving all secrets from Vault at path: {SecretPath}", secretPath);
-            var result=new Dictionary<string, string>();
+            var result = new Dictionary<string, string>();
 
             var secret = await _vaultClient.V1.Secrets.KeyValue.V2.ReadSecretAsync(path: secretPath, mountPoint: _settings.MountPoint);
-            if(secret?.Data?.Data != null)
+            if (secret?.Data?.Data != null)
             {
                 foreach (var kvp in secret.Data.Data)
                 {

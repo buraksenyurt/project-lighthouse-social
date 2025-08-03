@@ -1,5 +1,7 @@
 ﻿using LighthouseSocial.Domain.Interfaces;
 using LighthouseSocial.Infrastructure.Auditors;
+using LighthouseSocial.Infrastructure.Configuration;
+using LighthouseSocial.Infrastructure.SecretManager;
 using LighthouseSocial.Infrastructure.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -13,6 +15,10 @@ public static class DependencyInjection
     {
         services.AddScoped<IPhotoStorageService, PhotoStorageService>();
         services.AddScoped<ICommentAuditor,ExternalCommentAuditor>();
+
+        services.AddScoped<ISecretManager, VaultSecretManager>();
+        services.AddScoped<VaultConfigurationService>();
+
         services.AddScoped<IMinioClient>(provider =>
         {
             var settings = provider.GetRequiredService<IOptions<MinioSettings>>().Value;
