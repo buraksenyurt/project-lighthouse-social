@@ -95,7 +95,7 @@ public class Composition(
             var photoDto = new PhotoDto(
                 Id: Guid.NewGuid(),
                 FileName: Constants.SamplePhotoFileName,
-                UploadedAt: DateTime.UtcNow,
+                UploadedAt: DateTime.UtcNow.AddDays(-3),
                 CameraType: "DSLR",
                 UserId: Guid.NewGuid(),
                 LighthouseId: lighthouseId,
@@ -127,6 +127,7 @@ public class Composition(
         try
         {
             Console.WriteLine($"Photo ID: {photoId}");
+            //todo@buraksenyurt Yorum ekleme işlemi için gerekli kodlar burada yer alacak.
             Console.WriteLine("\tComment functionality would be implemented here:");
             Console.WriteLine("\t\tAdd comment: 'Beautiful lighthouse at sunset!'");
             Console.WriteLine("\t\tAdd rating: 5 stars");

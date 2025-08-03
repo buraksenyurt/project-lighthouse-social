@@ -52,7 +52,19 @@ services:
       MINIO_ROOT_USER: admin
       MINIO_ROOT_PASSWORD: password
     command: server --console-address ":9001" /data    
+    
+  vault:
+    image: hashicorp/vault:latest
+    container_name: plh-vault
+    ports:
+      - "8200:8200"
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: "root"
+      VAULT_ADDR: "http://localhost:8200"
+      VAULT_DEV_LISTEN_ADDRESS : "vault:8200"
+    privileged: true
 
 volumes:
   postgres_data:
   minio_data:  
+  localstack_data:  
