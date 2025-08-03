@@ -2,7 +2,7 @@ services:
 
   sonarqube:
       image: sonarqube:latest
-      container_name: dc-sonarqube
+      container_name: plh-sonarqube
       environment:
         SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: "true"
       ports:
@@ -12,14 +12,14 @@ services:
     build:
       context: /src/JudgeDredd
       dockerfile: Dockerfile
-    container_name: dc-judgedredd
+    container_name: plh-judgedredd
     ports:
       - "5005:8080"
     restart: unless-stopped
 
   postgres:
     image: postgres:latest
-    container_name: dc-postgres
+    container_name: plh-postgres
     environment:
       POSTGRES_USER: johndoe
       POSTGRES_PASSWORD: somew0rds
@@ -31,7 +31,7 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4:latest
-    container_name: dc-pgadmin
+    container_name: plh-pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: scoth@tiger.com
       PGADMIN_DEFAULT_PASSWORD: 123456
@@ -41,7 +41,7 @@ services:
       - postgres
 
   minio:
-    container_name: dc-minio-server
+    container_name: plh-minio-server
     image: minio/minio:latest
     ports:
       - "9008:9000"

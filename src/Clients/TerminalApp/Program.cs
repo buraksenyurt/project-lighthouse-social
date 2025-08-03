@@ -1,12 +1,11 @@
 ﻿using LighthouseSocial.Application;
-using LighthouseSocial.Application.Contracts;
-using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Data;
 using LighthouseSocial.Infrastructure;
 using LighthouseSocial.Infrastructure.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using TerminalApp.UseCases;
 
 var config = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -23,68 +22,102 @@ services.AddApplication();
 services.AddInfrastructure();
 services.Configure<MinioSettings>(config.GetSection("Minio"));
 
+services.AddScoped<LighthouseManagement>();
+services.AddScoped<PhotoManagementUseCase>();
+services.AddScoped<Composition>();
+
 var serviceProvider = services.BuildServiceProvider();
-var lighthouseService = serviceProvider.GetRequiredService<ILighthouseService>();
 var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
 
+logger.LogInformation("LighthouseSocial Terminal Client started");
 
-try
+await RunInteractiveCliAsync(serviceProvider, logger);
+
+async Task RunInteractiveCliAsync(ServiceProvider serviceProvider, ILogger<Program> logger)
 {
-    var id = Guid.Parse("4C2D0945-53D3-459B-B523-AD6A8B212554");
-
-    //await lighthouseService.DeleteAsync(id); //todo@buraksenyurt Geriye birşey döndürmüyor. Nasıl değerlendirilebilir?
-
-    //var newLighthouse = new LighthouseDto(
-    //    Id: id,
-    //    Name: "Cape Espichel",
-    //    CountryId: 42, // Portekiz
-    //    Latitude: 38.533,
-    //    Longitude: 9.12);
-
-    //var addedId = await lighthouseService.CreateAsync(newLighthouse);
-    //Console.WriteLine($"Lighthouse created with ID: {addedId}");
-
-    //var lighthouse = await lighthouseService.GetByIdAsync(id);
-    //if (lighthouse is not null)
-    //{
-    //    Console.WriteLine($"Lighthouse found: {lighthouse.Name} (ID: {lighthouse.Id}) in {lighthouse.CountryId}");
-    //}
-    //else
-    //{
-    //    logger.LogWarning("Lighthouse {lighthouse.Id} not found.", id);
-    //}
-
-    //var allLighthouses = await lighthouseService.GetAllAsync();
-    //Console.WriteLine("All Lighthouses:");
-    //foreach (var l in allLighthouses)
-    //{
-    //    Console.WriteLine($"- {l.Name} (ID: {l.Id})");
-    //}
-
-    var photoService = serviceProvider.GetRequiredService<IPhotoService>();
-    var file = File.OpenRead(Path.Combine(Environment.CurrentDirectory, "cape_espichel.jpg"));
-    var createdId = await photoService.UploadAsync(
-        new PhotoDto(Guid.NewGuid(), "cape_espichel.jpg", DateTime.UtcNow.AddDays(-7), "DSLR", Guid.NewGuid(), id, "16Mp", "135mm")
-        , file);
-    Console.WriteLine("Photo uploaded successfully with ID: " + createdId);
-
-
-    //todo@buraksenyurt Tam bir flow test edelim
-
-    // Deniz feneri bilgisi ekle
-    // Deniz fenerine fotoğraf ekle
-    // Deniz feneri fotoğrafına birkaç yorum ekle
-    // Fotoğraf ID'sine göre deniz feneri ve yorumları listele
-    // Deniz feneri bilgisinde güncelleme yap
-}
-catch (Exception ex)
-{
-    logger.LogError(ex, "An error occurred while processing lighthouses.");
-}
-finally
-{
-    if (serviceProvider is IDisposable disposable)
+    try
     {
-        disposable.Dispose();
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine("LighthouseSocial Terminal Client\n");
+            Console.WriteLine("Available Use Cases:");
+            Console.WriteLine("1.Lighthouse Management (CRUD Operations)");
+            Console.WriteLine("2.Photo Management (Upload & Operations)");
+            Console.WriteLine("3.Composition Flow Test (Full Workflow)");
+            Console.WriteLine("4.Exit");
+            Console.WriteLine();
+            Console.Write("Select an option (1-4): ");
+
+            var choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    await ExecuteLighthouseManagementAsync(serviceProvider);
+                    break;
+                case "2":
+                    await ExecutePhotoManagementAsync(serviceProvider);
+                    break;
+                case "3":
+                    await ExecuteComprehensiveFlowAsync(serviceProvider);
+                    break;
+                case "4":
+                    Console.WriteLine("See you later, elegaytır :D");
+                    return;
+                default:
+                    Console.WriteLine("Invalid choice. Press any key to continue...");
+                    Console.ReadKey();
+                    break;
+            }
+
+            if (choice != "4")
+            {
+                Console.WriteLine("\nPress any key to return to main menu...");
+                Console.ReadKey();
+            }
+        }
     }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "An error occurred in the CLI");
+        Console.WriteLine($"Application error: {ex.Message}");
+    }
+    finally
+    {
+        if (serviceProvider is IDisposable disposable)
+        {
+            disposable.Dispose();
+        }
+    }
+}
+
+async Task ExecuteLighthouseManagementAsync(ServiceProvider serviceProvider)
+{
+    Console.Clear();
+    Console.WriteLine("Lighthouse Management Use Case\n");
+
+    var useCase = serviceProvider.GetRequiredService<LighthouseManagement>();
+    await useCase.CreateAndTestLighthouseAsync();
+}
+
+async Task ExecutePhotoManagementAsync(ServiceProvider serviceProvider)
+{
+    Console.Clear();
+    Console.WriteLine("Photo Management Use Case\n");
+
+    var useCase = serviceProvider.GetRequiredService<LighthouseManagement>();
+    var lighthouseId = await useCase.GetOrCreateSampleLighthouseAsync();
+
+    var photoUseCase = serviceProvider.GetRequiredService<PhotoManagementUseCase>();
+    await photoUseCase.UploadLighthousePhotoAsync(lighthouseId);
+}
+
+async Task ExecuteComprehensiveFlowAsync(ServiceProvider serviceProvider)
+{
+    Console.Clear();
+    Console.WriteLine("Composition Flow Test Use Case\n");
+
+    var useCase = serviceProvider.GetRequiredService<Composition>();
+    await useCase.ExecuteFullWorkflowAsync();
 }
