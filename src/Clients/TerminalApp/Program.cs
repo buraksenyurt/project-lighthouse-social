@@ -1,6 +1,7 @@
 ﻿using LighthouseSocial.Application;
 using LighthouseSocial.Data;
 using LighthouseSocial.Infrastructure;
+using LighthouseSocial.Infrastructure.Configuration;
 using LighthouseSocial.Infrastructure.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,16 +16,28 @@ var services = new ServiceCollection();
 
 services.AddLogging(builder => builder.AddConsole());
 
-var connStr = config.GetConnectionString("LighthouseDb");
-//todo@buraksenyurt Connection string bilgisini güvenli bir şekilde saklamalıyız. Secure Vault, Azure Key Vault gibi çözümler kullanılabilir.
-services.AddDatabase(connStr ?? "Host=localhost;Port=5432;Database=lighthousedb;Username=johndoe;Password=somew0rds");
 services.AddApplication();
 services.AddInfrastructure();
+services.AddDatabase(provider =>
+{
+    var vaultConfigService = provider.GetRequiredService<VaultConfigurationService>();
+    try
+    {
+        return vaultConfigService.GetDatabaseConnectionStringAsync().GetAwaiter().GetResult();
+    }
+    catch(Exception ex)
+    {
+        var logger = provider.GetRequiredService<ILogger<Program>>();
+        logger.LogWarning(ex, "Failed to get connection string from Vault");
+        return string.Empty;
+    }
+});
 services.Configure<MinioSettings>(config.GetSection("Minio"));
 
 services.AddScoped<LighthouseManagement>();
 services.AddScoped<PhotoManagementUseCase>();
 services.AddScoped<Composition>();
+services.AddSingleton<IConfiguration>(config);
 
 var serviceProvider = services.BuildServiceProvider();
 var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
