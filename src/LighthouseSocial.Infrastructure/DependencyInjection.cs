@@ -1,5 +1,6 @@
 ﻿using LighthouseSocial.Domain.Interfaces;
 using LighthouseSocial.Infrastructure.Auditors;
+using LighthouseSocial.Infrastructure.Caching;
 using LighthouseSocial.Infrastructure.Configuration;
 using LighthouseSocial.Infrastructure.SecretManager;
 using LighthouseSocial.Infrastructure.Storage;
@@ -16,9 +17,11 @@ public static class DependencyInjection
         services.AddScoped<IPhotoStorageService, PhotoStorageService>();
         services.AddScoped<ICommentAuditor,ExternalCommentAuditor>();
 
+        // Secret Vault
         services.AddScoped<ISecretManager, VaultSecretManager>();
         services.AddScoped<VaultConfigurationService>();
 
+        // Storage
         services.AddScoped<IMinioClient>(provider =>
         {
             var settings = provider.GetRequiredService<IOptions<MinioSettings>>().Value;
@@ -28,6 +31,10 @@ public static class DependencyInjection
                 .WithSSL(settings.UseSSL)
                 .Build();
         });
+
+        // Caching
+        services.AddMemoryCache();
+        services.AddScoped<ICacheService, MemoryCacheService>();
 
         return services;
     }
