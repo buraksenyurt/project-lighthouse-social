@@ -1,5 +1,6 @@
 using FluentValidation;
 using FluentValidation.Results;
+using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.Lighthouse;
 using LighthouseSocial.Domain.Countries;
@@ -11,13 +12,13 @@ namespace LighthouseSocial.Tests.Features.Lighthouse;
 public class CreateLighthouseHandlerTests
 {
     private readonly Mock<ILighthouseRepository> _repositoryMock;
-    private readonly Mock<ICountryRegistry> _registryMock;
+    private readonly Mock<ICountryDataReader> _registryMock;
     private readonly Mock<IValidator<LighthouseDto>> _validatorMock;
     private readonly CreateLighthouseHandler _handler;
     public CreateLighthouseHandlerTests()
     {
         _repositoryMock = new Mock<ILighthouseRepository>();
-        _registryMock = new Mock<ICountryRegistry>();
+        _registryMock = new Mock<ICountryDataReader>();
         _validatorMock = new Mock<IValidator<LighthouseDto>>();
         _handler = new CreateLighthouseHandler(_repositoryMock.Object, _registryMock.Object, _validatorMock.Object);
     }

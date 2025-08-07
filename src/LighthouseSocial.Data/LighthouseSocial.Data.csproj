@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LighthouseSocial.Application\LighthouseSocial.Application.csproj" />
     <ProjectReference Include="..\LighthouseSocial.Domain\LighthouseSocial.Domain.csproj" />
+    <ProjectReference Include="..\LighthouseSocial.Infrastructure\LighthouseSocial.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

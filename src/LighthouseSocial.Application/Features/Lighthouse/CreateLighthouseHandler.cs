@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Domain.Countries;
 using LighthouseSocial.Domain.Interfaces;
@@ -8,10 +9,10 @@ using LighthouseSocial.Domain.ValueObjects;
 namespace LighthouseSocial.Application.Features.Lighthouse;
 
 //todo@buraksenyurt Bu ve diğer Handler sınıfları Application dışına kapatılacak şekilde düzenlenmeli.
-public class CreateLighthouseHandler(ILighthouseRepository repository, ICountryRegistry countryRegistry, IValidator<LighthouseDto> validator)
+public class CreateLighthouseHandler(ILighthouseRepository repository, ICountryDataReader countryRegistry, IValidator<LighthouseDto> validator)
 {
     private readonly ILighthouseRepository _repository = repository;
-    private readonly ICountryRegistry _countryRegistry = countryRegistry;
+    private readonly ICountryDataReader _countryRegistry = countryRegistry;
     private readonly IValidator<LighthouseDto> _validator = validator;
     public async Task<Result<Guid>> HandleAsync(LighthouseDto dto)
     {
