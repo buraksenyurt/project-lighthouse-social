@@ -1,11 +1,12 @@
 ﻿using Dapper;
+using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Domain.Countries;
 using System.Data;
 
 namespace LighthouseSocial.Data.Repositories;
 
 public class CountryRepository(IDbConnectionFactory connFactory)
-    : ICountryRegistry
+    : ICountryDataReader
 {
     private readonly IDbConnectionFactory _connFactory = connFactory;
 
