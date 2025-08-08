@@ -25,7 +25,7 @@ services.AddDatabase(provider =>
     {
         return vaultConfigService.GetDatabaseConnectionStringAsync().GetAwaiter().GetResult();
     }
-    catch(Exception ex)
+    catch (Exception ex)
     {
         var logger = provider.GetRequiredService<ILogger<Program>>();
         logger.LogWarning(ex, "Failed to get connection string from Vault");
@@ -37,6 +37,7 @@ services.Configure<MinioSettings>(config.GetSection("Minio"));
 services.AddScoped<LighthouseManagement>();
 services.AddScoped<PhotoManagementUseCase>();
 services.AddScoped<Composition>();
+services.AddScoped<ViewManagement>();
 services.AddSingleton<IConfiguration>(config);
 
 var serviceProvider = services.BuildServiceProvider();
@@ -58,9 +59,10 @@ async Task RunInteractiveCliAsync(ServiceProvider serviceProvider, ILogger<Progr
             Console.WriteLine("1.Lighthouse Management (CRUD Operations)");
             Console.WriteLine("2.Photo Management (Upload & Operations)");
             Console.WriteLine("3.Composition Flow Test (Full Workflow)");
-            Console.WriteLine("4.Exit");
+            Console.WriteLine("4.Cached Countries Test");
+            Console.WriteLine("5.Exit");
             Console.WriteLine();
-            Console.Write("Select an option (1-4): ");
+            Console.Write("Select an option (1-5): ");
 
             var choice = Console.ReadLine();
 
@@ -76,6 +78,9 @@ async Task RunInteractiveCliAsync(ServiceProvider serviceProvider, ILogger<Progr
                     await ExecuteComprehensiveFlowAsync(serviceProvider);
                     break;
                 case "4":
+                    await ExecuteCountryCacheTestAsync(serviceProvider);
+                    break;
+                case "5":
                     Console.WriteLine("See you later, elegaytır :D");
                     return;
                 default:
@@ -84,7 +89,7 @@ async Task RunInteractiveCliAsync(ServiceProvider serviceProvider, ILogger<Progr
                     break;
             }
 
-            if (choice != "4")
+            if (choice != "5")
             {
                 Console.WriteLine("\nPress any key to return to main menu...");
                 Console.ReadKey();
@@ -133,4 +138,13 @@ async Task ExecuteComprehensiveFlowAsync(ServiceProvider serviceProvider)
 
     var useCase = serviceProvider.GetRequiredService<Composition>();
     await useCase.ExecuteFullWorkflowAsync();
+}
+
+async Task ExecuteCountryCacheTestAsync(ServiceProvider serviceProvider)
+{
+    Console.Clear();
+    Console.WriteLine("Country Cache Test Use Case\n");
+
+    var useCase = serviceProvider.GetRequiredService<ViewManagement>();
+    await useCase.LoadCountryList();
 }
