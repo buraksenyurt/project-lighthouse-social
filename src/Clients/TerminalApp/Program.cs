@@ -17,7 +17,7 @@ var services = new ServiceCollection();
 services.AddLogging(builder => builder.AddConsole());
 
 services.AddApplication();
-services.AddInfrastructure();
+services.AddInfrastructure(config);
 services.AddDatabase(provider =>
 {
     var vaultConfigService = provider.GetRequiredService<VaultConfigurationService>();
