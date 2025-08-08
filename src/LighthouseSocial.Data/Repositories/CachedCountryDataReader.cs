@@ -1,5 +1,5 @@
 ﻿using LighthouseSocial.Application.Contracts;
-using LighthouseSocial.Domain.Countries;
+using LighthouseSocial.Domain.Entities;
 using LighthouseSocial.Infrastructure.Caching;
 
 namespace LighthouseSocial.Data.Repositories;
@@ -12,26 +12,34 @@ public class CachedCountryDataReader(ICountryDataReader inner, ICacheService cac
     public async Task<IReadOnlyList<Country>> GetAllAsync()
     {
         const string cacheKey = "countries:all";
-        var cached = await cacheService.GetAsync<IReadOnlyList<Country>>(cacheKey);
+        var cached = await cacheService.GetAsync<IReadOnlyList<CountryDto>>(cacheKey);
         if (cached != null)
         {
-            return cached;
+            var converted = cached.Select(c => Country.Create(c.Id, c.Name)).ToList();
+            return converted;
         }
         var result = await inner.GetAllAsync();
-        await cacheService.SetAsync(cacheKey, result, CacheDuration);
+        var convertedResult = result.Select(c => new CountryDto { Id = c.Id, Name = c.Name }).ToList();
+        await cacheService.SetAsync(cacheKey, convertedResult, CacheDuration);
         return result;
     }
 
     public async Task<Country> GetByIdAsync(int id)
     {
         var cacheKey = $"country:{id}";
-        var cached = await cacheService.GetAsync<Country>(cacheKey);
+        var cached = await cacheService.GetAsync<CountryDto>(cacheKey);
         if (cached != null)
         {
-            return cached;
+            return Country.Create(cached.Id, cached.Name);
         }
         var result = await inner.GetByIdAsync(id);
-        await cacheService.SetAsync(cacheKey, result, CacheDuration);
+        await cacheService.SetAsync(cacheKey, new CountryDto { Id = result.Id, Name = result.Name }, CacheDuration);
         return result;
     }
+}
+//todo@buraksenyurt Country ve CountryDto arasında mapper kullanılabilir mi?
+internal class CountryDto
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
 }

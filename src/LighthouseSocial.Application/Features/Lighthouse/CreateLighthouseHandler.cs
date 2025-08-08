@@ -2,7 +2,7 @@
 using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Application.Dtos;
-using LighthouseSocial.Domain.Countries;
+using LighthouseSocial.Domain.Entities;
 using LighthouseSocial.Domain.Interfaces;
 using LighthouseSocial.Domain.ValueObjects;
 

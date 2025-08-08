@@ -1,5 +1,4 @@
 using Dapper;
-using LighthouseSocial.Domain.Countries;
 using LighthouseSocial.Domain.Entities;
 using LighthouseSocial.Domain.Interfaces;
 using LighthouseSocial.Domain.ValueObjects;

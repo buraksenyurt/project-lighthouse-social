@@ -1,5 +1,4 @@
 using LighthouseSocial.Domain.Common;
-using LighthouseSocial.Domain.Countries;
 using LighthouseSocial.Domain.ValueObjects;
 
 namespace LighthouseSocial.Domain.Entities;

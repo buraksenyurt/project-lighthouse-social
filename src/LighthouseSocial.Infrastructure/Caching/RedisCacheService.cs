@@ -3,17 +3,12 @@ using System.Text.Json;
 
 namespace LighthouseSocial.Infrastructure.Caching;
 
-public class RedisCacheService
+public class RedisCacheService(IDistributedCache distributedCache)
     : ICacheService
 {
-    private readonly IDistributedCache _distributedCache;
-    public RedisCacheService(IDistributedCache distributedCache)
-    {
-        _distributedCache = distributedCache;
-    }
     public async Task<T?> GetAsync<T>(string key)
     {
-        var json = await _distributedCache.GetStringAsync(key);
+        var json = await distributedCache.GetStringAsync(key);
         if (string.IsNullOrEmpty(json))
         {
             return default;
@@ -23,7 +18,7 @@ public class RedisCacheService
 
     public Task RemoveAsync<T>(string key)
     {
-        return _distributedCache.RemoveAsync(key);
+        return distributedCache.RemoveAsync(key);
     }
 
     public async Task SetAsync<T>(string key, T value, TimeSpan? absoluteExpiration = null)
@@ -34,6 +29,6 @@ public class RedisCacheService
         {
             options.AbsoluteExpirationRelativeToNow = absoluteExpiration;
         }
-        await _distributedCache.SetStringAsync(key, json, options);
+        await distributedCache.SetStringAsync(key, json, options);
     }
 }

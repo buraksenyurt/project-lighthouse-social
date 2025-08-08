@@ -1,6 +1,6 @@
 ﻿using Dapper;
 using LighthouseSocial.Application.Contracts;
-using LighthouseSocial.Domain.Countries;
+using LighthouseSocial.Domain.Entities;
 using System.Data;
 
 namespace LighthouseSocial.Data.Repositories;

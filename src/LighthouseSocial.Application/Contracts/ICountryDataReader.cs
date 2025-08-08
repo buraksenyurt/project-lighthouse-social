@@ -1,4 +1,4 @@
-using LighthouseSocial.Domain.Countries;
+using LighthouseSocial.Domain.Entities;
 
 namespace LighthouseSocial.Application.Contracts;
 

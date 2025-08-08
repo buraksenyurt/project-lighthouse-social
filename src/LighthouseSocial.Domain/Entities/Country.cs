@@ -1,15 +1,10 @@
-namespace LighthouseSocial.Domain.Countries;
+namespace LighthouseSocial.Domain.Entities;
 
 public class Country
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
+    public int Id { get;}
+    public string Name { get; }
     public override string ToString() => Name;
-    public Country()
-    {
-        
-    }
-
     internal Country(int id, string name)
     {
         Id = id;
