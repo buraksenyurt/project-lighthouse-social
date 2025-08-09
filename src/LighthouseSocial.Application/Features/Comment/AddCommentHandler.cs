@@ -1,5 +1,6 @@
 using FluentValidation;
 using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Common.Pipeline;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Domain.Interfaces;
 using LighthouseSocial.Domain.ValueObjects;

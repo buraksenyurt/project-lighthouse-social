@@ -13,13 +13,18 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
+        // Services
         services.AddScoped<ILighthouseService, LighthouseService>();
         services.AddScoped<IPhotoService, PhotoService>();
+
+        // Handlers
         services.AddScoped<CreateLighthouseHandler>();
         services.AddScoped<GetAllLighthousesHandler>();
         services.AddScoped<DeleteLighthouseHandler>();
         services.AddScoped<GetLighthouseByIdHandler>();
         services.AddScoped<UploadPhotoHandler>();
+
+        // Validators
         services.AddScoped<IValidator<LighthouseDto>, LighthouseDtoValidator>();
         services.AddScoped<IValidator<PhotoDto>, PhotoDtoValidator>();
 

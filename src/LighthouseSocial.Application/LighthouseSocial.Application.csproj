@@ -15,4 +15,8 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.7" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\Pipeline\Behaviors\" />
+  </ItemGroup>
+
 </Project>
