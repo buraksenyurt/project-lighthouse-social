@@ -76,9 +76,14 @@ Minimum Profil;
 - [x] **Bölüm 04 Basit İstemci Uygulamasının Geliştirilmesi:** Application katmanını kullanan basit bir terminal uygulamasının geliştirilmesi ve başarılı şekilde çalışır hale getirilmesi.
   - [Video 15](https://youtu.be/ovhQM9L_hhQ)
   - [Video 16](https://youtu.be/Frbquqiq4Us)
-- [ ] **Bölüm 05] Infrastructure Katmanında Geliştirmeler:** Fotoğraf saklama, doğrulama, bildirim gönderimi vb altyapı bileşenlerinin geliştirilmesi.
+- [ ] **Bölüm 05] Infrastructure Katmanında Geliştirmeler:** Fotoğraf saklama, doğrulama, caching, bildirim gönderimi vb altyapı bileşenlerinin geliştirilmesi.
   - [Video 17](https://youtu.be/RnCqWo9Bhs8)
   - [Video 18](https://youtu.be/pfPqZ1SkHdM) 
+  - [Video 19](https://youtu.be/CN52vnOzfT4)
+  - [Video 20](https://youtu.be/GadLQoJNfw4)
+  - [Video 21](https://youtu.be/B8VHWE8xbZU)
+  - [Video 22](https://youtu.be/24CHSgqMaB4)
+  - [Video 23](https://youtu.be/z9t0rKR5g_8)
 
 ## Sonarqube
 
