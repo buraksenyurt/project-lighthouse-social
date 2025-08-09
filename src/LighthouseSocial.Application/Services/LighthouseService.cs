@@ -1,25 +1,20 @@
-﻿using LighthouseSocial.Application.Contracts;
+﻿using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Common.Pipeline;
+using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Application.Dtos;
-using LighthouseSocial.Application.Features.Lighthouse;
+using LighthouseSocial.Application.Features.Models;
 using LighthouseSocial.Domain.Entities;
 
 namespace LighthouseSocial.Application.Services;
 
-public class LighthouseService(
-    CreateLighthouseHandler createLighthouseHandler, 
-    GetAllLighthousesHandler getAllLighthousesHandler, 
-    DeleteLighthouseHandler deleteLighthouseHandler, 
-    GetLighthouseByIdHandler getLighthouseByIdHandler)
+public class LighthouseService(PipelineDispatcher pipelineDispatcher)
     : ILighthouseService
 {
-    private readonly CreateLighthouseHandler _createLighthouseHandler = createLighthouseHandler;
-    private readonly DeleteLighthouseHandler _deleteLighthouseHandler = deleteLighthouseHandler;
-    private readonly GetAllLighthousesHandler _getAllLighthousesHandler = getAllLighthousesHandler;
-    private readonly GetLighthouseByIdHandler _getLighthouseByIdHandler = getLighthouseByIdHandler;
+    private readonly PipelineDispatcher _pipelineDispatcher = pipelineDispatcher;
 
     public async Task<Guid> CreateAsync(LighthouseDto dto)
     {
-        var result = await _createLighthouseHandler.HandleAsync(dto);
+        var result = await _pipelineDispatcher.SendAsync<CreateLighthouseRequest, Result<Guid>>(new CreateLighthouseRequest(dto));
         if (!result.Success)
         {
             throw new InvalidOperationException($"Failed to create lighthouse: {result.ErrorMessage}");
@@ -29,22 +24,22 @@ public class LighthouseService(
 
     public async Task DeleteAsync(Guid id)
     {
-        var _ = await _deleteLighthouseHandler.HandleAsync(id);
-        //if (!result.Success)
-        //{
-        //    throw new InvalidOperationException($"Failed to create lighthouse: {result.ErrorMessage}");
-        //}
+        var result = await _pipelineDispatcher.SendAsync<DeleteLighthouseRequest, Result>(new DeleteLighthouseRequest(id));
+        if (!result.Success)
+        {
+            throw new InvalidOperationException($"Failed to create lighthouse: {result.ErrorMessage}");
+        }
     }
 
     public async Task<IEnumerable<LighthouseDto>> GetAllAsync()
     {
-        var result = await _getAllLighthousesHandler.HandleAsync();
+        var result = await _pipelineDispatcher.SendAsync<GetAllLighthouseRequest, Result<IEnumerable<LighthouseDto>>>(new GetAllLighthouseRequest());
         return result.Success ? result.Data : [];
     }
 
     public async Task<LighthouseDto?> GetByIdAsync(Guid id)
     {
-        var result = await _getLighthouseByIdHandler.HandleAsync(id);
+        var result = await _pipelineDispatcher.SendAsync<GetLighthouseByIdRequest, Result<LighthouseDto>>(new GetLighthouseByIdRequest(id));
         if (!result.Success)
         {
             throw new InvalidOperationException($"Failed to get lighthouse by id: {result.ErrorMessage}");
