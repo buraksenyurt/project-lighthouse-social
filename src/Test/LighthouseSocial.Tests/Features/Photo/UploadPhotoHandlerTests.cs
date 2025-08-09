@@ -36,7 +36,7 @@ public class UploadPhotoHandlerTests
             .Returns(new ValidationResult());
 
         // Act
-        var result = await _handler.HandleAsync(dto, stream);
+        var result = await _handler.HandleAsync(new UploadPhotoRequest(dto, stream), CancellationToken.None);
 
         // Assert
         Assert.True(result.Success);
@@ -65,7 +65,7 @@ public class UploadPhotoHandlerTests
 
         // Act
         var stream = new MemoryStream([24, 42, 32]);
-        var result = await _handler.HandleAsync(dto, stream);
+        var result = await _handler.HandleAsync(new UploadPhotoRequest(dto, stream), CancellationToken.None);
 
         // Assert
         Assert.False(result.Success);

@@ -34,7 +34,7 @@ public class AddCommentHandlerIntegrationTests
             
         //todo@buraksenyurt Sistemde var olan UserId, PhotoId bilgileri ile test edilebilir
         var dto = new CommentDto(Guid.NewGuid(), Guid.NewGuid(), "It's a lovely day.", 7);
-        var result = await _handler.HandleAsync(dto);
+        var result = await _handler.HandleAsync(new AddCommentRequest(dto), CancellationToken.None);
 
         Assert.True(result.Success);
     }
@@ -47,7 +47,7 @@ public class AddCommentHandlerIntegrationTests
 
         //todo@buraksenyurt Sistemde var olan UserId, PhotoId bilgileri ile test edilebilir
         var dto = new CommentDto(Guid.NewGuid(), Guid.NewGuid(), "I hate you.", 1);
-        var result = await _handler.HandleAsync(dto);
+        var result = await _handler.HandleAsync(new AddCommentRequest(dto), CancellationToken.None);
 
         Assert.False(result.Success);
     }

@@ -34,7 +34,7 @@ public class CreateLighthouseHandlerTests
         _validatorMock.Setup(v => v.Validate(It.IsAny<LighthouseDto>())).Returns(new ValidationResult());
 
         // Act
-        var result = await _handler.HandleAsync(dto);
+        var result = await _handler.HandleAsync(new CreateLighthouseRequest(dto), CancellationToken.None);
 
         // Assert
         Assert.True(result.Success);
@@ -61,7 +61,7 @@ public class CreateLighthouseHandlerTests
             .Returns(new ValidationResult(validationFailures));
 
         // Act
-        var result = await _handler.HandleAsync(dto);
+        var result = await _handler.HandleAsync(new CreateLighthouseRequest(dto), CancellationToken.None);
 
         // Assert
         Assert.False(result.Success);

@@ -28,7 +28,7 @@ public class GetAllLighthousesHandlerTests
 
         _repositoryMock.Setup(r => r.GetAllAsync()).Returns(Task.FromResult(lighthouses.AsEnumerable()));
         // Act
-        var result = await _handler.HandleAsync();
+        var result = await _handler.HandleAsync(new GetAllLighthouseRequest(), CancellationToken.None);
 
         // Assert
         Assert.True(result.Success);
@@ -45,7 +45,7 @@ public class GetAllLighthousesHandlerTests
         _repositoryMock.Setup(r => r.GetAllAsync()).Returns(Task.FromResult(lighthouses.AsEnumerable()));
 
         // Act
-        var result = await _handler.HandleAsync();
+        var result = await _handler.HandleAsync(new GetAllLighthouseRequest(), CancellationToken.None);
 
         // Assert
         Assert.False(result.Success);
