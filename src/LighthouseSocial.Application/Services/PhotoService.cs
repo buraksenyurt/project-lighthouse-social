@@ -2,7 +2,7 @@
 using LighthouseSocial.Application.Common.Pipeline;
 using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Application.Dtos;
-using LighthouseSocial.Application.Features.Photo.Models;
+using LighthouseSocial.Application.Features.Photo;
 
 namespace LighthouseSocial.Application.Services;
 

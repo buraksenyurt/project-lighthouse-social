@@ -3,14 +3,15 @@ using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Common.Pipeline;
 using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Application.Dtos;
-using LighthouseSocial.Application.Features.Models;
 using LighthouseSocial.Domain.Entities;
 using LighthouseSocial.Domain.Interfaces;
 using LighthouseSocial.Domain.ValueObjects;
 
 namespace LighthouseSocial.Application.Features.Lighthouse;
 
-//todo@buraksenyurt Bu ve diğer Handler sınıfları Application dışına kapatılacak şekilde düzenlenmeli.
+internal record CreateLighthouseRequest(LighthouseDto Lighthouse);
+internal record CreateLighthouseResponse(Guid LighthouseId);
+
 internal class CreateLighthouseHandler(ILighthouseRepository repository, ICountryDataReader countryDataReader, IValidator<LighthouseDto> validator)
     : IHandler<CreateLighthouseRequest, Result<Guid>>
 {

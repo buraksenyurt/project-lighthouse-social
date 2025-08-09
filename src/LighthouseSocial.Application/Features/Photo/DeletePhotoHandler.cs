@@ -1,9 +1,10 @@
 using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Common.Pipeline;
-using LighthouseSocial.Application.Features.Photo.Models;
 using LighthouseSocial.Domain.Interfaces;
 
 namespace LighthouseSocial.Application.Features.Photo;
+internal record DeletePhotoRequest(Guid PhotoId);
+
 internal class DeletePhotoHandler(
     IPhotoRepository repository,
     IPhotoStorageService storage)

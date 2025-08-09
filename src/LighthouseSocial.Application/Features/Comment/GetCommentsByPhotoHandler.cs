@@ -1,10 +1,10 @@
 using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Common.Pipeline;
 using LighthouseSocial.Application.Dtos;
-using LighthouseSocial.Application.Features.Comment.Models;
 using LighthouseSocial.Domain.Interfaces;
 
 namespace LighthouseSocial.Application.Features.Comment;
+internal record GetCommentsByPhotoRequest(Guid PhotoId);
 
 internal class GetCommentsByPhotoHandler(ICommentRepository repository)
     : IHandler<GetCommentsByPhotoRequest, Result<IEnumerable<CommentDto>>>

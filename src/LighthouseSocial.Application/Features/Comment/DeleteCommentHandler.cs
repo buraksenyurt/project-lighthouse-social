@@ -1,9 +1,9 @@
 using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Common.Pipeline;
-using LighthouseSocial.Application.Features.Comment.Models;
 using LighthouseSocial.Domain.Interfaces;
 
 namespace LighthouseSocial.Application.Features.Comment;
+internal record DeleteCommentRequest(Guid CommentId);
 
 internal class DeleteCommentHandler(ICommentRepository repository)
     : IHandler<DeleteCommentRequest, Result>

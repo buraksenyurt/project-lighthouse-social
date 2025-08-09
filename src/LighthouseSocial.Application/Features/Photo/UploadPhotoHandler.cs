@@ -2,11 +2,11 @@ using FluentValidation;
 using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Common.Pipeline;
 using LighthouseSocial.Application.Dtos;
-using LighthouseSocial.Application.Features.Photo.Models;
 using LighthouseSocial.Domain.Interfaces;
 using LighthouseSocial.Domain.ValueObjects;
 
 namespace LighthouseSocial.Application.Features.Photo;
+internal record UploadPhotoRequest(PhotoDto Photo, Stream Content);
 
 internal class UploadPhotoHandler(
     IPhotoRepository repository,

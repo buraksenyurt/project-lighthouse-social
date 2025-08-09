@@ -2,7 +2,7 @@
 using LighthouseSocial.Application.Common.Pipeline;
 using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Application.Dtos;
-using LighthouseSocial.Application.Features.Models;
+using LighthouseSocial.Application.Features.Lighthouse;
 using LighthouseSocial.Domain.Entities;
 
 namespace LighthouseSocial.Application.Services;

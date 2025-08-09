@@ -2,11 +2,11 @@ using FluentValidation;
 using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Common.Pipeline;
 using LighthouseSocial.Application.Dtos;
-using LighthouseSocial.Application.Features.Comment.Models;
 using LighthouseSocial.Domain.Interfaces;
 using LighthouseSocial.Domain.ValueObjects;
 
 namespace LighthouseSocial.Application.Features.Comment;
+internal record AddCommentRequest(CommentDto Comment);
 
 internal class AddCommentHandler(ICommentRepository repository,
     IValidator<CommentDto> validator,

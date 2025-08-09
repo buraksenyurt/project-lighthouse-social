@@ -1,10 +1,10 @@
 using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Common.Pipeline;
 using LighthouseSocial.Application.Dtos;
-using LighthouseSocial.Application.Features.Models;
 using LighthouseSocial.Domain.Interfaces;
 
 namespace LighthouseSocial.Application.Features.Lighthouse;
+internal record GetAllLighthouseRequest();
 
 internal class GetAllLighthousesHandler(ILighthouseRepository repository)
     : IHandler<GetAllLighthouseRequest, Result<IEnumerable<LighthouseDto>>>
