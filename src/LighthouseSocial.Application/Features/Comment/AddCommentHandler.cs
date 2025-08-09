@@ -15,11 +15,6 @@ internal class AddCommentHandler(ICommentRepository repository,
     ICommentAuditor commentAuditor
     ) : IHandler<AddCommentRequest,Result<Guid>>
 {
-    /*
-        Bu ve diğer Handler'ların kullandığı bileşen sayısı giderek artabilir.
-        Daha yönetilebilir şekilde ele alınmaları lazım. Bir üst contract implementasyonunda,
-        düşünülebilir.
-    */
     //todo@buraksenyurt İhtiyaç duyulan bileşenlerin daha yönetilebilir ele alınması lazım.
     private readonly ICommentRepository _repository = repository;
     private readonly IValidator<CommentDto> _validator = validator;
@@ -58,7 +53,11 @@ internal class AddCommentHandler(ICommentRepository repository,
 
         var comment = new Domain.Entities.Comment(Guid.NewGuid(), dto.UserId, dto.PhotoId, dto.Text, Rating.FromValue(dto.Rating));
 
-        await _repository.AddAsync(comment);
+        var result = await _repository.AddAsync(comment);
+        if (!result)
+        {
+            return Result<Guid>.Fail("Failed to add comment to repository.");
+        }
 
         return Result<Guid>.Ok(comment.Id);
     }

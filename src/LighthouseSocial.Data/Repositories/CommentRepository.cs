@@ -8,14 +8,14 @@ public class CommentRepository(IDbConnectionFactory connFactory)
     : ICommentRepository
 {
     private readonly IDbConnectionFactory _connFactory = connFactory;
-    public async Task AddAsync(Comment comment)
+    public async Task<bool> AddAsync(Comment comment)
     {
         string sql = @"INSERT INTO comments (id, user_id, photo_id, text, rating, created_at)
                     VALUES (@Id, @UserId, @PhotoId, @Text, @Rating, @CreatedAt);";
 
         using var conn = _connFactory.CreateConnection();
 
-        await conn.ExecuteAsync(sql, new
+        var added = await conn.ExecuteAsync(sql, new
         {
             comment.Id,
             comment.UserId,
@@ -24,6 +24,7 @@ public class CommentRepository(IDbConnectionFactory connFactory)
             comment.Rating,
             comment.CreatedAt
         });
+        return added > 0;
     }
 
     public async Task<bool> DeleteAsync(Guid commentId)

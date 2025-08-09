@@ -10,7 +10,7 @@ public class LighthouseRepository(IDbConnectionFactory connFactory)
 {
     private readonly IDbConnectionFactory _connFactory = connFactory;
 
-    public async Task AddAsync(Lighthouse lighthouse)
+    public async Task<bool> AddAsync(Lighthouse lighthouse)
     {
         string sql = @"
             INSERT INTO lighthouses (id, name, country_id, latitude, longitude) 
@@ -18,7 +18,7 @@ public class LighthouseRepository(IDbConnectionFactory connFactory)
 
         using var conn = _connFactory.CreateConnection();
 
-        await conn.ExecuteAsync(sql, new
+        var added = await conn.ExecuteAsync(sql, new
         {
             lighthouse.Id,
             lighthouse.Name,
@@ -26,6 +26,7 @@ public class LighthouseRepository(IDbConnectionFactory connFactory)
             lighthouse.Location.Latitude,
             lighthouse.Location.Longitude
         });
+        return added > 0;
     }
 
     public async Task<bool> DeleteAsync(Guid id)

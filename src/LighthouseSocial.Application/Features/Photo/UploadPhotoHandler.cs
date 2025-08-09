@@ -39,7 +39,11 @@ internal class UploadPhotoHandler(
 
         var photo = new Domain.Entities.Photo(dto.Id, dto.UserId, dto.LighthouseId, savedPath, metadata);
 
-        await _repository.AddAsync(photo);
+        var result = await _repository.AddAsync(photo);
+        if (!result)
+        {
+            return Result<Guid>.Fail("Failed to add photo to repository.");
+        }
 
         return Result<Guid>.Ok(photo.Id);
     }

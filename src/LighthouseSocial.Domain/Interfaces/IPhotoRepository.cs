@@ -4,7 +4,7 @@ namespace LighthouseSocial.Domain.Interfaces;
 
 public interface IPhotoRepository
 {
-    Task AddAsync(Photo photo);
+    Task<bool> AddAsync(Photo photo);
     Task<Photo?> GetByIdAsync(Guid id);
     Task<bool> DeleteAsync(Guid id);
     Task<IEnumerable<Photo>> GetByLighthouseIdAsync(Guid lighthouseId);

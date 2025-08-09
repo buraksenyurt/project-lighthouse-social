@@ -31,18 +31,23 @@ internal class CreateLighthouseHandler(ILighthouseRepository repository, ICountr
         Country? country;
         try
         {
+            //Try-catch' den çıkaralım. ExceptionHandlerBehavior ele alıyor zaten.
+            //todo@buraksenyurt: CountryId'nin null olma durumu kontrol ed
             country = await _countryDataReader.GetByIdAsync(request.Lighthouse.CountryId);
 
             var location = new Coordinates(request.Lighthouse.Latitude, request.Lighthouse.Longitude);
             var lighthouse = new Domain.Entities.Lighthouse(request.Lighthouse.Id, request.Lighthouse.Name, country, location);
 
-            await _repository.AddAsync(lighthouse);
+            var result = await _repository.AddAsync(lighthouse);
+            if (!result)
+            {
+                return Result<Guid>.Fail("Failed to add lighthouse to repository.");
+            }
 
             return Result<Guid>.Ok(lighthouse.Id);
         }
         catch (Exception ex)
         {
-            //todo@buraksenyurt: Eğer mümkünse exception'ları loglamalıyız.
             return Result<Guid>.Fail($"Invalid country Id: {request.Lighthouse.CountryId}, {ex.Message}");
         }
     }

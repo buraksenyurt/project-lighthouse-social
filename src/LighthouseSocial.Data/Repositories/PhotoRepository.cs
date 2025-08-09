@@ -11,7 +11,7 @@ public class PhotoRepository(IDbConnectionFactory connFactory)
 {
     private readonly IDbConnectionFactory _connFactory = connFactory;
 
-    public async Task AddAsync(Photo photo)
+    public async Task<bool> AddAsync(Photo photo)
     {
         const string sql = @"
             INSERT INTO photos (id, user_id, lighthouse_id, filename, upload_date, lens, resolution, camera_model, taken_at)
@@ -32,12 +32,9 @@ public class PhotoRepository(IDbConnectionFactory connFactory)
         parameters.Add("CameraModel", photo.Metadata?.CameraModel);
         parameters.Add("TakenAt", photo.Metadata?.TakenAt);
 
-        var result = await conn.ExecuteAsync(sql, parameters);
+        var added = await conn.ExecuteAsync(sql, parameters);
 
-        if (result == 0)
-        {
-            throw new InvalidOperationException("Failed to insert photo into the database.");
-        }
+        return added > 0;
     }
 
     public async Task<bool> DeleteAsync(Guid id)

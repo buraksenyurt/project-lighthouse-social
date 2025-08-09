@@ -4,7 +4,7 @@ namespace LighthouseSocial.Domain.Interfaces;
 
 public interface ILighthouseRepository
 {
-    Task AddAsync(Lighthouse lighthouse);
+    Task<bool> AddAsync(Lighthouse lighthouse);
     Task UpdateAsync(Lighthouse lighthouse);
     Task<bool> DeleteAsync(Guid id);
     Task<Lighthouse?> GetByIdAsync(Guid id);
