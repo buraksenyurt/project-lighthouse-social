@@ -1,6 +1,6 @@
 # project-lighthouse-social
 
-C# ile uçtan uca bir Web projesi geliştirilmesi. Konu, dünya üzerindeki deniz fenerlerine ait fotoğrafların paylaşıldığı, yorumlandığı ve puanlandığı bir sosyal platform. _(Proje ilerleyişi [Youtube](https://youtu.be/XUiG1MwSq1o?si=qQbWwclg3pPuYDaF) kanalından da takip edebilirsiniz)_ Projede mümkün mertebe yazılım dünyasının efsane konularına olan ihtiyaçları ortaya koymaya çalışmak ilk amaçlarımdan birisidir. Örneğin, hiçbir mimari kalıba uymadan sadece belli prensipleri _(soyutlamalar, bağımlılıkları tersine çevirme, sorumlulukları dağıtma vs gibi)_ baz alarak bir proje iskeleti oluşturup, sonrasında sorularla yaklaşımın doğruluğunu değerlendirmek, açık noktaları tespit etmek ve standartlaşmış bir mimari kalıba çevirmek gibi.
+C# ile uçtan uca bir Web projesi geliştirilmesi. Konu, dünya üzerindeki deniz fenerlerine ait fotoğrafların paylaşıldığı, yorumlandığı ve puanlandığı bir sosyal platform. _(Proje ilerleyişi [Youtube](https://www.youtube.com/playlist?list=PLY-17mI_rla6Kt-Ri6nP1pE62ZyE-6wjS) kanalından da takip edebilirsiniz)_ Projede mümkün mertebe yazılım dünyasının efsane konularına olan ihtiyaçları ortaya koymaya çalışmak ilk amaçlarımdan birisidir. Örneğin, hiçbir mimari kalıba uymadan sadece belli prensipleri _(soyutlamalar, bağımlılıkları tersine çevirme, sorumlulukları dağıtma vs gibi)_ baz alarak bir proje iskeleti oluşturup, sonrasında sorularla yaklaşımın doğruluğunu değerlendirmek, açık noktaları tespit etmek ve standartlaşmış bir mimari kalıba çevirmek gibi.
 
 ---
 
@@ -76,7 +76,7 @@ Minimum Profil;
 - [x] **Bölüm 04 Basit İstemci Uygulamasının Geliştirilmesi:** Application katmanını kullanan basit bir terminal uygulamasının geliştirilmesi ve başarılı şekilde çalışır hale getirilmesi.
   - [Video 15](https://youtu.be/ovhQM9L_hhQ)
   - [Video 16](https://youtu.be/Frbquqiq4Us)
-- [ ] **Bölüm 05] Infrastructure Katmanında Geliştirmeler:** Fotoğraf saklama, doğrulama, caching, bildirim gönderimi vb altyapı bileşenlerinin geliştirilmesi.
+- [ ] **Bölüm 05 Infrastructure Katmanı Geliştirmeleri:** Fotoğraf saklama, doğrulama, caching, bildirim gönderimi vb altyapı bileşenlerinin geliştirilmesi.
   - [Video 17](https://youtu.be/RnCqWo9Bhs8)
   - [Video 18](https://youtu.be/pfPqZ1SkHdM) 
   - [Video 19](https://youtu.be/CN52vnOzfT4)
@@ -84,6 +84,7 @@ Minimum Profil;
   - [Video 21](https://youtu.be/B8VHWE8xbZU)
   - [Video 22](https://youtu.be/24CHSgqMaB4)
   - [Video 23](https://youtu.be/z9t0rKR5g_8)
+  - [Video 24](https://youtu.be/rrRxhuo8w0E)
 
 ## Sonarqube
 
