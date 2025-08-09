@@ -2,14 +2,9 @@
 
 namespace LighthouseSocial.Application.Common.Pipeline.Behaviors;
 
-public class ExceptionHandlingBehavior<TRequest, TResponse>
+public class ExceptionHandlingBehavior<TRequest, TResponse>(ILogger<PerformanceBehavior<TRequest, TResponse>> logger)
     : IPipelineBehavior<TRequest, TResponse>
 {
-    private readonly ILogger<PerformanceBehavior<TRequest, TResponse>> _logger;
-    public ExceptionHandlingBehavior(ILogger<PerformanceBehavior<TRequest, TResponse>> logger)
-    {
-        _logger = logger;
-    }
     public async Task<TResponse> HandleAsync(TRequest request, Func<Task<TResponse>> next, CancellationToken cancellationToken = default)
     {
         try
@@ -21,7 +16,21 @@ public class ExceptionHandlingBehavior<TRequest, TResponse>
             var requestName = typeof(TRequest).Name;
             var requestType = request?.GetType().Name ?? "Unknown";
 
-            _logger.LogError(ex, "Unhanled exception occured. {RequestName} of type {RequestType}", requestName, requestType);
+            logger.LogError(ex, "Unhanled exception occured. {RequestName} of type {RequestType}", requestName, requestType);
+
+            if (typeof(TResponse) == typeof(Result))
+            {
+                return (TResponse)(object)Result.Fail("Unexpected error occured.");
+            }
+            if (typeof(TResponse) == typeof(Result<>))
+            {
+                var resultType = typeof(TResponse).GetGenericArguments()[0];
+                var failMethod = typeof(Result).GetMethod("Fail", new[] { typeof(string) })?.MakeGenericMethod(resultType);
+                if (failMethod != null)
+                {
+                    return (TResponse)failMethod.Invoke(null, new object[] { "Beklenmeyen bir hata oluştu." });
+                }
+            }
 
             throw;
         }

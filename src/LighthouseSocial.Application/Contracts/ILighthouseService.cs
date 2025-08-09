@@ -10,6 +10,6 @@ public interface ILighthouseService
     Task<IEnumerable<Photo>> GetPhotosByIdAsync(Guid photoId);
     Task<LighthouseDto?> GetByIdAsync(Guid id);
     Task<Guid> CreateAsync(LighthouseDto dto);
-    Task UpdateAsync(Guid id, LighthouseDto dto);
-    Task DeleteAsync(Guid id);
+    Task<bool> UpdateAsync(Guid id, LighthouseDto dto);
+    Task<bool> DeleteAsync(Guid id);
 }

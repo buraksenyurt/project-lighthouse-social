@@ -22,13 +22,14 @@ public class LighthouseService(PipelineDispatcher pipelineDispatcher)
         return result.Data;
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
         var result = await _pipelineDispatcher.SendAsync<DeleteLighthouseRequest, Result>(new DeleteLighthouseRequest(id));
         if (!result.Success)
         {
-            throw new InvalidOperationException($"Failed to create lighthouse: {result.ErrorMessage}");
+            throw new InvalidOperationException($"Failed to delete lighthouse: {result.ErrorMessage}");
         }
+        return result.Success;
     }
 
     public async Task<IEnumerable<LighthouseDto>> GetAllAsync()
@@ -57,7 +58,7 @@ public class LighthouseService(PipelineDispatcher pipelineDispatcher)
         throw new NotImplementedException();
     }
 
-    public async Task UpdateAsync(Guid id, LighthouseDto dto)
+    public async Task<bool> UpdateAsync(Guid id, LighthouseDto dto)
     {
         throw new NotImplementedException();
     }

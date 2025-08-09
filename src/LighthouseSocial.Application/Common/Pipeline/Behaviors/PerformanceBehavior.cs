@@ -3,14 +3,9 @@ using System.Diagnostics;
 
 namespace LighthouseSocial.Application.Common.Pipeline.Behaviors;
 
-public class PerformanceBehavior<TRequest, TResponse>
+public class PerformanceBehavior<TRequest, TResponse>(ILogger<PerformanceBehavior<TRequest, TResponse>> logger)
     : IPipelineBehavior<TRequest, TResponse>
 {
-    private readonly ILogger<PerformanceBehavior<TRequest, TResponse>> _logger;
-    public PerformanceBehavior(ILogger<PerformanceBehavior<TRequest, TResponse>> logger)
-    {
-        _logger = logger;
-    }
     public async Task<TResponse> HandleAsync(TRequest request, Func<Task<TResponse>> next, CancellationToken cancellationToken = default)
     {
         var requestName = typeof(TRequest).Name;
@@ -21,9 +16,10 @@ public class PerformanceBehavior<TRequest, TResponse>
         stopwatch.Stop();
         var elapsedMs = stopwatch.ElapsedMilliseconds;
 
+        //todo@buraksenyurt 1000 değeri konfigürasyon dosyasından veya Vault'tan alınabilir
         if (elapsedMs > 1000)
         {
-            _logger.LogWarning("Slow request detected : {RequestName}, total duration is {ElapsedMs}", requestName, elapsedMs);
+            logger.LogWarning("Slow request detected : {RequestName}, total duration is {ElapsedMs}", requestName, elapsedMs);
         }
 
         return response;
