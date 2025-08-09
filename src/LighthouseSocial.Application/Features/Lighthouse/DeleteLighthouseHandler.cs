@@ -19,7 +19,11 @@ internal class DeleteLighthouseHandler(ILighthouseRepository repository)
             return Result.Fail("Lighthouse not found");
         }
 
-        await _repository.DeleteAsync(request.LighthouseId);
+        var result = await _repository.DeleteAsync(request.LighthouseId);
+        if (!result)
+        {
+            return Result.Fail("Failed to delete lighthouse");
+        }
         return Result.Ok();
     }
 }

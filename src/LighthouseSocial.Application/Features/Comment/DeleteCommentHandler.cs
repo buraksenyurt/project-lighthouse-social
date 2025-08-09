@@ -18,7 +18,11 @@ internal class DeleteCommentHandler(ICommentRepository repository)
             return Result.Fail("Comment not found");
         }
 
-        await _repository.DeleteAsync(request.CommentId);
+        var result = await _repository.DeleteAsync(request.CommentId);
+        if (!result)
+        {
+            return Result.Fail("Failed to delete comment");
+        }
         return Result.Ok();
     }
 }

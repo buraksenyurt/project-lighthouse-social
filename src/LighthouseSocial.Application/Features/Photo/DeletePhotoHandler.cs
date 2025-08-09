@@ -20,7 +20,11 @@ internal class DeletePhotoHandler(
             return Result.Fail("Photo not found.");
 
         await _storage.DeleteAsync(photo.Filename);
-        await _repository.DeleteAsync(request.PhotoId);
+        var result = await _repository.DeleteAsync(request.PhotoId);
+        if (!result)
+        {
+            return Result.Fail("Failed to delete photo from repository.");
+        }
 
         return Result.Ok();
     }

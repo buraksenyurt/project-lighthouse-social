@@ -26,12 +26,13 @@ public class CommentRepository(IDbConnectionFactory connFactory)
         });
     }
 
-    public async Task DeleteAsync(Guid commentId)
+    public async Task<bool> DeleteAsync(Guid commentId)
     {
         const string sql = "DELETE FROM comments WHERE id = @Id;";
 
         using var conn = _connFactory.CreateConnection();
-        await conn.ExecuteAsync(sql, new { Id = commentId });
+        var deleted = await conn.ExecuteAsync(sql, new { Id = commentId });
+        return deleted > 0;
     }
 
     public async Task<bool> ExistsForUserAsync(Guid userId, Guid photoId)
@@ -40,7 +41,7 @@ public class CommentRepository(IDbConnectionFactory connFactory)
             WHERE user_id = @UserId AND photo_id = @PhotoId;";
 
         using var conn = _connFactory.CreateConnection();
-        
+
         var count = await conn.ExecuteScalarAsync<int>(sql, new { UserId = userId, PhotoId = photoId });
         return count > 0;
     }

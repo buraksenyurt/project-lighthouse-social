@@ -40,13 +40,14 @@ public class PhotoRepository(IDbConnectionFactory connFactory)
         }
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
         const string sql = "DELETE FROM photos WHERE id = @Id;";
 
         using var conn = _connFactory.CreateConnection();
 
-        await conn.ExecuteAsync(sql, new { Id = id });
+        var deleted = await conn.ExecuteAsync(sql, new { Id = id });
+        return deleted > 0;
     }
 
     public async Task<Photo?> GetByIdAsync(Guid id)
