@@ -1,14 +1,17 @@
 using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Common.Pipeline;
 using LighthouseSocial.Application.Dtos;
+using LighthouseSocial.Application.Features.Models;
 using LighthouseSocial.Domain.Interfaces;
 
 namespace LighthouseSocial.Application.Features.Lighthouse;
 
-public class GetAllLighthousesHandler(ILighthouseRepository repository)
+internal class GetAllLighthousesHandler(ILighthouseRepository repository)
+    : IHandler<GetAllLighthouseRequest, Result<IEnumerable<LighthouseDto>>>
 {
     private readonly ILighthouseRepository _repository = repository;
 
-    public async Task<Result<IEnumerable<LighthouseDto>>> HandleAsync()
+    public async Task<Result<IEnumerable<LighthouseDto>>> HandleAsync(GetAllLighthouseRequest request, CancellationToken cancellationToken)
     {
         var lighthouses = await _repository.GetAllAsync();
 

@@ -1,16 +1,19 @@
 using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Common.Pipeline;
 using LighthouseSocial.Application.Dtos;
+using LighthouseSocial.Application.Features.Comment.Models;
 using LighthouseSocial.Domain.Interfaces;
 
 namespace LighthouseSocial.Application.Features.Comment;
 
-public class GetCommentsByPhotoHandler(ICommentRepository repository)
+internal class GetCommentsByPhotoHandler(ICommentRepository repository)
+    : IHandler<GetCommentsByPhotoRequest, Result<IEnumerable<CommentDto>>>
 {
     private readonly ICommentRepository _repository = repository;
 
-    public async Task<Result<IEnumerable<CommentDto>>> HandleAsync(Guid photoId)
+    public async Task<Result<IEnumerable<CommentDto>>> HandleAsync(GetCommentsByPhotoRequest request, CancellationToken cancellationToken)
     {
-        var comments = await _repository.GetByPhotoIdAsync(photoId);
+        var comments = await _repository.GetByPhotoIdAsync(request.PhotoId);
 
         var dtos = comments.Select(c => new CommentDto(c.UserId, c.PhotoId, c.Text, c.Rating.Value));
 

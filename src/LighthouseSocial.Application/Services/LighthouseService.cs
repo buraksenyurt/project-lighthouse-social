@@ -5,7 +5,11 @@ using LighthouseSocial.Domain.Entities;
 
 namespace LighthouseSocial.Application.Services;
 
-public class LighthouseService(CreateLighthouseHandler createLighthouseHandler, GetAllLighthousesHandler getAllLighthousesHandler, DeleteLighthouseHandler deleteLighthouseHandler, GetLighthouseByIdHandler getLighthouseByIdHandler)
+public class LighthouseService(
+    CreateLighthouseHandler createLighthouseHandler, 
+    GetAllLighthousesHandler getAllLighthousesHandler, 
+    DeleteLighthouseHandler deleteLighthouseHandler, 
+    GetLighthouseByIdHandler getLighthouseByIdHandler)
     : ILighthouseService
 {
     private readonly CreateLighthouseHandler _createLighthouseHandler = createLighthouseHandler;

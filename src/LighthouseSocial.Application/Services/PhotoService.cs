@@ -5,7 +5,7 @@ using LighthouseSocial.Application.Features.Photo;
 namespace LighthouseSocial.Application.Services;
 
 public class PhotoService(UploadPhotoHandler uploadPhotoHandler)
-            : IPhotoService
+    : IPhotoService
 {
     private readonly UploadPhotoHandler _uploadPhotoHandler = uploadPhotoHandler;
 

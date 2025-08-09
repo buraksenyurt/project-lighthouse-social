@@ -2,17 +2,18 @@ using FluentValidation;
 using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Common.Pipeline;
 using LighthouseSocial.Application.Dtos;
+using LighthouseSocial.Application.Features.Comment.Models;
 using LighthouseSocial.Domain.Interfaces;
 using LighthouseSocial.Domain.ValueObjects;
 
 namespace LighthouseSocial.Application.Features.Comment;
 
-public class AddCommentHandler(ICommentRepository repository,
+internal class AddCommentHandler(ICommentRepository repository,
     IValidator<CommentDto> validator,
     IUserRepository userRepository,
     IPhotoRepository photoRepository,
     ICommentAuditor commentAuditor
-    )
+    ) : IHandler<AddCommentRequest,Result<Guid>>
 {
     /*
         Bu ve diğer Handler'ların kullandığı bileşen sayısı giderek artabilir.
@@ -26,9 +27,10 @@ public class AddCommentHandler(ICommentRepository repository,
     private readonly IPhotoRepository _photoRepository = photoRepository;
     private readonly ICommentAuditor _commentAuditor = commentAuditor;
 
-    public async Task<Result<Guid>> HandleAsync(CommentDto dto)
+    public async Task<Result<Guid>> HandleAsync(AddCommentRequest request, CancellationToken cancellationToken)
     {
         //todo@buraksenyurt Aşağıdaki kullanım şeklide diğer handle metotlarında da aynı. Kod tekrarını nasıl önleriz?
+        var dto = request.Comment;
         var validation = _validator.Validate(dto);
         if (!validation.IsValid)
         {

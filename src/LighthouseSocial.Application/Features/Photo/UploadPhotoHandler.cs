@@ -1,19 +1,26 @@
 using FluentValidation;
 using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Common.Pipeline;
 using LighthouseSocial.Application.Dtos;
+using LighthouseSocial.Application.Features.Photo.Models;
 using LighthouseSocial.Domain.Interfaces;
 using LighthouseSocial.Domain.ValueObjects;
 
 namespace LighthouseSocial.Application.Features.Photo;
 
-public class UploadPhotoHandler(IPhotoRepository repository, IPhotoStorageService storageService, IValidator<PhotoDto> validator)
+internal class UploadPhotoHandler(
+    IPhotoRepository repository,
+    IPhotoStorageService storageService,
+    IValidator<PhotoDto> validator)
+    : IHandler<UploadPhotoRequest, Result<Guid>>
 {
     private readonly IPhotoStorageService _storageService = storageService;
     private readonly IPhotoRepository _repository = repository;
     private readonly IValidator<PhotoDto> _validator = validator;
 
-    public async Task<Result<Guid>> HandleAsync(PhotoDto dto, Stream content)
+    public async Task<Result<Guid>> HandleAsync(UploadPhotoRequest request, CancellationToken cancellationToken)
     {
+        var dto = request.Photo;
         var validation = _validator.Validate(dto);
         if (!validation.IsValid)
         {
@@ -21,7 +28,7 @@ public class UploadPhotoHandler(IPhotoRepository repository, IPhotoStorageServic
             return Result<Guid>.Fail(errors);
         }
 
-        var savedPath = await _storageService.SaveAsync(content, dto.FileName);
+        var savedPath = await _storageService.SaveAsync(request.Content, dto.FileName);
 
         var metadata = new PhotoMetadata(
             dto.Lens,

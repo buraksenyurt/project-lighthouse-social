@@ -1,21 +1,24 @@
 using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Common.Pipeline;
+using LighthouseSocial.Application.Features.Comment.Models;
 using LighthouseSocial.Domain.Interfaces;
 
 namespace LighthouseSocial.Application.Features.Comment;
 
-public class DeleteCommentHandler(ICommentRepository repository)
+internal class DeleteCommentHandler(ICommentRepository repository)
+    : IHandler<DeleteCommentRequest, Result>
 {
     private readonly ICommentRepository _repository = repository;
 
-    public async Task<Result> HandleAsync(Guid commentId)
+    public async Task<Result> HandleAsync(DeleteCommentRequest request, CancellationToken cancellationToken)
     {
-        var comment = await _repository.GetByIdAsync(commentId);
+        var comment = await _repository.GetByIdAsync(request.CommentId);
         if (comment == null)
         {
             return Result.Fail("Comment not found");
         }
 
-        await _repository.DeleteAsync(commentId);
+        await _repository.DeleteAsync(request.CommentId);
         return Result.Ok();
     }
 }
