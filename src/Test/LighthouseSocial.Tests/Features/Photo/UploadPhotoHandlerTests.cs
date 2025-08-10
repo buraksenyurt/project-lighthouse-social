@@ -35,6 +35,8 @@ public class UploadPhotoHandlerTests
             .Setup(v => v.Validate(It.IsAny<PhotoDto>()))
             .Returns(new ValidationResult());
 
+        _repositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.Photo>())).ReturnsAsync(true);
+
         // Act
         var result = await _handler.HandleAsync(new UploadPhotoRequest(dto, stream), CancellationToken.None);
 

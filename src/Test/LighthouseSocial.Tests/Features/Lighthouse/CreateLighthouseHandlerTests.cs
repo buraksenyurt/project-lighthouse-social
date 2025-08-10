@@ -32,6 +32,7 @@ public class CreateLighthouseHandlerTests
 
         _registryMock.Setup(r => r.GetByIdAsync(dto.CountryId)).ReturnsAsync(country);
         _validatorMock.Setup(v => v.Validate(It.IsAny<LighthouseDto>())).Returns(new ValidationResult());
+        _repositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.Lighthouse>())).ReturnsAsync(true);
 
         // Act
         var result = await _handler.HandleAsync(new CreateLighthouseRequest(dto), CancellationToken.None);

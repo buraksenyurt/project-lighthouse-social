@@ -27,7 +27,8 @@ public class LighthouseService(PipelineDispatcher pipelineDispatcher)
         var result = await _pipelineDispatcher.SendAsync<DeleteLighthouseRequest, Result>(new DeleteLighthouseRequest(id));
         if (!result.Success)
         {
-            throw new InvalidOperationException($"Failed to delete lighthouse: {result.ErrorMessage}");
+            return false;
+            //throw new InvalidOperationException($"Failed to delete lighthouse: {result.ErrorMessage}");
         }
         return result.Success;
     }

@@ -57,6 +57,9 @@ public class AddCommentHandlerTests
 
         _commentAuditorMock.Setup(a => a.IsTextCleanAsync(dto.Text)).ReturnsAsync(true);
 
+        _repositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.Comment>()))
+            .ReturnsAsync(true);
+
         // Act
         var result = await _handler.HandleAsync(new AddCommentRequest(dto), CancellationToken.None);
 

@@ -10,7 +10,6 @@ using LighthouseSocial.Domain.ValueObjects;
 namespace LighthouseSocial.Application.Features.Lighthouse;
 
 internal record CreateLighthouseRequest(LighthouseDto Lighthouse);
-internal record CreateLighthouseResponse(Guid LighthouseId);
 
 internal class CreateLighthouseHandler(ILighthouseRepository repository, ICountryDataReader countryDataReader, IValidator<LighthouseDto> validator)
     : IHandler<CreateLighthouseRequest, Result<Guid>>
