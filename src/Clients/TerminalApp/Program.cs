@@ -60,9 +60,10 @@ async Task RunInteractiveCliAsync(ServiceProvider serviceProvider, ILogger<Progr
             Console.WriteLine("2.Photo Management (Upload & Operations)");
             Console.WriteLine("3.Composition Flow Test (Full Workflow)");
             Console.WriteLine("4.Cached Countries Test");
-            Console.WriteLine("5.Exit");
+            Console.WriteLine("5.Photo List of Lighthouse Test");
+            Console.WriteLine("6.Exit");
             Console.WriteLine();
-            Console.Write("Select an option (1-5): ");
+            Console.Write("Select an option (1-6): ");
 
             var choice = Console.ReadLine();
 
@@ -81,6 +82,9 @@ async Task RunInteractiveCliAsync(ServiceProvider serviceProvider, ILogger<Progr
                     await ExecuteCountryCacheTestAsync(serviceProvider);
                     break;
                 case "5":
+                    await ExecuteListPhotosForLighthouseTestAsync(serviceProvider);
+                    break;
+                case "6":
                     Console.WriteLine("See you later, elegaytır :D");
                     return;
                 default:
@@ -89,7 +93,7 @@ async Task RunInteractiveCliAsync(ServiceProvider serviceProvider, ILogger<Progr
                     break;
             }
 
-            if (choice != "5")
+            if (choice != "6")
             {
                 Console.WriteLine("\nPress any key to return to main menu...");
                 Console.ReadKey();
@@ -147,4 +151,12 @@ async Task ExecuteCountryCacheTestAsync(ServiceProvider serviceProvider)
 
     var useCase = serviceProvider.GetRequiredService<ViewManagement>();
     await useCase.LoadCountryList();
+}
+
+async Task ExecuteListPhotosForLighthouseTestAsync(ServiceProvider serviceProvider)
+{
+    Console.Clear();
+    Console.WriteLine("List Photos of Lighthouse Test\n");
+    var useCase = serviceProvider.GetRequiredService<PhotoManagementUseCase>();
+    await useCase.ListPhotosForLighthouseAsync(Guid.Parse(Constants.SampleLighthouseId));
 }

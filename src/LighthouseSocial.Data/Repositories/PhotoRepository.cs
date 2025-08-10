@@ -93,7 +93,7 @@ public class PhotoRepository(IDbConnectionFactory connFactory)
         var metadata = new PhotoMetadata((string)row.lens, (string)row.resolution, (string)row.camera_model, (DateTime)row.taken_at);
         var photo = new Photo((Guid)row.id, (Guid)row.user_id, (Guid)row.lighthouse_id, (string)row.filename, metadata);
         //todo@buraksenyurt Refection ile ID atamayı terk edelim
-        typeof(EntityBase).GetProperty(nameof(EntityBase.Id))?.SetValue(photo, (Guid)row.Id);
+        typeof(EntityBase).GetProperty(nameof(EntityBase.Id))?.SetValue(photo, (Guid)row.id);
         return photo;
     }
 }

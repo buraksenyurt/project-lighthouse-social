@@ -26,7 +26,7 @@ public class ExceptionHandlingBehavior<TRequest, TResponse>(ILogger<PerformanceB
             if (typeof(TResponse) == typeof(Result<>))
             {
                 var resultType = typeof(TResponse).GetGenericArguments()[0];
-                var failMethod = typeof(Result).GetMethod("Fail", new[] { typeof(string) })?.MakeGenericMethod(resultType);
+                var failMethod = typeof(Result).GetMethod("Fail", [typeof(string)])?.MakeGenericMethod(resultType);
                 if (failMethod != null)
                 {
                     return (TResponse)failMethod.Invoke(null, new object[] { "Beklenmeyen bir hata oluştu." });

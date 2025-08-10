@@ -1,5 +1,6 @@
 ﻿using LighthouseSocial.Domain.Interfaces;
 using LighthouseSocial.Infrastructure.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Minio;
 using Minio.DataModel.Args;
@@ -11,8 +12,10 @@ public class PhotoStorageService
 {
     private readonly IMinioClient _minioClient;
     private readonly string _bucket;
-    public PhotoStorageService(IOptions<MinioSettings> options, VaultConfigurationService vaultConfigurationService)
+    private readonly ILogger<PhotoStorageService> _logger;
+    public PhotoStorageService(IOptions<MinioSettings> options, VaultConfigurationService vaultConfigurationService, ILogger<PhotoStorageService> logger)
     {
+        _logger = logger;
         var (accessKey, secretKey) = vaultConfigurationService.GetMinioCredentialsAsync().GetAwaiter().GetResult();
 
         var settings = options.Value;
@@ -22,6 +25,7 @@ public class PhotoStorageService
             .WithCredentials(accessKey, secretKey)
             .WithSSL(settings.UseSSL)
             .Build();
+        _logger = logger;
     }
     public async Task DeleteAsync(string filePath)
     {
@@ -48,6 +52,7 @@ public class PhotoStorageService
         bool found = await _minioClient.BucketExistsAsync(new BucketExistsArgs().WithBucket(_bucket));
         if (!found)
         {
+            _logger.LogWarning("Bucket {BucketName} does not exist. Creating it now.", _bucket);
             await _minioClient.MakeBucketAsync(new MakeBucketArgs().WithBucket(_bucket));
         }
 
@@ -59,6 +64,8 @@ public class PhotoStorageService
                 .WithObjectSize(content.Length)
                 .WithContentType("application/octet-stream"));
 
-        return $"{_bucket}/{fileName}";
+        _logger.LogInformation("Photo {FileName} saved to MinIO bucket {BucketName}", fileName, _bucket);
+
+        return $"{fileName}";
     }
 }

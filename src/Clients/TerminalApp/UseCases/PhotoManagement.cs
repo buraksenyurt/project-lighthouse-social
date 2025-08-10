@@ -6,9 +6,11 @@ namespace TerminalApp.UseCases;
 
 public class PhotoManagementUseCase(
     IPhotoService photoService,
+    ILighthouseService lighthouseService,
     ILogger<PhotoManagementUseCase> logger)
 {
     private readonly IPhotoService _photoService = photoService;
+    private readonly ILighthouseService _lighthouseService = lighthouseService;
     private readonly ILogger<PhotoManagementUseCase> _logger = logger;
 
     public async Task UploadLighthousePhotoAsync(Guid lighthouseId)
@@ -67,8 +69,46 @@ public class PhotoManagementUseCase(
         Console.WriteLine("\nPhoto upload test completed!");
     }
 
-    public Task ListPhotosForLighthouseAsync(Guid lighthouseId)
+    public async Task ListPhotosForLighthouseAsync(Guid lighthouseId)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Testing: Photos of Lighthouse\n");
+        Console.WriteLine($"Listing photos for Lighthouse ID: {lighthouseId}");
+        try
+        {
+            var photos = await _lighthouseService.GetPhotosByIdAsync(lighthouseId);
+            foreach (var photo in photos)
+            {
+                Console.WriteLine($"Photo ID: {photo.Id}");
+                Console.WriteLine($"Filename: {photo.FileName}");
+                Console.WriteLine($"Uploaded At: {photo.UploadedAt:yyyy-MM-dd HH:mm:ss}");
+                Console.WriteLine($"Camera Type: {photo.CameraType}");
+                Console.WriteLine($"Resolution: {photo.Resolution}");
+                Console.WriteLine($"Lens: {photo.Lens}");
+                Console.WriteLine(new string('-', 40));
+                var stream = await _photoService.GetRawPhotoAsync(photo.FileName);
+                if (stream is not MemoryStream memoryStream)
+                {
+                    _logger.LogWarning("Failed to cast stream to MemoryStream for {Filename}", photo.FileName);
+                    Console.WriteLine($"Failed to retrieve photo stream for {photo.FileName}");
+                    continue;
+                }
+                else
+                {
+                    var directory = Path.Combine(Environment.CurrentDirectory, "downloads");
+                    if (!Directory.Exists(directory))
+                    {
+                        Directory.CreateDirectory(directory);
+                    }
+                    var filePath = Path.Combine(Environment.CurrentDirectory, "downloads", photo.FileName);
+                    File.WriteAllBytes(filePath, memoryStream.ToArray());
+                    Console.WriteLine($"Photo saved to: {filePath}");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error listing photos for lighthouse");
+            Console.WriteLine($"Error listing photos: {ex.Message}");
+        }
     }
 }
