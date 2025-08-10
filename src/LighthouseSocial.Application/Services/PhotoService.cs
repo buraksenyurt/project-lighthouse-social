@@ -29,4 +29,15 @@ public class PhotoService(PipelineDispatcher pipelineDispatcher)
             ? result.Data
             : throw new InvalidOperationException($"Failed to upload photo: {result.ErrorMessage}");
     }
+
+    public async Task<Stream> GetRawPhotoAsync(string fileName)
+    {
+        var request = new GetRawPhotoRequest(fileName);
+        var result = await pipelineDispatcher.SendAsync<GetRawPhotoRequest, Result<Stream>>(request);
+        if (!result.Success)
+        {
+            throw new InvalidOperationException($"Failed to retrieve photo: {result.ErrorMessage}");
+        }
+        return result.Data ?? throw new InvalidOperationException("Photo stream is null or empty.");
+    }
 }

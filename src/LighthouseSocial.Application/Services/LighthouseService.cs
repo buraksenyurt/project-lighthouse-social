@@ -3,7 +3,7 @@ using LighthouseSocial.Application.Common.Pipeline;
 using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.Lighthouse;
-using LighthouseSocial.Domain.Entities;
+using LighthouseSocial.Application.Features.Photo;
 
 namespace LighthouseSocial.Application.Services;
 
@@ -22,9 +22,9 @@ public class LighthouseService(PipelineDispatcher pipelineDispatcher)
         return result.Data;
     }
 
-    public async Task<bool> DeleteAsync(Guid id)
+    public async Task<bool> DeleteAsync(Guid lighthouseId)
     {
-        var result = await _pipelineDispatcher.SendAsync<DeleteLighthouseRequest, Result>(new DeleteLighthouseRequest(id));
+        var result = await _pipelineDispatcher.SendAsync<DeleteLighthouseRequest, Result>(new DeleteLighthouseRequest(lighthouseId));
         if (!result.Success)
         {
             return false;
@@ -39,9 +39,9 @@ public class LighthouseService(PipelineDispatcher pipelineDispatcher)
         return result.Success ? result.Data : [];
     }
 
-    public async Task<LighthouseDto?> GetByIdAsync(Guid id)
+    public async Task<LighthouseDto?> GetByIdAsync(Guid lighthouseId)
     {
-        var result = await _pipelineDispatcher.SendAsync<GetLighthouseByIdRequest, Result<LighthouseDto>>(new GetLighthouseByIdRequest(id));
+        var result = await _pipelineDispatcher.SendAsync<GetLighthouseByIdRequest, Result<LighthouseDto>>(new GetLighthouseByIdRequest(lighthouseId));
         if (!result.Success)
         {
             throw new InvalidOperationException($"Failed to get lighthouse by id: {result.ErrorMessage}");
@@ -49,9 +49,14 @@ public class LighthouseService(PipelineDispatcher pipelineDispatcher)
         return result.Data;
     }
 
-    public async Task<IEnumerable<Photo>> GetPhotosByIdAsync(Guid photoId)
+    public async Task<IEnumerable<PhotoDto>> GetPhotosByIdAsync(Guid lighthouseId)
     {
-        throw new NotImplementedException();
+        var result = await _pipelineDispatcher.SendAsync<GetPhotosByLighthouseRequest, Result<IEnumerable<PhotoDto>>>(new GetPhotosByLighthouseRequest(lighthouseId));
+        if (!result.Success)
+        {
+            throw new InvalidOperationException($"Failed to get photos for lighthouse: {result.ErrorMessage}");
+        }
+        return result.Data ?? [];
     }
 
     public async Task<IEnumerable<LighthouseDto>> GetTopAsync(TopDto topDto)
@@ -59,7 +64,7 @@ public class LighthouseService(PipelineDispatcher pipelineDispatcher)
         throw new NotImplementedException();
     }
 
-    public async Task<bool> UpdateAsync(Guid id, LighthouseDto dto)
+    public async Task<bool> UpdateAsync(Guid lighthouseId, LighthouseDto dto)
     {
         throw new NotImplementedException();
     }

@@ -6,4 +6,5 @@ public interface IPhotoService
 {
     Task<Guid> UploadAsync(PhotoDto dto, Stream fileContent);
     Task<bool> DeleteAsync(Guid photoId);
+    Task<Stream> GetRawPhotoAsync(string fileName);
 }
