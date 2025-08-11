@@ -37,8 +37,8 @@ public class LighthouseManagement(
             var lighthouse = await _lighthouseService.GetByIdAsync(id);
             if (lighthouse is not null)
             {
-                Console.WriteLine($"Lighthouse found: {lighthouse.Name} (ID: {lighthouse.Id}) in Country: {lighthouse.CountryId}");
-                Console.WriteLine($"Location: {lighthouse.Latitude}, {lighthouse.Longitude}");
+                Console.WriteLine($"Lighthouse found: {lighthouse.Data.Name} (ID: {lighthouse.Data.Id}) in Country: {lighthouse.Data.CountryId}");
+                Console.WriteLine($"Location: {lighthouse.Data.Latitude}, {lighthouse.Data.Longitude}");
             }
             else
             {
@@ -49,9 +49,9 @@ public class LighthouseManagement(
             Console.WriteLine("\nAll Lighthouses in System:");
             var allLighthouses = await _lighthouseService.GetAllAsync();
 
-            if (allLighthouses.Any())
+            if (allLighthouses.Data.Any())
             {
-                foreach (var l in allLighthouses)
+                foreach (var l in allLighthouses.Data)
                 {
                     Console.WriteLine($"\t{l.Name} (ID: {l.Id})");
                 }

@@ -12,59 +12,37 @@ public class LighthouseService(PipelineDispatcher pipelineDispatcher)
 {
     private readonly PipelineDispatcher _pipelineDispatcher = pipelineDispatcher;
 
-    public async Task<Guid> CreateAsync(LighthouseDto dto)
+    public async Task<Result<Guid>> CreateAsync(LighthouseDto dto)
     {
-        var result = await _pipelineDispatcher.SendAsync<CreateLighthouseRequest, Result<Guid>>(new CreateLighthouseRequest(dto));
-        if (!result.Success)
-        {
-            throw new InvalidOperationException($"Failed to create lighthouse: {result.ErrorMessage}");
-        }
-        return result.Data;
+        return await _pipelineDispatcher.SendAsync<CreateLighthouseRequest, Result<Guid>>(new CreateLighthouseRequest(dto));
     }
 
-    public async Task<bool> DeleteAsync(Guid lighthouseId)
+    public async Task<Result> DeleteAsync(Guid lighthouseId)
     {
-        var result = await _pipelineDispatcher.SendAsync<DeleteLighthouseRequest, Result>(new DeleteLighthouseRequest(lighthouseId));
-        if (!result.Success)
-        {
-            return false;
-            //throw new InvalidOperationException($"Failed to delete lighthouse: {result.ErrorMessage}");
-        }
-        return result.Success;
+        return await _pipelineDispatcher.SendAsync<DeleteLighthouseRequest, Result>(new DeleteLighthouseRequest(lighthouseId));
     }
 
-    public async Task<IEnumerable<LighthouseDto>> GetAllAsync()
+    public async Task<Result<IEnumerable<LighthouseDto>>> GetAllAsync()
     {
-        var result = await _pipelineDispatcher.SendAsync<GetAllLighthouseRequest, Result<IEnumerable<LighthouseDto>>>(new GetAllLighthouseRequest());
-        return result.Success ? result.Data : [];
+        return await _pipelineDispatcher.SendAsync<GetAllLighthouseRequest, Result<IEnumerable<LighthouseDto>>>(new GetAllLighthouseRequest());
     }
 
-    public async Task<LighthouseDto?> GetByIdAsync(Guid lighthouseId)
+    public async Task<Result<LighthouseDto>> GetByIdAsync(Guid lighthouseId)
     {
-        var result = await _pipelineDispatcher.SendAsync<GetLighthouseByIdRequest, Result<LighthouseDto>>(new GetLighthouseByIdRequest(lighthouseId));
-        if (!result.Success)
-        {
-            return null; //todo@buraksenyurt Response hakkında bilgi veren bir cevap vermek gerekir
-        }
-        return result.Data;
+        return await _pipelineDispatcher.SendAsync<GetLighthouseByIdRequest, Result<LighthouseDto>>(new GetLighthouseByIdRequest(lighthouseId));
     }
 
-    public async Task<IEnumerable<PhotoDto>> GetPhotosByIdAsync(Guid lighthouseId)
+    public async Task<Result<IEnumerable<PhotoDto>>> GetPhotosByIdAsync(Guid lighthouseId)
     {
-        var result = await _pipelineDispatcher.SendAsync<GetPhotosByLighthouseRequest, Result<IEnumerable<PhotoDto>>>(new GetPhotosByLighthouseRequest(lighthouseId));
-        if (!result.Success)
-        {
-            throw new InvalidOperationException($"Failed to get photos for lighthouse: {result.ErrorMessage}");
-        }
-        return result.Data ?? [];
+        return await _pipelineDispatcher.SendAsync<GetPhotosByLighthouseRequest, Result<IEnumerable<PhotoDto>>>(new GetPhotosByLighthouseRequest(lighthouseId));
     }
 
-    public async Task<IEnumerable<LighthouseDto>> GetTopAsync(TopDto topDto)
+    public async Task<Result<IEnumerable<LighthouseDto>>> GetTopAsync(TopDto topDto)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<bool> UpdateAsync(Guid lighthouseId, LighthouseDto dto)
+    public async Task<Result> UpdateAsync(Guid lighthouseId, LighthouseDto dto)
     {
         throw new NotImplementedException();
     }

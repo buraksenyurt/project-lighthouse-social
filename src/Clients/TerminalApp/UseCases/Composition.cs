@@ -20,17 +20,17 @@ public class Composition(
         try
         {
             var lighthouseId = await CreateLighthouseAsync();
-            if (lighthouseId == Guid.Empty) 
+            if (lighthouseId == Guid.Empty)
                 return;
 
             var photoId = await UploadPhotoAsync(lighthouseId);
-            if (photoId == Guid.Empty) 
+            if (photoId == Guid.Empty)
                 return;
 
             await AddCommentsToPhotoAsync(photoId);
             await ListLighthouseDetailsAsync(lighthouseId);
             await UpdateLighthouseAsync(lighthouseId);
-            
+
             Console.WriteLine("\nFull workflow completed successfully!");
 
         }
@@ -59,12 +59,12 @@ public class Composition(
 
             await _lighthouseService.DeleteAsync(lighthouseId);
 
-            var createdId = await _lighthouseService.CreateAsync(lighthouse);
+            var result = await _lighthouseService.CreateAsync(lighthouse);
             Console.WriteLine($"Lighthouse created: {lighthouse.Name}");
             Console.WriteLine($"\tLocation: {lighthouse.Latitude}, {lighthouse.Longitude}");
-            Console.WriteLine($"\tID: {createdId}");
+            Console.WriteLine($"\tID: {result.Data}");
 
-            return createdId;
+            return result.Data;
         }
         catch (Exception ex)
         {
@@ -103,14 +103,14 @@ public class Composition(
                 Lens: "RF 24-105mm f/4L IS USM"
             );
 
-            var uploadedPhotoId = await _photoService.UploadAsync(photoDto, file);
+            var result = await _photoService.UploadAsync(photoDto, file);
 
             Console.WriteLine($"Photo uploaded successfully");
-            Console.WriteLine($"\tPhoto ID: {uploadedPhotoId}");
+            Console.WriteLine($"\tPhoto ID: {result.Data}");
             Console.WriteLine($"\tFilename: {photoDto.FileName}");
             Console.WriteLine($"\tCamera: {photoDto.CameraType}");
 
-            return uploadedPhotoId;
+            return result.Data;
         }
         catch (Exception ex)
         {
@@ -151,10 +151,16 @@ public class Composition(
 
         try
         {
-            var lighthouse = await _lighthouseService.GetByIdAsync(lighthouseId);
+            var result = await _lighthouseService.GetByIdAsync(lighthouseId);
 
-            if (lighthouse != null)
+            if (result.Success)
             {
+                var lighthouse = result.Data;
+                if (lighthouse is null)
+                {
+                    Console.WriteLine("\tLighthouse not found");
+                    return;
+                }
                 Console.WriteLine($"Lighthouse: {lighthouse.Name}");
                 Console.WriteLine($"\t\tLocation: {lighthouse.Latitude}, {lighthouse.Longitude}");
                 Console.WriteLine($"\t\tCountry ID: {lighthouse.CountryId}");

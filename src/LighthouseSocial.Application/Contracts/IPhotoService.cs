@@ -1,10 +1,11 @@
+using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Dtos;
 
 namespace LighthouseSocial.Application.Contracts;
 
 public interface IPhotoService
 {
-    Task<Guid> UploadAsync(PhotoDto dto, Stream fileContent);
-    Task<bool> DeleteAsync(Guid photoId);
-    Task<Stream> GetRawPhotoAsync(string fileName);
+    Task<Result<Guid>> UploadAsync(PhotoDto dto, Stream fileContent);
+    Task<Result> DeleteAsync(Guid photoId);
+    Task<Result<Stream>> GetRawPhotoAsync(string fileName);
 }

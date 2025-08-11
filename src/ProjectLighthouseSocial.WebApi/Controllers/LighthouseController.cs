@@ -24,13 +24,12 @@ public class LighthouseController : ControllerBase
     {
         try
         {
-            var lighthouse = await _lighthouseService.GetByIdAsync(lighthouseId);
-            if (lighthouse == null)
-            {
-                _logger.LogWarning("Lighthouse with ID {LighthouseId} not found", lighthouseId);
-                return NotFound($"Lighthouse with ID {lighthouseId} not found");
-            }
-            return Ok(lighthouse);
+            var result = await _lighthouseService.GetByIdAsync(lighthouseId);
+
+            if (!result.Success)
+                return NotFound(result.ErrorMessage);
+
+            return Ok(result.Data);
         }
         catch (Exception ex)
         {
@@ -52,8 +51,12 @@ public class LighthouseController : ControllerBase
                 request.Latitude,
                 request.Longitude
             );
-            var lighthouseId = await _lighthouseService.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetByIdAsync), new { lighthouseId }, lighthouseId);
+            var result = await _lighthouseService.CreateAsync(dto);
+
+            if (!result.Success)
+                return BadRequest(result.ErrorMessage);
+
+            return CreatedAtAction(nameof(GetByIdAsync), new { id = result.Data }, result.Data);
         }
         catch (Exception ex)
         {

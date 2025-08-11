@@ -9,35 +9,21 @@ namespace LighthouseSocial.Application.Services;
 public class PhotoService(PipelineDispatcher pipelineDispatcher)
     : IPhotoService
 {
-    public async Task<bool> DeleteAsync(Guid photoId)
+    public async Task<Result> DeleteAsync(Guid photoId)
     {
         var request = new DeletePhotoRequest(photoId);
-        var result = await pipelineDispatcher.SendAsync<DeletePhotoRequest, Result>(request);
-        if (!result.Success)
-        {
-            throw new InvalidOperationException($"Failed to delete photo: {result.ErrorMessage}");
-        }
-        return result.Success;
+        return await pipelineDispatcher.SendAsync<DeletePhotoRequest, Result>(request);
     }
 
-    public async Task<Guid> UploadAsync(PhotoDto dto, Stream fileContent)
+    public async Task<Result<Guid>> UploadAsync(PhotoDto dto, Stream fileContent)
     {
         var request = new UploadPhotoRequest(dto, fileContent);
-        var result = await pipelineDispatcher.SendAsync<UploadPhotoRequest, Result<Guid>>(request);
-
-        return result.Success
-            ? result.Data
-            : throw new InvalidOperationException($"Failed to upload photo: {result.ErrorMessage}");
+        return await pipelineDispatcher.SendAsync<UploadPhotoRequest, Result<Guid>>(request);
     }
 
-    public async Task<Stream> GetRawPhotoAsync(string fileName)
+    public async Task<Result<Stream>> GetRawPhotoAsync(string fileName)
     {
         var request = new GetRawPhotoRequest(fileName);
-        var result = await pipelineDispatcher.SendAsync<GetRawPhotoRequest, Result<Stream>>(request);
-        if (!result.Success)
-        {
-            throw new InvalidOperationException($"Failed to retrieve photo: {result.ErrorMessage}");
-        }
-        return result.Data ?? throw new InvalidOperationException("Photo stream is null or empty.");
+        return await pipelineDispatcher.SendAsync<GetRawPhotoRequest, Result<Stream>>(request);
     }
 }

@@ -75,8 +75,13 @@ public class PhotoManagementUseCase(
         Console.WriteLine($"Listing photos for Lighthouse ID: {lighthouseId}");
         try
         {
-            var photos = await _lighthouseService.GetPhotosByIdAsync(lighthouseId);
-            foreach (var photo in photos)
+            var result = await _lighthouseService.GetPhotosByIdAsync(lighthouseId);
+            if (!result.Success || result.Data is null)
+            {
+                Console.WriteLine($"Error retrieving photos: {result.ErrorMessage}");
+                return;
+            }
+            foreach (var photo in result.Data)
             {
                 Console.WriteLine($"Photo ID: {photo.Id}");
                 Console.WriteLine($"Filename: {photo.FileName}");
@@ -85,8 +90,14 @@ public class PhotoManagementUseCase(
                 Console.WriteLine($"Resolution: {photo.Resolution}");
                 Console.WriteLine($"Lens: {photo.Lens}");
                 Console.WriteLine(new string('-', 40));
-                var stream = await _photoService.GetRawPhotoAsync(photo.FileName);
-                if (stream is not MemoryStream memoryStream)
+                var response = await _photoService.GetRawPhotoAsync(photo.FileName);
+                if (!response.Success || response.Data is null)
+                {
+                    Console.WriteLine($"Error retrieving photo stream for {photo.FileName}: {response.ErrorMessage}");
+                    continue;
+                }
+
+                if (response.Data is not MemoryStream memoryStream)
                 {
                     _logger.LogWarning("Failed to cast stream to MemoryStream for {Filename}", photo.FileName);
                     Console.WriteLine($"Failed to retrieve photo stream for {photo.FileName}");
