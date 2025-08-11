@@ -1,0 +1,6 @@
+@ProjectLighthouseSocial.WebApi_HostAddress = http://localhost:5072
+
+GET {{ProjectLighthouseSocial.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
