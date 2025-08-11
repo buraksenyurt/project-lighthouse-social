@@ -1,6 +1,8 @@
 using LighthouseSocial.Application;
 using LighthouseSocial.Data;
+using LighthouseSocial.Domain.Interfaces;
 using LighthouseSocial.Infrastructure;
+using LighthouseSocial.Infrastructure.Auditors;
 using LighthouseSocial.Infrastructure.Configuration;
 using LighthouseSocial.Infrastructure.Storage;
 
@@ -25,6 +27,7 @@ builder.Services.AddDatabase(provider =>
     }
 });
 builder.Services.Configure<MinioSettings>(builder.Configuration.GetSection("Minio"));
+builder.Services.AddHttpClient<ICommentAuditor, ExternalCommentAuditor>();
 
 // builder.Services.AddOpenApi();
 

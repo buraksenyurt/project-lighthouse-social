@@ -44,7 +44,7 @@ public class LighthouseService(PipelineDispatcher pipelineDispatcher)
         var result = await _pipelineDispatcher.SendAsync<GetLighthouseByIdRequest, Result<LighthouseDto>>(new GetLighthouseByIdRequest(lighthouseId));
         if (!result.Success)
         {
-            throw new InvalidOperationException($"Failed to get lighthouse by id: {result.ErrorMessage}");
+            return null; //todo@buraksenyurt Response hakkında bilgi veren bir cevap vermek gerekir
         }
         return result.Data;
     }

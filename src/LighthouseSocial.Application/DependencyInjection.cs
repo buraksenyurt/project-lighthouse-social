@@ -46,6 +46,7 @@ public static class DependencyInjection
         // Validators
         services.AddScoped<IValidator<LighthouseDto>, LighthouseDtoValidator>();
         services.AddScoped<IValidator<PhotoDto>, PhotoDtoValidator>();
+        services.AddScoped<IValidator<CommentDto>, CommentDtoValidator>();
 
         return services;
     }

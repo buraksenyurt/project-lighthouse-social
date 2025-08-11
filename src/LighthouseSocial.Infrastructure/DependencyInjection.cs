@@ -19,9 +19,9 @@ public static class DependencyInjection
         services.AddScoped<ICommentAuditor, ExternalCommentAuditor>();
 
         // Secret Vault
-        services.AddScoped<ISecretManager, VaultSecretManager>();
-        services.AddScoped<VaultConfigurationService>();
-
+        services.AddSingleton<ISecretManager, VaultSecretManager>();
+        services.AddSingleton<VaultConfigurationService>();
+        
         // Storage
         services.AddScoped<IMinioClient>(provider =>
         {
