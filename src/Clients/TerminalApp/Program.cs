@@ -18,20 +18,7 @@ services.AddLogging(builder => builder.AddConsole());
 
 services.AddApplication();
 services.AddInfrastructure(config);
-services.AddDatabase(provider =>
-{
-    var vaultConfigService = provider.GetRequiredService<VaultConfigurationService>();
-    try
-    {
-        return vaultConfigService.GetDatabaseConnectionStringAsync().GetAwaiter().GetResult();
-    }
-    catch (Exception ex)
-    {
-        var logger = provider.GetRequiredService<ILogger<Program>>();
-        logger.LogWarning(ex, "Failed to get connection string from Vault");
-        return string.Empty;
-    }
-});
+services.AddData();
 services.Configure<MinioSettings>(config.GetSection("Minio"));
 
 services.AddScoped<LighthouseManagement>();
