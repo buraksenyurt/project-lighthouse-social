@@ -85,6 +85,7 @@ Minimum Profil;
   - [Video 22](https://youtu.be/24CHSgqMaB4)
   - [Video 23](https://youtu.be/z9t0rKR5g_8)
   - [Video 24](https://youtu.be/rrRxhuo8w0E)
+  - [Video 25](https://youtu.be/gRPlFqGVTCQ)
 
 ## Sonarqube
 
