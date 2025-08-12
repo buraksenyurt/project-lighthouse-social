@@ -19,7 +19,7 @@ public class LighthouseController : ControllerBase
         _lighthouseService = lighthouseService;
     }
 
-    [HttpGet("{lighthouseId:guid}")]
+    [HttpGet("{lighthouseId:guid}", Name = "GetLigthouseById")]
     public async Task<ActionResult<LighthouseDto>> GetByIdAsync(Guid lighthouseId)
     {
         try
@@ -56,7 +56,7 @@ public class LighthouseController : ControllerBase
             if (!result.Success)
                 return BadRequest(result.ErrorMessage);
 
-            return CreatedAtAction(nameof(GetByIdAsync), new { id = result.Data }, result.Data);
+            return CreatedAtRoute("GetLigthouseById", new { lighthouseId = result.Data }, result.Data);
         }
         catch (Exception ex)
         {

@@ -1,6 +1,15 @@
 @ProjectLighthouseSocial.WebApi_HostAddress = http://localhost:5072
 
+### Get Lighthouse by ID
 GET {{ProjectLighthouseSocial.WebApi_HostAddress}}/api/lighthouse/4C2D0945-53D3-459B-B523-AD6A8B212554
 Accept: application/json
 
-###
+### Create a new lighthouse
+POST {{ProjectLighthouseSocial.WebApi_HostAddress}}/api/lighthouse
+Content-Type: application/json
+{
+  "name": "Cape Espichel",
+  "countryId": 42,
+  "latitude": 38.533,
+  "longitude": 9.12
+}
