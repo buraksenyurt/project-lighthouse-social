@@ -13,3 +13,7 @@ Content-Type: application/json
   "latitude": 38.533,
   "longitude": 9.12
 }
+
+### Get Top 5 Lighthouses
+GET {{ProjectLighthouseSocial.WebApi_HostAddress}}/api/lighthouse/top/5
+Accept: application/json

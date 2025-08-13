@@ -5,7 +5,7 @@ using LighthouseSocial.Domain.ValueObjects;
 
 namespace LighthouseSocial.Data.Repositories;
 
-public class LighthouseRepository(IDbConnectionFactory connFactory)
+public partial class LighthouseRepository(IDbConnectionFactory connFactory)
     : ILighthouseRepository
 {
     private readonly IDbConnectionFactory _connFactory = connFactory;

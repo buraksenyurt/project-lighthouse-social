@@ -64,4 +64,22 @@ public class LighthouseController : ControllerBase
             return StatusCode(500, "Internal server error");
         }
     }
+
+    [HttpGet("top/{count:int}")]
+    public async Task<ActionResult<IEnumerable<LighthouseTopDto>>> GetTopLighthouses(int count)
+    {
+        try
+        {
+            var result = await _lighthouseService.GetTopAsync(new TopDto(count));
+            if (!result.Success)
+                return NotFound(result.ErrorMessage);
+
+            return Ok(result.Data);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error retrieving top lighthouses");
+            return StatusCode(500, "Internal server error");
+        }
+    }
 }

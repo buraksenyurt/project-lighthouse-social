@@ -37,9 +37,9 @@ public class LighthouseService(PipelineDispatcher pipelineDispatcher)
         return await _pipelineDispatcher.SendAsync<GetPhotosByLighthouseRequest, Result<IEnumerable<PhotoDto>>>(new GetPhotosByLighthouseRequest(lighthouseId));
     }
 
-    public async Task<Result<IEnumerable<LighthouseDto>>> GetTopAsync(TopDto topDto)
+    public async Task<Result<IEnumerable<LighthouseTopDto>>> GetTopAsync(TopDto topDto)
     {
-        throw new NotImplementedException();
+        return await _pipelineDispatcher.SendAsync<GetTopLighthousesRequest, Result<IEnumerable<LighthouseTopDto>>>(new GetTopLighthousesRequest(topDto.Count));
     }
 
     public async Task<Result> UpdateAsync(Guid lighthouseId, LighthouseDto dto)

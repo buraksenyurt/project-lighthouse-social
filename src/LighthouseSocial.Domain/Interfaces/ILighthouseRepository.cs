@@ -1,4 +1,5 @@
 using LighthouseSocial.Domain.Entities;
+using LighthouseSocial.Domain.ValueObjects;
 
 namespace LighthouseSocial.Domain.Interfaces;
 
@@ -9,5 +10,6 @@ public interface ILighthouseRepository
     Task<bool> DeleteAsync(Guid id);
     Task<Lighthouse?> GetByIdAsync(Guid id);
     Task<IEnumerable<Lighthouse>> GetAllAsync();
+    Task<IEnumerable<LighthouseWithStats>> GetTopAsync(int count);
 }
     
