@@ -44,6 +44,6 @@ public class LighthouseService(PipelineDispatcher pipelineDispatcher)
 
     public async Task<Result> UpdateAsync(Guid lighthouseId, LighthouseDto dto)
     {
-        throw new NotImplementedException();
+        return await _pipelineDispatcher.SendAsync<UpdateLighthouseRequest, Result>(new UpdateLighthouseRequest(lighthouseId, dto));
     }
 }
