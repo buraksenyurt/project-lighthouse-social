@@ -9,13 +9,12 @@ namespace LighthouseSocial.Application.Features.Lighthouse;
 
 internal record UpdateLighthouseRequest(Guid LighthouseId, LighthouseDto Dto);
 
-internal class UpdateLighthouseHandler
+internal class UpdateLighthouseHandler(ILighthouseRepository repository)
     : IHandler<UpdateLighthouseRequest, Result>
 {
-    private readonly ILighthouseRepository _repository;
     public async Task<Result> HandleAsync(UpdateLighthouseRequest request, CancellationToken cancellationToken)
     {
-        var existingLighthouse = _repository.GetByIdAsync(request.LighthouseId);
+        var existingLighthouse = repository.GetByIdAsync(request.LighthouseId);
         if (existingLighthouse is null)
         {
             return Result.Fail("Lighthouse not found.");
@@ -35,7 +34,7 @@ internal class UpdateLighthouseHandler
             coordinates
         );
 
-        await _repository.UpdateAsync(updatedLighthouse);
+        await repository.UpdateAsync(updatedLighthouse);
 
         return Result.Ok();
     }

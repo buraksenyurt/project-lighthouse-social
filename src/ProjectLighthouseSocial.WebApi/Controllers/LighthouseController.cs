@@ -5,12 +5,32 @@ using Microsoft.AspNetCore.Mvc;
 namespace ProjectLighthouseSocial.WebApi.Controllers;
 
 public record CreateLighthouseRequest(string Name, int CountryId, double Latitude, double Longitude);
+public record UpdateLighthouseRequest(string Name, int CountryId, double Latitude, double Longitude);
 
 [ApiController]
 [Route("api/[controller]")]
 public class LighthouseController(ILogger<LighthouseController> logger, ILighthouseService lighthouseService)
     : ControllerBase
 {
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<LighthouseDto>>> GetAllAsync()
+    {
+        try
+        {
+            var result = await lighthouseService.GetAllAsync();
+
+            if (!result.Success)
+                return BadRequest(result.ErrorMessage);
+
+            return Ok(result.Data);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error retrieving all lighthouses");
+            return StatusCode(500, "Internal server error");
+        }
+    }
+
     [HttpGet("{lighthouseId:guid}", Name = "GetLigthouseById")]
     public async Task<ActionResult<LighthouseDto>> GetByIdAsync(Guid lighthouseId)
     {
@@ -94,7 +114,7 @@ public class LighthouseController(ILogger<LighthouseController> logger, ILightho
     }
 
     [HttpPut("{lighthouseId:guid}")]
-    public async Task<ActionResult> Update(Guid lighthouseId, [FromBody] CreateLighthouseRequest request)
+    public async Task<ActionResult> Update(Guid lighthouseId, [FromBody] UpdateLighthouseRequest request)
     {
         try
         {
