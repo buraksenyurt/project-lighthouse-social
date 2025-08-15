@@ -8,23 +8,15 @@ public record CreateLighthouseRequest(string Name, int CountryId, double Latitud
 
 [ApiController]
 [Route("api/[controller]")]
-public class LighthouseController : ControllerBase
+public class LighthouseController(ILogger<LighthouseController> logger, ILighthouseService lighthouseService)
+    : ControllerBase
 {
-    private readonly ILogger<LighthouseController> _logger;
-    private readonly ILighthouseService _lighthouseService;
-
-    public LighthouseController(ILogger<LighthouseController> logger, ILighthouseService lighthouseService)
-    {
-        _logger = logger;
-        _lighthouseService = lighthouseService;
-    }
-
     [HttpGet("{lighthouseId:guid}", Name = "GetLigthouseById")]
     public async Task<ActionResult<LighthouseDto>> GetByIdAsync(Guid lighthouseId)
     {
         try
         {
-            var result = await _lighthouseService.GetByIdAsync(lighthouseId);
+            var result = await lighthouseService.GetByIdAsync(lighthouseId);
 
             if (!result.Success)
                 return NotFound(result.ErrorMessage);
@@ -33,7 +25,7 @@ public class LighthouseController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error retrieving lighthouse with ID {LighthouseId}", lighthouseId);
+            logger.LogError(ex, "Error retrieving lighthouse with ID {LighthouseId}", lighthouseId);
             return StatusCode(500, "Internal server error");
         }
     }
@@ -51,7 +43,7 @@ public class LighthouseController : ControllerBase
                 request.Latitude,
                 request.Longitude
             );
-            var result = await _lighthouseService.CreateAsync(dto);
+            var result = await lighthouseService.CreateAsync(dto);
 
             if (!result.Success)
                 return BadRequest(result.ErrorMessage);
@@ -60,7 +52,7 @@ public class LighthouseController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error creating lighthouse");
+            logger.LogError(ex, "Error creating lighthouse");
             return StatusCode(500, "Internal server error");
         }
     }
@@ -70,7 +62,7 @@ public class LighthouseController : ControllerBase
     {
         try
         {
-            var result = await _lighthouseService.GetTopAsync(new TopDto(count));
+            var result = await lighthouseService.GetTopAsync(new TopDto(count));
             if (!result.Success)
                 return NotFound(result.ErrorMessage);
 
@@ -78,7 +70,69 @@ public class LighthouseController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error retrieving top lighthouses");
+            logger.LogError(ex, "Error retrieving top lighthouses");
+            return StatusCode(500, "Internal server error");
+        }
+    }
+
+    [HttpGet("{lighthouseId:guid}/photos")]
+    public async Task<ActionResult<IEnumerable<PhotoDto>>> GetPhotosByIdAsync(Guid lighthouseId)
+    {
+        try
+        {
+            var result = await lighthouseService.GetPhotosByIdAsync(lighthouseId);
+            if (!result.Success)
+                return NotFound(result.ErrorMessage);
+
+            return Ok(result.Data);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error retrieving photos for lighthouse with ID {LighthouseId}", lighthouseId);
+            return StatusCode(500, "Internal server error");
+        }
+    }
+
+    [HttpPut("{lighthouseId:guid}")]
+    public async Task<ActionResult> Update(Guid lighthouseId, [FromBody] CreateLighthouseRequest request)
+    {
+        try
+        {
+            var dto = new LighthouseDto
+            (
+                lighthouseId,
+                request.Name,
+                request.CountryId,
+                request.Latitude,
+                request.Longitude
+            );
+            var result = await lighthouseService.UpdateAsync(lighthouseId, dto);
+            if (!result.Success)
+                return BadRequest(result.ErrorMessage);
+
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error updating lighthouse with ID {LighthouseId}", lighthouseId);
+            return StatusCode(500, "Internal server error");
+        }
+    }
+
+    [HttpDelete("{lighthouseId:guid}")]
+    public async Task<ActionResult> Delete(Guid lighthouseId)
+    {
+        try
+        {
+            var result = await lighthouseService.DeleteAsync(lighthouseId);
+            if (!result.Success)
+                return NotFound(result.ErrorMessage);
+
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error deleting lighthouse with ID {LighthouseId}", lighthouseId);
             return StatusCode(500, "Internal server error");
         }
     }
