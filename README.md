@@ -86,6 +86,9 @@ Minimum Profil;
   - [Video 23](https://youtu.be/z9t0rKR5g_8)
   - [Video 24](https://youtu.be/rrRxhuo8w0E)
   - [Video 25](https://youtu.be/gRPlFqGVTCQ)
+- [x] **Bölüm 05 Application Katmanı Pipeline Düzenlemeleri:** Özellikle pipeline behaviors tasarımı, ortak handler sözleşmesi ve servis bileşeni düzenlemelerini ele alıyoruz.
+  - [Video 26](https://youtu.be/rliAGCQpGmE)
+  - [Video 27](https://youtu.be/Y1uZuewmLAs)
 
 ## Sonarqube
 
