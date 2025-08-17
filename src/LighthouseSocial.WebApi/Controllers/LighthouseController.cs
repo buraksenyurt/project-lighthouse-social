@@ -2,7 +2,7 @@ using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Application.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ProjectLighthouseSocial.WebApi.Controllers;
+namespace LighthouseSocial.WebApi.Controllers;
 
 public record CreateLighthouseRequest(string Name, int CountryId, double Latitude, double Longitude);
 public record UpdateLighthouseRequest(string Name, int CountryId, double Latitude, double Longitude);

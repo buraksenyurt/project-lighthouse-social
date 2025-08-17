@@ -1,0 +1,67 @@
+@LighthouseSocial.WebApi_HostAddress = http://localhost:5072
+
+### Get All Lighthouses
+GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse
+Accept: application/json
+
+###
+
+### Get Lighthouse by ID
+GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/4C2D0945-53D3-459B-B523-AD6A8B212554
+Accept: application/json
+
+###
+
+### Create a new lighthouse
+POST {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse
+Content-Type: application/json
+
+{
+  "name": "Cape Espichel",
+  "countryId": 42,
+  "latitude": 38.533,
+  "longitude": 9.12
+}
+
+###
+
+### Update an existing lighthouse
+PUT {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/4C2D0945-53D3-459B-B523-AD6A8B212554
+Content-Type: application/json
+
+{
+  "name": "Cape Espichel Updated",
+  "countryId": 42,
+  "latitude": 38.533,
+  "longitude": 9.12
+}
+
+###
+
+### Delete a lighthouse
+DELETE {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/4C2D0945-53D3-459B-B523-AD6A8B212554
+Accept: application/json
+
+###
+
+### Get Photos for a Lighthouse
+GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/4C2D0945-53D3-459B-B523-AD6A8B212554/photos
+Accept: application/json
+
+###
+
+### Get Top 5 Lighthouses
+GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/top/5
+Accept: application/json
+
+###
+
+### Get Top 10 Lighthouses
+GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/top/10
+Accept: application/json
+
+###
+
+### Get Top 3 Lighthouses
+GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/top/3
+Accept: application/json

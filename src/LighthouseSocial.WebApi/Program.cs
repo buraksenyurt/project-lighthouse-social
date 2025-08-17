@@ -3,7 +3,6 @@ using LighthouseSocial.Data;
 using LighthouseSocial.Domain.Interfaces;
 using LighthouseSocial.Infrastructure;
 using LighthouseSocial.Infrastructure.Auditors;
-using LighthouseSocial.Infrastructure.Configuration;
 using LighthouseSocial.Infrastructure.Storage;
 
 var builder = WebApplication.CreateBuilder(args);
