@@ -6,7 +6,7 @@ public record TopDto
 
     public TopDto(int count)
     {
-        if (count <= 3 || count > 25)
+        if (count < 3 || count > 25)
             throw new ArgumentOutOfRangeException(nameof(count), "Count must be between 3 and 25.");
 
         Count = count;

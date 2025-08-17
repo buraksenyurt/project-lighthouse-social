@@ -1,17 +1,5 @@
 @LighthouseSocial.WebApi_HostAddress = http://localhost:5072
 
-### Get All Lighthouses
-GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse
-Accept: application/json
-
-###
-
-### Get Lighthouse by ID
-GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/4C2D0945-53D3-459B-B523-AD6A8B212554
-Accept: application/json
-
-###
-
 ### Create a new lighthouse
 POST {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse
 Content-Type: application/json
@@ -26,7 +14,7 @@ Content-Type: application/json
 ###
 
 ### Update an existing lighthouse
-PUT {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/4C2D0945-53D3-459B-B523-AD6A8B212554
+PUT {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/7d197dd9-bf4a-4f9b-86e3-d4f634489940
 Content-Type: application/json
 
 {
@@ -39,13 +27,31 @@ Content-Type: application/json
 ###
 
 ### Delete a lighthouse
-DELETE {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/4C2D0945-53D3-459B-B523-AD6A8B212554
+DELETE {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/7d197dd9-bf4a-4f9b-86e3-d4f634489940
+Accept: application/json
+
+###
+
+### Get All Lighthouses
+GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse
+Accept: application/json
+
+###
+
+### Get Lighthouse by ID
+GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/7d197dd9-bf4a-4f9b-86e3-d4f634489940
 Accept: application/json
 
 ###
 
 ### Get Photos for a Lighthouse
-GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/4C2D0945-53D3-459B-B523-AD6A8B212554/photos
+GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/10000000-0000-0000-0000-000000000001/photos
+Accept: application/json
+
+###
+
+### Get Top 3 Lighthouses
+GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/top/3
 Accept: application/json
 
 ###
@@ -61,7 +67,3 @@ GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/top/10
 Accept: application/json
 
 ###
-
-### Get Top 3 Lighthouses
-GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/top/3
-Accept: application/json
