@@ -30,7 +30,6 @@ public static class DependencyInjection
         services.AddScoped<IHandler<GetCommentsByPhotoRequest, Result<IEnumerable<CommentDto>>>, GetCommentsByPhotoHandler>();
         services.AddScoped<IHandler<CreateLighthouseRequest, Result<Guid>>, CreateLighthouseHandler>();
         services.AddScoped<IHandler<DeleteLighthouseRequest, Result>, DeleteLighthouseHandler>();
-        services.AddScoped<IHandler<GetAllLighthouseRequest, Result<IEnumerable<LighthouseDto>>>, GetAllLighthousesHandler>();
         services.AddScoped<IHandler<GetLighthouseByIdRequest, Result<LighthouseDto>>, GetLighthouseByIdHandler>();
         services.AddScoped<IHandler<DeletePhotoRequest, Result>, DeletePhotoHandler>();
         services.AddScoped<IHandler<UploadPhotoRequest, Result<Guid>>, UploadPhotoHandler>();
