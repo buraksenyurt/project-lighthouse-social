@@ -22,11 +22,6 @@ public class LighthouseService(PipelineDispatcher pipelineDispatcher)
         return await _pipelineDispatcher.SendAsync<DeleteLighthouseRequest, Result>(new DeleteLighthouseRequest(lighthouseId));
     }
 
-    public async Task<Result<IEnumerable<LighthouseDto>>> GetAllAsync()
-    {
-        return await _pipelineDispatcher.SendAsync<GetAllLighthouseRequest, Result<IEnumerable<LighthouseDto>>>(new GetAllLighthouseRequest());
-    }
-
     public async Task<Result<LighthouseDto>> GetByIdAsync(Guid lighthouseId)
     {
         return await _pipelineDispatcher.SendAsync<GetLighthouseByIdRequest, Result<LighthouseDto>>(new GetLighthouseByIdRequest(lighthouseId));

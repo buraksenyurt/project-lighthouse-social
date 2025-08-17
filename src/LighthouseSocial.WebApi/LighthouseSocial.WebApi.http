@@ -32,12 +32,6 @@ Accept: application/json
 
 ###
 
-### Get All Lighthouses
-GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse
-Accept: application/json
-
-###
-
 ### Get Lighthouse by ID
 GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/7d197dd9-bf4a-4f9b-86e3-d4f634489940
 Accept: application/json

@@ -13,25 +13,6 @@ public record UpdateLighthouseRequest(string Name, int CountryId, double Latitud
 public class LighthouseController(ILogger<LighthouseController> logger, ILighthouseService lighthouseService)
     : ControllerBase
 {
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<LighthouseDto>>> GetAllAsync()
-    {
-        try
-        {
-            var result = await lighthouseService.GetAllAsync();
-
-            if (!result.Success)
-                return BadRequest(result.ErrorMessage);
-
-            return Ok(result.Data);
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Error retrieving all lighthouses");
-            return StatusCode(500, "Internal server error");
-        }
-    }
-
     [HttpGet("{lighthouseId:guid}", Name = "GetLigthouseById")]
     public async Task<ActionResult<LighthouseDto>> GetByIdAsync(Guid lighthouseId)
     {

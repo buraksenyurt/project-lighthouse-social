@@ -5,7 +5,6 @@ namespace LighthouseSocial.Application.Contracts;
 
 public interface ILighthouseService
 {
-    Task<Result<IEnumerable<LighthouseDto>>> GetAllAsync();
     Task<Result<IEnumerable<LighthouseTopDto>>> GetTopAsync(TopDto topDto);
     Task<Result<IEnumerable<PhotoDto>>> GetPhotosByIdAsync(Guid lighthouseId);
     Task<Result<LighthouseDto>> GetByIdAsync(Guid lighthouseId);

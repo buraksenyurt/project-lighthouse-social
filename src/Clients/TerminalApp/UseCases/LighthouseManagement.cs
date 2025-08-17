@@ -47,11 +47,15 @@ public class LighthouseManagement(
             }
 
             Console.WriteLine("\nAll Lighthouses in System:");
-            var allLighthouses = await _lighthouseService.GetAllAsync();
-
-            if (allLighthouses.Data.Any())
+            var allLighthouses = await _lighthouseService.GetPagedAsync(new PagingDto
             {
-                foreach (var l in allLighthouses.Data)
+                Page = 1,
+                PageSize = 100 // Adjust as needed
+            });
+
+            if (allLighthouses.Data.Items.Any())
+            {
+                foreach (var l in allLighthouses.Data.Items)
                 {
                     Console.WriteLine($"\t{l.Name} (ID: {l.Id})");
                 }
