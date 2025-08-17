@@ -32,6 +32,11 @@ public class LighthouseService(PipelineDispatcher pipelineDispatcher)
         return await _pipelineDispatcher.SendAsync<GetLighthouseByIdRequest, Result<LighthouseDto>>(new GetLighthouseByIdRequest(lighthouseId));
     }
 
+    public async Task<Result<PagedResult<LighthouseDto>>> GetPagedAsync(PagingDto pagingDto)
+    {
+        return await _pipelineDispatcher.SendAsync<GetPagedLighthouseRequest,Result<PagedResult<LighthouseDto>>>(new GetPagedLighthouseRequest(pagingDto));
+    }
+
     public async Task<Result<IEnumerable<PhotoDto>>> GetPhotosByIdAsync(Guid lighthouseId)
     {
         return await _pipelineDispatcher.SendAsync<GetPhotosByLighthouseRequest, Result<IEnumerable<PhotoDto>>>(new GetPhotosByLighthouseRequest(lighthouseId));

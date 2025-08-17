@@ -1,3 +1,4 @@
+using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Application.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -91,6 +92,26 @@ public class LighthouseController(ILogger<LighthouseController> logger, ILightho
         catch (Exception ex)
         {
             logger.LogError(ex, "Error retrieving top lighthouses");
+            return StatusCode(500, "Internal server error");
+        }
+    }
+
+    [HttpGet("paged")]
+    public async Task<ActionResult<PagedResult<LighthouseDto>>> GetPagedAsync([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+    {
+        try
+        {
+            var pagingDto = PagingDto.Create(page, pageSize);
+            var result = await lighthouseService.GetPagedAsync(pagingDto);
+
+            if (!result.Success)
+                return NotFound("No data found");
+
+            return Ok(result.Data);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error retrieving paged lighthouses");
             return StatusCode(500, "Internal server error");
         }
     }

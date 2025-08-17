@@ -12,4 +12,5 @@ public interface ILighthouseService
     Task<Result<Guid>> CreateAsync(LighthouseDto dto);
     Task<Result> UpdateAsync(Guid lighthouseId, LighthouseDto dto);
     Task<Result> DeleteAsync(Guid lighthouseId);
+    Task<Result<PagedResult<LighthouseDto>>> GetPagedAsync(PagingDto pagingDto);
 }

@@ -11,5 +11,6 @@ public interface ILighthouseRepository
     Task<Lighthouse?> GetByIdAsync(Guid id);
     Task<IEnumerable<Lighthouse>> GetAllAsync();
     Task<IEnumerable<LighthouseWithStats>> GetTopAsync(int count);
+    Task<(IEnumerable<Lighthouse> Lighthouses, int TotalCount)> GetPagedAsync(int skip, int take);
 }
     

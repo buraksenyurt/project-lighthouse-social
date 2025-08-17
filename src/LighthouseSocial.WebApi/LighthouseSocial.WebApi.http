@@ -67,3 +67,9 @@ GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/top/10
 Accept: application/json
 
 ###
+
+### Get Lighthouses by page
+GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/paged?page=2&pageSize=3
+Accept: application/json
+
+###

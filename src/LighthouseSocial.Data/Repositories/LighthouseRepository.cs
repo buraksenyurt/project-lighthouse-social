@@ -83,6 +83,36 @@ public partial class LighthouseRepository(IDbConnectionFactory connFactory)
         return new Lighthouse((Guid)row.id, (string)row.name, country, coordinates);
     }
 
+    public async Task<(IEnumerable<Lighthouse> Lighthouses, int TotalCount)> GetPagedAsync(int skip, int take)
+    {
+        const string countSql = "SELECT COUNT(*) FROM lighthouses;";
+
+        const string dataSql = @"
+            SELECT l.id, l.name, l.country_id, c.name AS country_name, l.latitude, l.longitude
+            FROM lighthouses l
+            INNER JOIN countries c ON l.country_id = c.id
+            ORDER BY l.name
+            OFFSET @Skip ROWS FETCH NEXT @Take ROWS ONLY;
+            ";
+
+        using var conn = _connFactory.CreateConnection();
+        var totalCount = await conn.QuerySingleAsync<int>(countSql);
+
+        var rows = await conn.QueryAsync(dataSql, new { Skip = skip, Take = take });
+
+        var list = new List<Lighthouse>();
+
+        foreach (var row in rows)
+        {
+            var country = Country.Create((int)row.country_id, (string)row.country_name);
+            var coordinates = new Coordinates((double)row.latitude, (double)row.longitude);
+            var lighthouse = new Lighthouse((Guid)row.id, (string)row.name, country, coordinates);
+            list.Add(lighthouse);
+        }
+
+        return (list, totalCount);
+    }
+
     public async Task UpdateAsync(Lighthouse lighthouse)
     {
         const string sql = @"

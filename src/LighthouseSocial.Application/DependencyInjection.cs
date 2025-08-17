@@ -38,6 +38,7 @@ public static class DependencyInjection
         services.AddScoped<IHandler<GetPhotosByLighthouseRequest, Result<IEnumerable<PhotoDto>>>, GetPhotosByLighthouseHandler>();
         services.AddScoped<IHandler<GetTopLighthousesRequest, Result<IEnumerable<LighthouseTopDto>>>, GetTopLighthousesHandler>();
         services.AddScoped<IHandler<UpdateLighthouseRequest, Result>, UpdateLighthouseHandler>();
+        services.AddScoped<IHandler<GetPagedLighthouseRequest, Result<PagedResult<LighthouseDto>>>, GetPagedLighthouseHandler>();
 
         // Pipeline Behaviors
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));

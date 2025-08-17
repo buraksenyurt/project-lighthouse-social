@@ -1,0 +1,36 @@
+﻿using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Common.Pipeline;
+using LighthouseSocial.Application.Dtos;
+using LighthouseSocial.Domain.Interfaces;
+
+namespace LighthouseSocial.Application.Features.Lighthouse;
+
+internal record GetPagedLighthouseRequest(PagingDto PagingDto);
+
+internal class GetPagedLighthouseHandler(ILighthouseRepository lighthouseRepository)
+    : IHandler<GetPagedLighthouseRequest, Result<PagedResult<LighthouseDto>>>
+{
+    public async Task<Result<PagedResult<LighthouseDto>>> HandleAsync(GetPagedLighthouseRequest request, CancellationToken cancellationToken)
+    {
+        var (lighthouses, totalCount) = await lighthouseRepository.GetPagedAsync(request.PagingDto.Skip, request.PagingDto.PageSize);
+
+        var dtos = lighthouses.Select(l => new LighthouseDto
+        (
+            l.Id,
+            l.Name,
+            l.CountryId,
+            l.Location.Latitude,
+            l.Location.Longitude
+        )).ToList();
+
+        var pagedResult = new PagedResult<LighthouseDto>
+        (
+            dtos,
+           totalCount,
+           request.PagingDto.Page,
+            request.PagingDto.PageSize
+        );
+
+        return Result<PagedResult<LighthouseDto>>.Ok(pagedResult);
+    }
+}
