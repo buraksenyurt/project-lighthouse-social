@@ -1,0 +1,119 @@
+﻿@LighthouseSocial.ODataApi_HostAddress = http://localhost:5220
+
+### OData Service Document
+GET {{LighthouseSocial.ODataApi_HostAddress}}/odata
+Accept: application/json
+
+### OData Metadata
+GET {{LighthouseSocial.ODataApi_HostAddress}}/odata/$metadata
+Accept: application/xml
+
+###
+
+### Get all Lighthouses
+GET {{LighthouseSocial.ODataApi_HostAddress}}/odata/Lighthouses
+Accept: application/json
+
+###
+
+### Get Top 5 Lighthouses
+GET {{LighthouseSocial.ODataApi_HostAddress}}/odata/Lighthouses?$top=5
+Accept: application/json
+
+###
+
+### Skip 5, Top 5 Lighthouses
+GET {{LighthouseSocial.ODataApi_HostAddress}}/odata/Lighthouses?$skip=5&$top=5
+Accept: application/json
+
+###
+
+### Lighthouses which name starts with 'A'
+GET {{LighthouseSocial.ODataApi_HostAddress}}/odata/Lighthouses?$filter=startswith(Name,'A')
+Accept: application/json
+
+###
+
+### Lighthouses which photo count is greater than 2
+GET {{LighthouseSocial.ODataApi_HostAddress}}/odata/Lighthouses?$filter=PhotoCount%20gt%202
+Accept: application/json
+
+###
+
+### Lighthouses which comment count is greater than 5
+GET {{LighthouseSocial.ODataApi_HostAddress}}/odata/Lighthouses?$filter=CommentCount%20gt%205
+Accept: application/json
+
+###
+
+### Lighthouses which average rating greater than 4.0
+GET {{LighthouseSocial.ODataApi_HostAddress}}/odata/Lighthouses?$filter=AverageRating%20gt%204.0
+Accept: application/json
+
+###
+
+### Get lighthouses in alphabetical order (A to Z)
+GET {{LighthouseSocial.ODataApi_HostAddress}}/odata/Lighthouses?$orderby=Name
+Accept: application/json
+
+###
+
+### Get lighthouses in alphabetical order (Z to A)
+GET {{LighthouseSocial.ODataApi_HostAddress}}/odata/Lighthouses?$orderby=Name%20desc
+Accept: application/json
+
+###
+
+### Order by photo count (highest first)
+GET {{LighthouseSocial.ODataApi_HostAddress}}/odata/Lighthouses?$orderby=PhotoCount%20desc
+Accept: application/json
+
+###
+
+### Order by comment count (highest first)
+GET {{LighthouseSocial.ODataApi_HostAddress}}/odata/Lighthouses?$orderby=AverageRating%20desc
+Accept: application/json
+
+###
+
+### Projection: Get only Name, Country Name and Photo Count of Lighthouses
+GET {{LighthouseSocial.ODataApi_HostAddress}}/odata/Lighthouses?$select=Name,CountryName,PhotoCount
+Accept: application/json
+
+###
+
+### Lighthouses in "Argentina" with Name starting with 'L' and PhotoCount > 2, ordered by Name
+GET {{LighthouseSocial.ODataApi_HostAddress}}/odata/Lighthouses?$filter=CountryName%20eq%20'Argentina'%20and%20startswith(Name,'L')%20and%20PhotoCount%20gt%202&$orderby=Name
+Accept: application/json
+
+###
+
+### Get total count of Lighthouses
+GET {{LighthouseSocial.ODataApi_HostAddress}}/odata/Lighthouses?$count=true&$top=3
+Accept: application/json
+
+###
+
+### Filter by lighthouse name containing 'Cape'
+GET {{LighthouseSocial.ODataApi_HostAddress}}/odata/Lighthouses?$filter=contains(Name,'Cape')
+Accept: application/json
+
+###
+
+### Lighthouses with LastPhotoUploadDate after January 1, 2024
+GET {{LighthouseSocial.ODataApi_HostAddress}}/odata/Lighthouses?$filter=LastPhotoUploadDate%20gt%202024-01-01T00:00:00Z
+Accept: application/json
+
+###
+
+### Lighthouses with specific latitude and longitude range
+GET {{LighthouseSocial.ODataApi_HostAddress}}/odata/Lighthouses?$filter=Latitude%20gt%2035.0%20and%20Latitude%20lt%2042.0%20and%20Longitude%20gt%2025.0%20and%20Longitude%20lt%2045.0
+Accept: application/json
+
+###
+
+### Get a specific Lighthouse by ID
+GET {{LighthouseSocial.ODataApi_HostAddress}}/odata/Lighthouses(10000000-0000-0000-0000-000000000001)
+Accept: application/json
+
+###

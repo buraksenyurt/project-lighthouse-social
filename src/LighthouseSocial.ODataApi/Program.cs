@@ -1,4 +1,4 @@
-using LighthouseSocial.Application;
+﻿using LighthouseSocial.Application;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Data;
 using LighthouseSocial.Infrastructure;
@@ -16,7 +16,8 @@ static IEdmModel GetEdmModel()
     return builder.GetEdmModel();
 }
 
-builder.Services.AddControllers().AddOData(options =>
+builder.Services.AddControllers()
+    .AddOData(options =>
         options.Select()
         .Filter()
         .OrderBy()
@@ -29,6 +30,7 @@ builder.Services.AddControllers().AddOData(options =>
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddData();
 builder.Services.AddApplication();
+//todo@buraksenyurt DI Ekleme operasyonlarında gerekli olmayan hizmetleri dışarıda tutarak, sadece gerekli olanları ekle
 builder.Services.Configure<MinioSettings>(builder.Configuration.GetSection("Minio"));
 builder.Services.AddHttpClient();
 
