@@ -14,6 +14,7 @@ public static class DependencyInjection
         services.AddScoped<IPhotoRepository, PhotoRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ILighthouseODataRepository, LighthouseODataRepository>();
         services.AddScoped<CountryRepository>();
         services.AddScoped<ICountryDataReader>(provider =>
         {
