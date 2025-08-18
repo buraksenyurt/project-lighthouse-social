@@ -1,7 +1,7 @@
 using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Dtos;
 
-namespace LighthouseSocial.Application.Contracts;
+namespace LighthouseSocial.Application.Contracts.ExternalServices;
 
 public interface IPhotoService
 {

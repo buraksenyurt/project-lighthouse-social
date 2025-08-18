@@ -1,6 +1,5 @@
-using LighthouseSocial.Application.Contracts;
+using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Data.Repositories;
-using LighthouseSocial.Domain.Interfaces;
 using LighthouseSocial.Infrastructure.Caching;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

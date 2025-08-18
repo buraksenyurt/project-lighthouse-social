@@ -1,7 +1,7 @@
 using LighthouseSocial.Domain.Entities;
 using LighthouseSocial.Domain.ValueObjects;
 
-namespace LighthouseSocial.Domain.Interfaces;
+namespace LighthouseSocial.Application.Contracts.Repositories;
 
 public interface ILighthouseRepository
 {

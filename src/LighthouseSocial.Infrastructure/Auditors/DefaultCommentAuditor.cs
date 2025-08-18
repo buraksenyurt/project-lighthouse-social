@@ -1,4 +1,4 @@
-using LighthouseSocial.Domain.Interfaces;
+using LighthouseSocial.Application.Contracts;
 
 namespace LighthouseSocial.Infrastructure.Auditors;
 

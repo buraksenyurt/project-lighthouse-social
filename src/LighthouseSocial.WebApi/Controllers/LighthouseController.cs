@@ -1,5 +1,5 @@
 using LighthouseSocial.Application.Common;
-using LighthouseSocial.Application.Contracts;
+using LighthouseSocial.Application.Contracts.ExternalServices;
 using LighthouseSocial.Application.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;

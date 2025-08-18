@@ -1,6 +1,6 @@
 using LighthouseSocial.Domain.Entities;
 
-namespace LighthouseSocial.Application.Contracts;
+namespace LighthouseSocial.Application.Contracts.Repositories;
 
 public interface ICountryDataReader
 {

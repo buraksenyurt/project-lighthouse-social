@@ -1,7 +1,7 @@
 ﻿using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Common.Pipeline;
+using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Dtos;
-using LighthouseSocial.Domain.Interfaces;
 
 namespace LighthouseSocial.Application.Features.Lighthouse;
 

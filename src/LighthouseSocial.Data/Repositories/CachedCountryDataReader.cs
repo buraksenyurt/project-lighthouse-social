@@ -1,4 +1,4 @@
-﻿using LighthouseSocial.Application.Contracts;
+﻿using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Domain.Entities;
 using LighthouseSocial.Infrastructure.Caching;
 

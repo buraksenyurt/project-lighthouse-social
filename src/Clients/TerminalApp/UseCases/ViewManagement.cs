@@ -1,4 +1,4 @@
-﻿using LighthouseSocial.Application.Contracts;
+﻿using LighthouseSocial.Application.Contracts.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace TerminalApp.UseCases;

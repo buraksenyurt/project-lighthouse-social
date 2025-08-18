@@ -14,7 +14,7 @@ Content-Type: application/json
 ###
 
 ### Update an existing lighthouse
-PUT {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/7d197dd9-bf4a-4f9b-86e3-d4f634489940
+PUT {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/8876b947-4a51-4a94-824a-519c389e0bf8
 Content-Type: application/json
 
 {
@@ -27,13 +27,13 @@ Content-Type: application/json
 ###
 
 ### Delete a lighthouse
-DELETE {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/7d197dd9-bf4a-4f9b-86e3-d4f634489940
+DELETE {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/027f1bb3-4ff9-4aa5-888d-815da7478c5e
 Accept: application/json
 
 ###
 
 ### Get Lighthouse by ID
-GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/7d197dd9-bf4a-4f9b-86e3-d4f634489940
+GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/8876b947-4a51-4a94-824a-519c389e0bf8
 Accept: application/json
 
 ###

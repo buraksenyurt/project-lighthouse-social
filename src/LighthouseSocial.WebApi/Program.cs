@@ -1,6 +1,6 @@
 using LighthouseSocial.Application;
+using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Data;
-using LighthouseSocial.Domain.Interfaces;
 using LighthouseSocial.Infrastructure;
 using LighthouseSocial.Infrastructure.Auditors;
 using LighthouseSocial.Infrastructure.Storage;

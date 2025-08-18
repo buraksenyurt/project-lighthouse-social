@@ -89,6 +89,9 @@ Minimum Profil;
 - [x] **Bölüm 05 Application Katmanı Pipeline Düzenlemeleri:** Özellikle pipeline behaviors tasarımı, ortak handler sözleşmesi ve servis bileşeni düzenlemelerini ele alıyoruz.
   - [Video 26](https://youtu.be/rliAGCQpGmE)
   - [Video 27](https://youtu.be/Y1uZuewmLAs)
+  - [Video 28](https://youtu.be/p1IQqc5cD6g)
+- [ ] **Bölüm 06 Presentation Katmanı Geliştirmeleri:** Web Api servisi, Razor Web App, Blazor gibi farklı istemci uygulamalarının geliştirilmesi.
+  - [Video 29](https://youtu.be/WI9lOd8uVs4)
 
 ## Sonarqube
 

@@ -1,4 +1,4 @@
-﻿using LighthouseSocial.Domain.Interfaces;
+﻿using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Infrastructure.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;

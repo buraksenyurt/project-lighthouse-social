@@ -1,7 +1,7 @@
 using Dapper;
+using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Domain.Common;
 using LighthouseSocial.Domain.Entities;
-using LighthouseSocial.Domain.Interfaces;
 using LighthouseSocial.Domain.ValueObjects;
 
 namespace LighthouseSocial.Data.Repositories;

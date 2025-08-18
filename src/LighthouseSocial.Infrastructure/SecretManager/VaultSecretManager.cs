@@ -1,4 +1,4 @@
-﻿using LighthouseSocial.Domain.Interfaces;
+﻿using LighthouseSocial.Application.Contracts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using VaultSharp;

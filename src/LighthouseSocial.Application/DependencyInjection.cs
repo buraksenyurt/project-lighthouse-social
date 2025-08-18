@@ -2,7 +2,7 @@
 using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Common.Pipeline;
 using LighthouseSocial.Application.Common.Pipeline.Behaviors;
-using LighthouseSocial.Application.Contracts;
+using LighthouseSocial.Application.Contracts.ExternalServices;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.Comment;
 using LighthouseSocial.Application.Features.Lighthouse;

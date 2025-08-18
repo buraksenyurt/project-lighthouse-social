@@ -1,4 +1,4 @@
-﻿using LighthouseSocial.Domain.Interfaces;
+﻿using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Infrastructure.Auditors;
 using LighthouseSocial.Infrastructure.Caching;
 using LighthouseSocial.Infrastructure.Configuration;

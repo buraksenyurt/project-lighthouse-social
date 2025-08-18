@@ -1,5 +1,5 @@
+using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Features.Comment;
-using LighthouseSocial.Domain.Interfaces;
 using LighthouseSocial.Domain.ValueObjects;
 using Moq;
 

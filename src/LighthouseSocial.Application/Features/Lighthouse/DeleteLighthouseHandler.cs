@@ -1,6 +1,6 @@
 ﻿using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Common.Pipeline;
-using LighthouseSocial.Domain.Interfaces;
+using LighthouseSocial.Application.Contracts.Repositories;
 
 namespace LighthouseSocial.Application.Features.Lighthouse;
 

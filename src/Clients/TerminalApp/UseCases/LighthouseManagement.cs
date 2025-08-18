@@ -1,4 +1,4 @@
-﻿using LighthouseSocial.Application.Contracts;
+﻿using LighthouseSocial.Application.Contracts.ExternalServices;
 using LighthouseSocial.Application.Dtos;
 using Microsoft.Extensions.Logging;
 

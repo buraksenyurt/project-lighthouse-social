@@ -1,4 +1,4 @@
-﻿using LighthouseSocial.Domain.Interfaces;
+﻿using LighthouseSocial.Application.Contracts;
 using Microsoft.Extensions.Logging;
 
 namespace LighthouseSocial.Infrastructure.Configuration;
@@ -16,14 +16,13 @@ public class VaultConfigurationService(ISecretManager secretManager, ILogger<Vau
             {
                 logger.LogWarning("Database connection string not found in Vault at path: {SecretPath}", SecretPath);
                 throw new InvalidOperationException("Database connection string not found in Vault");
-                // return "Host=localhost;Port=5432;Database=lighthousedb;Username=johndoe;Password=somew0rds";
             }
             return connectionString;
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "Error retrieving database connection string from Vault");
-            throw;
+            return string.Empty;
         }
     }
 
@@ -46,7 +45,7 @@ public class VaultConfigurationService(ISecretManager secretManager, ILogger<Vau
         catch (Exception ex)
         {
             logger.LogError(ex, "Error retrieving Minio credentials from Vault");
-            throw;
+            return (string.Empty, string.Empty);
         }
     }
 

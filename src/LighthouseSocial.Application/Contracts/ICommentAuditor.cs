@@ -1,4 +1,4 @@
-namespace LighthouseSocial.Domain.Interfaces;
+namespace LighthouseSocial.Application.Contracts;
 
 public interface ICommentAuditor
 {

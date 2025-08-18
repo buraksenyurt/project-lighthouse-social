@@ -1,6 +1,6 @@
 using LighthouseSocial.Domain.Entities;
 
-namespace LighthouseSocial.Domain.Interfaces;
+namespace LighthouseSocial.Application.Contracts.Repositories;
 
 public interface IPhotoRepository
 {

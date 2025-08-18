@@ -1,10 +1,9 @@
 using FluentValidation;
 using FluentValidation.Results;
-using LighthouseSocial.Application.Contracts;
+using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.Lighthouse;
 using LighthouseSocial.Domain.Entities;
-using LighthouseSocial.Domain.Interfaces;
 using Moq;
 
 namespace LighthouseSocial.Tests.Features.Lighthouse;

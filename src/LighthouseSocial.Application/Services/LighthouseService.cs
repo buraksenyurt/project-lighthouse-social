@@ -1,6 +1,6 @@
 ﻿using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Common.Pipeline;
-using LighthouseSocial.Application.Contracts;
+using LighthouseSocial.Application.Contracts.ExternalServices;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.Lighthouse;
 using LighthouseSocial.Application.Features.Photo;
