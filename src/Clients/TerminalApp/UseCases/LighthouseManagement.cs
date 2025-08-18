@@ -35,7 +35,7 @@ public class LighthouseManagement(
 
             Console.WriteLine("Retrieving created lighthouse...");
             var lighthouse = await _lighthouseService.GetByIdAsync(id);
-            if (lighthouse is not null)
+            if (lighthouse?.Data is not null)
             {
                 Console.WriteLine($"Lighthouse found: {lighthouse.Data.Name} (ID: {lighthouse.Data.Id}) in Country: {lighthouse.Data.CountryId}");
                 Console.WriteLine($"Location: {lighthouse.Data.Latitude}, {lighthouse.Data.Longitude}");
@@ -50,10 +50,10 @@ public class LighthouseManagement(
             var allLighthouses = await _lighthouseService.GetPagedAsync(new PagingDto
             {
                 Page = 1,
-                PageSize = 100 // Adjust as needed
+                PageSize = 100
             });
 
-            if (allLighthouses.Data.Items.Any())
+            if (allLighthouses.Data?.Items != null && allLighthouses.Data.Items.Any())
             {
                 foreach (var l in allLighthouses.Data.Items)
                 {

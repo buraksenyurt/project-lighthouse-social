@@ -8,7 +8,7 @@ public class Comment
 {
     public Guid UserId { get; private set; }
     public Guid PhotoId { get; private set; }
-    public string Text { get; private set; }
+    public string Text { get; private set; } = string.Empty;
     public Rating Rating { get; private set; }
     public DateTime CreatedAt { get; private set; }
     protected Comment() { }

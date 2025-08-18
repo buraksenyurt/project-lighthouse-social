@@ -33,7 +33,7 @@ public class PhotoDtoValidator
             .NotEqual(Guid.Empty).WithMessage("LighthouseId must be valid.");
     }
 
-    private bool BeValidCameraType(string input)
+    private static bool BeValidCameraType(string input)
     {
         try
         {

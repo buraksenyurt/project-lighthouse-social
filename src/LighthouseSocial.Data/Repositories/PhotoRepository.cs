@@ -19,8 +19,6 @@ public class PhotoRepository(IDbConnectionFactory connFactory)
 
         using var conn = _connFactory.CreateConnection();
 
-        var metadata = photo.Metadata;
-
         var parameters = new DynamicParameters();
         parameters.Add("Id", photo.Id);
         parameters.Add("UserId", photo.UserId);

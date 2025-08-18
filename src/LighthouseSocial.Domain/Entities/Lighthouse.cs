@@ -1,13 +1,14 @@
-using LighthouseSocial.Domain.Common;
+﻿using LighthouseSocial.Domain.Common;
 using LighthouseSocial.Domain.ValueObjects;
 
 namespace LighthouseSocial.Domain.Entities;
 
 public class Lighthouse : EntityBase
 {
-    public string Name { get; private set; }
+    public string Name { get; private set; } = string.Empty;
     public int CountryId { get; private set; }
-    public Country Country { get; private set; }
+    public Country Country { get; private set; } = null!;
+    // null-forgiving operatorü (!) ile Country özelliğinin null olamayacağının garantisini veriyoruz.
     public Coordinates Location { get; private set; }
     public List<Photo> Photos { get; } = [];
 

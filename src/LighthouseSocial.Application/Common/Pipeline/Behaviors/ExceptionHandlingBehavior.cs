@@ -8,6 +8,12 @@ public class ExceptionHandlingBehavior<TRequest, TResponse>(ILogger<PerformanceB
     public async Task<TResponse> HandleAsync(TRequest request, Func<Task<TResponse>> next, CancellationToken cancellationToken = default)
     {
         logger.LogInformation("Handling request of type {RequestType}", typeof(TRequest).Name);
+        if (cancellationToken.IsCancellationRequested)
+        {
+            logger.LogWarning("Request handling was cancelled.");
+            return default!;
+        }
+
         try
         {
             return await next();
@@ -23,17 +29,20 @@ public class ExceptionHandlingBehavior<TRequest, TResponse>(ILogger<PerformanceB
             {
                 return (TResponse)(object)Result.Fail("Unexpected error occured.");
             }
-            if (typeof(TResponse) == typeof(Result<>))
+            if (typeof(TResponse).IsGenericType && typeof(TResponse).GetGenericTypeDefinition() == typeof(Result<>))
             {
                 var resultType = typeof(TResponse).GetGenericArguments()[0];
                 var failMethod = typeof(Result).GetMethod("Fail", [typeof(string)])?.MakeGenericMethod(resultType);
                 if (failMethod != null)
                 {
-                    return (TResponse)failMethod.Invoke(null, new object[] { "Beklenmeyen bir hata oluştu." });
+                    var failResult = failMethod.Invoke(null, ["Beklenmeyen bir hata oluştu."]);
+                    if (failResult is TResponse typedResult)
+                    {
+                        return typedResult;
+                    }
                 }
             }
-
-            throw;
         }
+        return default!;
     }
 }

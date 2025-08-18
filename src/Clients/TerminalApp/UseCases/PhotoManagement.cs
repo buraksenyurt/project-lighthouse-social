@@ -111,7 +111,7 @@ public class PhotoManagementUseCase(
                         Directory.CreateDirectory(directory);
                     }
                     var filePath = Path.Combine(Environment.CurrentDirectory, "downloads", photo.FileName);
-                    File.WriteAllBytes(filePath, memoryStream.ToArray());
+                    await File.WriteAllBytesAsync(filePath, memoryStream.ToArray());
                     Console.WriteLine($"Photo saved to: {filePath}");
                 }
             }

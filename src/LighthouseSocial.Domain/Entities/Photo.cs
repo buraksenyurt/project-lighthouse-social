@@ -8,9 +8,9 @@ public class Photo
 {
     public Guid UserId { get; private set; }
     public Guid LighthouseId { get; private set; }
-    public string Filename { get; private set; }
+    public string Filename { get; private set; } = null!;
     public DateTime UploadDate { get; private set; }
-    public PhotoMetadata Metadata { get; private set; }
+    public PhotoMetadata Metadata { get; private set; } = null!;
     public List<Comment> Comments { get; } = [];
 
     protected Photo() { }
@@ -20,8 +20,8 @@ public class Photo
         Id = id != Guid.Empty ? id : Guid.NewGuid();
         UserId = userId;
         LighthouseId = lighthouseId;
-        Filename = filename;
+        Filename = filename ?? throw new ArgumentNullException(nameof(filename));
         UploadDate = DateTime.UtcNow;
-        Metadata = metadata;
+        Metadata = metadata ?? throw new ArgumentNullException(nameof(metadata));
     }
 }

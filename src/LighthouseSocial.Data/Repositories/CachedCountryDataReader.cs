@@ -41,5 +41,5 @@ public class CachedCountryDataReader(ICountryDataReader inner, ICacheService cac
 internal class CountryDto
 {
     public int Id { get; set; }
-    public string Name { get; set; }
+    public required string Name { get; set; }
 }
