@@ -27,12 +27,11 @@ builder.Services.AddControllers()
         .AddRouteComponents("odata", GetEdmModel())
   );
 
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services
+    .AddInfrastructure(builder.Configuration)
+    .WithSecretVault()
+    .Build();
 builder.Services.AddData();
-builder.Services.AddApplication();
-//todo@buraksenyurt DI Ekleme operasyonlarında gerekli olmayan hizmetleri dışarıda tutarak, sadece gerekli olanları ekle
-builder.Services.Configure<MinioSettings>(builder.Configuration.GetSection("Minio"));
-builder.Services.AddHttpClient();
 
 var app = builder.Build();
 

@@ -10,7 +10,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddApplication();
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services
+    .AddInfrastructure(builder.Configuration)
+    .WithSecretVault()
+    .WithStorage()
+    .WithCaching()
+    .WithExternals()
+    .Build();
+
 builder.Services.AddData();
 builder.Services.Configure<MinioSettings>(builder.Configuration.GetSection("Minio"));
 builder.Services.AddHttpClient<ICommentAuditor, ExternalCommentAuditor>();

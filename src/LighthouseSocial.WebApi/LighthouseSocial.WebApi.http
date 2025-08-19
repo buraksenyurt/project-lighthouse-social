@@ -63,7 +63,7 @@ Accept: application/json
 ###
 
 ### Get Lighthouses by page
-GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/paged?page=2&pageSize=3
+GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/paged?page=1&pageSize=5
 Accept: application/json
 
 ###

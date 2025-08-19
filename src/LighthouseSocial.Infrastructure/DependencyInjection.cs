@@ -13,17 +13,26 @@ namespace LighthouseSocial.Infrastructure;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static InfrastructureBuilder AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<IPhotoStorageService, PhotoStorageService>();
-        services.AddScoped<ICommentAuditor, ExternalCommentAuditor>();
+        return new InfrastructureBuilder(services, configuration);
+    }
+}
 
-        // Secret Vault
+public class InfrastructureBuilder(IServiceCollection services, IConfiguration configuration)
+{
+    public InfrastructureBuilder WithSecretVault()
+    {
         services.AddSingleton<ISecretManager, VaultSecretManager>();
         services.AddSingleton<VaultConfigurationService>();
-        
-        // Storage
-        services.AddScoped<IMinioClient>(provider =>
+
+        return this;
+    }
+
+    public InfrastructureBuilder WithStorage()
+    {
+        services.AddScoped<IPhotoStorageService, PhotoStorageService>();
+        services.AddScoped(provider =>
         {
             var settings = provider.GetRequiredService<IOptions<MinioSettings>>().Value;
             return new MinioClient()
@@ -33,8 +42,11 @@ public static class DependencyInjection
                 .Build();
         });
 
-        // Caching
-        var useRedis = configuration.GetValue<bool>("Caching:UseRedis");
+        return this;
+    }
+
+    public InfrastructureBuilder WithCaching(bool useRedis)
+    {
         if (useRedis)
         {
             services.AddStackExchangeRedisCache(options =>
@@ -50,6 +62,23 @@ public static class DependencyInjection
             services.AddScoped<ICacheService, MemoryCacheService>();
         }
 
+        return this;
+    }
+
+    public InfrastructureBuilder WithCaching()
+    {
+        var useRedis = configuration.GetValue<bool>("Caching:UseRedis");
+        return WithCaching(useRedis);
+    }
+
+    public InfrastructureBuilder WithExternals()
+    {
+        services.AddScoped<ICommentAuditor, ExternalCommentAuditor>();
+        return this;
+    }
+
+    public IServiceCollection Build()
+    {
         return services;
     }
 }
