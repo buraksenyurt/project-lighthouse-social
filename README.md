@@ -90,8 +90,9 @@ Minimum Profil;
   - [Video 26](https://youtu.be/rliAGCQpGmE)
   - [Video 27](https://youtu.be/Y1uZuewmLAs)
   - [Video 28](https://youtu.be/p1IQqc5cD6g)
-- [ ] **Bölüm 06 Presentation Katmanı Geliştirmeleri:** Web Api servisi, Razor Web App, Blazor gibi farklı istemci uygulamalarının geliştirilmesi.
+- [ ] **Bölüm 06 Presentation Katmanı Geliştirmeleri:** Rest tabanlı Web Api ve OData servisleri, Razor Web App, Blazor gibi farklı istemci uygulamalarının geliştirilmesi.
   - [Video 29](https://youtu.be/WI9lOd8uVs4)
+  - [Video 30](https://youtu.be/EO1IED3soQ8)
 
 ## Sonarqube
 
