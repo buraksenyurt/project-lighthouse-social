@@ -1,7 +1,6 @@
 ﻿using LighthouseSocial.Application;
 using LighthouseSocial.Data;
 using LighthouseSocial.Infrastructure;
-using LighthouseSocial.Infrastructure.Configuration;
 using LighthouseSocial.Infrastructure.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +16,13 @@ var services = new ServiceCollection();
 services.AddLogging(builder => builder.AddConsole());
 
 services.AddApplication();
-services.AddInfrastructure(config);
+services.AddInfrastructure(config)
+    .WithSecretVault()
+    .WithStorage()
+    .WithCaching()
+    .WithExternals()
+    .Build();
+
 services.AddData();
 services.Configure<MinioSettings>(config.GetSection("Minio"));
 
