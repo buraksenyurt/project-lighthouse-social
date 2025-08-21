@@ -1,4 +1,5 @@
-﻿using LighthouseSocial.Application.Contracts.Repositories;
+﻿using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.Lighthouse;
 using LighthouseSocial.Domain.Entities;
@@ -71,7 +72,7 @@ public class UpdateLighthouseHandlerTests
 
         // Assert
         Assert.False(result.Success);
-        Assert.Equal("Lighthouse not found.", result.ErrorMessage);
+        Assert.Equal(Messages.Errors.Lighthouse.LighthouseNotFound, result.ErrorMessage);
         _repositoryMock.Verify(r => r.GetByIdAsync(lighthouseId), Times.Once);
         _repositoryMock.Verify(r => r.UpdateAsync(It.IsAny<Domain.Entities.Lighthouse>()), Times.Never);
     }
@@ -105,7 +106,7 @@ public class UpdateLighthouseHandlerTests
 
         // Assert
         Assert.False(result.Success);
-        Assert.Equal("Failed to update lighthouse.", result.ErrorMessage);
+        Assert.Equal(Messages.Errors.Lighthouse.FailedToUpdateLighthouse, result.ErrorMessage);
         _repositoryMock.Verify(r => r.GetByIdAsync(lighthouseId), Times.Once);
         _repositoryMock.Verify(r => r.UpdateAsync(It.IsAny<Domain.Entities.Lighthouse>()), Times.Once);
     }

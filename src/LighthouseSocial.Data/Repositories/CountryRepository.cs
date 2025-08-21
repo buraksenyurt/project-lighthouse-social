@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Domain.Entities;
 using System.Data;
@@ -35,7 +36,7 @@ public class CountryRepository(IDbConnectionFactory connFactory)
 
         if (result == default)
         {
-            throw new KeyNotFoundException($"Country not found with id: {id}");
+            throw new KeyNotFoundException($"{Messages.Errors.Country.CountryNotFound} Id: {id}");
         }
 
         return Country.Create(result.id, result.name);

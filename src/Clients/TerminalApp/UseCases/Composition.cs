@@ -1,4 +1,5 @@
-﻿using LighthouseSocial.Application.Contracts.ExternalServices;
+﻿using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Contracts.ExternalServices;
 using LighthouseSocial.Application.Dtos;
 using Microsoft.Extensions.Logging;
 
@@ -158,7 +159,7 @@ public class Composition(
                 var lighthouse = result.Data;
                 if (lighthouse is null)
                 {
-                    Console.WriteLine("\tLighthouse not found");
+                    Console.WriteLine($"\t{Messages.Errors.Lighthouse.LighthouseNotFound}");
                     return;
                 }
                 Console.WriteLine($"Lighthouse: {lighthouse.Name}");
@@ -174,7 +175,7 @@ public class Composition(
             }
             else
             {
-                Console.WriteLine("\tLighthouse not found");
+                Console.WriteLine($"\t{Messages.Errors.Lighthouse.LighthouseNotFound}");
             }
         }
         catch (Exception ex)
@@ -202,7 +203,7 @@ public class Composition(
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Failed to update lighthouse: {ex.Message}");
+            Console.WriteLine($"{Messages.Errors.Lighthouse.FailedToUpdateLighthouse}: {ex.Message}");
         }
     }
 }

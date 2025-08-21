@@ -1,4 +1,5 @@
-﻿using LighthouseSocial.Application.Contracts.Repositories;
+﻿using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Features.Lighthouse;
 using LighthouseSocial.Domain.Entities;
 using LighthouseSocial.Domain.ValueObjects;
@@ -59,7 +60,7 @@ public class DeleteLighthouseHandlerTests
 
         // Assert
         Assert.False(result.Success);
-        Assert.Equal("Lighthouse not found", result.ErrorMessage);
+        Assert.Equal(Messages.Errors.Lighthouse.LighthouseNotFound, result.ErrorMessage);
         _repositoryMock.Verify(r => r.GetByIdAsync(lighthouseId), Times.Once);
         _repositoryMock.Verify(r => r.DeleteAsync(It.IsAny<Guid>()), Times.Never);
     }
@@ -88,7 +89,7 @@ public class DeleteLighthouseHandlerTests
 
         // Assert
         Assert.False(result.Success);
-        Assert.Equal("Failed to delete lighthouse", result.ErrorMessage);
+        Assert.Equal(Messages.Errors.Lighthouse.FailedToDeleteLighthouse, result.ErrorMessage);
         _repositoryMock.Verify(r => r.GetByIdAsync(lighthouseId), Times.Once);
         _repositoryMock.Verify(r => r.DeleteAsync(lighthouseId), Times.Once);
     }

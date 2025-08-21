@@ -15,7 +15,7 @@ internal class GetTopLighthousesHandler(ILighthouseRepository repository)
         var stats = await repository.GetTopAsync(request.Count);
         if (!stats.Any())
         {
-            return Result<IEnumerable<LighthouseTopDto>>.Fail("No lighthouses found.");
+            return Result<IEnumerable<LighthouseTopDto>>.Fail(Messages.Errors.Lighthouse.NoLighthousesFound);
         }
 
         var dtos = stats.Select(s => new LighthouseTopDto

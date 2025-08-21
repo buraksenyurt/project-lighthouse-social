@@ -1,4 +1,5 @@
-﻿using LighthouseSocial.Application.Contracts;
+﻿using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Features.Photo;
 using LighthouseSocial.Domain.ValueObjects;
@@ -82,7 +83,7 @@ public class DeletePhotoHandlerTests
 
         // Assert
         Assert.False(result.Success);
-        Assert.Equal("Failed to delete photo from repository.", result.ErrorMessage);
+        Assert.Equal(Messages.Errors.Photo.FailedToDeletePhoto, result.ErrorMessage);
         _repositoryMock.Verify(r => r.GetByIdAsync(photoId), Times.Once);
         _storageServiceMock.Verify(s => s.DeleteAsync(photo.Filename), Times.Once);
         _repositoryMock.Verify(r => r.DeleteAsync(photoId), Times.Once);
@@ -102,9 +103,9 @@ public class DeletePhotoHandlerTests
 
         // Assert
         Assert.False(result.Success);
-        Assert.Equal("Photo not found.", result.ErrorMessage);
+        Assert.Equal(Messages.Errors.Photo.PhotoNotFound, result.ErrorMessage);
         _repositoryMock.Verify(r => r.GetByIdAsync(photoId), Times.Once);
         _storageServiceMock.Verify(s => s.DeleteAsync(It.IsAny<string>()), Times.Never);
         _repositoryMock.Verify(r => r.DeleteAsync(It.IsAny<Guid>()), Times.Never);
-    }    
+    }
 }

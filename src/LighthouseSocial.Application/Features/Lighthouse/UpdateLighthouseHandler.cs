@@ -17,7 +17,7 @@ internal class UpdateLighthouseHandler(ILighthouseRepository repository)
         var existingLighthouse = await repository.GetByIdAsync(request.LighthouseId);
         if (existingLighthouse is null)
         {
-            return Result.Fail("Lighthouse not found.");
+            return Result.Fail(Messages.Errors.Lighthouse.LighthouseNotFound);
         }
 
         var country = Country.Create(
@@ -38,7 +38,7 @@ internal class UpdateLighthouseHandler(ILighthouseRepository repository)
 
         if (!result)
         {
-            return Result.Fail("Failed to update lighthouse.");
+            return Result.Fail(Messages.Errors.Lighthouse.FailedToUpdateLighthouse);
         }
 
         return Result.Ok();

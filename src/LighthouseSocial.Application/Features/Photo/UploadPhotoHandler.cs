@@ -43,7 +43,7 @@ internal class UploadPhotoHandler(
         var result = await _repository.AddAsync(photo);
         if (!result)
         {
-            return Result<Guid>.Fail("Failed to add photo to repository.");
+            return Result<Guid>.Fail(Messages.Errors.Photo.FailedToAddPhoto);
         }
 
         return Result<Guid>.Ok(photo.Id);

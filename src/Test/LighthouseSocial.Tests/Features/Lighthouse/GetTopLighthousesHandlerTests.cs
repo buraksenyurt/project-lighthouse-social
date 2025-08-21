@@ -1,4 +1,5 @@
-﻿using LighthouseSocial.Application.Contracts.Repositories;
+﻿using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Features.Lighthouse;
 using LighthouseSocial.Domain.Entities;
 using LighthouseSocial.Domain.ValueObjects;
@@ -62,7 +63,7 @@ public class GetTopLighthousesHandlerTests
         // Assert
         Assert.False(result.Success);
         Assert.Null(result.Data);
-        Assert.Equal("No lighthouses found.", result.ErrorMessage);
+        Assert.Equal(Messages.Errors.Lighthouse.NoLighthousesFound, result.ErrorMessage);
         _repositoryMock.Verify(r => r.GetTopAsync(5), Times.Once);
     }
 }

@@ -1,4 +1,5 @@
-﻿using LighthouseSocial.Application.Contracts;
+﻿using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Application.Features.Photo;
 using Moq;
 
@@ -51,7 +52,7 @@ public class GetRawPhotoHandlerTests
         // Assert
         Assert.False(result.Success);
         Assert.Null(result.Data);
-        Assert.Equal("Photo not found in storage.", result.ErrorMessage);
+        Assert.Equal(Messages.Errors.Photo.PhotoNotFoundInStorage, result.ErrorMessage);
         _photoStorageServiceMock.Verify(s => s.GetAsync(fileName), Times.Once);
     }
 
@@ -70,7 +71,7 @@ public class GetRawPhotoHandlerTests
         // Assert
         Assert.False(result.Success);
         Assert.Null(result.Data);
-        Assert.Equal("Photo not found in storage.", result.ErrorMessage);
+        Assert.Equal(Messages.Errors.Photo.PhotoNotFoundInStorage, result.ErrorMessage);
         _photoStorageServiceMock.Verify(s => s.GetAsync(fileName), Times.Once);
     }
 }

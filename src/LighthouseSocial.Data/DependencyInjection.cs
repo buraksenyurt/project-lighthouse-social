@@ -1,3 +1,4 @@
+using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Data.Repositories;
 using LighthouseSocial.Infrastructure.Caching;
@@ -66,7 +67,7 @@ public static class DependencyInjection
             catch (Exception ex)
             {
                 var logger = provider.GetService<ILogger<IDbConnectionFactory>>();
-                logger?.LogWarning(ex, "Failed to get connection string from Vault, using configuration fallback");
+                logger?.LogWarning(ex, Messages.Errors.SecureVault.DatabaseConnectionStringNotFound);
             }
 
             return new NpgsqlConnectionFactory(connectionString);

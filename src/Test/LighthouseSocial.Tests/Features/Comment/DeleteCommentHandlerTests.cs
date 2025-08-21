@@ -1,4 +1,5 @@
-﻿using LighthouseSocial.Application.Contracts.Repositories;
+﻿using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Features.Comment;
 using LighthouseSocial.Domain.ValueObjects;
 using Moq;
@@ -68,7 +69,7 @@ public class DeleteCommentHandlerTests
 
         // Assert
         Assert.False(result.Success);
-        Assert.Equal("Failed to delete comment", result.ErrorMessage);
+        Assert.Equal(Messages.Errors.Comment.FailedToDeleteComment, result.ErrorMessage);
         _repositoryMock.Verify(r => r.GetByIdAsync(commentId), Times.Once);
         _repositoryMock.Verify(r => r.DeleteAsync(commentId), Times.Once);
     }
@@ -79,15 +80,15 @@ public class DeleteCommentHandlerTests
         // Arrange
         var commentId = Guid.NewGuid();
 
-       _repositoryMock.Setup(r => r.GetByIdAsync(commentId))
-            .ReturnsAsync((Domain.Entities.Comment?)null);
+        _repositoryMock.Setup(r => r.GetByIdAsync(commentId))
+             .ReturnsAsync((Domain.Entities.Comment?)null);
 
         // Act
         var result = await _handler.HandleAsync(new DeleteCommentRequest(commentId), CancellationToken.None);
 
         // Assert
         Assert.False(result.Success);
-        Assert.Equal("Comment not found", result.ErrorMessage);
+        Assert.Equal(Messages.Errors.Comment.CommentNotFound, result.ErrorMessage);
         _repositoryMock.Verify(r => r.GetByIdAsync(commentId), Times.Once);
         _repositoryMock.Verify(r => r.DeleteAsync(It.IsAny<Guid>()), Times.Never);
     }

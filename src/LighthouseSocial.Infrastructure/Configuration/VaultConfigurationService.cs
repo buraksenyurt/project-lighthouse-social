@@ -1,4 +1,5 @@
-﻿using LighthouseSocial.Application.Contracts;
+﻿using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Contracts;
 using Microsoft.Extensions.Logging;
 
 namespace LighthouseSocial.Infrastructure.Configuration;
@@ -14,14 +15,14 @@ public class VaultConfigurationService(ISecretManager secretManager, ILogger<Vau
             var connectionString = await secretManager.GetSecretAsync(SecretPath, "DbConnStr");
             if (string.IsNullOrEmpty(connectionString))
             {
-                logger.LogWarning("Database connection string not found in Vault at path: {SecretPath}", SecretPath);
-                throw new InvalidOperationException("Database connection string not found in Vault");
+                logger.LogWarning("{ConnectionStringNotFound} at path: {SecretPath}", Messages.Errors.SecureVault.DatabaseConnectionStringNotFound, SecretPath);
+                throw new InvalidOperationException(Messages.Errors.SecureVault.DatabaseConnectionStringNotFound);
             }
             return connectionString;
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Error retrieving database connection string from Vault");
+            logger.LogError(ex, Messages.Errors.SecureVault.RetrievingDbConnectionString);
             return string.Empty;
         }
     }
@@ -35,8 +36,8 @@ public class VaultConfigurationService(ISecretManager secretManager, ILogger<Vau
 
             if (string.IsNullOrEmpty(accessKey) || string.IsNullOrEmpty(secretKey))
             {
-                logger.LogWarning("MinIO credentials not found in Vault at path: {SecretPath}", SecretPath);
-                throw new InvalidOperationException("MinIO credentials not found in Vault");
+                logger.LogWarning("{ErrorMessage} at path: {SecretPath}", Messages.Errors.SecureVault.MinioCredentialsNotFound, SecretPath);
+                throw new InvalidOperationException(Messages.Errors.SecureVault.MinioCredentialsNotFound);
             }
 
             logger.LogInformation("Successfully retrieved MinIO credentials from Vault");
@@ -44,7 +45,7 @@ public class VaultConfigurationService(ISecretManager secretManager, ILogger<Vau
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Error retrieving Minio credentials from Vault");
+            logger.LogError(ex, Messages.Errors.SecureVault.RetrievingMinio);
             return (string.Empty, string.Empty);
         }
     }

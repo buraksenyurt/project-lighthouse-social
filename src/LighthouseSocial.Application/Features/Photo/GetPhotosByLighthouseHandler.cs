@@ -15,7 +15,7 @@ internal class GetPhotosByLighthouseHandler(IPhotoRepository photoRepository)
         var photos = await photoRepository.GetByLighthouseIdAsync(request.LighthouseId);
         if (photos is null || !photos.Any())
         {
-            return Result<IEnumerable<PhotoDto>>.Fail("No photos found for the specified lighthouse.");
+            return Result<IEnumerable<PhotoDto>>.Fail(Messages.Errors.Photo.NoPhotosFoundForLighthouse);
         }
         var photoDtos = photos.Select(
             p => new PhotoDto(

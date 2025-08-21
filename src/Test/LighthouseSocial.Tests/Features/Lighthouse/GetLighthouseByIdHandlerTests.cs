@@ -1,4 +1,5 @@
-﻿using LighthouseSocial.Application.Contracts.Repositories;
+﻿using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Features.Lighthouse;
 using LighthouseSocial.Domain.Entities;
 using LighthouseSocial.Domain.ValueObjects;
@@ -57,7 +58,7 @@ public class GetLighthouseByIdHandlerTests
 
         // Assert
         Assert.False(result.Success);
-        Assert.Equal("Lighthouse not found.", result.ErrorMessage);
+        Assert.Equal(Messages.Errors.Lighthouse.LighthouseNotFound, result.ErrorMessage);
         _repositoryMock.Verify(r => r.GetByIdAsync(lighthouseId), Times.Once);
     }
 }

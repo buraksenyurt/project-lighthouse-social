@@ -1,4 +1,5 @@
-﻿using LighthouseSocial.Application.Contracts.ExternalServices;
+﻿using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Contracts.ExternalServices;
 using LighthouseSocial.Application.Dtos;
 using Microsoft.Extensions.Logging;
 
@@ -43,7 +44,7 @@ public class LighthouseManagement(
             else
             {
                 _logger.LogWarning("Lighthouse {LighthouseId} not found.", id);
-                Console.WriteLine("Lighthouse not found!");
+                Console.WriteLine(Messages.Errors.Lighthouse.LighthouseNotFound);
             }
 
             Console.WriteLine("\nAll Lighthouses in System:");
@@ -62,7 +63,7 @@ public class LighthouseManagement(
             }
             else
             {
-                Console.WriteLine("\tNo lighthouses found in the system.");
+                Console.WriteLine($"\t{Messages.Errors.Lighthouse.NoLighthousesFound}");
             }
 
         }

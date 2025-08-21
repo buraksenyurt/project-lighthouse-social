@@ -13,7 +13,7 @@ internal class GetRawPhotoHandler(IPhotoStorageService storageService)
         var stream = await storageService.GetAsync(request.FileName);
         if (stream is null || stream.Length == 0)
         {
-            return Result<Stream>.Fail("Photo not found in storage.");
+            return Result<Stream>.Fail(Messages.Errors.Photo.PhotoNotFoundInStorage);
         }
         return Result<Stream>.Ok(stream);
     }

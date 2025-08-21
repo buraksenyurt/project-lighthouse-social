@@ -1,4 +1,5 @@
-﻿using LighthouseSocial.Application.Contracts.Repositories;
+﻿using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Features.Photo;
 using LighthouseSocial.Domain.ValueObjects;
 using Moq;
@@ -13,7 +14,7 @@ public class GetPhotosByLighthouseHandlerTests
     public GetPhotosByLighthouseHandlerTests()
     {
         _repositoryMock = new Mock<IPhotoRepository>();
-        _handler=new GetPhotosByLighthouseHandler( _repositoryMock.Object );
+        _handler = new GetPhotosByLighthouseHandler(_repositoryMock.Object);
     }
 
     [Fact]
@@ -69,7 +70,7 @@ public class GetPhotosByLighthouseHandlerTests
         // Assert
         Assert.False(result.Success);
         Assert.Null(result.Data);
-        Assert.Equal("No photos found for the specified lighthouse.", result.ErrorMessage);
+        Assert.Equal(Messages.Errors.Photo.NoPhotosFoundForLighthouse, result.ErrorMessage);
         _repositoryMock.Verify(r => r.GetByLighthouseIdAsync(lighthouseId), Times.Once);
     }
 
@@ -88,7 +89,7 @@ public class GetPhotosByLighthouseHandlerTests
         // Assert
         Assert.False(result.Success);
         Assert.Null(result.Data);
-        Assert.Equal("No photos found for the specified lighthouse.", result.ErrorMessage);
+        Assert.Equal(Messages.Errors.Photo.NoPhotosFoundForLighthouse, result.ErrorMessage);
         _repositoryMock.Verify(r => r.GetByLighthouseIdAsync(lighthouseId), Times.Once);
     }
 }

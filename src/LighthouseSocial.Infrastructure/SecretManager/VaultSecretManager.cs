@@ -1,4 +1,5 @@
-﻿using LighthouseSocial.Application.Contracts;
+﻿using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Contracts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using VaultSharp;
@@ -42,7 +43,7 @@ public class VaultSecretManager
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error retrieving secret from Vault at path: {SecretPath}, key: {Key}", secretPath, key);
-            throw;
+            return null;
         }
     }
 
@@ -66,7 +67,7 @@ public class VaultSecretManager
             }
             else
             {
-                _logger.LogWarning("No secrets found at path: {SecretPath}", secretPath);
+                _logger.LogWarning("{NoSecretsFound}: {SecretPath}", Messages.Errors.SecureVault.NoSecretsFound, secretPath);
             }
 
             _logger.LogInformation("Successfully retrieved {Count} secrets from path: {SecretPath}", result.Count, secretPath);
@@ -75,8 +76,8 @@ public class VaultSecretManager
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error retrieving secrets from Vault at path: {SecretPath}", secretPath);
-            throw;
+            _logger.LogError(ex, "{ErrorRetrieving}: {SecretPath}", Messages.Errors.SecureVault.RetrievingSecrets, secretPath);
+            return [];
         }
     }
 }

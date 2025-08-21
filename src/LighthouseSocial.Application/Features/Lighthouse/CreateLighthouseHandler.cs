@@ -39,7 +39,7 @@ internal class CreateLighthouseHandler(ILighthouseRepository repository, ICountr
             var result = await _repository.AddAsync(lighthouse);
             if (!result)
             {
-                return Result<Guid>.Fail("Failed to add lighthouse to repository.");
+                return Result<Guid>.Fail(Messages.Errors.Lighthouse.FailedToAddLighthouse);
             }
 
             return Result<Guid>.Ok(lighthouse.Id);

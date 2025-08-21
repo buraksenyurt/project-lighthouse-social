@@ -17,7 +17,7 @@ internal class GetLighthouseByIdHandler(ILighthouseRepository repository)
 
         if (lighthouse == null)
         {
-            return Result<LighthouseDto>.Fail("Lighthouse not found.");
+            return Result<LighthouseDto>.Fail(Messages.Errors.Lighthouse.LighthouseNotFound);
         }
 
         var dto = new LighthouseDto(
