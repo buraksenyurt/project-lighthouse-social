@@ -113,7 +113,7 @@ public partial class LighthouseRepository(IDbConnectionFactory connFactory)
         return (list, totalCount);
     }
 
-    public async Task UpdateAsync(Lighthouse lighthouse)
+    public async Task<bool> UpdateAsync(Lighthouse lighthouse)
     {
         const string sql = @"
             UPDATE lighthouses
@@ -126,7 +126,7 @@ public partial class LighthouseRepository(IDbConnectionFactory connFactory)
 
         using var conn = _connFactory.CreateConnection();
 
-        await conn.ExecuteAsync(sql, new
+        var updated = await conn.ExecuteAsync(sql, new
         {
             lighthouse.Id,
             lighthouse.Name,
@@ -134,5 +134,6 @@ public partial class LighthouseRepository(IDbConnectionFactory connFactory)
             lighthouse.Location.Latitude,
             lighthouse.Location.Longitude
         });
+        return updated > 0;
     }
 }
