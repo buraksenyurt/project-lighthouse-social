@@ -71,7 +71,7 @@ public class UpdateLighthouseHandlerTests
 
         // Assert
         Assert.False(result.Success);
-        Assert.Equal("Lighthouse not found", result.ErrorMessage);
+        Assert.Equal("Lighthouse not found.", result.ErrorMessage);
         _repositoryMock.Verify(r => r.GetByIdAsync(lighthouseId), Times.Once);
         _repositoryMock.Verify(r => r.UpdateAsync(It.IsAny<Domain.Entities.Lighthouse>()), Times.Never);
     }
