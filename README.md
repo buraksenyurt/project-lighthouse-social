@@ -94,10 +94,6 @@ Minimum Profil;
   - [Video 29](https://youtu.be/WI9lOd8uVs4)
   - [Video 30](https://youtu.be/EO1IED3soQ8)
   - [Video 31](https://youtu.be/8rV-mUXj4YQ)
-  - [Video 32](https://youtu.be/Il3GcRWGKmA)
-  - **Ara Bölüm(Sonarqube kontrolü):** [Video 33](https://youtu.be/kajGEmY_r8M)
-  - [Video 34](https://youtu.be/FlJSnSSMMpk)
-  - [Video 35](https://youtu.be/r34uuX8ycCQ)
 
 ## Sonarqube
 
@@ -149,6 +145,7 @@ docker compose up -d
 - [ ] **Public API:** Projenin genel kullanıma açık bir API hizmeti olabilir mi? Örneğin, deniz feneri bilgilerini dış dünyaya açabiliriz. Bu, standart web arayüzü dışında bir hizmettir, farklı uygulamaların işine de yarar.
 - [ ] **Raporlama:** Projemiz ne tür raporlar sunabilir? Dünyanın en popüler fotoğraflarına sahip deniz fenerleri, en iyi fotoğraflara sahip kullanıcılar, en çok uğranılan deniz fenerlerinin olduğu ülkeler, faal olan deniz fenerleri listesi vb Bu raporlar nasıl bir uygulama baz alınabilir.
 - [ ] **Entegrasyon Testleri:** Projede ilerledikçe servis ve bileşenlerin sayısı artıyor. Bu durumda entegrasyon testleri nasıl bir strateji ile iyileştirilebilir? Örneğin, **JudgeDredd** ya da **PhotoStorage** bileşenlerinin dahil olduğu vakalar için entegrasyon testleri yazılabilir ve çalışma zamanı olarak da bir TestContainer kullanılabilir.
+- [ ] **Öneri Sistemi:** Platform kullanıcılarına belli kriterlere göre gidilmesi gereken ya da gidebilecekleri deniz fenerleri listeleyen bir öneri sistemi eklenebilir.
 
 ## Kontrol Listesi
 
