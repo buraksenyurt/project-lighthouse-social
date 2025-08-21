@@ -1,3 +1,5 @@
+CREATE DATABASE keycloak;
+
 -- Postgresql Db Name : lighthousedb
 
 -- Comments Table

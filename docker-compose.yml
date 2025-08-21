@@ -70,6 +70,30 @@ services:
     ports:
       - "6379:6379"
 
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: plh-keycloak
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin123
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_DB_USERNAME: johndoe
+      KC_DB_PASSWORD: somew0rds
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_PORT: 8080
+      KC_HOSTNAME_STRICT: false
+      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_HTTP_ENABLED: true
+      KC_HEALTH_ENABLED: true
+      KC_METRICS_ENABLED: true
+    ports:
+      - "8089:8080"
+    depends_on:
+      - postgres
+    command: start-dev
+    restart: unless-stopped
+
 volumes:
   postgres_data:
   minio_data:  
