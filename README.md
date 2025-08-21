@@ -93,6 +93,11 @@ Minimum Profil;
 - [ ] **Bölüm 06 Presentation Katmanı Geliştirmeleri:** Rest tabanlı Web Api ve OData servisleri, Razor Web App, Blazor gibi farklı istemci uygulamalarının geliştirilmesi.
   - [Video 29](https://youtu.be/WI9lOd8uVs4)
   - [Video 30](https://youtu.be/EO1IED3soQ8)
+  - [Video 31](https://youtu.be/8rV-mUXj4YQ)
+  - [Video 32](https://youtu.be/Il3GcRWGKmA)
+  - **Ara Bölüm(Sonarqube kontrolü):** [Video 33](https://youtu.be/kajGEmY_r8M)
+  - [Video 34](https://youtu.be/FlJSnSSMMpk)
+  - [Video 35](https://youtu.be/r34uuX8ycCQ)
 
 ## Sonarqube
 
