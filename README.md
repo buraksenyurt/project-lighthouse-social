@@ -90,10 +90,11 @@ Minimum Profil;
   - [Video 26](https://youtu.be/rliAGCQpGmE)
   - [Video 27](https://youtu.be/Y1uZuewmLAs)
   - [Video 28](https://youtu.be/p1IQqc5cD6g)
-- [ ] **Bölüm 06 Presentation Katmanı Geliştirmeleri:** Rest tabanlı Web Api ve OData servisleri, Razor Web App, Blazor gibi farklı istemci uygulamalarının geliştirilmesi.
+- [x] **Bölüm 06 Presentation Katmanı Geliştirmeleri:** Rest tabanlı Web Api ve OData servisleri, Razor Web App, Blazor gibi farklı istemci uygulamalarının geliştirilmesi.
   - [Video 29](https://youtu.be/WI9lOd8uVs4)
   - [Video 30](https://youtu.be/EO1IED3soQ8)
   - [Video 31](https://youtu.be/8rV-mUXj4YQ)
+  - [Video 32](https://youtu.be/Il3GcRWGKmA)
 
 ## Sonarqube
 
@@ -128,6 +129,27 @@ docker compose up -d
 ```
 
 ---
+
+## Güncel Vault Bilgileri
+
+```json
+{
+  "DbConnStr": "Host=localhost;Port=5432;Database=lighthousedb;Username=johndoe;Password=somew0rds",
+  "KeycloakAudience": "account",
+  "KeycloakAuthority": "http://localhost:8089/",
+  "KeycloakClientId": "lighthouse-service-client",
+  "KeycloakClientSecret": "BFS7HWgDPxYBQFq8k1cyG8yQWI8tSubV",
+  "KeycloakClockSkew": "5",
+  "KeycloakRealm": "ProjectLighthouseSocialRealm",
+  "KeycloakRequireHttpsMetadata": "false",
+  "KeycloakValidateAudience": "false",
+  "KeycloakValidateIssuer": "true",
+  "KeycloakValidateIssuerSigningKey": "true",
+  "KeycloakValidateLifetime": "true",
+  "MinIOAccessKey": "admin",
+  "MinIOSecretKey": "password"
+}
+```
 
 ## Görevler, Sorular
 
