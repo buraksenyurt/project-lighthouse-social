@@ -6,7 +6,8 @@ using LighthouseSocial.Infrastructure.Auditors;
 using LighthouseSocial.Infrastructure.Storage;
 
 var builder = WebApplication.CreateBuilder(args);
-// Add services to the container.
+builder.Logging.AddConsole();
+builder.Logging.SetMinimumLevel(LogLevel.Debug);
 
 builder.Services.AddControllers();
 builder.Services.AddApplication();
@@ -22,18 +23,11 @@ builder.Services.AddData();
 builder.Services.Configure<MinioSettings>(builder.Configuration.GetSection("Minio"));
 builder.Services.AddHttpClient<ICommentAuditor, ExternalCommentAuditor>();
 
-// builder.Services.AddOpenApi();
-
 var app = builder.Build();
-
-//// Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-//    app.MapOpenApi();
-//}
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
