@@ -66,6 +66,197 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Keycloak",
+			"item": [
+				{
+					"name": "Get Token (User)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "lighthouse-social-client",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "RIoHksdm26op4byhj9ks0JD1VweWUqAg",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "admin@lighthouse.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Test123!",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid profile email",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8089/realms/ProjectLighthouseSocialRealm/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"realms",
+								"ProjectLighthouseSocialRealm",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Token (User)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJmR2NmRTFBNThZY0w2Y1lyY0hwSzhEWVFqQ2paVnRfMTNWaXZ6eTItc2pFIn0.eyJleHAiOjE3NTU5NDM1OTksImlhdCI6MTc1NTk0MzI5OSwianRpIjoib25ydHJvOjE1YzJhZGI1LTc1OWItYzUwYS1iM2MzLTUyNmI2ODI5MDA1MiIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4OS9yZWFsbXMvUHJvamVjdExpZ2h0aG91c2VTb2NpYWxSZWFsbSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJlY2Y0MTUxMC0yNmRjLTRkODMtOGI5Mi1hMzBkOGQ5YWM0NzciLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJsaWdodGhvdXNlLXNvY2lhbC1jbGllbnQiLCJzaWQiOiIwMWM0NGVmOC02Y2U2LTRkOWEtODc5ZC02MjJiNDQ0ODk1NTgiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHBzOi8vbG9jYWxob3N0OjcwMzUvKiIsImh0dHA6Ly9sb2NhbGhvc3Q6NTA3Mi8qIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJkZWZhdWx0LXJvbGVzLXByb2plY3RsaWdodGhvdXNlc29jaWFscmVhbG0iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIiwibGlnaHRob3VzZS1hZG1pbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6IlNjb3RoIFRpZ2VyIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiYWRtaW5AbGlnaHRob3VzZS5jb20iLCJnaXZlbl9uYW1lIjoiU2NvdGgiLCJmYW1pbHlfbmFtZSI6IlRpZ2VyIiwiZW1haWwiOiJhZG1pbkBsaWdodGhvdXNlLmNvbSJ9.OCoHkqU5TL_EgO4rPFCYYG28W0GmuPePep5f-cdmwk50Ivhfc18JCN5eoyZYU_LB2SMpqdps4LdBphbfpu6tVcWtqCr1ZWTzawR2oa-Kc0r50eix95Y3akUxpESTDgAJPN6qyOiOTn99DP7RTYRh5SbyuXTkKQaTDmKpnqKHgZQYWkNT2yVjmzW8TtJfngbd4YerCuZ62n947VuC3ociJmhgBCdsqyy4G9oNE9xIyt-XY8s0fgpr-MfBXMLSkydcUw3SsQH8iod16o-uS7NqiBAKdCD28l0e6-Zd7dp91dqhKzzm-9GhcTmI_RXCfmAte2Br8XfKTDzG_tZZ6MsE6g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJmR2NmRTFBNThZY0w2Y1lyY0hwSzhEWVFqQ2paVnRfMTNWaXZ6eTItc2pFIn0.eyJleHAiOjE3NTU5NDM1OTksImlhdCI6MTc1NTk0MzI5OSwianRpIjoib25ydHJvOjE1YzJhZGI1LTc1OWItYzUwYS1iM2MzLTUyNmI2ODI5MDA1MiIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4OS9yZWFsbXMvUHJvamVjdExpZ2h0aG91c2VTb2NpYWxSZWFsbSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJlY2Y0MTUxMC0yNmRjLTRkODMtOGI5Mi1hMzBkOGQ5YWM0NzciLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJsaWdodGhvdXNlLXNvY2lhbC1jbGllbnQiLCJzaWQiOiIwMWM0NGVmOC02Y2U2LTRkOWEtODc5ZC02MjJiNDQ0ODk1NTgiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHBzOi8vbG9jYWxob3N0OjcwMzUvKiIsImh0dHA6Ly9sb2NhbGhvc3Q6NTA3Mi8qIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJkZWZhdWx0LXJvbGVzLXByb2plY3RsaWdodGhvdXNlc29jaWFscmVhbG0iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIiwibGlnaHRob3VzZS1hZG1pbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6IlNjb3RoIFRpZ2VyIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiYWRtaW5AbGlnaHRob3VzZS5jb20iLCJnaXZlbl9uYW1lIjoiU2NvdGgiLCJmYW1pbHlfbmFtZSI6IlRpZ2VyIiwiZW1haWwiOiJhZG1pbkBsaWdodGhvdXNlLmNvbSJ9.OCoHkqU5TL_EgO4rPFCYYG28W0GmuPePep5f-cdmwk50Ivhfc18JCN5eoyZYU_LB2SMpqdps4LdBphbfpu6tVcWtqCr1ZWTzawR2oa-Kc0r50eix95Y3akUxpESTDgAJPN6qyOiOTn99DP7RTYRh5SbyuXTkKQaTDmKpnqKHgZQYWkNT2yVjmzW8TtJfngbd4YerCuZ62n947VuC3ociJmhgBCdsqyy4G9oNE9xIyt-XY8s0fgpr-MfBXMLSkydcUw3SsQH8iod16o-uS7NqiBAKdCD28l0e6-Zd7dp91dqhKzzm-9GhcTmI_RXCfmAte2Br8XfKTDzG_tZZ6MsE6g",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "lighthouse-social-client",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "RIoHksdm26op4byhj9ks0JD1VweWUqAg",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8089/realms/ProjectLighthouseSocialRealm/protocol/openid-connect/token/introspect",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"realms",
+								"ProjectLighthouseSocialRealm",
+								"protocol",
+								"openid-connect",
+								"token",
+								"introspect"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Web Api",
+			"item": [
+				{
+					"name": "Get Top 3 Lighthouses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5072/api/lighthouse/top/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5072",
+							"path": [
+								"api",
+								"lighthouse",
+								"top",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Lighthouse",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJmR2NmRTFBNThZY0w2Y1lyY0hwSzhEWVFqQ2paVnRfMTNWaXZ6eTItc2pFIn0.eyJleHAiOjE3NTU5NTAxNzgsImlhdCI6MTc1NTk0OTg3OCwianRpIjoidHJydGNjOjc2MjM1MDNiLTJjZjYtYzIwYi1mOTMzLWZmY2MzOTE0Y2MxMSIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4OS9yZWFsbXMvUHJvamVjdExpZ2h0aG91c2VTb2NpYWxSZWFsbSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiOTcxMzAxNS1lOWQzLTQ4NTYtYjEyNi01MGIxNWUyY2RiMmMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJsaWdodGhvdXNlLXNlcnZpY2UtY2xpZW50IiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIvKiJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1wcm9qZWN0bGlnaHRob3VzZXNvY2lhbHJlYWxtIiwib2ZmbGluZV9hY2Nlc3MiLCJ3ZWJhcGktdXNlciIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiY2xpZW50SG9zdCI6IjE3Mi4xOC4wLjEiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtbGlnaHRob3VzZS1zZXJ2aWNlLWNsaWVudCIsImNsaWVudEFkZHJlc3MiOiIxNzIuMTguMC4xIiwiY2xpZW50X2lkIjoibGlnaHRob3VzZS1zZXJ2aWNlLWNsaWVudCJ9.VmpdLLoEbuLf-_cXXpU0sqay5EIFXCnJTYceP5UkcTZzXBqjuQ6CvUFJGYLJrS42wRNZFqk5cu7RP1pEgZo3HpvyQ0qSbLZsQp0DmxxFd5S0uzVPxQq_hLu-DZkIzaDQ3iI9gJaNQElvFZarZTo2TGXAGotsXK60XnSV2qvJv3WN_UU_B9vjV8ENRhPKJDg7MGfrGQlSqnhx1QCWiHnCdkq2GTbBV2dRxhujVOMkP_Ih6jONwGcQpnseFRSTF8uk5cFTEspadNgyxeuqIVPJDIx-iwj7NG6zeXklbMjZ-UH9eX0IqzBRXHFVqVm_fjP9bRUALM7SJdzRLhyZDOTFmA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Cape Espichel\",\r\n    \"countryId\": 42,\r\n    \"latitude\": 38.533,\r\n    \"longitude\": 9.12\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5072/api/lighthouse/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5072",
+							"path": [
+								"api",
+								"lighthouse",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
