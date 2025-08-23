@@ -1,4 +1,6 @@
-﻿using LighthouseSocial.Application.Contracts;
+﻿using Keycloak.AuthServices.Authentication;
+using Keycloak.AuthServices.Authorization;
+using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Infrastructure.Auditors;
 using LighthouseSocial.Infrastructure.Caching;
 using LighthouseSocial.Infrastructure.Configuration;
@@ -74,6 +76,39 @@ public class InfrastructureBuilder(IServiceCollection services, IConfiguration c
     public InfrastructureBuilder WithExternals()
     {
         services.AddScoped<ICommentAuditor, ExternalCommentAuditor>();
+        return this;
+    }
+
+    public InfrastructureBuilder WithKeycloak()
+    {
+        services.AddKeycloakWebApiAuthentication(options =>
+        {
+            using var serviceProvider = services.BuildServiceProvider();
+            var vaultService = serviceProvider.GetRequiredService<VaultConfigurationService>();
+
+            if(vaultService != null)
+            {
+                var keycloakSettings = vaultService.GetKeycloakSettingsAsync().GetAwaiter().GetResult();
+                options.Realm = keycloakSettings.Realm;
+                options.Audience = keycloakSettings.Audience;
+                options.Resource=keycloakSettings.ClientId;
+                options.AuthServerUrl = keycloakSettings.Authority;
+                options.Credentials.Secret = keycloakSettings.ClientSecret;
+                options.SslRequired = keycloakSettings.RequireHttpsMetadata.ToString();
+                options.VerifyTokenAudience= keycloakSettings.ValidateAudience;
+                options.TokenClockSkew= TimeSpan.FromSeconds(keycloakSettings.ClockSkew);
+            }
+        });
+
+        services.AddAuthorization(options =>
+        {
+           options.AddPolicy("ApiScope", policy =>
+            {
+                policy.RequireAuthenticatedUser();
+                policy.RequireRealmRoles("webapi-user");
+            });
+        }).AddKeycloakAuthorization();
+
         return this;
     }
 

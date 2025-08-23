@@ -1,5 +1,6 @@
 ﻿using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Contracts;
+using LighthouseSocial.Infrastructure.Identity;
 using Microsoft.Extensions.Logging;
 
 namespace LighthouseSocial.Infrastructure.Configuration;
@@ -47,6 +48,43 @@ public class VaultConfigurationService(ISecretManager secretManager, ILogger<Vau
         {
             logger.LogError(ex, Messages.Errors.SecureVault.RetrievingMinio);
             return (string.Empty, string.Empty);
+        }
+    }
+
+    public async Task<KeycloakSettings> GetKeycloakSettingsAsync()
+    {
+        try
+        {
+            var keycloakSettings = new KeycloakSettings
+            {
+                Audience = await secretManager.GetSecretAsync(SecretPath, "KeycloakAudience"),
+                Authority = await secretManager.GetSecretAsync(SecretPath, "KeycloakAuthority"),
+                ClientId = await secretManager.GetSecretAsync(SecretPath, "KeycloakClientId"),
+                ClientSecret = await secretManager.GetSecretAsync(SecretPath, "KeycloakClientSecret"),
+                Realm = await secretManager.GetSecretAsync(SecretPath, "KeycloakRealm"),
+                ClockSkew = int.TryParse(await secretManager.GetSecretAsync(SecretPath, "KeycloakClockSkew"), out var clockSkew) ? clockSkew : 5,
+                RequireHttpsMetadata = !bool.TryParse(await secretManager.GetSecretAsync(SecretPath, "KeycloakRequireHttpsMetadata"), out var requireHttps) || requireHttps,
+                ValidateAudience = !bool.TryParse(await secretManager.GetSecretAsync(SecretPath, "KeycloakValidateAudience"), out var validateAudience) || validateAudience,
+                ValidateIssuer = !bool.TryParse(await secretManager.GetSecretAsync(SecretPath, "KeycloakValidateIssuer"), out var validateIssuer) || validateIssuer,
+                ValidateIssuerSigningKey = !bool.TryParse(await secretManager.GetSecretAsync(SecretPath, "KeycloakValidateIssuerSigningKey"), out var validateIssuerSigningKey) || validateIssuerSigningKey,
+                ValidateLifetime = !bool.TryParse(await secretManager.GetSecretAsync(SecretPath, "KeycloakValidateLifetime"), out var validateLifetime) || validateLifetime
+            };
+            if(string.IsNullOrEmpty(keycloakSettings.Audience) ||
+               string.IsNullOrEmpty(keycloakSettings.Authority) ||
+               string.IsNullOrEmpty(keycloakSettings.ClientId) ||
+               string.IsNullOrEmpty(keycloakSettings.ClientSecret) ||
+               string.IsNullOrEmpty(keycloakSettings.Realm))
+            {
+                logger.LogWarning("{ErrorMessage} at path: {SecretPath}", Messages.Errors.SecureVault.RetrievingKeycloak, SecretPath);
+                throw new InvalidOperationException(Messages.Errors.SecureVault.RetrievingKeycloak);
+            }
+            logger.LogInformation("Successfully retrieved Keycloak settings from Vault");
+            return keycloakSettings;
+        }
+        catch(Exception ex)
+        {
+            logger.LogError(ex, "Error retrieving Keycloak settings from Vault");
+            return new KeycloakSettings();
         }
     }
 

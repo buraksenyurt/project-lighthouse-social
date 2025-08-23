@@ -1,8 +1,8 @@
 using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Contracts.ExternalServices;
 using LighthouseSocial.Application.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace LighthouseSocial.WebApi.Controllers;
 
@@ -36,6 +36,7 @@ public class LighthouseController(ILogger<LighthouseController> logger, ILightho
     }
 
     [HttpPost]
+    [Authorize(Policy = "ApiScope")]
     public async Task<ActionResult<Guid>> Create([FromBody] CreateLighthouseRequest request)
     {
         try

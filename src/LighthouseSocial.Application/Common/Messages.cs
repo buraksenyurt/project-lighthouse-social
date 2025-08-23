@@ -17,6 +17,7 @@ public static class Messages
             public const string NoSecretsFound = "No secrets found at path";
             public const string KeyNotFound = "Key not found in secret at path";
             public const string RetrievingMinio = "Error retrieving Minio credentials from Vault";
+            public const string RetrievingKeycloak = "Error retrieving Keyloack settings from Vault";
             public const string RetrievingSecrets = "Error retrieving secrets from Vault at path";
             public const string RetrievingDbConnectionString = "Error retrieving database connection string from Vault";
             public const string FailedToGetVaultConnection = "Failed to get connection string from Vault, using configuration fallback";

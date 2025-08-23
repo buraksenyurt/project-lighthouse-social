@@ -17,6 +17,7 @@ builder.Services
     .WithStorage()
     .WithCaching()
     .WithExternals()
+    .WithKeycloak()
     .Build();
 
 builder.Services.AddData();
