@@ -95,6 +95,7 @@ Minimum Profil;
   - [Video 30](https://youtu.be/EO1IED3soQ8)
   - [Video 31](https://youtu.be/8rV-mUXj4YQ)
   - [Video 32](https://youtu.be/Il3GcRWGKmA)
+  - **Ara Bölüm(Sonarqube kontrolü):** [Video 33](https://youtu.be/kajGEmY_r8M)
 
 ## Sonarqube
 
@@ -142,7 +143,7 @@ docker compose up -d
   "KeycloakClockSkew": "5",
   "KeycloakRealm": "ProjectLighthouseSocialRealm",
   "KeycloakRequireHttpsMetadata": "false",
-  "KeycloakValidateAudience": "false",
+  "KeycloakValidateAudience": "true",
   "KeycloakValidateIssuer": "true",
   "KeycloakValidateIssuerSigningKey": "true",
   "KeycloakValidateLifetime": "true",
