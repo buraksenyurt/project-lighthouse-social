@@ -96,6 +96,7 @@ Minimum Profil;
   - [Video 31](https://youtu.be/8rV-mUXj4YQ)
   - [Video 32](https://youtu.be/Il3GcRWGKmA)
   - **Ara Bölüm(Sonarqube kontrolü):** [Video 33](https://youtu.be/kajGEmY_r8M)
+  - [Video 34](https://youtu.be/FlJSnSSMMpk)
 
 ## Sonarqube
 
@@ -133,13 +134,15 @@ docker compose up -d
 
 ## Güncel Vault Bilgileri
 
+Path : **ProjectLighthouseSocial-Dev**
+
 ```json
 {
   "DbConnStr": "Host=localhost;Port=5432;Database=lighthousedb;Username=johndoe;Password=somew0rds",
   "KeycloakAudience": "account",
   "KeycloakAuthority": "http://localhost:8089/",
   "KeycloakClientId": "lighthouse-service-client",
-  "KeycloakClientSecret": "BFS7HWgDPxYBQFq8k1cyG8yQWI8tSubV",
+  "KeycloakClientSecret": "Lupgay1UcpJA7vRDOr7MsrBJN5B7bJoN",
   "KeycloakClockSkew": "5",
   "KeycloakRealm": "ProjectLighthouseSocialRealm",
   "KeycloakRequireHttpsMetadata": "false",
