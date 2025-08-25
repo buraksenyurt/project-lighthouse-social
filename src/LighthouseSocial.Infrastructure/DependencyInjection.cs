@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Minio;
 using Serilog;
+using StackExchange.Redis;
 
 namespace LighthouseSocial.Infrastructure;
 
@@ -49,16 +50,17 @@ public class InfrastructureBuilder(IServiceCollection services, IConfiguration c
 
         return this;
     }
-
+    
     public InfrastructureBuilder WithCaching(bool useRedis)
     {
         if (useRedis)
         {
-            services.AddStackExchangeRedisCache(options =>
+            services.AddSingleton<IConnectionMultiplexer>(sp =>
             {
-                options.Configuration = configuration.GetConnectionString("Redis");
-                options.InstanceName = configuration.GetValue<string>("Caching:InstanceName") ?? "LighthouseSocial:";
+                var connectionString = configuration.GetConnectionString("Redis") ?? "localhost:6379";
+                return ConnectionMultiplexer.Connect(connectionString);
             });
+
             services.AddScoped<ICacheService, RedisCacheService>();
         }
         else
