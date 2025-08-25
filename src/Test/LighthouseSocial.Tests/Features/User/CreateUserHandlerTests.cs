@@ -70,7 +70,7 @@ public class CreateUserHandlerTests
         var dto = new UserDto(Guid.NewGuid(), Guid.NewGuid(), "John Doe", "john.doe@plhsocial.com");
         _validatorMock.Setup(v => v.Validate(It.IsAny<UserDto>())).Returns(new ValidationResult());
         _userRepositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<Guid>()))
-            .ReturnsAsync(new Domain.Entities.User(Guid.NewGuid(), Guid.NewGuid(), "John Doe", "john.doe@plhsocial.com"));
+            .ReturnsAsync(new Domain.Entities.User(Guid.NewGuid(), Guid.NewGuid(), "Existing User", ""));
 
         // Act
         var result = await _handler.HandleAsync(new CreateUserRequest(dto), CancellationToken.None);

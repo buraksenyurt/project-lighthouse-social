@@ -4,7 +4,6 @@ using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.Comment;
-using LighthouseSocial.Domain.Entities;
 using Moq;
 
 namespace LighthouseSocial.Tests.Features.Comment;
@@ -42,7 +41,7 @@ public class AddCommentHandlerTests
 
         _validatorMock.Setup(v => v.Validate(It.IsAny<CommentDto>())).Returns(new ValidationResult());
         _userRepositoryMock.Setup(u => u.GetByIdAsync(It.IsAny<Guid>()))
-       .ReturnsAsync(new User(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid().ToString(), "tester"));
+       .ReturnsAsync(new Domain.Entities.User(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid().ToString(), "tester"));
 
         _photoRepositoryMock.Setup(p => p.GetByIdAsync(It.IsAny<Guid>()))
             .ReturnsAsync(new Domain.Entities.Photo(
