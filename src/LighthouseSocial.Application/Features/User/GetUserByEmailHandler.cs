@@ -1,0 +1,33 @@
+﻿using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Common.Pipeline;
+using LighthouseSocial.Application.Contracts.Repositories;
+using LighthouseSocial.Application.Dtos;
+
+namespace LighthouseSocial.Application.Features.User;
+
+internal record GetUserByEmailRequest(string Email);
+internal class GetUserByEmailHandler(IUserRepository repository)
+    : IHandler<GetUserByEmailRequest, Result<UserDto>>
+{
+    public async Task<Result<UserDto>> HandleAsync(GetUserByEmailRequest request, CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrWhiteSpace(request.Email))
+        {
+            return Result<UserDto>.Fail("Email is required");
+        }
+
+        var user = await repository.GetByEmailAsync(request.Email);
+        if (user == null)
+        {
+            return Result<UserDto>.Fail("User not found");
+        }
+        var userDto = new UserDto(
+            user.Id,
+            user.ExternalId,
+            user.Fullname,
+            user.Email
+        );
+
+        return Result<UserDto>.Ok(userDto);
+    }
+}
