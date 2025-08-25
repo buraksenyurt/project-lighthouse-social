@@ -7,6 +7,7 @@ using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.Comment;
 using LighthouseSocial.Application.Features.Lighthouse;
 using LighthouseSocial.Application.Features.Photo;
+using LighthouseSocial.Application.Features.User;
 using LighthouseSocial.Application.Services;
 using LighthouseSocial.Application.Validators;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,6 +39,7 @@ public static class DependencyInjection
         services.AddScoped<IHandler<GetTopLighthousesRequest, Result<IEnumerable<LighthouseTopDto>>>, GetTopLighthousesHandler>();
         services.AddScoped<IHandler<UpdateLighthouseRequest, Result>, UpdateLighthouseHandler>();
         services.AddScoped<IHandler<GetPagedLighthouseRequest, Result<PagedResult<LighthouseDto>>>, GetPagedLighthouseHandler>();
+        services.AddScoped<IHandler<CreateUserRequest, Result<Guid>>, CreateUserHandler>();
 
         // Pipeline Behaviors
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
@@ -48,6 +50,7 @@ public static class DependencyInjection
         services.AddScoped<IValidator<LighthouseDto>, LighthouseDtoValidator>();
         services.AddScoped<IValidator<PhotoDto>, PhotoDtoValidator>();
         services.AddScoped<IValidator<CommentDto>, CommentDtoValidator>();
+        services.AddScoped<IValidator<UserDto>, UserDtoValidator>();
 
         return services;
     }

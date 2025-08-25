@@ -42,7 +42,7 @@ public class AddCommentHandlerTests
 
         _validatorMock.Setup(v => v.Validate(It.IsAny<CommentDto>())).Returns(new ValidationResult());
         _userRepositoryMock.Setup(u => u.GetByIdAsync(It.IsAny<Guid>()))
-       .ReturnsAsync(new User(Guid.NewGuid(), Guid.NewGuid().ToString(), "tester"));
+       .ReturnsAsync(new User(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid().ToString(), "tester"));
 
         _photoRepositoryMock.Setup(p => p.GetByIdAsync(It.IsAny<Guid>()))
             .ReturnsAsync(new Domain.Entities.Photo(
