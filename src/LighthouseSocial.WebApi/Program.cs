@@ -4,6 +4,7 @@ using LighthouseSocial.Data;
 using LighthouseSocial.Infrastructure;
 using LighthouseSocial.Infrastructure.Auditors;
 using LighthouseSocial.Infrastructure.Storage;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.AddConsole();
@@ -18,7 +19,9 @@ builder.Services
     .WithCaching()
     .WithExternals()
     .WithKeycloak()
+    .WithElasticsearchLogging(builder.Environment)
     .Build();
+builder.Host.UseSerilog();
 
 builder.Services.AddData();
 builder.Services.Configure<MinioSettings>(builder.Configuration.GetSection("Minio"));
