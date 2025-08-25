@@ -54,49 +54,41 @@ Minimum Profil;
 
 ## İçerik Planı
 
-- [x] **Bölüm 00 Proje Tanıtımı ve Solution Açılması:** Projenin amacı anlatılır, teknoloji seçimine değinilir ve Solution açılır.
-  - [Video 00](https://youtu.be/xO4S60bfZPU)
-- [x] **Bölüm 01 Domain Model Tasarımı:** User, Lighthouse, Photo, Comment vb temel sınıflar belirlenir.
-  - [Video 01](https://youtu.be/fIsvAwxnnIQ)
-  - [Video 02](https://youtu.be/dDZHq-vI18U)
-  - [Video 03](https://youtu.be/cCW44l7fgX0)
-  - [Video 04](https://youtu.be/_cta_s9zM1U)
-- [x] **Bölüm 02 Application Katmanı, CRUD Sözleşmelerinin İnşaası... :** Repository/Service katmanları için interface tasarımları ve application katmanının yazılması.
-  - [Video 05](https://youtu.be/SmnrE73VvUo)
-  - [Video 06](https://youtu.be/x6u7uMxw8qU)
-  - [Video 07](https://youtu.be/P_uRenWyE54)
-  - [Video 08](https://youtu.be/MrqTqc9d2q8)
-- [x] **Ara Bölüm, Sonarqube:** Kod tabanı büyüdükçe ortaya çıkabilecek teknik borçları önlemek için baştan tedbir alıyoruz.[Video 09](https://youtu.be/XUiG1MwSq1o)
-  - [Video 10](https://youtu.be/54GMi9i2W-4)
-  - [Video 11](https://youtu.be/PU9SqkPt41o)
-  - [Video 12](https://youtu.be/vdFRhsLcqhM)
-- [x] **Bölüm 03 Persistance katmanının inşaası:** Postgresql tabanlı veritabanı hazırlıkları, Concrete Repository sınıflarınının oluşturulması.
-  - [Video 13](https://youtu.be/z8G9iThiiDE)
-  - [Video 14](https://youtu.be/pA8xsOmsZpI)
-- [x] **Bölüm 04 Basit İstemci Uygulamasının Geliştirilmesi:** Application katmanını kullanan basit bir terminal uygulamasının geliştirilmesi ve başarılı şekilde çalışır hale getirilmesi.
-  - [Video 15](https://youtu.be/ovhQM9L_hhQ)
-  - [Video 16](https://youtu.be/Frbquqiq4Us)
-- [x] **Bölüm 05 Infrastructure Katmanı Geliştirmeleri:** Fotoğraf saklama, doğrulama, caching, bildirim gönderimi vb altyapı bileşenlerinin geliştirilmesi.
-  - [Video 17](https://youtu.be/RnCqWo9Bhs8)
-  - [Video 18](https://youtu.be/pfPqZ1SkHdM) 
-  - [Video 19](https://youtu.be/CN52vnOzfT4)
-  - [Video 20](https://youtu.be/GadLQoJNfw4)
-  - [Video 21](https://youtu.be/B8VHWE8xbZU)
-  - [Video 22](https://youtu.be/24CHSgqMaB4)
-  - [Video 23](https://youtu.be/z9t0rKR5g_8)
-  - [Video 24](https://youtu.be/rrRxhuo8w0E)
-  - [Video 25](https://youtu.be/gRPlFqGVTCQ)
-- [x] **Bölüm 05 Application Katmanı Pipeline Düzenlemeleri:** Özellikle pipeline behaviors tasarımı, ortak handler sözleşmesi ve servis bileşeni düzenlemelerini ele alıyoruz.
-  - [Video 26](https://youtu.be/rliAGCQpGmE)
-  - [Video 27](https://youtu.be/Y1uZuewmLAs)
-  - [Video 28](https://youtu.be/p1IQqc5cD6g)
-- [x] **Bölüm 06 Presentation Katmanı Geliştirmeleri:** Rest tabanlı Web Api ve OData servisleri, Razor Web App, Blazor gibi farklı istemci uygulamalarının geliştirilmesi.
-  - [Video 29](https://youtu.be/WI9lOd8uVs4)
-  - [Video 30](https://youtu.be/EO1IED3soQ8)
-  - [Video 31](https://youtu.be/8rV-mUXj4YQ)
-  - [Video 32](https://youtu.be/Il3GcRWGKmA)
-  - **Ara Bölüm(Sonarqube kontrolü):** [Video 33](https://youtu.be/kajGEmY_r8M)
-  - [Video 34](https://youtu.be/FlJSnSSMMpk)
+- [x] [Bölüm 00 - Project Lighthouse Social Açılış](https://youtu.be/xO4S60bfZPU)
+- [x] [Bölüm 01 - Domain Projesinin Oluşturulması](https://youtu.be/fIsvAwxnnIQ)
+- [x] [Bölüm 02 - Entity Nesnelerinin Eklenmesi](https://youtu.be/dDZHq-vI18U)
+- [x] [Bölüm 03 - Enumeration Bazlı Türlerin Eklenmesi](https://youtu.be/cCW44l7fgX0)
+- [x] [Bölüm 04 - Örnek Kontratların(Interface) Eklenmesi](https://youtu.be/_cta_s9zM1U)
+- [x] [Bölüm 05 - Application Katmanı](https://youtu.be/SmnrE73VvUo)
+- [x] [Bölüm 06 - Handler Nesnelerinin Yazılması](https://youtu.be/x6u7uMxw8qU)
+- [x] [Bölüm 07 - Handler Sınıfları için Birim Testler](https://youtu.be/P_uRenWyE54)
+- [x] [Bölüm 08 - DTO Nesneleri için Validator Kullanımı](https://youtu.be/MrqTqc9d2q8)
+- [x] [Bölüm 09 - Teknik Borç Önlemleri için Sonarqube Kullanımı](https://youtu.be/XUiG1MwSq1o)
+- [x] [Bölüm 10 - Yorumlar için Denetim Bileşeninin Eklenmesi](https://youtu.be/54GMi9i2W-4)
+- [x] [Bölüm 11 - OpenAI Moderation API ile Yorum Denetim Servisinin Geliştirilmesi](https://youtu.be/PU9SqkPt41o)
+- [x] [Bölüm 12 - Uçtan Uca Entegrasyon Testlerinin Yazılması](https://youtu.be/vdFRhsLcqhM)
+- [x] [Bölüm 13 - PostgreSQL Veritabanı Hazırlıkları](https://youtu.be/z8G9iThiiDE)
+- [x] [Bölüm 14 - Data Katmanı ve Repository Sınıflarının Geliştirilmesi](https://youtu.be/pA8xsOmsZpI)
+- [x] [Bölüm 15 - Application Katmanı ve LighthouseService Bileşeninin Geliştirilmesi](https://youtu.be/ovhQM9L_hhQ)
+- [x] [Bölüm 16 - Terminal Bazlı İstemci Uygulamanın Geliştirilmesi](https://youtu.be/Frbquqiq4Us)
+- [x] [Bölüm 17 - MinIO Destekli PhotoStorage Bileşeninin Geliştirilmesi](https://youtu.be/RnCqWo9Bhs8)
+- [x] [Bölüm 18 - İstemci Tarafında PhotoStorageService' in Kullanılması](https://youtu.be/pfPqZ1SkHdM)
+- [x] [Bölüm 19 - Vault Entegrasyonu I](https://youtu.be/CN52vnOzfT4)
+- [x] [Bölüm 20 - Vault Entegrasyonu II](https://youtu.be/GadLQoJNfw4)
+- [x] [Bölüm 21 - Client Uygulamasını Çalışır Halde Tutmak](https://youtu.be/B8VHWE8xbZU)
+- [x] [Bölüm 22 - Cache Entegrasyonu I](https://youtu.be/24CHSgqMaB4)
+- [x] [Bölüm 23 - Cache Entegrasyonu II](https://youtu.be/z9t0rKR5g_8)
+- [x] [Bölüm 24 - Redis Entegrasyonu](https://youtu.be/rrRxhuo8w0E)
+- [x] [Bölüm 25 - Redis Servis Bileşeninin Geliştirilmesi](https://youtu.be/gRPlFqGVTCQ)
+- [x] [Bölüm 26 - Pipeline Nesnelerinin İnşası](https://youtu.be/rliAGCQpGmE)
+- [x] [Bölüm 27 - Pipeline Behavior Bileşenlerinin Yazılması ve Entegrasyonu](https://youtu.be/Y1uZuewmLAs)
+- [x] [Bölüm 28 - Debug İşlemleri ile Pipeline Akışının İzlenmesi](https://youtu.be/p1IQqc5cD6g)
+- [x] [Bölüm 29 - Lighthouse Web API Projesinin Oluşturulması](https://youtu.be/WI9lOd8uVs4)
+- [x] [Bölüm 30 - Web API Projesi Debug ve Runtime Hatalarının Giderilmesi](https://youtu.be/EO1IED3soQ8)
+- [x] [Bölüm 31 - Projeye Yeni Bir Özellik(Feature) Eklemek](https://youtu.be/8rV-mUXj4YQ)
+- [x] [Bölüm 32 - Tüm Veriyi Döndürme! Sayfalama(Paging) Tekniğini Kullan](https://youtu.be/Il3GcRWGKmA)
+- [x] [Bölüm 33 - Teknik Borçtan Kaçıl(a)maz! Sonarqube Yakalar](https://youtu.be/kajGEmY_r8M)
+- [x] [Bölüm 34 - OData Servisi ile Veriyi HTTP Üzerinden Sorgulamak](https://youtu.be/FlJSnSSMMpk)
 
 ## Sonarqube
 
@@ -153,6 +145,35 @@ Path : **ProjectLighthouseSocial-Dev**
   "MinIOAccessKey": "admin",
   "MinIOSecretKey": "password"
 }
+```
+
+## Redis Cache Testleri
+
+Redis cache testleri sırasında docker container içerisine girip keyleri kontrol etmek veya manuel silmek isteyebiliriz. Aşağıdaki bunun için kullanabileceğimiz pratik komutlar yer alıyor.
+
+```bash
+# Redis container'ına erişim
+docker exec -it plh-redis sh
+
+# Redis CLI'yi çalıştırma
+redis-cli
+
+# Tüm anahtarları listeleme
+keys *
+
+# Key, Value ekleme, listeleme, silme
+set Environment "Development"
+get Environment
+
+set user:Service "{\"user\":\"apiAccount\"}" EX 3600   # 1 saat Geçerlilik süresi
+get user:Service
+del user:Service
+
+# Key var mı kontrolü
+exists user:Service
+
+# Bir key'in kalan yaşam süresini öğrenme
+TTL user:Service
 ```
 
 ## Görevler, Sorular
