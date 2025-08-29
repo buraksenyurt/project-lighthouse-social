@@ -113,11 +113,21 @@ public class CachedConfigurationService
         {
             if (_useDistributedCache)
             {
-                return await GetFromDistributedCacheAsync(key, valueFactory, ttl);
+                var result = await GetFromDistributedCacheAsync(key, valueFactory, ttl);
+                if (EqualityComparer<T>.Default.Equals(result, default))
+                {
+                    return default!;
+                }
+                return result;
             }
             else
             {
-                return await GetFromMemoryCacheAsync(key, valueFactory, ttl);
+                var result = await GetFromMemoryCacheAsync(key, valueFactory, ttl);
+                if (EqualityComparer<T>.Default.Equals(result, default))
+                {
+                    return default!;
+                }
+                return result;
             }
         }
         catch (Exception ex)
@@ -149,10 +159,19 @@ public class CachedConfigurationService
         if (_memoryCache.TryGetValue(key, out var cached) && DateTime.UtcNow - cached.CachedAt < ttl)
         {
             _logger.LogDebug("Memory cache hit for key: {Key}", key);
-            return (T)cached.Value!;
+
+            if (cached.Value is T typedValue)
+            {
+                return typedValue;
+            }
+
+            _logger.LogWarning(
+                "Type mismatch for cached value at key: {Key}. Expected: {ExpectedType}, Actual: {ActualType}",
+                key, typeof(T).Name, cached.Value?.GetType().Name ?? "null");
         }
 
         _logger.LogDebug("Memory cache miss for key: {Key}, fetching from Vault", key);
+
         var value = await valueFactory();
         _memoryCache[key] = new CachedItem(DateTime.UtcNow, value);
 
@@ -182,6 +201,17 @@ public class CachedConfigurationService
             _logger.LogError(ex, "Error during Vault cache warm-up");
         }
     }
+    public async Task InvalidateCacheAsync<T>(string key)
+    {
+        _memoryCache.TryRemove(key, out _);
 
-    private record CachedItem(DateTime CachedAt, object? Value);
+        if (_useDistributedCache)
+        {
+            await _cacheService.RemoveAsync<T>(key);
+        }
+
+        _logger.LogInformation("Cache invalidated for key: {Key}", key);
+    }
+
+    private sealed record CachedItem(DateTime CachedAt, object? Value);
 }

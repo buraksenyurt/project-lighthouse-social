@@ -31,7 +31,6 @@ public class InfrastructureBuilder(IServiceCollection services, IConfiguration c
     public InfrastructureBuilder WithSecretVault()
     {
         services.AddSingleton<ISecretManager, VaultSecretManager>();
-        // services.AddSingleton<VaultConfigurationService>();
         services.AddSingleton<CachedConfigurationService>();
         services.AddHostedService<HostedConfigurationService>();
 
