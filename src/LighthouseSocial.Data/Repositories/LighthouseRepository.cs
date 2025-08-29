@@ -1,4 +1,5 @@
 using Dapper;
+using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Domain.Entities;
 using LighthouseSocial.Domain.ValueObjects;
@@ -10,23 +11,33 @@ public partial class LighthouseRepository(IDbConnectionFactory connFactory)
 {
     private readonly IDbConnectionFactory _connFactory = connFactory;
 
-    public async Task<bool> AddAsync(Lighthouse lighthouse)
+    public async Task<Result> AddAsync(Lighthouse lighthouse)
     {
-        string sql = @"
+        try
+        {
+            string sql = @"
             INSERT INTO lighthouses (id, name, country_id, latitude, longitude) 
             VALUES (@Id, @Name, @CountryId, @Latitude, @Longitude);";
 
-        using var conn = _connFactory.CreateConnection();
+            using var conn = _connFactory.CreateConnection();
 
-        var added = await conn.ExecuteAsync(sql, new
+            var added = await conn.ExecuteAsync(sql, new
+            {
+                lighthouse.Id,
+                lighthouse.Name,
+                lighthouse.CountryId,
+                lighthouse.Location.Latitude,
+                lighthouse.Location.Longitude
+            });
+
+            return added > 0
+                ? Result.Ok()
+                : Result.Fail("Failed to add lighthouse.");
+        }
+        catch (Exception ex)
         {
-            lighthouse.Id,
-            lighthouse.Name,
-            lighthouse.CountryId,
-            lighthouse.Location.Latitude,
-            lighthouse.Location.Longitude
-        });
-        return added > 0;
+            return Result.Fail($"Exception occurred while adding lighthouse: {ex.Message}");
+        }
     }
 
     public async Task<bool> DeleteAsync(Guid id)

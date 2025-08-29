@@ -18,8 +18,13 @@ public class ViewManagement(ICountryDataReader countryDataReader, ILogger<ViewMa
                 Console.WriteLine($"{country.Id}:{country.Name}");
             }
 
-            var portugal = await countryDataReader.GetByIdAsync(42);
-            Console.WriteLine($"{portugal.Name}");
+            var result = await countryDataReader.GetByIdAsync(42);
+            if (!result.Success)
+            {
+                Console.WriteLine(result.ErrorMessage);
+                return;
+            }
+            Console.WriteLine($"{result.Data.Name}");
         }
         catch (Exception ex)
         {

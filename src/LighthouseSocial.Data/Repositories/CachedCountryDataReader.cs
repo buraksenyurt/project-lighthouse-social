@@ -1,6 +1,8 @@
-﻿using LighthouseSocial.Application.Contracts.Repositories;
+﻿using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Domain.Entities;
 using LighthouseSocial.Infrastructure.Caching;
+using System.Linq.Expressions;
 
 namespace LighthouseSocial.Data.Repositories;
 
@@ -24,17 +26,32 @@ public class CachedCountryDataReader(ICountryDataReader inner, ICacheService cac
         return result;
     }
 
-    public async Task<Country> GetByIdAsync(int id)
+    public async Task<Result<Country>> GetByIdAsync(int id)
     {
-        var cacheKey = $"country:{id}";
-        var cached = await cacheService.GetAsync<CountryDto>(cacheKey);
-        if (cached != null)
+        try
         {
-            return Country.Create(cached.Id, cached.Name);
+            var cacheKey = $"country:{id}";
+            var cached = await cacheService.GetAsync<CountryDto>(cacheKey);
+            if (cached != null)
+            {
+                var country = Country.Create(cached.Id, cached.Name);
+                return Result<Country>.Ok(country);
+            }
+
+            var result = await inner.GetByIdAsync(id);
+            if (!result.Success)
+            {
+                return result;
+            }
+
+            var countryData = result.Data!;
+            await cacheService.SetAsync(cacheKey, new CountryDto { Id = countryData.Id, Name = countryData.Name }, CacheDuration);
+            return result;
         }
-        var result = await inner.GetByIdAsync(id);
-        await cacheService.SetAsync(cacheKey, new CountryDto { Id = result.Id, Name = result.Name }, CacheDuration);
-        return result;
+        catch (Exception ex)
+        {
+            return Result<Country>.Fail(ex.Message);
+        }
     }
 }
 //todo@buraksenyurt Country ve CountryDto arasında mapper kullanılabilir mi?

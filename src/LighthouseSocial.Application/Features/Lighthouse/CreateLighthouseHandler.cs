@@ -26,27 +26,22 @@ internal class CreateLighthouseHandler(ILighthouseRepository repository, ICountr
             return Result<Guid>.Fail(errors);
         }
 
-        Country? country;
-        try
+        var countryResult = await _countryDataReader.GetByIdAsync(request.Lighthouse.CountryId);
+        if(!countryResult.Success)
         {
-            //Try-catch' den çıkaralım. ExceptionHandlerBehavior ele alıyor zaten.
-            //todo@buraksenyurt: CountryId'nin null olma durumu kontrol ed
-            country = await _countryDataReader.GetByIdAsync(request.Lighthouse.CountryId);
-
-            var location = new Coordinates(request.Lighthouse.Latitude, request.Lighthouse.Longitude);
-            var lighthouse = new Domain.Entities.Lighthouse(request.Lighthouse.Id, request.Lighthouse.Name, country, location);
-
-            var result = await _repository.AddAsync(lighthouse);
-            if (!result)
-            {
-                return Result<Guid>.Fail(Messages.Errors.Lighthouse.FailedToAddLighthouse);
-            }
-
-            return Result<Guid>.Ok(lighthouse.Id);
+            return Result<Guid>.Fail(countryResult.ErrorMessage!);
         }
-        catch (Exception ex)
+
+        var country = countryResult.Data!;
+        var location = new Coordinates(request.Lighthouse.Latitude, request.Lighthouse.Longitude);
+        var lighthouse = new Domain.Entities.Lighthouse(request.Lighthouse.Id, request.Lighthouse.Name, country, location);
+
+        var addResult = await _repository.AddAsync(lighthouse);
+        if(!addResult.Success)
         {
-            return Result<Guid>.Fail($"Invalid country Id: {request.Lighthouse.CountryId}, {ex.Message}");
+            return Result<Guid>.Fail(addResult.ErrorMessage!);
         }
+
+        return Result<Guid>.Ok(lighthouse.Id);
     }
 }

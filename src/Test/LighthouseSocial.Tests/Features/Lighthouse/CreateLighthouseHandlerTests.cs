@@ -1,5 +1,6 @@
 using FluentValidation;
 using FluentValidation.Results;
+using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.Lighthouse;
@@ -29,9 +30,9 @@ public class CreateLighthouseHandlerTests
         var dto = new LighthouseDto(Guid.Empty, "Roman Rock", 27, 34.10, 34.13);
         var country = new Country(27, "South Africa");
 
-        _registryMock.Setup(r => r.GetByIdAsync(dto.CountryId)).ReturnsAsync(country);
+        _registryMock.Setup(r => r.GetByIdAsync(dto.CountryId)).ReturnsAsync(Result<Country>.Ok(country));
         _validatorMock.Setup(v => v.Validate(It.IsAny<LighthouseDto>())).Returns(new ValidationResult());
-        _repositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.Lighthouse>())).ReturnsAsync(true);
+        _repositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.Lighthouse>())).ReturnsAsync(Result.Ok());
 
         // Act
         var result = await _handler.HandleAsync(new CreateLighthouseRequest(dto), CancellationToken.None);

@@ -26,19 +26,27 @@ public class CountryRepository(IDbConnectionFactory connFactory)
         return list;
     }
 
-    public async Task<Country> GetByIdAsync(int id)
+    public async Task<Result<Country>> GetByIdAsync(int id)
     {
-        const string sql = "SELECT id, name FROM countries WHERE id = @Id";
-
-        using var conn = _connFactory.CreateConnection();
-
-        var result = await conn.QuerySingleOrDefaultAsync<(int id, string name)>(sql, new { Id = id });
-
-        if (result == default)
+        try
         {
-            throw new KeyNotFoundException($"{Messages.Errors.Country.CountryNotFound} Id: {id}");
-        }
+            const string sql = "SELECT id, name FROM countries WHERE id = @Id";
 
-        return Country.Create(result.id, result.name);
+            using var conn = _connFactory.CreateConnection();
+
+            var result = await conn.QuerySingleOrDefaultAsync<(int id, string name)>(sql, new { Id = id });
+
+            if (result == default)
+            {
+                return Result<Country>.Fail($"{Messages.Errors.Country.CountryNotFound} Id: {id}");
+            }
+
+            var country = Country.Create(result.id, result.name);
+            return Result<Country>.Ok(country);
+        }
+        catch (Exception ex)
+        {
+            return Result<Country>.Fail(ex.Message);
+        }
     }
 }

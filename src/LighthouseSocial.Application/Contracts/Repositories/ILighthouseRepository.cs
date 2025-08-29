@@ -1,3 +1,4 @@
+using LighthouseSocial.Application.Common;
 using LighthouseSocial.Domain.Entities;
 using LighthouseSocial.Domain.ValueObjects;
 
@@ -5,7 +6,7 @@ namespace LighthouseSocial.Application.Contracts.Repositories;
 
 public interface ILighthouseRepository
 {
-    Task<bool> AddAsync(Lighthouse lighthouse);
+    Task<Result> AddAsync(Lighthouse lighthouse);
     Task<bool> UpdateAsync(Lighthouse lighthouse);
     Task<bool> DeleteAsync(Guid id);
     Task<Lighthouse?> GetByIdAsync(Guid id);
