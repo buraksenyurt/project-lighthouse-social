@@ -6,6 +6,7 @@ using LighthouseSocial.Infrastructure.Auditors;
 using LighthouseSocial.Infrastructure.Caching;
 using LighthouseSocial.Infrastructure.Configuration;
 using LighthouseSocial.Infrastructure.SecretManager;
+using LighthouseSocial.Infrastructure.Services;
 using LighthouseSocial.Infrastructure.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,7 +31,9 @@ public class InfrastructureBuilder(IServiceCollection services, IConfiguration c
     public InfrastructureBuilder WithSecretVault()
     {
         services.AddSingleton<ISecretManager, VaultSecretManager>();
-        services.AddSingleton<VaultConfigurationService>();
+        // services.AddSingleton<VaultConfigurationService>();
+        services.AddSingleton<CachedConfigurationService>();
+        services.AddHostedService<HostedConfigurationService>();
 
         return this;
     }
@@ -61,12 +64,12 @@ public class InfrastructureBuilder(IServiceCollection services, IConfiguration c
                 return ConnectionMultiplexer.Connect(connectionString);
             });
 
-            services.AddScoped<ICacheService, RedisCacheService>();
+            services.AddSingleton<ICacheService, RedisCacheService>();
         }
         else
         {
             services.AddMemoryCache();
-            services.AddScoped<ICacheService, MemoryCacheService>();
+            services.AddSingleton<ICacheService, MemoryCacheService>();
         }
 
         return this;
@@ -89,7 +92,7 @@ public class InfrastructureBuilder(IServiceCollection services, IConfiguration c
         services.AddKeycloakWebApiAuthentication(options =>
         {
             using var serviceProvider = services.BuildServiceProvider();
-            var vaultService = serviceProvider.GetRequiredService<VaultConfigurationService>();
+            var vaultService = serviceProvider.GetRequiredService<CachedConfigurationService>();
 
             if (vaultService != null)
             {

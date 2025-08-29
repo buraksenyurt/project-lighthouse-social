@@ -13,7 +13,7 @@ public class PhotoStorageService
     private readonly IMinioClient _minioClient;
     private readonly string _bucket;
     private readonly ILogger<PhotoStorageService> _logger;
-    public PhotoStorageService(IOptions<MinioSettings> options, VaultConfigurationService vaultConfigurationService, ILogger<PhotoStorageService> logger)
+    public PhotoStorageService(IOptions<MinioSettings> options, CachedConfigurationService vaultConfigurationService, ILogger<PhotoStorageService> logger)
     {
         _logger = logger;
         var (accessKey, secretKey) = vaultConfigurationService.GetMinioCredentialsAsync().GetAwaiter().GetResult();

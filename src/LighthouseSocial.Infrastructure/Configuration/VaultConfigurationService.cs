@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace LighthouseSocial.Infrastructure.Configuration;
 
+[Obsolete("This class is deprecated and will be removed in future releases. Please use the new configuration management system.")]
 public class VaultConfigurationService(ISecretManager secretManager, ILogger<VaultConfigurationService> logger)
 {
     private const string SecretPath = "ProjectLighthouseSocial-Dev";

@@ -52,7 +52,7 @@ public static class DependencyInjection
 
             try
             {
-                var vaultService = provider.GetService<LighthouseSocial.Infrastructure.Configuration.VaultConfigurationService>();
+                var vaultService = provider.GetService<Infrastructure.Configuration.CachedConfigurationService>();
                 if (vaultService != null)
                 {
                     connectionString = vaultService.GetDatabaseConnectionStringAsync().GetAwaiter().GetResult();

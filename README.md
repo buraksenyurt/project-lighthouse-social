@@ -89,6 +89,9 @@ Minimum Profil;
 - [x] [Bölüm 32 - Tüm Veriyi Döndürme! Sayfalama(Paging) Tekniğini Kullan](https://youtu.be/Il3GcRWGKmA)
 - [x] [Bölüm 33 - Teknik Borçtan Kaçıl(a)maz! Sonarqube Yakalar](https://youtu.be/kajGEmY_r8M)
 - [x] [Bölüm 34 - OData Servisi ile Veriyi HTTP Üzerinden Sorgulamak](https://youtu.be/FlJSnSSMMpk)
+- [x] [Bölüm 35 - Peki ya DI Servislerine Bildirilen Her Bileşene İhtiyacımız Yoksa?](https://youtu.be/r34uuX8ycCQ)
+- [x] [Bölüm 36 - Keycloak ile Tanışalım](https://youtu.be/rKk1iRMmXME)
+- [x] [Bölüm 37 - Web API Projesinde Keycloak Bazlı Yetkilendirme(Authorization) Kullanımı](https://youtu.be/nJr1yM_Em7s)
 
 ## Sonarqube
 

@@ -21,6 +21,7 @@ services.AddInfrastructure(config)
     .WithStorage()
     .WithCaching()
     .WithExternals()
+    //.WithElasticsearchLogging()
     .Build();
 
 services.AddData();
