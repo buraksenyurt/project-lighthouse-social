@@ -1,5 +1,6 @@
 using FluentValidation;
 using FluentValidation.Results;
+using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Dtos;
@@ -44,13 +45,13 @@ public class AddCommentHandlerTests
        .ReturnsAsync(new Domain.Entities.User(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid().ToString(), "tester"));
 
         _photoRepositoryMock.Setup(p => p.GetByIdAsync(It.IsAny<Guid>()))
-            .ReturnsAsync(new Domain.Entities.Photo(
+            .ReturnsAsync(Result<Domain.Entities.Photo>.Ok(new Domain.Entities.Photo(
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 "EndOfTheWorld.jpg",
                 new Domain.ValueObjects.PhotoMetadata("50mm", "1280x1280", "Canon Mark 5", DateTime.Now.AddDays(-7))
-            ));
+            )));
 
         _repositoryMock.Setup(r => r.ExistsForUserAsync(It.IsAny<Guid>(), It.IsAny<Guid>()))
             .ReturnsAsync(false);

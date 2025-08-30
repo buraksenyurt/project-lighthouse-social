@@ -12,11 +12,18 @@ internal class GetPhotosByLighthouseHandler(IPhotoRepository photoRepository)
 {
     public async Task<Result<IEnumerable<PhotoDto>>> HandleAsync(GetPhotosByLighthouseRequest request, CancellationToken cancellationToken)
     {
-        var photos = await photoRepository.GetByLighthouseIdAsync(request.LighthouseId);
-        if (photos is null || !photos.Any())
+        var photosResult = await photoRepository.GetByLighthouseIdAsync(request.LighthouseId);
+        if (!photosResult.Success)
+        {
+            return Result<IEnumerable<PhotoDto>>.Fail(photosResult.ErrorMessage!);
+        }
+
+        var photos = photosResult.Data!;
+        if (!photos.Any())
         {
             return Result<IEnumerable<PhotoDto>>.Fail(Messages.Errors.Photo.NoPhotosFoundForLighthouse);
         }
+
         var photoDtos = photos.Select(
             p => new PhotoDto(
                 p.Id,
@@ -28,6 +35,7 @@ internal class GetPhotosByLighthouseHandler(IPhotoRepository photoRepository)
                 p.Metadata.Resolution,
                 p.Metadata.Lens)
         ).ToList();
+
         return Result<IEnumerable<PhotoDto>>.Ok(photoDtos);
     }
 }

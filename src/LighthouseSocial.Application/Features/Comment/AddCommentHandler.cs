@@ -38,9 +38,9 @@ internal class AddCommentHandler(ICommentRepository repository,
         if (user is null)
             return Result<Guid>.Fail("User does not exist");
 
-        var photo = await _photoRepository.GetByIdAsync(dto.PhotoId);
-        if (photo is null)
-            return Result<Guid>.Fail("Photo does not exist");
+        var photoResult = await _photoRepository.GetByIdAsync(dto.PhotoId);
+        if (!photoResult.Success)
+            return Result<Guid>.Fail(photoResult.ErrorMessage!);
 
         var alreadyCommented = await _repository.ExistsForUserAsync(dto.UserId, dto.PhotoId);
         if (alreadyCommented)

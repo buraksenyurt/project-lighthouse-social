@@ -36,13 +36,13 @@ public class DeletePhotoHandlerTests
         );
 
         _repositoryMock.Setup(r => r.GetByIdAsync(photoId))
-            .ReturnsAsync(photo);
+            .Returns(Task.FromResult(Result<Domain.Entities.Photo>.Ok(photo)));
 
         _storageServiceMock.Setup(s => s.DeleteAsync(photo.Filename))
             .Returns(Task.CompletedTask);
 
         _repositoryMock.Setup(r => r.DeleteAsync(photoId))
-            .ReturnsAsync(true);
+            .Returns(Task.FromResult(Result.Ok()));
 
         // Act
         var result = await _handler.HandleAsync(new DeletePhotoRequest(photoId), CancellationToken.None);
@@ -70,13 +70,13 @@ public class DeletePhotoHandlerTests
             );
 
         _repositoryMock.Setup(r => r.GetByIdAsync(photoId))
-            .ReturnsAsync(photo);
+            .Returns(Task.FromResult(Result<Domain.Entities.Photo>.Ok(photo)));
 
         _storageServiceMock.Setup(s => s.DeleteAsync(photo.Filename))
             .Returns(Task.CompletedTask);
 
         _repositoryMock.Setup(r => r.DeleteAsync(photoId))
-            .ReturnsAsync(false);
+            .Returns(Task.FromResult(Result.Fail(Messages.Errors.Photo.FailedToDeletePhoto)));
 
         // Act
         var result = await _handler.HandleAsync(new DeletePhotoRequest(photoId), CancellationToken.None);
@@ -91,12 +91,11 @@ public class DeletePhotoHandlerTests
 
     [Fact]
     public async Task HandleAsync_ShouldReturnFail_WhenPhotoNotFound()
-    {
-        // Arrange
+    {// Arrange
         var photoId = Guid.NewGuid();
 
         _repositoryMock.Setup(r => r.GetByIdAsync(photoId))
-            .ReturnsAsync((Domain.Entities.Photo?)null);
+            .Returns(Task.FromResult(Result<Domain.Entities.Photo>.Fail(Messages.Errors.Photo.PhotoNotFound)));
 
         // Act
         var result = await _handler.HandleAsync(new DeletePhotoRequest(photoId), CancellationToken.None);

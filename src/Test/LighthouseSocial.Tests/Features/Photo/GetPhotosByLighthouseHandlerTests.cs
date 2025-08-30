@@ -32,7 +32,7 @@ public class GetPhotosByLighthouseHandlerTests
         };
 
         _repositoryMock.Setup(r => r.GetByLighthouseIdAsync(lighthouseId))
-            .ReturnsAsync(photos);
+            .Returns(Task.FromResult(Result<IEnumerable<Domain.Entities.Photo>>.Ok(photos)));
 
         // Act
         var result = await _handler.HandleAsync(new GetPhotosByLighthouseRequest(lighthouseId), CancellationToken.None);
@@ -62,7 +62,7 @@ public class GetPhotosByLighthouseHandlerTests
         var emptyPhotos = new List<Domain.Entities.Photo>();
 
         _repositoryMock.Setup(r => r.GetByLighthouseIdAsync(lighthouseId))
-            .ReturnsAsync(emptyPhotos);
+            .Returns(Task.FromResult(Result<IEnumerable<Domain.Entities.Photo>>.Ok(emptyPhotos)));
 
         // Act
         var result = await _handler.HandleAsync(new GetPhotosByLighthouseRequest(lighthouseId), CancellationToken.None);
@@ -81,7 +81,7 @@ public class GetPhotosByLighthouseHandlerTests
         var lighthouseId = Guid.NewGuid();
 
         _repositoryMock.Setup(r => r.GetByLighthouseIdAsync(lighthouseId))
-            .ReturnsAsync((IEnumerable<Domain.Entities.Photo>?)null);
+            .Returns(Task.FromResult(Result<IEnumerable<Domain.Entities.Photo>>.Fail("Database error")));
 
         // Act
         var result = await _handler.HandleAsync(new GetPhotosByLighthouseRequest(lighthouseId), CancellationToken.None);
@@ -89,7 +89,7 @@ public class GetPhotosByLighthouseHandlerTests
         // Assert
         Assert.False(result.Success);
         Assert.Null(result.Data);
-        Assert.Equal(Messages.Errors.Photo.NoPhotosFoundForLighthouse, result.ErrorMessage);
+        Assert.Equal("Database error", result.ErrorMessage);
         _repositoryMock.Verify(r => r.GetByLighthouseIdAsync(lighthouseId), Times.Once);
     }
 }

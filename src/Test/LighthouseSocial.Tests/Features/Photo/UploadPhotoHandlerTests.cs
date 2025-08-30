@@ -1,5 +1,6 @@
 using FluentValidation;
 using FluentValidation.Results;
+using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Dtos;
@@ -36,7 +37,7 @@ public class UploadPhotoHandlerTests
             .Setup(v => v.Validate(It.IsAny<PhotoDto>()))
             .Returns(new ValidationResult());
 
-        _repositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.Photo>())).ReturnsAsync(true);
+        _repositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.Photo>())).ReturnsAsync(Result.Ok());
 
         // Act
         var result = await _handler.HandleAsync(new UploadPhotoRequest(dto, stream), CancellationToken.None);
