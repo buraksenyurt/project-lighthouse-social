@@ -39,9 +39,9 @@ public class UpdateLighthouseHandlerTests
             -87.6298
             );
         _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId))
-            .ReturnsAsync(lighthouse);
+            .ReturnsAsync(Result<Domain.Entities.Lighthouse>.Ok(lighthouse));
         _repositoryMock.Setup(r => r.UpdateAsync(It.IsAny<Domain.Entities.Lighthouse>()))
-            .ReturnsAsync(true);
+            .ReturnsAsync(Result.Ok());
 
         // Act
         var result = await _handler.HandleAsync(new UpdateLighthouseRequest(lighthouseId, dto), CancellationToken.None);
@@ -65,7 +65,7 @@ public class UpdateLighthouseHandlerTests
             -87.6298
         );
         _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId))
-            .ReturnsAsync((Domain.Entities.Lighthouse?)null);
+            .ReturnsAsync(Result<Domain.Entities.Lighthouse>.Fail(Messages.Errors.Lighthouse.LighthouseNotFound));
 
         // Act
         var result = await _handler.HandleAsync(new UpdateLighthouseRequest(lighthouseId, dto), CancellationToken.None);
@@ -97,9 +97,9 @@ public class UpdateLighthouseHandlerTests
             -87.6298
         );
         _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId))
-            .ReturnsAsync(lighthouse);
+            .ReturnsAsync(Result<Domain.Entities.Lighthouse>.Ok(lighthouse));
         _repositoryMock.Setup(r => r.UpdateAsync(It.IsAny<Domain.Entities.Lighthouse>()))
-            .ReturnsAsync(false);
+            .ReturnsAsync(Result.Fail(Messages.Errors.Lighthouse.FailedToUpdateLighthouse));
 
         // Act
         var result = await _handler.HandleAsync(new UpdateLighthouseRequest(lighthouseId, dto), CancellationToken.None);

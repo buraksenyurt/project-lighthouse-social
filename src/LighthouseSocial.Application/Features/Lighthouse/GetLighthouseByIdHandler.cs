@@ -13,12 +13,14 @@ internal class GetLighthouseByIdHandler(ILighthouseRepository repository)
 
     public async Task<Result<LighthouseDto>> HandleAsync(GetLighthouseByIdRequest request, CancellationToken cancellationToken)
     {
-        var lighthouse = await _repository.GetByIdAsync(request.LighthouseId);
+        var lighthouseResult = await _repository.GetByIdAsync(request.LighthouseId);
 
-        if (lighthouse == null)
+        if (!lighthouseResult.Success)
         {
-            return Result<LighthouseDto>.Fail(Messages.Errors.Lighthouse.LighthouseNotFound);
+            return Result<LighthouseDto>.Fail(lighthouseResult.ErrorMessage!);
         }
+
+        var lighthouse = lighthouseResult.Data!;
 
         var dto = new LighthouseDto(
             lighthouse.Id,

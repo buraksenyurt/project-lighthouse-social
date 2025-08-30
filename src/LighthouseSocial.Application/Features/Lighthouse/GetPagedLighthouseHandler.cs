@@ -12,7 +12,14 @@ internal class GetPagedLighthouseHandler(ILighthouseRepository lighthouseReposit
 {
     public async Task<Result<PagedResult<LighthouseDto>>> HandleAsync(GetPagedLighthouseRequest request, CancellationToken cancellationToken)
     {
-        var (lighthouses, totalCount) = await lighthouseRepository.GetPagedAsync(request.PagingDto.Skip, request.PagingDto.PageSize);
+        var pagedResult = await lighthouseRepository.GetPagedAsync(request.PagingDto.Skip, request.PagingDto.PageSize);
+        
+        if (!pagedResult.Success)
+        {
+            return Result<PagedResult<LighthouseDto>>.Fail(pagedResult.ErrorMessage!);
+        }
+
+        var (lighthouses, totalCount) = pagedResult.Data!;
 
         var dtos = lighthouses.Select(l => new LighthouseDto
         (
@@ -23,7 +30,7 @@ internal class GetPagedLighthouseHandler(ILighthouseRepository lighthouseReposit
             l.Location.Longitude
         )).ToList();
 
-        var pagedResult = new PagedResult<LighthouseDto>
+        var pagedResultDto = new PagedResult<LighthouseDto>
         (
             dtos,
            totalCount,
@@ -31,6 +38,6 @@ internal class GetPagedLighthouseHandler(ILighthouseRepository lighthouseReposit
             request.PagingDto.PageSize
         );
 
-        return Result<PagedResult<LighthouseDto>>.Ok(pagedResult);
+        return Result<PagedResult<LighthouseDto>>.Ok(pagedResultDto);
     }
 }

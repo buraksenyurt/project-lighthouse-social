@@ -32,10 +32,10 @@ public class DeleteLighthouseHandlerTests
         );
 
         _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId))
-            .ReturnsAsync(lighthouse);
+            .ReturnsAsync(Result<Domain.Entities.Lighthouse>.Ok(lighthouse));
 
         _repositoryMock.Setup(r => r.DeleteAsync(lighthouseId))
-            .ReturnsAsync(true);
+            .ReturnsAsync(Result.Ok());
 
         // Act
         var result = await _handler.HandleAsync(new DeleteLighthouseRequest(lighthouseId), CancellationToken.None);
@@ -53,7 +53,7 @@ public class DeleteLighthouseHandlerTests
         var lighthouseId = Guid.NewGuid();
 
         _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId))
-            .ReturnsAsync((Domain.Entities.Lighthouse?)null);
+            .ReturnsAsync(Result<Domain.Entities.Lighthouse>.Fail(Messages.Errors.Lighthouse.LighthouseNotFound));
 
         // Act
         var result = await _handler.HandleAsync(new DeleteLighthouseRequest(lighthouseId), CancellationToken.None);
@@ -79,10 +79,10 @@ public class DeleteLighthouseHandlerTests
         );
 
         _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId))
-            .ReturnsAsync(lighthouse);
+            .ReturnsAsync(Result<Domain.Entities.Lighthouse>.Ok(lighthouse));
 
         _repositoryMock.Setup(r => r.DeleteAsync(lighthouseId))
-            .ReturnsAsync(false);
+            .ReturnsAsync(Result.Fail(Messages.Errors.Lighthouse.FailedToDeleteLighthouse));
 
         // Act
         var result = await _handler.HandleAsync(new DeleteLighthouseRequest(lighthouseId), CancellationToken.None);

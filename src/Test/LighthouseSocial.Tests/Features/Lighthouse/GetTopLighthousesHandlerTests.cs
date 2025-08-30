@@ -22,12 +22,12 @@ public class GetTopLighthousesHandlerTests
     public async Task HandleAsync_ShouldReturnTopLighthouses_WhenLighthousesExist()
     {
         // Arrange
-        var lighthousesWithStats = new List<LighthouseWithStats>
-        {
+        var lighthousesWithStats = Result<IEnumerable<LighthouseWithStats>>.Ok(
+        [
             new() { Id = Guid.NewGuid(), Name = "End of the world", PhotoCount = 7, AverageScore = 4.4 },
             new() { Id = Guid.NewGuid(), Name = "Cape Varde", PhotoCount = 8, AverageScore = 3.8 },
             new() { Id = Guid.NewGuid(), Name = "Verdan Hope", PhotoCount = 6, AverageScore = 4.1 }
-        };
+        ]);
         _repositoryMock.Setup(r => r.GetTopAsync(3))
             .ReturnsAsync(lighthousesWithStats);
 
@@ -40,10 +40,11 @@ public class GetTopLighthousesHandlerTests
         Assert.Equal(3, result.Data.Count());
 
         var firstLighthouse = result.Data.First();
-        Assert.Equal(lighthousesWithStats[0].Id, firstLighthouse.Id);
-        Assert.Equal(lighthousesWithStats[0].Name, firstLighthouse.Name);
-        Assert.Equal(lighthousesWithStats[0].PhotoCount, firstLighthouse.PhotoCount);
-        Assert.Equal(lighthousesWithStats[0].AverageScore, firstLighthouse.AverageScore);
+        var lighthouseList = lighthousesWithStats.Data?.ToList()!;
+        Assert.Equal(lighthouseList[0].Id, firstLighthouse.Id);
+        Assert.Equal(lighthouseList[0].Name, firstLighthouse.Name);
+        Assert.Equal(lighthouseList[0].PhotoCount, firstLighthouse.PhotoCount);
+        Assert.Equal(lighthouseList[0].AverageScore, firstLighthouse.AverageScore);
 
         _repositoryMock.Verify(r => r.GetTopAsync(3), Times.Once);
     }
@@ -52,7 +53,7 @@ public class GetTopLighthousesHandlerTests
     public async Task HandleAsync_ShouldReturnFail_WhenNoLighthousesFound()
     {
         // Arrange
-        var emptyStats = new List<LighthouseWithStats>();
+        var emptyStats = Result<IEnumerable<LighthouseWithStats>>.Ok([]);
 
         _repositoryMock.Setup(r => r.GetTopAsync(5))
             .ReturnsAsync(emptyStats);

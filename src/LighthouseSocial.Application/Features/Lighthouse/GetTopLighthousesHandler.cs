@@ -12,7 +12,15 @@ internal class GetTopLighthousesHandler(ILighthouseRepository repository)
 {
     public async Task<Result<IEnumerable<LighthouseTopDto>>> HandleAsync(GetTopLighthousesRequest request, CancellationToken cancellationToken)
     {
-        var stats = await repository.GetTopAsync(request.Count);
+        var statsResult = await repository.GetTopAsync(request.Count);
+        
+        if (!statsResult.Success)
+        {
+            return Result<IEnumerable<LighthouseTopDto>>.Fail(statsResult.ErrorMessage!);
+        }
+
+        var stats = statsResult.Data!;
+        
         if (!stats.Any())
         {
             return Result<IEnumerable<LighthouseTopDto>>.Fail(Messages.Errors.Lighthouse.NoLighthousesFound);

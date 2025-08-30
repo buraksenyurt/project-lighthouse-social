@@ -14,10 +14,10 @@ internal class UpdateLighthouseHandler(ILighthouseRepository repository)
 {
     public async Task<Result> HandleAsync(UpdateLighthouseRequest request, CancellationToken cancellationToken)
     {
-        var existingLighthouse = await repository.GetByIdAsync(request.LighthouseId);
-        if (existingLighthouse is null)
+        var existingLighthouseResult = await repository.GetByIdAsync(request.LighthouseId);
+        if (!existingLighthouseResult.Success)
         {
-            return Result.Fail(Messages.Errors.Lighthouse.LighthouseNotFound);
+            return Result.Fail(existingLighthouseResult.ErrorMessage!);
         }
 
         var country = Country.Create(
@@ -34,11 +34,10 @@ internal class UpdateLighthouseHandler(ILighthouseRepository repository)
             coordinates
         );
 
-        var result = await repository.UpdateAsync(updatedLighthouse);
-
-        if (!result)
+        var updateResult = await repository.UpdateAsync(updatedLighthouse);
+        if (!updateResult.Success)
         {
-            return Result.Fail(Messages.Errors.Lighthouse.FailedToUpdateLighthouse);
+            return Result.Fail(updateResult.ErrorMessage!);
         }
 
         return Result.Ok();

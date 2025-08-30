@@ -28,10 +28,10 @@ public class GetLighthouseByIdHandlerTests
             lighthouseId,
             "Cape Verde",
             country,
-            new Coordinates(It.IsAny<double>(), It.IsAny<double>())
+            new Coordinates(40.00, -4.00)
         );
         _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId))
-            .ReturnsAsync(lighthouse);
+            .ReturnsAsync(Result<Domain.Entities.Lighthouse>.Ok(lighthouse));
 
         // Act
         var result = await _handler.HandleAsync(new GetLighthouseByIdRequest(lighthouseId), CancellationToken.None);
@@ -51,7 +51,7 @@ public class GetLighthouseByIdHandlerTests
         // Arrange
         var lighthouseId = Guid.NewGuid();
         _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId))
-            .ReturnsAsync((Domain.Entities.Lighthouse?)null);
+            .ReturnsAsync(Result<Domain.Entities.Lighthouse>.Fail(Messages.Errors.Lighthouse.LighthouseNotFound));
 
         // Act
         var result = await _handler.HandleAsync(new GetLighthouseByIdRequest(lighthouseId), CancellationToken.None);

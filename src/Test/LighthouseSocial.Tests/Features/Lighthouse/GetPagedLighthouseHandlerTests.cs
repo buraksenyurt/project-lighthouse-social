@@ -1,4 +1,5 @@
-﻿using LighthouseSocial.Application.Contracts.Repositories;
+﻿using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.Lighthouse;
 using LighthouseSocial.Domain.Entities;
@@ -25,15 +26,15 @@ public class GetPagedLighthouseHandlerTests
         var country = Country.Create(1, "Test Country");
         var lighthouses = new List<Domain.Entities.Lighthouse>
         {
-            new(Guid.NewGuid(), "Cape Verde", country, new Coordinates(It.IsAny<double>(),It.IsAny<double>())),
-            new(Guid.NewGuid(), "Cape Espichel", country, new Coordinates(It.IsAny < double >(), It.IsAny < double >()))
+            new(Guid.NewGuid(), "Cape Verde", country, new Coordinates(40.00, -4.00)),
+            new(Guid.NewGuid(), "Cape Espichel", country, new Coordinates(41.00, -5.00))
         };
 
         var pagingDto = new PagingDto(1, 10);
         const int totalCount = 25;
 
         _repositoryMock.Setup(r => r.GetPagedAsync(pagingDto.Skip, pagingDto.PageSize))
-            .ReturnsAsync((lighthouses, totalCount));
+            .ReturnsAsync(Result<(IEnumerable<Domain.Entities.Lighthouse> Lighthouses, int TotalCount)>.Ok((lighthouses, totalCount)));
 
         // Act
         var result = await _handler.HandleAsync(new GetPagedLighthouseRequest(pagingDto), CancellationToken.None);
@@ -63,7 +64,7 @@ public class GetPagedLighthouseHandlerTests
         const int totalCount = 0;
 
         _repositoryMock.Setup(r => r.GetPagedAsync(pagingDto.Skip, pagingDto.PageSize))
-            .ReturnsAsync((emptyLighthouses, totalCount));
+            .ReturnsAsync(Result<(IEnumerable<Domain.Entities.Lighthouse> Lighthouses, int TotalCount)>.Ok((emptyLighthouses, totalCount)));
 
         // Act
         var result = await _handler.HandleAsync(new GetPagedLighthouseRequest(pagingDto), CancellationToken.None);
@@ -76,6 +77,25 @@ public class GetPagedLighthouseHandlerTests
         Assert.Equal(pagingDto.Page, result.Data.CurrentPage);
         Assert.Equal(pagingDto.PageSize, result.Data.PageSize);
 
+        _repositoryMock.Verify(r => r.GetPagedAsync(pagingDto.Skip, pagingDto.PageSize), Times.Once);
+    }
+
+    [Fact]
+    public async Task HandleAsync_ShouldReturnFail_WhenRepositoryFails()
+    {
+        // Arrange
+        var pagingDto = new PagingDto(1, 10);
+        var errorMessage = "Database connection failed";
+
+        _repositoryMock.Setup(r => r.GetPagedAsync(pagingDto.Skip, pagingDto.PageSize))
+            .ReturnsAsync(Result<(IEnumerable<Domain.Entities.Lighthouse> Lighthouses, int TotalCount)>.Fail(errorMessage));
+
+        // Act
+        var result = await _handler.HandleAsync(new GetPagedLighthouseRequest(pagingDto), CancellationToken.None);
+
+        // Assert
+        Assert.False(result.Success);
+        Assert.Equal(errorMessage, result.ErrorMessage);
         _repositoryMock.Verify(r => r.GetPagedAsync(pagingDto.Skip, pagingDto.PageSize), Times.Once);
     }
 }
