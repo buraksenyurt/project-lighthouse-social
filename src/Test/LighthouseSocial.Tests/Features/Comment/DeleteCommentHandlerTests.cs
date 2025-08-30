@@ -31,10 +31,10 @@ public class DeleteCommentHandlerTests
         );
 
         _repositoryMock.Setup(r => r.GetByIdAsync(commentId))
-            .ReturnsAsync(comment);
+            .Returns(Task.FromResult(Result<Domain.Entities.Comment>.Ok(comment)));
 
         _repositoryMock.Setup(r => r.DeleteAsync(commentId))
-            .ReturnsAsync(true);
+            .Returns(Task.FromResult(Result.Ok()));
 
         // Act
         var result = await _handler.HandleAsync(new DeleteCommentRequest(commentId), CancellationToken.None);
@@ -59,10 +59,10 @@ public class DeleteCommentHandlerTests
         );
 
         _repositoryMock.Setup(r => r.GetByIdAsync(commentId))
-            .ReturnsAsync(comment);
+            .Returns(Task.FromResult(Result<Domain.Entities.Comment>.Ok(comment)));
 
         _repositoryMock.Setup(r => r.DeleteAsync(commentId))
-            .ReturnsAsync(false);
+            .Returns(Task.FromResult(Result.Fail(Messages.Errors.Comment.FailedToDeleteComment)));
 
         // Act
         var result = await _handler.HandleAsync(new DeleteCommentRequest(commentId), CancellationToken.None);
@@ -81,7 +81,7 @@ public class DeleteCommentHandlerTests
         var commentId = Guid.NewGuid();
 
         _repositoryMock.Setup(r => r.GetByIdAsync(commentId))
-             .ReturnsAsync((Domain.Entities.Comment?)null);
+             .Returns(Task.FromResult(Result<Domain.Entities.Comment>.Fail(Messages.Errors.Comment.CommentNotFound)));
 
         // Act
         var result = await _handler.HandleAsync(new DeleteCommentRequest(commentId), CancellationToken.None);

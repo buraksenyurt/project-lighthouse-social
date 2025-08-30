@@ -45,21 +45,21 @@ public class AddCommentHandlerTests
        .ReturnsAsync(new Domain.Entities.User(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid().ToString(), "tester"));
 
         _photoRepositoryMock.Setup(p => p.GetByIdAsync(It.IsAny<Guid>()))
-            .ReturnsAsync(Result<Domain.Entities.Photo>.Ok(new Domain.Entities.Photo(
+            .Returns(Task.FromResult(Result<Domain.Entities.Photo>.Ok(new Domain.Entities.Photo(
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 "EndOfTheWorld.jpg",
                 new Domain.ValueObjects.PhotoMetadata("50mm", "1280x1280", "Canon Mark 5", DateTime.Now.AddDays(-7))
-            )));
+            ))));
 
         _repositoryMock.Setup(r => r.ExistsForUserAsync(It.IsAny<Guid>(), It.IsAny<Guid>()))
-            .ReturnsAsync(false);
+            .Returns(Task.FromResult(Result<bool>.Ok(false)));
 
         _commentAuditorMock.Setup(a => a.IsTextCleanAsync(dto.Text)).ReturnsAsync(true);
 
         _repositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.Comment>()))
-            .ReturnsAsync(true);
+            .Returns(Task.FromResult(Result.Ok()));
 
         // Act
         var result = await _handler.HandleAsync(new AddCommentRequest(dto), CancellationToken.None);
@@ -97,5 +97,41 @@ public class AddCommentHandlerTests
         Assert.Contains("Rating value must be between 1 and 10", result.ErrorMessage);
         Assert.Contains("Invalid Photo Id", result.ErrorMessage);
         Assert.Contains("Invalid User Id", result.ErrorMessage);
+    }
+
+    [Fact]
+    public async Task HandleAsync_ShouldReturnFail_WhenRepositoryFails()
+    {
+        // Arrange
+        var dto = new CommentDto(Guid.NewGuid(), Guid.NewGuid(), "Lovely photo", 5);
+
+        _validatorMock.Setup(v => v.Validate(It.IsAny<CommentDto>())).Returns(new ValidationResult());
+        _userRepositoryMock.Setup(u => u.GetByIdAsync(It.IsAny<Guid>()))
+       .ReturnsAsync(new Domain.Entities.User(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid().ToString(), "tester"));
+
+        _photoRepositoryMock.Setup(p => p.GetByIdAsync(It.IsAny<Guid>()))
+            .Returns(Task.FromResult(Result<Domain.Entities.Photo>.Ok(new Domain.Entities.Photo(
+                Guid.NewGuid(),
+                Guid.NewGuid(),
+                Guid.NewGuid(),
+                "EndOfTheWorld.jpg",
+                new Domain.ValueObjects.PhotoMetadata("50mm", "1280x1280", "Canon Mark 5", DateTime.Now.AddDays(-7))
+            ))));
+
+        _repositoryMock.Setup(r => r.ExistsForUserAsync(It.IsAny<Guid>(), It.IsAny<Guid>()))
+            .Returns(Task.FromResult(Result<bool>.Ok(false)));
+
+        _commentAuditorMock.Setup(a => a.IsTextCleanAsync(dto.Text)).ReturnsAsync(true);
+
+        _repositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.Comment>()))
+            .Returns(Task.FromResult(Result.Fail("Database error")));
+
+        // Act
+        var result = await _handler.HandleAsync(new AddCommentRequest(dto), CancellationToken.None);
+
+        // Assert
+        Assert.False(result.Success);
+        Assert.Equal("Database error", result.ErrorMessage);
+        _repositoryMock.Verify(r => r.AddAsync(It.IsAny<Domain.Entities.Comment>()), Times.Once);
     }
 }

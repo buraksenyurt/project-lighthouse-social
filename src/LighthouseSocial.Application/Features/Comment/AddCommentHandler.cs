@@ -14,7 +14,7 @@ internal class AddCommentHandler(ICommentRepository repository,
     IUserRepository userRepository,
     IPhotoRepository photoRepository,
     ICommentAuditor commentAuditor
-    ) : IHandler<AddCommentRequest,Result<Guid>>
+    ) : IHandler<AddCommentRequest, Result<Guid>>
 {
     //todo@buraksenyurt İhtiyaç duyulan bileşenlerin daha yönetilebilir ele alınması lazım.
     private readonly ICommentRepository _repository = repository;
@@ -25,7 +25,6 @@ internal class AddCommentHandler(ICommentRepository repository,
 
     public async Task<Result<Guid>> HandleAsync(AddCommentRequest request, CancellationToken cancellationToken)
     {
-        //todo@buraksenyurt Aşağıdaki kullanım şeklide diğer handle metotlarında da aynı. Kod tekrarını nasıl önleriz?
         var dto = request.Comment;
         var validation = _validator.Validate(dto);
         if (!validation.IsValid)
@@ -42,8 +41,11 @@ internal class AddCommentHandler(ICommentRepository repository,
         if (!photoResult.Success)
             return Result<Guid>.Fail(photoResult.ErrorMessage!);
 
-        var alreadyCommented = await _repository.ExistsForUserAsync(dto.UserId, dto.PhotoId);
-        if (alreadyCommented)
+        var existsResult = await _repository.ExistsForUserAsync(dto.UserId, dto.PhotoId);
+        if (!existsResult.Success)
+            return Result<Guid>.Fail(existsResult.ErrorMessage!);
+
+        if (existsResult.Data!)
             return Result<Guid>.Fail("User has already commented...");
 
         var isCommentClean = await _commentAuditor.IsTextCleanAsync(dto.Text);
@@ -55,9 +57,9 @@ internal class AddCommentHandler(ICommentRepository repository,
         var comment = new Domain.Entities.Comment(Guid.NewGuid(), dto.UserId, dto.PhotoId, dto.Text, Rating.FromValue(dto.Rating));
 
         var result = await _repository.AddAsync(comment);
-        if (!result)
+        if (!result.Success)
         {
-            return Result<Guid>.Fail("Failed to add comment to repository.");
+            return Result<Guid>.Fail(result.ErrorMessage!);
         }
 
         return Result<Guid>.Ok(comment.Id);

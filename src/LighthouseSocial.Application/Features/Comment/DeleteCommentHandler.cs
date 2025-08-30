@@ -12,17 +12,18 @@ internal class DeleteCommentHandler(ICommentRepository repository)
 
     public async Task<Result> HandleAsync(DeleteCommentRequest request, CancellationToken cancellationToken)
     {
-        var comment = await _repository.GetByIdAsync(request.CommentId);
-        if (comment == null)
+        var commentResult = await _repository.GetByIdAsync(request.CommentId);
+        if (!commentResult.Success)
         {
-            return Result.Fail(Messages.Errors.Comment.CommentNotFound);
+            return Result.Fail(commentResult.ErrorMessage!);
         }
 
-        var result = await _repository.DeleteAsync(request.CommentId);
-        if (!result)
+        var deleteResult = await _repository.DeleteAsync(request.CommentId);
+        if (!deleteResult.Success)
         {
-            return Result.Fail(Messages.Errors.Comment.FailedToDeleteComment);
+            return Result.Fail(deleteResult.ErrorMessage!);
         }
+
         return Result.Ok();
     }
 }
