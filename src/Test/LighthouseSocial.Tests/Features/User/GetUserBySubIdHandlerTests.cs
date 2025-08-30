@@ -1,4 +1,5 @@
-﻿using LighthouseSocial.Application.Contracts.Repositories;
+﻿using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Features.User;
 using Moq;
 
@@ -21,7 +22,7 @@ public class GetUserBySubIdHandlerTests
         // Arrange
         var subId = Guid.NewGuid();
         var user = new Domain.Entities.User(Guid.NewGuid(), subId, "John Doe", "john.doe@plhsocial.com");
-        _userRepositoryMock.Setup(r => r.GetBySubIdAsync(subId)).ReturnsAsync(user);
+        _userRepositoryMock.Setup(r => r.GetBySubIdAsync(subId)).ReturnsAsync(Result<Domain.Entities.User>.Ok(user));
 
         // Act
         var result = await _handler.HandleAsync(new GetUserBySubIdRequest(subId), CancellationToken.None);
@@ -42,7 +43,7 @@ public class GetUserBySubIdHandlerTests
     {
         // Arrange
         var subId = Guid.NewGuid();
-        _userRepositoryMock.Setup(r => r.GetBySubIdAsync(subId)).ReturnsAsync((Domain.Entities.User?)null);
+        _userRepositoryMock.Setup(r => r.GetBySubIdAsync(subId)).ReturnsAsync(Result<Domain.Entities.User>.Fail("User not found"));
 
         // Act
         var result = await _handler.HandleAsync(new GetUserBySubIdRequest(subId), CancellationToken.None);

@@ -16,11 +16,12 @@ internal class GetUserByEmailHandler(IUserRepository repository)
             return Result<UserDto>.Fail("Email is required");
         }
 
-        var user = await repository.GetByEmailAsync(request.Email);
-        if (user == null)
+        var userResult = await repository.GetByEmailAsync(request.Email);
+        if (!userResult.Success)
         {
-            return Result<UserDto>.Fail("User not found");
+            return Result<UserDto>.Fail(userResult.ErrorMessage ?? "User not found");
         }
+        var user = userResult.Data!;
         var userDto = new UserDto(
             user.Id,
             user.ExternalId,

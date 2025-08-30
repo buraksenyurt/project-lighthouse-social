@@ -42,7 +42,7 @@ public class AddCommentHandlerTests
 
         _validatorMock.Setup(v => v.Validate(It.IsAny<CommentDto>())).Returns(new ValidationResult());
         _userRepositoryMock.Setup(u => u.GetByIdAsync(It.IsAny<Guid>()))
-       .ReturnsAsync(new Domain.Entities.User(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid().ToString(), "tester"));
+       .ReturnsAsync(Result<Domain.Entities.User>.Ok(new Domain.Entities.User(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid().ToString(), "tester")));
 
         _photoRepositoryMock.Setup(p => p.GetByIdAsync(It.IsAny<Guid>()))
             .Returns(Task.FromResult(Result<Domain.Entities.Photo>.Ok(new Domain.Entities.Photo(
@@ -107,7 +107,7 @@ public class AddCommentHandlerTests
 
         _validatorMock.Setup(v => v.Validate(It.IsAny<CommentDto>())).Returns(new ValidationResult());
         _userRepositoryMock.Setup(u => u.GetByIdAsync(It.IsAny<Guid>()))
-       .ReturnsAsync(new Domain.Entities.User(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid().ToString(), "tester"));
+       .ReturnsAsync(Result<Domain.Entities.User>.Ok(new Domain.Entities.User(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid().ToString(), "tester")));
 
         _photoRepositoryMock.Setup(p => p.GetByIdAsync(It.IsAny<Guid>()))
             .Returns(Task.FromResult(Result<Domain.Entities.Photo>.Ok(new Domain.Entities.Photo(

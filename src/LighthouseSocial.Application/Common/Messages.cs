@@ -50,6 +50,9 @@ public static class Messages
         public static class User
         {
             public const string UserNotFound = "User not found.";
+            public const string FailedToAddUser = "Failed to add user to repository.";
+            public const string FailedToUpdateUser = "Failed to update user in repository.";
+            public const string FailedToDeleteUser = "Failed to delete user from repository.";
         }
         public static class Country
         {

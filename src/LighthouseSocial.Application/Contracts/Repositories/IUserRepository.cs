@@ -1,11 +1,12 @@
+using LighthouseSocial.Application.Common;
 using LighthouseSocial.Domain.Entities;
 
 namespace LighthouseSocial.Application.Contracts.Repositories;
 
 public interface IUserRepository
 {
-    Task<bool> AddAsync(User user);
-    Task<User?> GetByIdAsync(Guid userId);
-    Task<User?> GetBySubIdAsync(Guid subId);
-    Task<User?> GetByEmailAsync(string email);
+    Task<Result> AddAsync(User user);
+    Task<Result<User>> GetByIdAsync(Guid userId);
+    Task<Result<User>> GetBySubIdAsync(Guid subId);
+    Task<Result<User>> GetByEmailAsync(string email);
 }

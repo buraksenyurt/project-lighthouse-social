@@ -21,17 +21,17 @@ internal class CreateUserHandler(IUserRepository userRepository, IValidator<User
             return Result<Guid>.Fail(errors);
         }
 
-        var user = await userRepository.GetByIdAsync(dto.Id);
-        if (user != null)
+        var userResult = await userRepository.GetByIdAsync(dto.Id);
+        if (userResult.Success)
         {
             return Result<Guid>.Fail("User already exists");
         }
 
         var newUser = new Domain.Entities.User(dto.Id, dto.SubId, dto.Fullname, dto.Email);
-        var createdUser = await userRepository.AddAsync(newUser);
-        if (!createdUser)
+        var createdUserResult = await userRepository.AddAsync(newUser);
+        if (!createdUserResult.Success)
         {
-            return Result<Guid>.Fail("Failed to create user");
+            return Result<Guid>.Fail(createdUserResult.ErrorMessage ?? "Failed to create user");
         }
 
         return Result<Guid>.Ok(newUser.Id);

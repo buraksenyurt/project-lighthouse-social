@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.User;
@@ -27,8 +28,8 @@ public class CreateUserHandlerTests
         var dto = new UserDto(Guid.NewGuid(), Guid.NewGuid(), "John Doe", "john.doe@plhsocial.com");
 
         _validatorMock.Setup(v => v.Validate(It.IsAny<UserDto>())).Returns(new ValidationResult());
-        _userRepositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync((Domain.Entities.User?)null);
-        _userRepositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.User>())).ReturnsAsync(true);
+        _userRepositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(Result<Domain.Entities.User>.Fail("User not found"));
+        _userRepositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.User>())).ReturnsAsync(Result.Ok());
 
         // Act
         var result = await _handler.HandleAsync(new CreateUserRequest(dto), CancellationToken.None);
@@ -70,7 +71,7 @@ public class CreateUserHandlerTests
         var dto = new UserDto(Guid.NewGuid(), Guid.NewGuid(), "John Doe", "john.doe@plhsocial.com");
         _validatorMock.Setup(v => v.Validate(It.IsAny<UserDto>())).Returns(new ValidationResult());
         _userRepositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<Guid>()))
-            .ReturnsAsync(new Domain.Entities.User(Guid.NewGuid(), Guid.NewGuid(), "Existing User", ""));
+            .ReturnsAsync(Result<Domain.Entities.User>.Ok(new Domain.Entities.User(Guid.NewGuid(), Guid.NewGuid(), "Existing User", "")));
 
         // Act
         var result = await _handler.HandleAsync(new CreateUserRequest(dto), CancellationToken.None);

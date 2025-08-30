@@ -1,4 +1,5 @@
-﻿using LighthouseSocial.Application.Contracts.Repositories;
+﻿using LighthouseSocial.Application.Common;
+using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Features.User;
 using Moq;
 
@@ -21,7 +22,7 @@ public class GetUserByEmailHandlerTests
         // Arrange
         var email = "john.doe@plhsocial.com";
         var user = new Domain.Entities.User(Guid.NewGuid(), Guid.NewGuid(), "John Doe", email);
-        _userRepositoryMock.Setup(r => r.GetByEmailAsync(email)).ReturnsAsync(user);
+        _userRepositoryMock.Setup(r => r.GetByEmailAsync(email)).ReturnsAsync(Result<Domain.Entities.User>.Ok(user));
 
         // Act
         var result = await _handler.HandleAsync(new GetUserByEmailRequest(email), CancellationToken.None);
@@ -57,7 +58,7 @@ public class GetUserByEmailHandlerTests
     {
         // Arrange
         var email = "john.doe@plhsocial.com";
-        _userRepositoryMock.Setup(r => r.GetByEmailAsync(email)).ReturnsAsync((Domain.Entities.User?)null);
+        _userRepositoryMock.Setup(r => r.GetByEmailAsync(email)).ReturnsAsync(Result<Domain.Entities.User>.Fail("User not found"));
 
         // Act
         var result = await _handler.HandleAsync(new GetUserByEmailRequest(email), CancellationToken.None);
