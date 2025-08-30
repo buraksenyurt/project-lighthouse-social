@@ -150,6 +150,14 @@ Path : **ProjectLighthouseSocial-Dev**
 }
 ```
 
+## Redis Cache Değerlerinde Sorun Olursa
+
+Örneğin Vault tarafında tanımlı bir secret için yeni sürüm çıktık. Eğer Cache aktifse vault değerlerinin tekrardan yüklenmesi gerekir. Bunu normalde Cache Invalidation metodunu çağırarak yapabiliriz ama her ihtimale karşı docker üzerinden de ilgili key değerini silerek ilerlemek mümkün. Örneğin vault ayarlarını silmek istersek aşağıdaki komutu kullanabiliriz.
+
+```bash
+docker exec -it plh-redis redis-cli del vault:keycloak_settings
+```
+
 ## Redis Cache Testleri
 
 Redis cache testleri sırasında docker container içerisine girip keyleri kontrol etmek veya manuel silmek isteyebiliriz. Aşağıdaki bunun için kullanabileceğimiz pratik komutlar yer alıyor.
