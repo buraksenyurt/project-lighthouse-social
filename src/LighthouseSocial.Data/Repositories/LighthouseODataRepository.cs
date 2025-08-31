@@ -1,19 +1,27 @@
 ﻿using Dapper;
+using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Dtos;
 
 namespace LighthouseSocial.Data.Repositories;
 
 public class LighthouseODataRepository(IDbConnectionFactory connectionFactory)
-	: ILighthouseODataRepository
+    : ILighthouseODataRepository
 {
-    public IQueryable<QueryableLighthouseDto> GetLighthouses()
+    public async Task<Result<IQueryable<QueryableLighthouseDto>>> GetLighthousesAsync()
     {
-        var lighthouses = GetLighthousesAsync().GetAwaiter().GetResult();
-		return lighthouses.AsQueryable();
+        try
+        {
+            var lighthouses = await SelectLighthousesQueryAsync();
+            return Result<IQueryable<QueryableLighthouseDto>>.Ok(lighthouses.AsQueryable());
+        }
+        catch (Exception ex)
+        {
+            return Result<IQueryable<QueryableLighthouseDto>>.Fail($"An error occurred while fetching lighthouses: {ex.Message}");
+        }
     }
 
-    private async Task<List<QueryableLighthouseDto>> GetLighthousesAsync()
+    private async Task<List<QueryableLighthouseDto>> SelectLighthousesQueryAsync()
     {
         const string sql = @"
 				SELECT 

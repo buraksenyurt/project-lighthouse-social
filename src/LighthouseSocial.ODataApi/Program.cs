@@ -30,6 +30,8 @@ builder.Services.AddControllers()
 builder.Services
     .AddInfrastructure(builder.Configuration)
     .WithSecretVault()
+    .WithCaching()
+    .WithElasticsearchLogging(builder.Environment)
     .Build();
 builder.Services.AddData();
 

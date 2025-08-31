@@ -9,9 +9,17 @@ public class LighthousesController(ILighthouseODataRepository repository, ILogge
     : ODataController
 {
     [EnableQuery]
-    public IQueryable<QueryableLighthouseDto> Get()
+    public async Task<IQueryable<QueryableLighthouseDto>> Get()
     {
         logger.LogInformation("Fetching lighthouses from the repository.");
-        return repository.GetLighthouses();
+
+        var result = await repository.GetLighthousesAsync();
+        if (!result.Success)
+        {
+            logger.LogError("Failed to fetch lighthouses: {ErrorMessage}", result.ErrorMessage);
+            throw new InvalidOperationException(result.ErrorMessage);
+        }
+
+        return result.Data!;
     }
 }
