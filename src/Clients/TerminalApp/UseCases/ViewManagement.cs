@@ -12,8 +12,14 @@ public class ViewManagement(ICountryDataReader countryDataReader, ILogger<ViewMa
         Console.WriteLine("Loading countries");
         try
         {
-            var countries = await countryDataReader.GetAllAsync();
-            foreach (var country in countries)
+            var countriesResult = await countryDataReader.GetAllAsync();
+            if (!countriesResult.Success)
+            {
+                Console.WriteLine($"Failed to load countries: {countriesResult.ErrorMessage}");
+                return;
+            }
+
+            foreach (var country in countriesResult.Data!)
             {
                 Console.WriteLine($"{country.Id}:{country.Name}");
             }
@@ -24,7 +30,7 @@ public class ViewManagement(ICountryDataReader countryDataReader, ILogger<ViewMa
                 Console.WriteLine(result.ErrorMessage);
                 return;
             }
-            Console.WriteLine($"{result.Data.Name}");
+            Console.WriteLine($"{result.Data!.Name}");
         }
         catch (Exception ex)
         {

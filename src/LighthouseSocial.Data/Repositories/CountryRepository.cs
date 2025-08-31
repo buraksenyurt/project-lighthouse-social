@@ -11,19 +11,26 @@ public class CountryRepository(IDbConnectionFactory connFactory)
 {
     private readonly IDbConnectionFactory _connFactory = connFactory;
 
-    public async Task<IReadOnlyList<Country>> GetAllAsync()
+    public async Task<Result<IReadOnlyList<Country>>> GetAllAsync()
     {
-        const string sql = "SELECT id, name FROM countries ORDER BY name;";
+        try
+        {
+            const string sql = "SELECT id, name FROM countries ORDER BY name;";
 
-        using var conn = _connFactory.CreateConnection();
+            using var conn = _connFactory.CreateConnection();
 
-        var rows = await conn.QueryAsync<(int id, string name)>(sql);
+            var rows = await conn.QueryAsync<(int id, string name)>(sql);
 
-        var list = rows
-            .Select(row => Country.Create(row.id, row.name))
-            .ToList();
+            var list = rows
+                .Select(row => Country.Create(row.id, row.name))
+                .ToList();
 
-        return list;
+            return Result<IReadOnlyList<Country>>.Ok(list);
+        }
+        catch (Exception ex)
+        {
+            return Result<IReadOnlyList<Country>>.Fail($"Failed to get all countries: {ex.Message}");
+        }
     }
 
     public async Task<Result<Country>> GetByIdAsync(int id)
