@@ -92,9 +92,9 @@ Minimum Profil;
 - [x] [Bölüm 35 - Peki ya DI Servislerine Bildirilen Her Bileşene İhtiyacımız Yoksa?](https://youtu.be/r34uuX8ycCQ)
 - [x] [Bölüm 36 - Keycloak ile Tanışalım](https://youtu.be/rKk1iRMmXME)
 - [x] [Bölüm 37 - Web API Projesinde Keycloak Bazlı Yetkilendirme(Authorization) Kullanımı](https://youtu.be/nJr1yM_Em7s)
-- [ ] [Bölüm 38 - Logları Elasticsearch'e Gönderelim]
-- [ ] [Bölüm 39 - Vault Bilgilerini Cache Üzerinde Tutmak *(Açtık Yine Dertsiz Başımıza Dert)*]
-- [ ] [Bölüm 40 - Daha İyi Bir Hata Yönetimi *(Result Pattern Refactoring)*]
+- [x] [Bölüm 38 - Logları Elasticsearch'e Gönderelim](https://youtu.be/rP4i3yqtAP8)
+- [x] [Bölüm 39 - Vault Bilgilerini Cache Üzerinde Tutmak *(Açtık Yine Dertsiz Başımıza Dert)*]
+- [x] [Bölüm 40 - Daha İyi Bir Hata Yönetimi *(Result Pattern Refactoring)*]
 
 ## Sonarqube
 
