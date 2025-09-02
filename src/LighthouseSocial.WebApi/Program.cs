@@ -19,7 +19,8 @@ builder.Services
     .WithCaching()
     .WithExternals()
     .WithKeycloak()
-    .WithElasticsearchLogging(builder.Environment)
+    //.WithElasticsearchLogging(builder.Environment)
+    .WithGraylog(builder.Environment)
     .Build();
 builder.Host.UseSerilog();
 

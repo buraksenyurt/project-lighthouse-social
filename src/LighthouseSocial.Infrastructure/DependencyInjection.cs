@@ -14,6 +14,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Minio;
 using Serilog;
+using Serilog.Sinks.Graylog;
+using Serilog.Sinks.Graylog.Core.Transport;
 using StackExchange.Redis;
 
 namespace LighthouseSocial.Infrastructure;
@@ -132,6 +134,36 @@ public class InfrastructureBuilder(IServiceCollection services, IConfiguration c
                options.DataStream = new("lighthouse-social-logs");
            });
 
+        if (environment.IsDevelopment())
+        {
+            loggerConfiguration.MinimumLevel.Debug();
+        }
+        else
+        {
+            loggerConfiguration.MinimumLevel.Information();
+        }
+
+        Log.Logger = loggerConfiguration.CreateLogger();
+        services.AddSerilog();
+
+        return this;
+    }
+
+    public InfrastructureBuilder WithGraylog(IHostEnvironment environment)
+    {
+        var graylogSettings = new GraylogSettings();
+        configuration.GetSection("GraylogSettings").Bind(graylogSettings);
+
+        var loggerConfiguration = new LoggerConfiguration()
+           .Enrich.FromLogContext()
+           .WriteTo.Console()
+           .WriteTo.Graylog(new GraylogSinkOptions
+           {
+               HostnameOrAddress = graylogSettings.Host,
+               Port = graylogSettings.Port,
+               Facility = graylogSettings.Facility,
+               TransportType = graylogSettings.UseSecureConnection ? TransportType.Tcp : TransportType.Udp,
+           });
         if (environment.IsDevelopment())
         {
             loggerConfiguration.MinimumLevel.Debug();
