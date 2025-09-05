@@ -3,10 +3,11 @@ using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Domain.Entities;
 using LighthouseSocial.Domain.ValueObjects;
+using Microsoft.Extensions.Logging;
 
 namespace LighthouseSocial.Data.Repositories;
 
-public partial class LighthouseRepository(IDbConnectionFactory connFactory)
+public partial class LighthouseRepository(IDbConnectionFactory connFactory, ILogger<LighthouseRepository> logger)
     : ILighthouseRepository
 {
     private readonly IDbConnectionFactory _connFactory = connFactory;
@@ -36,6 +37,7 @@ public partial class LighthouseRepository(IDbConnectionFactory connFactory)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error adding lighthouse with Id {LighthouseId}", lighthouse.Id);
             return Result.Fail($"Exception occurred while adding lighthouse: {ex.Message}");
         }
     }
@@ -70,6 +72,7 @@ public partial class LighthouseRepository(IDbConnectionFactory connFactory)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error updating lighthouse with Id {LighthouseId}", lighthouse.Id);
             return Result.Fail($"Exception occurred while updating lighthouse: {ex.Message}");
         }
     }
@@ -88,6 +91,7 @@ public partial class LighthouseRepository(IDbConnectionFactory connFactory)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error deleting lighthouse with Id {LighthouseId}", id);
             return Result.Fail($"Exception occurred while deleting lighthouse: {ex.Message}");
         }
     }
@@ -118,6 +122,7 @@ public partial class LighthouseRepository(IDbConnectionFactory connFactory)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error retrieving lighthouse with Id {LighthouseId}", id);
             return Result<Lighthouse>.Fail($"Exception occurred while getting lighthouse: {ex.Message}");
         }
     }
@@ -150,6 +155,7 @@ public partial class LighthouseRepository(IDbConnectionFactory connFactory)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error retrieving all lighthouses");
             return Result<IEnumerable<Lighthouse>>.Fail($"Exception occurred while getting all lighthouses: {ex.Message}");
         }
     }
@@ -187,6 +193,7 @@ public partial class LighthouseRepository(IDbConnectionFactory connFactory)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error retrieving paged lighthouses with Skip {Skip} and Take {Take}", skip, take);
             return Result<(IEnumerable<Lighthouse> Lighthouses, int TotalCount)>.Fail($"Exception occurred while getting paged lighthouses: {ex.Message}");
         }
     }

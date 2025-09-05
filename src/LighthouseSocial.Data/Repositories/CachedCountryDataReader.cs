@@ -2,10 +2,11 @@
 using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Domain.Entities;
 using LighthouseSocial.Infrastructure.Caching;
+using Microsoft.Extensions.Logging;
 
 namespace LighthouseSocial.Data.Repositories;
 
-public class CachedCountryDataReader(ICountryDataReader inner, ICacheService cacheService)
+public class CachedCountryDataReader(ICountryDataReader inner, ICacheService cacheService, ILogger<CachedCountryDataReader> logger)
     : ICountryDataReader
 {
     private static readonly TimeSpan CacheDuration = TimeSpan.FromDays(1);
@@ -34,6 +35,7 @@ public class CachedCountryDataReader(ICountryDataReader inner, ICacheService cac
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error retrieving all countries from cache or inner reader");
             return Result<IReadOnlyList<Country>>.Fail($"Failed to get all countries from cache: {ex.Message}");
         }
     }
@@ -62,6 +64,7 @@ public class CachedCountryDataReader(ICountryDataReader inner, ICacheService cac
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error retrieving country with Id {CountryId} from cache or inner reader", id);
             return Result<Country>.Fail(ex.Message);
         }
     }

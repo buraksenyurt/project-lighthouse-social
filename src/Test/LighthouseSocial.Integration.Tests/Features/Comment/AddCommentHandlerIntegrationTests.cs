@@ -19,9 +19,12 @@ public class AddCommentHandlerIntegrationTests
         var connectionString = "Host=localhost;Port=5432;Database=lighthousedb;Username=johndoe;Password=somew0rds";
         var factory = new NpgsqlConnectionFactory(connectionString);
 
-        var userRepository = new UserRepository(factory);
-        var photoRepository = new PhotoRepository(factory);
         var commentLogger = NullLogger<CommentRepository>.Instance;
+        var userLogger = NullLogger<UserRepository>.Instance;
+        var photoLogger = NullLogger<PhotoRepository>.Instance;
+
+        var userRepository = new UserRepository(factory, userLogger);
+        var photoRepository = new PhotoRepository(factory, photoLogger);
         var commentRepository = new CommentRepository(factory, commentLogger);
         var commentAuditor = new ExternalCommentAuditor(new HttpClient());
 

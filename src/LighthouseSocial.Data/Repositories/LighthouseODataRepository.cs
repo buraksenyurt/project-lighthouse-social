@@ -2,10 +2,11 @@
 using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Dtos;
+using Microsoft.Extensions.Logging;
 
 namespace LighthouseSocial.Data.Repositories;
 
-public class LighthouseODataRepository(IDbConnectionFactory connectionFactory)
+public class LighthouseODataRepository(IDbConnectionFactory connectionFactory, ILogger<LighthouseODataRepository> logger)
     : ILighthouseODataRepository
 {
     public async Task<Result<IQueryable<QueryableLighthouseDto>>> GetLighthousesAsync()
@@ -17,6 +18,7 @@ public class LighthouseODataRepository(IDbConnectionFactory connectionFactory)
         }
         catch (Exception ex)
         {
+			logger.LogError(ex, "Error fetching lighthouses");
             return Result<IQueryable<QueryableLighthouseDto>>.Fail($"An error occurred while fetching lighthouses: {ex.Message}");
         }
     }

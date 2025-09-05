@@ -1,10 +1,11 @@
 using Dapper;
 using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Contracts.Repositories;
+using Microsoft.Extensions.Logging;
 
 namespace LighthouseSocial.Data.Repositories;
 
-public class UserRepository(IDbConnectionFactory connFactory)
+public class UserRepository(IDbConnectionFactory connFactory, ILogger<UserRepository> logger)
     : IUserRepository
 {
     private readonly IDbConnectionFactory _connFactory = connFactory;
@@ -31,6 +32,7 @@ public class UserRepository(IDbConnectionFactory connFactory)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error adding user with Id {UserId}", user.Id);
             return Result.Fail($"An error occurred while adding the user: {ex.Message}");
         }
     }
@@ -53,6 +55,7 @@ public class UserRepository(IDbConnectionFactory connFactory)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error retrieving user with Id {UserId}", userId);
             return Result<Domain.Entities.User>.Fail($"An error occurred while retrieving the user: {ex.Message}");
         }
     }
@@ -74,6 +77,7 @@ public class UserRepository(IDbConnectionFactory connFactory)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error retrieving user with ExternalId {SubId}", subId);
             return Result<Domain.Entities.User>.Fail($"An error occurred while retrieving the user: {ex.Message}");
         }
     }
@@ -95,6 +99,7 @@ public class UserRepository(IDbConnectionFactory connFactory)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error retrieving user with Email {Email}", email);
             return Result<Domain.Entities.User>.Fail($"An error occurred while retrieving the user: {ex.Message}");
         }
     }

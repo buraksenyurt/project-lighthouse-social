@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using LighthouseSocial.Application.Common;
 using LighthouseSocial.Domain.ValueObjects;
+using Microsoft.Extensions.Logging;
 
 namespace LighthouseSocial.Data.Repositories;
 
@@ -38,6 +39,7 @@ public partial class LighthouseRepository
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error retrieving top lighthouses");
             return Result<IEnumerable<LighthouseWithStats>>.Fail($"Exception occurred while getting top lighthouses: {ex.Message}");
         }
     }

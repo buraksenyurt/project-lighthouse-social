@@ -21,7 +21,8 @@ public static class DependencyInjection
         {
             var repo = provider.GetRequiredService<CountryRepository>();
             var cache = provider.GetRequiredService<ICacheService>();
-            return new CachedCountryDataReader(repo, cache);
+            var logger = provider.GetRequiredService<ILogger<CachedCountryDataReader>>();
+            return new CachedCountryDataReader(repo, cache, logger);
         });
     }
     public static IServiceCollection AddData(this IServiceCollection services, string connectionString)

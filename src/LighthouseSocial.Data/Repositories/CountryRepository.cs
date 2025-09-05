@@ -2,11 +2,12 @@
 using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Domain.Entities;
+using Microsoft.Extensions.Logging;
 using System.Data;
 
 namespace LighthouseSocial.Data.Repositories;
 
-public class CountryRepository(IDbConnectionFactory connFactory)
+public class CountryRepository(IDbConnectionFactory connFactory, ILogger<CountryRepository> logger)
     : ICountryDataReader
 {
     private readonly IDbConnectionFactory _connFactory = connFactory;
@@ -29,6 +30,7 @@ public class CountryRepository(IDbConnectionFactory connFactory)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error retrieving all countries");
             return Result<IReadOnlyList<Country>>.Fail($"Failed to get all countries: {ex.Message}");
         }
     }
@@ -53,6 +55,7 @@ public class CountryRepository(IDbConnectionFactory connFactory)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error retrieving country with Id {CountryId}", id);
             return Result<Country>.Fail(ex.Message);
         }
     }

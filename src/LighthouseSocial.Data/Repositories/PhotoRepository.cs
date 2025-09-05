@@ -4,10 +4,11 @@ using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Domain.Common;
 using LighthouseSocial.Domain.Entities;
 using LighthouseSocial.Domain.ValueObjects;
+using Microsoft.Extensions.Logging;
 
 namespace LighthouseSocial.Data.Repositories;
 
-public class PhotoRepository(IDbConnectionFactory connFactory)
+public class PhotoRepository(IDbConnectionFactory connFactory, ILogger<PhotoRepository> logger)
     : IPhotoRepository
 {
     private readonly IDbConnectionFactory _connFactory = connFactory;
@@ -41,6 +42,7 @@ public class PhotoRepository(IDbConnectionFactory connFactory)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error adding photo with Id {PhotoId}", photo.Id);
             return Result.Fail($"Exception occured while adding photo: {ex.Message}");
         }
     }
@@ -61,6 +63,7 @@ public class PhotoRepository(IDbConnectionFactory connFactory)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error deleting photo with Id {PhotoId}", id);
             return Result.Fail($"Exception occured while deleting photo: {ex.Message}");
         }
     }
@@ -85,6 +88,7 @@ public class PhotoRepository(IDbConnectionFactory connFactory)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error retrieving photo with Id {PhotoId}", id);
             return Result<Photo>.Fail($"Exception occured while getting photo: {ex.Message}");
         }
     }
@@ -108,6 +112,7 @@ public class PhotoRepository(IDbConnectionFactory connFactory)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error retrieving photos for LighthouseId {LighthouseId}", lighthouseId);
             return Result<IEnumerable<Photo>>.Fail($"Exception occured while getting photos by lighthouse: {ex.Message}");
         }
     }
@@ -131,6 +136,7 @@ public class PhotoRepository(IDbConnectionFactory connFactory)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error retrieving photos for UserId {UserId}", userId);
             return Result<IEnumerable<Photo>>.Fail($"Exception occured while getting photos by user: {ex.Message}");
         }
     }
