@@ -1,7 +1,9 @@
-﻿namespace LighthouseSocial.Application.Contracts;
+﻿using LighthouseSocial.Application.Common;
+
+namespace LighthouseSocial.Application.Contracts;
 
 public interface ISecretManager
 {
-    Task<string?> GetSecretAsync(string secretPath, string key);
-    Task<Dictionary<string, string>> GetSecretsAsync(string secretPath);
+    Task<Result<string?>> GetSecretAsync(string secretPath, string key);
+    Task<Result<Dictionary<string, string>>> GetSecretsAsync(string secretPath);
 }

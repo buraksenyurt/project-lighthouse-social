@@ -39,14 +39,15 @@ public class CachedConfigurationService
         return await GetCachedValueAsync(DatabaseConnectionKey,
             async () =>
             {
-                var connectionString = await _secretManager.GetSecretAsync(SecretPath, "DbConnStr");
-                if (string.IsNullOrEmpty(connectionString))
+                var connectionStringResult = await _secretManager.GetSecretAsync(SecretPath, "DbConnStr");
+                if (!connectionStringResult.Success || string.IsNullOrEmpty(connectionStringResult.Data))
                 {
-                    _logger.LogWarning("Database connection string not found at path: {SecretPath}", SecretPath);
+                    _logger.LogWarning("Database connection string not found at path: {SecretPath}. Error: {Error}",
+                        SecretPath, connectionStringResult.ErrorMessage);
                     throw new InvalidOperationException(Messages.Errors.SecureVault.DatabaseConnectionStringNotFound);
                 }
                 _logger.LogDebug("Database connection string retrieved from Vault");
-                return connectionString;
+                return connectionStringResult.Data;
             },
             TimeSpan.FromHours(1));
     }
@@ -56,17 +57,19 @@ public class CachedConfigurationService
         return await GetCachedValueAsync(MinioCredentialsKey,
             async () =>
             {
-                var accessKey = await _secretManager.GetSecretAsync(SecretPath, "MinIOAccessKey");
-                var secretKey = await _secretManager.GetSecretAsync(SecretPath, "MinIOSecretKey");
+                var accessKeyResult = await _secretManager.GetSecretAsync(SecretPath, "MinIOAccessKey");
+                var secretKeyResult = await _secretManager.GetSecretAsync(SecretPath, "MinIOSecretKey");
 
-                if (string.IsNullOrEmpty(accessKey) || string.IsNullOrEmpty(secretKey))
+                if (!accessKeyResult.Success || string.IsNullOrEmpty(accessKeyResult.Data) ||
+                    !secretKeyResult.Success || string.IsNullOrEmpty(secretKeyResult.Data))
                 {
-                    _logger.LogWarning("MinIO credentials not found at path: {SecretPath}", SecretPath);
+                    _logger.LogWarning("MinIO credentials not found at path: {SecretPath}. AccessKey: {AccessKeyError}, SecretKey: {SecretKeyError}",
+                        SecretPath, accessKeyResult.ErrorMessage, secretKeyResult.ErrorMessage);
                     throw new InvalidOperationException(Messages.Errors.SecureVault.MinioCredentialsNotFound);
                 }
 
                 _logger.LogDebug("MinIO credentials retrieved from Vault");
-                return (AccessKey: accessKey, SecretKey: secretKey);
+                return (AccessKey: accessKeyResult.Data, SecretKey: secretKeyResult.Data);
             },
             TimeSpan.FromHours(1));
     }
@@ -76,19 +79,32 @@ public class CachedConfigurationService
         return await GetCachedValueAsync(KeycloakSettingsKey,
             async () =>
             {
+                var audienceResult = await _secretManager.GetSecretAsync(SecretPath, "KeycloakAudience");
+                var authorityResult = await _secretManager.GetSecretAsync(SecretPath, "KeycloakAuthority");
+                var clientIdResult = await _secretManager.GetSecretAsync(SecretPath, "KeycloakClientId");
+                var clientSecretResult = await _secretManager.GetSecretAsync(SecretPath, "KeycloakClientSecret");
+                var realmResult = await _secretManager.GetSecretAsync(SecretPath, "KeycloakRealm");
+                var clockSkewResult = await _secretManager.GetSecretAsync(SecretPath, "KeycloakClockSkew");
+                var requireHttpsResult = await _secretManager.GetSecretAsync(SecretPath, "KeycloakRequireHttpsMetadata");
+                var validateAudienceResult = await _secretManager.GetSecretAsync(SecretPath, "KeycloakValidateAudience");
+                var validateIssuerResult = await _secretManager.GetSecretAsync(SecretPath, "KeycloakValidateIssuer");
+                var validateIssuerSigningKeyResult = await _secretManager.GetSecretAsync(SecretPath, "KeycloakValidateIssuerSigningKey");
+                var validateLifetimeResult = await _secretManager.GetSecretAsync(SecretPath, "KeycloakValidateLifetime");
+
+
                 var keycloakSettings = new KeycloakSettings
                 {
-                    Audience = await _secretManager.GetSecretAsync(SecretPath, "KeycloakAudience") ?? string.Empty,
-                    Authority = await _secretManager.GetSecretAsync(SecretPath, "KeycloakAuthority") ?? string.Empty,
-                    ClientId = await _secretManager.GetSecretAsync(SecretPath, "KeycloakClientId") ?? string.Empty,
-                    ClientSecret = await _secretManager.GetSecretAsync(SecretPath, "KeycloakClientSecret") ?? string.Empty,
-                    Realm = await _secretManager.GetSecretAsync(SecretPath, "KeycloakRealm") ?? string.Empty,
-                    ClockSkew = int.TryParse(await _secretManager.GetSecretAsync(SecretPath, "KeycloakClockSkew"), out var clockSkew) ? clockSkew : 5,
-                    RequireHttpsMetadata = !bool.TryParse(await _secretManager.GetSecretAsync(SecretPath, "KeycloakRequireHttpsMetadata"), out var requireHttps) || requireHttps,
-                    ValidateAudience = !bool.TryParse(await _secretManager.GetSecretAsync(SecretPath, "KeycloakValidateAudience"), out var validateAudience) || validateAudience,
-                    ValidateIssuer = !bool.TryParse(await _secretManager.GetSecretAsync(SecretPath, "KeycloakValidateIssuer"), out var validateIssuer) || validateIssuer,
-                    ValidateIssuerSigningKey = !bool.TryParse(await _secretManager.GetSecretAsync(SecretPath, "KeycloakValidateIssuerSigningKey"), out var validateIssuerSigningKey) || validateIssuerSigningKey,
-                    ValidateLifetime = !bool.TryParse(await _secretManager.GetSecretAsync(SecretPath, "KeycloakValidateLifetime"), out var validateLifetime) || validateLifetime
+                    Audience = audienceResult.Success ? audienceResult.Data ?? string.Empty : string.Empty,
+                    Authority = authorityResult.Success ? authorityResult.Data ?? string.Empty : string.Empty,
+                    ClientId = clientIdResult.Success ? clientIdResult.Data ?? string.Empty : string.Empty,
+                    ClientSecret = clientSecretResult.Success ? clientSecretResult.Data ?? string.Empty : string.Empty,
+                    Realm = realmResult.Success ? realmResult.Data ?? string.Empty : string.Empty,
+                    ClockSkew = clockSkewResult.Success && int.TryParse(clockSkewResult.Data, out var clockSkew) ? clockSkew : 5,
+                    RequireHttpsMetadata = !requireHttpsResult.Success || !bool.TryParse(requireHttpsResult.Data, out var requireHttps) || requireHttps,
+                    ValidateAudience = !validateAudienceResult.Success || !bool.TryParse(validateAudienceResult.Data, out var validateAudience) || validateAudience,
+                    ValidateIssuer = !validateIssuerResult.Success || !bool.TryParse(validateIssuerResult.Data, out var validateIssuer) || validateIssuer,
+                    ValidateIssuerSigningKey = !validateIssuerSigningKeyResult.Success || !bool.TryParse(validateIssuerSigningKeyResult.Data, out var validateIssuerSigningKey) || validateIssuerSigningKey,
+                    ValidateLifetime = !validateLifetimeResult.Success || !bool.TryParse(validateLifetimeResult.Data, out var validateLifetime) || validateLifetime
                 };
 
                 if (string.IsNullOrEmpty(keycloakSettings.Audience) ||
@@ -97,7 +113,14 @@ public class CachedConfigurationService
                    string.IsNullOrEmpty(keycloakSettings.ClientSecret) ||
                    string.IsNullOrEmpty(keycloakSettings.Realm))
                 {
-                    _logger.LogWarning("Keycloak settings incomplete at path: {SecretPath}", SecretPath);
+                    _logger.LogWarning("Keycloak settings incomplete at path: {SecretPath}. Missing: Audience={AudienceError}, Authority={AuthorityError}, ClientId={ClientIdError}, ClientSecret={ClientSecretError}, Realm={RealmError}",
+                        SecretPath,
+                        !audienceResult.Success ? audienceResult.ErrorMessage : "OK",
+                        !authorityResult.Success ? authorityResult.ErrorMessage : "OK",
+                        !clientIdResult.Success ? clientIdResult.ErrorMessage : "OK",
+                        !clientSecretResult.Success ? clientSecretResult.ErrorMessage : "OK",
+                        !realmResult.Success ? realmResult.ErrorMessage : "OK");
+
                     throw new InvalidOperationException(Messages.Errors.SecureVault.RetrievingKeycloak);
                 }
 
@@ -139,17 +162,22 @@ public class CachedConfigurationService
 
     private async Task<T> GetFromDistributedCacheAsync<T>(string key, Func<Task<T>> valueFactory, TimeSpan ttl)
     {
-        var cachedValue = await _cacheService.GetAsync<T>(key);
+        var cachedResult = await _cacheService.GetAsync<T>(key);
 
-        if (cachedValue != null)
+        if (cachedResult.Success && cachedResult.Data != null)
         {
             _logger.LogDebug("Redis cache hit for key: {Key}", key);
-            return cachedValue;
+            return cachedResult.Data;
         }
 
         _logger.LogDebug("Redis cache miss for key: {Key}, fetching from Vault", key);
         var value = await valueFactory();
-        await _cacheService.SetAsync(key, value, ttl);
+        var setResult = await _cacheService.SetAsync(key, value, ttl);
+
+        if (!setResult.Success)
+        {
+            _logger.LogWarning("Failed to cache value for key: {Key}. Error: {Error}", key, setResult.ErrorMessage);
+        }
 
         return value;
     }

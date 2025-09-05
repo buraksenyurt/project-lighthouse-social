@@ -10,16 +10,17 @@ public class CachedCountryDataReader(ICountryDataReader inner, ICacheService cac
     : ICountryDataReader
 {
     private static readonly TimeSpan CacheDuration = TimeSpan.FromDays(1);
+    private readonly ILogger<CachedCountryDataReader> _logger = logger;
 
     public async Task<Result<IReadOnlyList<Country>>> GetAllAsync()
     {
         try
         {
             const string cacheKey = "countries:all";
-            var cached = await cacheService.GetAsync<IReadOnlyList<CountryDto>>(cacheKey);
-            if (cached != null)
+            var cachedResult = await cacheService.GetAsync<IReadOnlyList<CountryDto>>(cacheKey);
+            if (cachedResult.Success && cachedResult.Data != null)
             {
-                var converted = cached.Select(c => Country.Create(c.Id, c.Name)).ToList();
+                var converted = cachedResult.Data.Select(c => Country.Create(c.Id, c.Name)).ToList();
                 return Result<IReadOnlyList<Country>>.Ok(converted);
             }
 
@@ -35,7 +36,7 @@ public class CachedCountryDataReader(ICountryDataReader inner, ICacheService cac
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Error retrieving all countries from cache or inner reader");
+            _logger.LogError(ex, "Exception occurred while getting all countries from cache");
             return Result<IReadOnlyList<Country>>.Fail($"Failed to get all countries from cache: {ex.Message}");
         }
     }
@@ -45,10 +46,10 @@ public class CachedCountryDataReader(ICountryDataReader inner, ICacheService cac
         try
         {
             var cacheKey = $"country:{id}";
-            var cached = await cacheService.GetAsync<CountryDto>(cacheKey);
-            if (cached != null)
+            var cachedResult = await cacheService.GetAsync<CountryDto>(cacheKey);
+            if (cachedResult.Success && cachedResult.Data != null)
             {
-                var country = Country.Create(cached.Id, cached.Name);
+                var country = Country.Create(cachedResult.Data.Id, cachedResult.Data.Name);
                 return Result<Country>.Ok(country);
             }
 
@@ -64,11 +65,12 @@ public class CachedCountryDataReader(ICountryDataReader inner, ICacheService cac
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Error retrieving country with Id {CountryId} from cache or inner reader", id);
+            _logger.LogError(ex, "Exception occurred while getting country by ID from cache. CountryId: {CountryId}", id);
             return Result<Country>.Fail(ex.Message);
         }
     }
 }
+
 //todo@buraksenyurt Country ve CountryDto arasında mapper kullanılabilir mi?
 internal class CountryDto
 {

@@ -12,7 +12,7 @@ public class VaultSecretManager
 {
     private readonly VaultSettings _settings;
     private readonly ILogger<VaultSecretManager> _logger;
-    private readonly IVaultClient _vaultClient;
+    private readonly VaultClient _vaultClient;
     public VaultSecretManager(IConfiguration configuration, ILogger<VaultSecretManager> logger)
     {
         _logger = logger;
@@ -24,7 +24,7 @@ public class VaultSecretManager
         _logger.LogInformation("VaultSecretManager initialized with Address: {Address}, MountPoint: {MountPoint}",
             _settings.Address, _settings.MountPoint);
     }
-    public async Task<string?> GetSecretAsync(string secretPath, string key)
+    public async Task<Result<string?>> GetSecretAsync(string secretPath, string key)
     {
         try
         {
@@ -34,20 +34,20 @@ public class VaultSecretManager
             if (secret.Data.Data.TryGetValue(key, out var value))
             {
                 _logger.LogInformation("Successfully retrieved secret for key: {Key}", key);
-                return value?.ToString();
+                return Result<string?>.Ok(value?.ToString());
             }
 
             _logger.LogWarning("Key: {Key} not found in secret at path: {SecretPath}", key, secretPath);
-            return null;
+            return Result<string?>.Ok(null);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error retrieving secret from Vault at path: {SecretPath}, key: {Key}", secretPath, key);
-            return null;
+            return Result<string?>.Fail($"Failed to retrieve secret: {ex.Message}");
         }
     }
 
-    public async Task<Dictionary<string, string>> GetSecretsAsync(string secretPath)
+    public async Task<Result<Dictionary<string, string>>> GetSecretsAsync(string secretPath)
     {
         try
         {
@@ -71,13 +71,13 @@ public class VaultSecretManager
             }
 
             _logger.LogInformation("Successfully retrieved {Count} secrets from path: {SecretPath}", result.Count, secretPath);
-            return result;
+            return Result<Dictionary<string, string>>.Ok(result);
 
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "{ErrorRetrieving}: {SecretPath}", Messages.Errors.SecureVault.RetrievingSecrets, secretPath);
-            return [];
+            return Result<Dictionary<string, string>>.Fail($"Failed to retrieve secrets: {ex.Message}");
         }
     }
 }
