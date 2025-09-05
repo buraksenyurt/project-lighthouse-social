@@ -18,7 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<InternalsVisibleTo Include="LighthouseSocial.Tests" />
+		<InternalsVisibleTo Include="LighthouseSocial.Application.Tests" />
 		<InternalsVisibleTo Include="LighthouseSocial.Integration.Tests" />
 	</ItemGroup>
 

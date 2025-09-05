@@ -1,7 +1,7 @@
 using LighthouseSocial.Infrastructure.Auditors;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace LighthouseSocial.Tests.Auditors;
+namespace LighthouseSocial.Infrastructure.Tests.Auditors;
 
 public class DefaultCommentAuditorTests
 {

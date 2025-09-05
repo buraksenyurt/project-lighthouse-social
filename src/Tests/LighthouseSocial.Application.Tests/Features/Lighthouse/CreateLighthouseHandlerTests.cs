@@ -7,7 +7,7 @@ using LighthouseSocial.Application.Features.Lighthouse;
 using LighthouseSocial.Domain.Entities;
 using Moq;
 
-namespace LighthouseSocial.Tests.Features.Lighthouse;
+namespace LighthouseSocial.Application.Tests.Features.Lighthouse;
 
 public class CreateLighthouseHandlerTests
 {

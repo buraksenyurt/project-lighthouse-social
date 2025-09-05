@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using Moq.Protected;
 
-namespace LighthouseSocial.Tests.Auditors;
+namespace LighthouseSocial.Infrastructure.Tests.Auditors;
 
 public class ExternalCommentAuditorTests
 {

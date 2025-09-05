@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="LighthouseSocial.Tests" />
+    <InternalsVisibleTo Include="LighthouseSocial.Application.Tests" />
   </ItemGroup>
 
 </Project>
