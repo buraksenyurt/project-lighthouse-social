@@ -39,7 +39,7 @@ public class DeletePhotoHandlerTests
             .Returns(Task.FromResult(Result<Domain.Entities.Photo>.Ok(photo)));
 
         _storageServiceMock.Setup(s => s.DeleteAsync(photo.Filename))
-            .Returns(Task.CompletedTask);
+            .ReturnsAsync(Result.Ok());
 
         _repositoryMock.Setup(r => r.DeleteAsync(photoId))
             .Returns(Task.FromResult(Result.Ok()));
@@ -73,7 +73,7 @@ public class DeletePhotoHandlerTests
             .Returns(Task.FromResult(Result<Domain.Entities.Photo>.Ok(photo)));
 
         _storageServiceMock.Setup(s => s.DeleteAsync(photo.Filename))
-            .Returns(Task.CompletedTask);
+            .ReturnsAsync(Result.Ok());
 
         _repositoryMock.Setup(r => r.DeleteAsync(photoId))
             .Returns(Task.FromResult(Result.Fail(Messages.Errors.Photo.FailedToDeletePhoto)));

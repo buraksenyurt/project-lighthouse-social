@@ -31,7 +31,7 @@ public class UploadPhotoHandlerTests
         var stream = new MemoryStream([24, 42, 32]);
 
         _storageMock.Setup(s => s.SaveAsync(It.IsAny<Stream>(), dto.FileName))
-                    .ReturnsAsync("uploads/SunDownOfCapeTown.jpg");
+                    .ReturnsAsync(Result<string>.Ok("uploads/SunDownOfCapeTown.jpg"));
 
         _validatorMock
             .Setup(v => v.Validate(It.IsAny<PhotoDto>()))

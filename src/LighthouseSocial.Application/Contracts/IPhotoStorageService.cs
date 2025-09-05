@@ -1,8 +1,10 @@
+using LighthouseSocial.Application.Common;
+
 namespace LighthouseSocial.Application.Contracts;
 
 public interface IPhotoStorageService
 {
-    Task<Stream> GetAsync(string filePath);
-    Task<string> SaveAsync(Stream content, string fileName);
-    Task DeleteAsync(string filePath);
+    Task<Result<Stream>> GetAsync(string filePath);
+    Task<Result<string>> SaveAsync(Stream content, string fileName);
+    Task<Result> DeleteAsync(string filePath);
 }

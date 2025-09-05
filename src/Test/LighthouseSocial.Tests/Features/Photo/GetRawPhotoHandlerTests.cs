@@ -24,7 +24,7 @@ public class GetRawPhotoHandlerTests
         var photoStream = new MemoryStream([10, 2, 3, 48, 51, 60]);
 
         _photoStorageServiceMock.Setup(s => s.GetAsync(fileName))
-            .ReturnsAsync(photoStream);
+            .ReturnsAsync(Result<Stream>.Ok(photoStream));
 
         // Act
         var result = await _handler.HandleAsync(new GetRawPhotoRequest(fileName), CancellationToken.None);
@@ -44,7 +44,7 @@ public class GetRawPhotoHandlerTests
         var emptyStream = new MemoryStream();
 
         _photoStorageServiceMock.Setup(s => s.GetAsync(fileName))
-            .ReturnsAsync(emptyStream);
+            .ReturnsAsync(Result<Stream>.Ok(emptyStream));
 
         // Act
         var result = await _handler.HandleAsync(new GetRawPhotoRequest(fileName), CancellationToken.None);
@@ -63,7 +63,7 @@ public class GetRawPhotoHandlerTests
         var fileName = "there-is-no-lighthouse.jpg";
 
         _photoStorageServiceMock.Setup(s => s.GetAsync(fileName))
-            .ReturnsAsync((Stream?)null);
+            .ReturnsAsync(Result<Stream>.Ok(null));
 
         // Act
         var result = await _handler.HandleAsync(new GetRawPhotoRequest(fileName), CancellationToken.None);

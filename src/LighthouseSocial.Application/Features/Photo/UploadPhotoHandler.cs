@@ -29,7 +29,11 @@ internal class UploadPhotoHandler(
             return Result<Guid>.Fail(errors);
         }
 
-        var savedPath = await _storageService.SaveAsync(request.Content, dto.FileName);
+        var saveResult = await _storageService.SaveAsync(request.Content, dto.FileName);
+        if (!saveResult.Success)
+        {
+            return Result<Guid>.Fail(saveResult.ErrorMessage!);
+        }
 
         var metadata = new PhotoMetadata(
             dto.Lens,
@@ -38,7 +42,7 @@ internal class UploadPhotoHandler(
             dto.UploadedAt
         );
 
-        var photo = new Domain.Entities.Photo(dto.Id, dto.UserId, dto.LighthouseId, savedPath, metadata);
+        var photo = new Domain.Entities.Photo(dto.Id, dto.UserId, dto.LighthouseId, saveResult.Data!, metadata);
 
         var result = await _repository.AddAsync(photo);
         if (!result.Success)
