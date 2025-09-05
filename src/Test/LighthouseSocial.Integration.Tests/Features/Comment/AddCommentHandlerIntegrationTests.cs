@@ -22,11 +22,12 @@ public class AddCommentHandlerIntegrationTests
         var commentLogger = NullLogger<CommentRepository>.Instance;
         var userLogger = NullLogger<UserRepository>.Instance;
         var photoLogger = NullLogger<PhotoRepository>.Instance;
+        var commentAuditorLogger = NullLogger<ExternalCommentAuditor>.Instance;
 
         var userRepository = new UserRepository(factory, userLogger);
         var photoRepository = new PhotoRepository(factory, photoLogger);
         var commentRepository = new CommentRepository(factory, commentLogger);
-        var commentAuditor = new ExternalCommentAuditor(new HttpClient());
+        var commentAuditor = new ExternalCommentAuditor(new HttpClient(), commentAuditorLogger);
 
         _handler = new AddCommentHandler(commentRepository, validator, userRepository, photoRepository, commentAuditor);
     }

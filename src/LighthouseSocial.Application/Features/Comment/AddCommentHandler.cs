@@ -48,10 +48,15 @@ internal class AddCommentHandler(ICommentRepository repository,
         if (existsResult.Data!)
             return Result<Guid>.Fail("User has already commented...");
 
-        var isCommentClean = await _commentAuditor.IsTextCleanAsync(dto.Text);
-        if (!isCommentClean)
+        var isCommentCleanResult = await _commentAuditor.IsTextCleanAsync(dto.Text);
+        if (!isCommentCleanResult.Success)
         {
-            return Result<Guid>.Fail("Comment contains inappropriate language");
+            return Result<Guid>.Fail(isCommentCleanResult.ErrorMessage!);
+        }
+
+        if(!isCommentCleanResult.Data!)
+        {
+            return Result<Guid>.Fail("Comment text is not appropriate.");
         }
 
         var comment = new Domain.Entities.Comment(Guid.NewGuid(), dto.UserId, dto.PhotoId, dto.Text, Rating.FromValue(dto.Rating));

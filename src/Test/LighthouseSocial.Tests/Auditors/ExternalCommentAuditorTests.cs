@@ -1,6 +1,7 @@
 using System.Net;
 using System.Text.Json;
 using LighthouseSocial.Infrastructure.Auditors;
+using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using Moq.Protected;
 
@@ -33,13 +34,14 @@ public class ExternalCommentAuditorTests
             BaseAddress = new Uri("https://api.audit")
         };
 
-        var auditor = new ExternalCommentAuditor(httpClient);
+        var logger = NullLogger<ExternalCommentAuditor>.Instance;
+        var auditor = new ExternalCommentAuditor(httpClient,logger);
 
         // Act
         var result = await auditor.IsTextCleanAsync("It's a lovely lighthouse photo. I love it!");
 
         // Assert
-        Assert.True(result);
+        Assert.True(result.Success);
     }
 
     [Fact]
@@ -67,12 +69,14 @@ public class ExternalCommentAuditorTests
             BaseAddress = new Uri("https://api.audit")
         };
 
-        var auditor = new ExternalCommentAuditor(httpClient);
+        var logger = NullLogger<ExternalCommentAuditor>.Instance;
+        var auditor = new ExternalCommentAuditor(httpClient, logger);
 
         // Act
         var result = await auditor.IsTextCleanAsync("This comment contains a badword.");
 
         // Assert
-        Assert.False(result);
+        Assert.True(result.Success);
+        Assert.False(result.Data);
     }
 }

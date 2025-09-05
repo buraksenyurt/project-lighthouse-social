@@ -56,7 +56,7 @@ public class AddCommentHandlerTests
         _repositoryMock.Setup(r => r.ExistsForUserAsync(It.IsAny<Guid>(), It.IsAny<Guid>()))
             .Returns(Task.FromResult(Result<bool>.Ok(false)));
 
-        _commentAuditorMock.Setup(a => a.IsTextCleanAsync(dto.Text)).ReturnsAsync(true);
+        _commentAuditorMock.Setup(a => a.IsTextCleanAsync(dto.Text)).ReturnsAsync(Result<bool>.Ok(true));
 
         _repositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.Comment>()))
             .Returns(Task.FromResult(Result.Ok()));
@@ -121,7 +121,7 @@ public class AddCommentHandlerTests
         _repositoryMock.Setup(r => r.ExistsForUserAsync(It.IsAny<Guid>(), It.IsAny<Guid>()))
             .Returns(Task.FromResult(Result<bool>.Ok(false)));
 
-        _commentAuditorMock.Setup(a => a.IsTextCleanAsync(dto.Text)).ReturnsAsync(true);
+        _commentAuditorMock.Setup(a => a.IsTextCleanAsync(dto.Text)).ReturnsAsync(Result<bool>.Ok(true));
 
         _repositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.Comment>()))
             .Returns(Task.FromResult(Result.Fail("Database error")));

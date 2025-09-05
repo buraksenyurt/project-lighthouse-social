@@ -1,4 +1,5 @@
 using LighthouseSocial.Infrastructure.Auditors;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace LighthouseSocial.Tests.Auditors;
 
@@ -8,7 +9,8 @@ public class DefaultCommentAuditorTests
 
     public DefaultCommentAuditorTests()
     {
-        _auditor = new DefaultCommentAuditor();
+        var logger = NullLogger<DefaultCommentAuditor>.Instance;
+        _auditor = new DefaultCommentAuditor(logger);
     }
 
     [Fact]
@@ -21,7 +23,7 @@ public class DefaultCommentAuditorTests
         var result = await _auditor.IsTextCleanAsync(comment);
 
         // Assert
-        Assert.True(result);
+        Assert.True(result.Success);
     }
 
     [Fact]
@@ -34,6 +36,7 @@ public class DefaultCommentAuditorTests
         var result = await _auditor.IsTextCleanAsync(comment);
 
         // Assert
-        Assert.False(result);
+        Assert.True(result.Success);
+        Assert.False(result.Data);
     }
 }
