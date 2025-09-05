@@ -4,6 +4,7 @@ using LighthouseSocial.Application.Validators;
 using LighthouseSocial.Data;
 using LighthouseSocial.Data.Repositories;
 using LighthouseSocial.Infrastructure.Auditors;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace LighthouseSocial.Integration.Tests.Features.Comment;
 
@@ -20,7 +21,8 @@ public class AddCommentHandlerIntegrationTests
 
         var userRepository = new UserRepository(factory);
         var photoRepository = new PhotoRepository(factory);
-        var commentRepository = new CommentRepository(factory);
+        var commentLogger = NullLogger<CommentRepository>.Instance;
+        var commentRepository = new CommentRepository(factory, commentLogger);
         var commentAuditor = new ExternalCommentAuditor(new HttpClient());
 
         _handler = new AddCommentHandler(commentRepository, validator, userRepository, photoRepository, commentAuditor);
@@ -31,7 +33,7 @@ public class AddCommentHandlerIntegrationTests
     {
         if (Environment.GetEnvironmentVariable("CI") == "true")
             return;
-            
+
         //todo@buraksenyurt Sistemde var olan UserId, PhotoId bilgileri ile test edilebilir
         var dto = new CommentDto(Guid.NewGuid(), Guid.NewGuid(), "It's a lovely day.", 7);
         var result = await _handler.HandleAsync(new AddCommentRequest(dto), CancellationToken.None);

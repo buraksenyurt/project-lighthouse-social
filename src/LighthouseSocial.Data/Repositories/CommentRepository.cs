@@ -2,10 +2,11 @@ using Dapper;
 using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Domain.Entities;
+using Microsoft.Extensions.Logging;
 
 namespace LighthouseSocial.Data.Repositories;
 
-public class CommentRepository(IDbConnectionFactory connFactory)
+public class CommentRepository(IDbConnectionFactory connFactory, ILogger<CommentRepository> logger)
     : ICommentRepository
 {
     private readonly IDbConnectionFactory _connFactory = connFactory;
@@ -33,6 +34,7 @@ public class CommentRepository(IDbConnectionFactory connFactory)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error adding comment with Id {CommentId}", comment.Id);
             return Result.Fail($"Exception occured while adding comment: {ex.Message}");
         }
     }
@@ -51,6 +53,7 @@ public class CommentRepository(IDbConnectionFactory connFactory)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error deleting comment with Id {CommentId}", commentId);
             return Result.Fail($"Exception occured while deleting comment: {ex.Message}");
         }
     }
@@ -70,6 +73,7 @@ public class CommentRepository(IDbConnectionFactory connFactory)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error checking existing comment for UserId {UserId} and PhotoId {PhotoId}", userId, photoId);
             return Result<bool>.Fail($"Exception occured while checking existing comment: {ex.Message}");
         }
     }
@@ -91,6 +95,7 @@ public class CommentRepository(IDbConnectionFactory connFactory)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error retrieving comment with Id {CommentId}", commentId);
             return Result<Comment>.Fail($"Exception occured while retrieving comment: {ex.Message}");
         }
     }
@@ -110,6 +115,7 @@ public class CommentRepository(IDbConnectionFactory connFactory)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Error retrieving comments for PhotoId {PhotoId}", photoId);
             return Result<IEnumerable<Comment>>.Fail($"Exception occured while retrieving comments: {ex.Message}");
         }
     }
