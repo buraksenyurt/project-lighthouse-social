@@ -94,7 +94,8 @@ Minimum Profil;
 - [x] [Bölüm 37 - Web API Projesinde Keycloak Bazlı Yetkilendirme(Authorization) Kullanımı](https://youtu.be/nJr1yM_Em7s)
 - [x] [Bölüm 38 - Logları Elasticsearch'e Gönderelim](https://youtu.be/rP4i3yqtAP8)
 - [x] [Bölüm 39 - Vault Bilgilerini Cache Üzerinde Tutmak *(Açtık Yine Dertsiz Başımıza Dert)*](https://youtu.be/t6nnL11wOnI)
-- [ ] [Bölüm 40 - Daha İyi Bir Hata Yönetimi *(Result Pattern Refactoring)*]
+- [x] [Bölüm 40 - Daha İyi Bir Hata Yönetimi *(Result Pattern Refactoring)*](https://youtu.be/2GA8q-jjNGI)
+- [x] [Bölüm 41 - Gelen Bir Yorum Üzerine Sistemimize Graylog'u Adapte Ediyoruz]
 
 ## Sonarqube
 
