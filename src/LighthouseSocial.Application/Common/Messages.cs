@@ -38,6 +38,7 @@ public static class Messages
             public const string NoPhotosFoundForLighthouse = "No photos found for the specified lighthouse.";
             public const string PhotoNotFoundInStorage = "Photo not found in storage.";
             public const string NoCommentsFoundForPhoto = "No comments found for the specified photo.";
+            public const string NoPhotosFoundForUser = "No photos found for the specified user.";
         }
 
         public static class Comment

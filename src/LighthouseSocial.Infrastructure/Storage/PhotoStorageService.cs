@@ -51,19 +51,41 @@ public class PhotoStorageService
     {
         try
         {
+            _logger.LogDebug("Attempting to retrieve photo from MinIO. FilePath: {FilePath}, Bucket: {BucketName}", filePath, _bucket);
+
+            bool bucketExists = await _minioClient.BucketExistsAsync(new BucketExistsArgs().WithBucket(_bucket));
+            if (!bucketExists)
+            {
+                _logger.LogError("Bucket {BucketName} does not exist", _bucket);
+                return Result<Stream>.Fail($"Bucket '{_bucket}' does not exist");
+            }
+
             var ms = new MemoryStream();
             await _minioClient.GetObjectAsync(
                 new GetObjectArgs()
                     .WithBucket(_bucket)
                     .WithObject(filePath)
-                    .WithCallbackStream(stream => stream.CopyTo(ms)));
+                    .WithCallbackStream(stream =>
+                    {
+                        stream.CopyTo(ms);
+                        _logger.LogDebug("Copied {Bytes} bytes to memory stream for file {FilePath}", ms.Length, filePath);
+                    }));
+
             ms.Position = 0;
-            _logger.LogInformation("Photo {FilePath} retrieved from MinIO bucket {BucketName}", filePath, _bucket);
+
+            if (ms.Length == 0)
+            {
+                _logger.LogWarning("Retrieved photo {FilePath} from MinIO but stream is empty", filePath);
+                return Result<Stream>.Fail($"Photo '{filePath}' exists but contains no data");
+            }
+
+            _logger.LogInformation("Photo {FilePath} retrieved successfully from MinIO bucket {BucketName}. Size: {Size} bytes", filePath, _bucket, ms.Length);
             return Result<Stream>.Ok(ms);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Exception occurred while getting photo. FilePath: {FilePath}, Bucket: {BucketName}", filePath, _bucket);
+            _logger.LogError(ex, "Exception occurred while getting photo. FilePath: {FilePath}, Bucket: {BucketName}. Exception Type: {ExceptionType}, Message: {Message}",
+                filePath, _bucket, ex.GetType().Name, ex.Message);
             return Result<Stream>.Fail($"Failed to get photo: {ex.Message}");
         }
     }

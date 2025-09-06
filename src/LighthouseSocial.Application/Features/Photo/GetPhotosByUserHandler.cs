@@ -19,7 +19,7 @@ internal class GetPhotosByUserHandler(IPhotoRepository photoRepository)
 
         var photos = photosResult.Data!;
         if (!photos.Any())
-            return Result<IEnumerable<PhotoDto>>.Ok(Enumerable.Empty<PhotoDto>());
+            return Result<IEnumerable<PhotoDto>>.Fail(Messages.Errors.Photo.NoPhotosFoundForUser);
 
         var photoDtos = photos.Select(photo => new PhotoDto
         (
