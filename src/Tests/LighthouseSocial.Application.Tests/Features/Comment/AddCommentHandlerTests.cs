@@ -7,7 +7,7 @@ using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.Comment;
 using Moq;
 
-namespace LighthouseSocial.Tests.Features.Comment;
+namespace LighthouseSocial.Application.Tests.Features.Comment;
 
 public class AddCommentHandlerTests
 {

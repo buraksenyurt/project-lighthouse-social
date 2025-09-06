@@ -6,7 +6,7 @@ using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.User;
 using Moq;
 
-namespace LighthouseSocial.Tests.Features.User;
+namespace LighthouseSocial.Application.Tests.Features.User;
 
 public class CreateUserHandlerTests
 {

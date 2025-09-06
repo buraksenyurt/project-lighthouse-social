@@ -5,7 +5,7 @@ using LighthouseSocial.Domain.Entities;
 using LighthouseSocial.Domain.ValueObjects;
 using Moq;
 
-namespace LighthouseSocial.Tests.Features.Lighthouse;
+namespace LighthouseSocial.Application.Tests.Features.Lighthouse;
 
 public class GetTopLighthousesHandlerTests
 {

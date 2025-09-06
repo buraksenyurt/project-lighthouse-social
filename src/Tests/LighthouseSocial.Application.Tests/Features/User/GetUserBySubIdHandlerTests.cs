@@ -3,7 +3,7 @@ using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Features.User;
 using Moq;
 
-namespace LighthouseSocial.Tests.Features.User;
+namespace LighthouseSocial.Application.Tests.Features.User;
 
 public class GetUserBySubIdHandlerTests
 {

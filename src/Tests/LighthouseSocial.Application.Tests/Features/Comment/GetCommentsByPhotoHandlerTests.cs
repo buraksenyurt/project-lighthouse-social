@@ -4,7 +4,7 @@ using LighthouseSocial.Application.Features.Comment;
 using LighthouseSocial.Domain.ValueObjects;
 using Moq;
 
-namespace LighthouseSocial.Tests.Features.Comment;
+namespace LighthouseSocial.Application.Tests.Features.Comment;
 
 public class GetCommentsByPhotoHandlerTests
 {

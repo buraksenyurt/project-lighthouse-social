@@ -5,7 +5,7 @@ using LighthouseSocial.Application.Features.Photo;
 using LighthouseSocial.Domain.ValueObjects;
 using Moq;
 
-namespace LighthouseSocial.Tests.Features.Photo;
+namespace LighthouseSocial.Application.Tests.Features.Photo;
 
 public class DeletePhotoHandlerTests
 {

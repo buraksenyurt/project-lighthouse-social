@@ -3,7 +3,7 @@ using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Application.Features.Photo;
 using Moq;
 
-namespace LighthouseSocial.Tests.Features.Photo;
+namespace LighthouseSocial.Application.Tests.Features.Photo;
 
 public class GetRawPhotoHandlerTests
 {
