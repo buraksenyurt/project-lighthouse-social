@@ -1,0 +1,25 @@
+@LighthouseSocial.WebApi_HostAddress = http://localhost:5072
+
+### Get raw photo file by filename
+GET {{LighthouseSocial.WebApi_HostAddress}}/api/photo/cape_espichel_sunset.png
+Accept: image/jpeg
+
+###
+
+### Get photo details by ID
+GET {{LighthouseSocial.WebApi_HostAddress}}/api/photo/details/10000000-0000-0000-0000-000000000001
+Accept: application/json
+
+###
+
+### Get photos by user ID
+GET {{LighthouseSocial.WebApi_HostAddress}}/api/photo/user/10000000-0000-0000-0000-000000000001
+Accept: application/json
+
+###
+
+### Delete a photo by ID
+DELETE {{LighthouseSocial.WebApi_HostAddress}}/api/photo/10000000-0000-0000-0000-000000000001
+Accept: application/json
+
+###
