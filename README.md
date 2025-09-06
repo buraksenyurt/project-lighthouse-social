@@ -95,7 +95,7 @@ Minimum Profil;
 - [x] [Bölüm 38 - Logları Elasticsearch'e Gönderelim](https://youtu.be/rP4i3yqtAP8)
 - [x] [Bölüm 39 - Vault Bilgilerini Cache Üzerinde Tutmak *(Açtık Yine Dertsiz Başımıza Dert)*](https://youtu.be/t6nnL11wOnI)
 - [x] [Bölüm 40 - Daha İyi Bir Hata Yönetimi *(Result Pattern Refactoring)*](https://youtu.be/2GA8q-jjNGI)
-- [x] [Bölüm 41 - Gelen Bir Yorum Üzerine Sistemimize Graylog'u Adapte Ediyoruz]
+- [x] [Bölüm 41 - Gelen Bir Yorum Üzerine Sistemimize Graylog'u Adapte Ediyoruz](https://youtu.be/OmaopxCVLF8)
 
 ## Sonarqube
 
