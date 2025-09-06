@@ -26,4 +26,16 @@ public class PhotoService(PipelineDispatcher pipelineDispatcher)
         var request = new GetRawPhotoRequest(fileName);
         return await pipelineDispatcher.SendAsync<GetRawPhotoRequest, Result<Stream>>(request);
     }
+
+    public async Task<Result<PhotoDto>> GetByIdAsync(Guid photoId)
+    {
+        var request = new GetPhotoByIdRequest(photoId);
+        return await pipelineDispatcher.SendAsync<GetPhotoByIdRequest, Result<PhotoDto>>(request);
+    }
+
+    public async Task<Result<IEnumerable<PhotoDto>>> GetByUserIdAsync(Guid userId)
+    {
+        var request = new GetPhotosByUserRequest(userId);
+        return await pipelineDispatcher.SendAsync<GetPhotosByUserRequest, Result<IEnumerable<PhotoDto>>>(request);
+    }
 }
