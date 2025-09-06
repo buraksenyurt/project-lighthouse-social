@@ -326,6 +326,27 @@
 					"response": []
 				},
 				{
+					"name": "Get Lighthouse ById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5072/api/lighthouse/02986521-ec8c-481e-8b63-10c5220e139a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5072",
+							"path": [
+								"api",
+								"lighthouse",
+								"02986521-ec8c-481e-8b63-10c5220e139a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Paged Content",
 					"request": {
 						"method": "GET",
@@ -422,6 +443,70 @@
 								"api",
 								"lighthouse",
 								"02986521-ec8c-481e-8b63-10c5220e139a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Photo",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "FileName",
+									"value": "cape_espichel_sunset.png\n",
+									"type": "text"
+								},
+								{
+									"key": "CameraType",
+									"value": "DSLR",
+									"type": "text"
+								},
+								{
+									"key": "UserId",
+									"value": "00000000-0000-0000-0000-000000000001",
+									"type": "text"
+								},
+								{
+									"key": "LighthouseId",
+									"value": "10000000-0000-0000-0000-000000000001",
+									"type": "text"
+								},
+								{
+									"key": "Resolution",
+									"value": "3000X3000",
+									"type": "text"
+								},
+								{
+									"key": "Lens",
+									"value": "50mm f/2.8",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/burak/Development/project-lighthouse-social/src/Clients/TerminalApp/cape_espichel.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5072/api/photo/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5072",
+							"path": [
+								"api",
+								"photo",
+								"upload"
 							]
 						}
 					},
