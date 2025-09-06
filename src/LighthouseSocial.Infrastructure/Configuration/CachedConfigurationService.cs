@@ -52,7 +52,7 @@ public class CachedConfigurationService
             TimeSpan.FromHours(1));
     }
 
-    public async Task<(string AccessKey, string SecretKey)> GetMinioCredentialsAsync()
+    public async Task<MinioCredentials> GetMinioCredentialsAsync()
     {
         return await GetCachedValueAsync(MinioCredentialsKey,
             async () =>
@@ -69,7 +69,7 @@ public class CachedConfigurationService
                 }
 
                 _logger.LogDebug("MinIO credentials retrieved from Vault");
-                return (AccessKey: accessKeyResult.Data, SecretKey: secretKeyResult.Data);
+                return new MinioCredentials(accessKeyResult.Data, secretKeyResult.Data);
             },
             TimeSpan.FromHours(1));
     }

@@ -17,13 +17,13 @@ public class PhotoStorageService
     public PhotoStorageService(IOptions<MinioSettings> options, CachedConfigurationService configurationService, ILogger<PhotoStorageService> logger)
     {
         _logger = logger;
-        var (accessKey, secretKey) = configurationService.GetMinioCredentialsAsync().GetAwaiter().GetResult();
+        var credentials = configurationService.GetMinioCredentialsAsync().GetAwaiter().GetResult();
 
         var settings = options.Value;
         _bucket = settings.BucketName;
         _minioClient = new MinioClient()
             .WithEndpoint(settings.Endpoint)
-            .WithCredentials(accessKey, secretKey)
+            .WithCredentials(credentials.AccessKey, credentials.SecretKey)
             .WithSSL(settings.UseSSL)
             .Build();
         _logger = logger;

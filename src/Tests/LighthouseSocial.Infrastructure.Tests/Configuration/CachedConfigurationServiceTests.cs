@@ -62,11 +62,11 @@ namespace LighthouseSocial.Infrastructure.Tests.Configuration
                 _mockLogger.Object);
 
             // Act
-            var (AccessKey, SecretKey) = await service.GetMinioCredentialsAsync();
+            var result = await service.GetMinioCredentialsAsync();
 
             // Assert
-            Assert.Equal(expectedAccessKey, AccessKey);
-            Assert.Equal(expectedSecretKey, SecretKey);
+            Assert.Equal(expectedAccessKey, result.AccessKey);
+            Assert.Equal(expectedSecretKey, result.SecretKey);
 
             _mockSecretManager.Verify(x => x.GetSecretAsync("ProjectLighthouseSocial-Dev", "MinIOAccessKey"), Times.Once);
         }
@@ -121,7 +121,7 @@ namespace LighthouseSocial.Infrastructure.Tests.Configuration
         }
 
         [Fact]
-        public async Task GetMinioCredentialsAsync_WhenAccessKeyFails_ReturnsDefault()
+        public async Task GetMinioCredentialsAsync_WhenAccessKeyFails_ThrowsException()
         {
             // Arrange
             _mockSecretManager
@@ -137,15 +137,12 @@ namespace LighthouseSocial.Infrastructure.Tests.Configuration
                 _cacheService.Object,
                 _mockLogger.Object);
 
-            // Act
-            var result = await service.GetMinioCredentialsAsync();
-
-            // Assert
-            Assert.Equal(default((string, string)), result);
+            // Act & Assert
+            await Assert.ThrowsAsync<InvalidOperationException>(() => service.GetMinioCredentialsAsync());
         }
 
         [Fact]
-        public async Task GetMinioCredentialsAsync_WhenSecretKeyFails_ReturnsDefault()
+        public async Task GetMinioCredentialsAsync_WhenSecretKeyFails_ThrowsException()
         {
             // Arrange
             _mockSecretManager
@@ -161,15 +158,12 @@ namespace LighthouseSocial.Infrastructure.Tests.Configuration
                 _cacheService.Object,
                 _mockLogger.Object);
 
-            // Act
-            var result = await service.GetMinioCredentialsAsync();
-
-            // Assert
-            Assert.Equal(default((string, string)), result);
+            // Act & Assert
+            await Assert.ThrowsAsync<InvalidOperationException>(() => service.GetMinioCredentialsAsync());
         }
 
         [Fact]
-        public async Task GetMinioCredentialsAsync_WhenAccessKeyIsEmpty_ReturnsDefault()
+        public async Task GetMinioCredentialsAsync_WhenAccessKeyIsEmpty_ThrowsException()
         {
             // Arrange
             _mockSecretManager
@@ -185,11 +179,8 @@ namespace LighthouseSocial.Infrastructure.Tests.Configuration
                 _cacheService.Object,
                 _mockLogger.Object);
 
-            // Act
-            var result = await service.GetMinioCredentialsAsync();
-
-            // Assert
-            Assert.Equal(default((string, string)), result);
+            // Act & Assert
+            await Assert.ThrowsAsync<InvalidOperationException>(() => service.GetMinioCredentialsAsync());
         }
     }
 }
