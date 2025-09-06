@@ -96,6 +96,7 @@ Minimum Profil;
 - [x] [Bölüm 39 - Vault Bilgilerini Cache Üzerinde Tutmak *(Açtık Yine Dertsiz Başımıza Dert)*](https://youtu.be/t6nnL11wOnI)
 - [x] [Bölüm 40 - Daha İyi Bir Hata Yönetimi *(Result Pattern Refactoring)*](https://youtu.be/2GA8q-jjNGI)
 - [x] [Bölüm 41 - Gelen Bir Yorum Üzerine Sistemimize Graylog'u Adapte Ediyoruz](https://youtu.be/OmaopxCVLF8)
+- [ ] [Bölüm 42 - Retorspective ve PhotoController ile Sahalara Dönüş]
 
 ## Sonarqube
 

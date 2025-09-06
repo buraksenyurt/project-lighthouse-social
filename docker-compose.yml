@@ -148,6 +148,7 @@ services:
     image: graylog/graylog:5.2
     container_name: plh-graylog
     environment:
+        # admin / admin
       - GRAYLOG_PASSWORD_SECRET=&xB-Ub9=_7f!8Qa#{a=$4#}11?uKz1p]
       - GRAYLOG_ROOT_PASSWORD_SHA2=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
       - GRAYLOG_HTTP_EXTERNAL_URI=http://127.0.0.1:9001/

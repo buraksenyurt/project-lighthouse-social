@@ -97,7 +97,7 @@
 								},
 								{
 									"key": "client_secret",
-									"value": "RIoHksdm26op4byhj9ks0JD1VweWUqAg",
+									"value": "XbqQmb74hMjTrOBukNWkeVG5HiHKG1PN",
 									"type": "text"
 								},
 								{
@@ -162,7 +162,7 @@
 								},
 								{
 									"key": "client_secret",
-									"value": "Lupgay1UcpJA7vRDOr7MsrBJN5B7bJoN",
+									"value": "XbqQmb74hMjTrOBukNWkeVG5HiHKG1PN",
 									"type": "text"
 								},
 								{
@@ -252,7 +252,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICItazV1ZGdaUlU2MUlqZGtVNndYU21iUzNtT1J6NENUejNvZWZJNDFVZ0pVIn0.eyJleHAiOjE3NTYwNjAxMTcsImlhdCI6MTc1NjA1OTgxNywianRpIjoidHJydGNjOmRiZGYxOWYzLTgwNjktNmFlZS04MzJhLTEzMWRhMGYyODFkNCIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4OS9yZWFsbXMvUHJvamVjdExpZ2h0aG91c2VTb2NpYWxSZWFsbSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJhYjNiNDI4NS0wZjJjLTQ0ZTMtODcyNS00OWUwOTUxMGE1NmIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJsaWdodGhvdXNlLXNlcnZpY2UtY2xpZW50IiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIvKiJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1wcm9qZWN0bGlnaHRob3VzZXNvY2lhbHJlYWxtIiwid2ViYXBpLXVzZXIiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiY2xpZW50SG9zdCI6IjE3Mi4xOC4wLjEiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtbGlnaHRob3VzZS1zZXJ2aWNlLWNsaWVudCIsImNsaWVudEFkZHJlc3MiOiIxNzIuMTguMC4xIiwiY2xpZW50X2lkIjoibGlnaHRob3VzZS1zZXJ2aWNlLWNsaWVudCJ9.hJNf36wgCOPpm1gPE_PJax9wO2-iZDVRvR9Sfn1xacwlcjVgfZ-cp1sRIz5tUsqG1RXpflpnnk4Vypf4GCwVHrRxgLHFa3vEFcEP-nki0OOQMJQtDjoAzpZ2Zq7tr5UVfihyhg7RWXObmKGMm_OvKqLbYs1Rzzb-4rWAl1JrnfqoHRNxOWqJMBSL3CDqRJ0bg6vus-87VbKI_2skFqoknhwGykRakVC0fbEH-J6D12Kp0uej8U-HcD1WLZ21k6McIwjbCOUs5vb4lyRIjdmxde-0zy9FbkNAzAosd_74yNWm4qGDuZy8GdU7IKNg0cr8Km1XqQO0TH-LaV6KKuUSNg",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJpSHJfcDdFQzdyaXNJTGJZQ2t2Q0hGTzh1TDZPb2NnM05QNWFJMG5xOVRNIn0.eyJleHAiOjE3NTcxNTg3NjksImlhdCI6MTc1NzE1ODQ2OSwianRpIjoidHJydGNjOjA3YmMzOWYxLTc0ZDEtMDBlZi03NDQ1LTZlMzVlYzE5MDVmZCIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4OS9yZWFsbXMvUHJvamVjdExpZ2h0aG91c2VTb2NpYWxSZWFsbSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJmNDU0OTk2Ni00ZTdkLTRmMDktOTU2Ny03MzI1Mjk3ZGY5MDQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJsaWdodGhvdXNlLXNlcnZpY2UtY2xpZW50IiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIvKiJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1wcm9qZWN0bGlnaHRob3VzZXNvY2lhbHJlYWxtIiwib2ZmbGluZV9hY2Nlc3MiLCJ3ZWJhcGktdXNlciIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsImNsaWVudEhvc3QiOiIxNzIuMTguMC4xIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtbGlnaHRob3VzZS1zZXJ2aWNlLWNsaWVudCIsImNsaWVudEFkZHJlc3MiOiIxNzIuMTguMC4xIiwiY2xpZW50X2lkIjoibGlnaHRob3VzZS1zZXJ2aWNlLWNsaWVudCJ9.ap_2Xni9DptSGE6MKbAsZxo_jFutxcGdt1G1ZqQSeU0xiKdWqcVf2kIZ2yH8DlEHNNm6_l-my-a2-VXU6w36kP4KXRFHMaPGYRq0Np789o025Yhti63JbqN4kNPnESDHiX0ld6nShh3kIXcB9f2ZE-xVamqX1p8kJt0ITGw7Cmk_UZ9XJliU2XKUEAgZD00fVWGqChwx_cpKDcX0oQJ-JJgu4A3DfOF7MYENVFTkOv23GqYMhHBkWJUSx5slhewrSzP_c6U6u32J-tykage4vkqi8NX35h13fNMYwU12pcAz4pW5L6QjmlrHKY1E-PhaOx6HqTAMv0-ASuVspBUaPw",
 									"type": "string"
 								}
 							]
@@ -264,7 +264,7 @@
 							"urlencoded": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICItazV1ZGdaUlU2MUlqZGtVNndYU21iUzNtT1J6NENUejNvZWZJNDFVZ0pVIn0.eyJleHAiOjE3NTYwNjAxMTcsImlhdCI6MTc1NjA1OTgxNywianRpIjoidHJydGNjOmRiZGYxOWYzLTgwNjktNmFlZS04MzJhLTEzMWRhMGYyODFkNCIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4OS9yZWFsbXMvUHJvamVjdExpZ2h0aG91c2VTb2NpYWxSZWFsbSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJhYjNiNDI4NS0wZjJjLTQ0ZTMtODcyNS00OWUwOTUxMGE1NmIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJsaWdodGhvdXNlLXNlcnZpY2UtY2xpZW50IiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIvKiJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1wcm9qZWN0bGlnaHRob3VzZXNvY2lhbHJlYWxtIiwid2ViYXBpLXVzZXIiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiY2xpZW50SG9zdCI6IjE3Mi4xOC4wLjEiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtbGlnaHRob3VzZS1zZXJ2aWNlLWNsaWVudCIsImNsaWVudEFkZHJlc3MiOiIxNzIuMTguMC4xIiwiY2xpZW50X2lkIjoibGlnaHRob3VzZS1zZXJ2aWNlLWNsaWVudCJ9.hJNf36wgCOPpm1gPE_PJax9wO2-iZDVRvR9Sfn1xacwlcjVgfZ-cp1sRIz5tUsqG1RXpflpnnk4Vypf4GCwVHrRxgLHFa3vEFcEP-nki0OOQMJQtDjoAzpZ2Zq7tr5UVfihyhg7RWXObmKGMm_OvKqLbYs1Rzzb-4rWAl1JrnfqoHRNxOWqJMBSL3CDqRJ0bg6vus-87VbKI_2skFqoknhwGykRakVC0fbEH-J6D12Kp0uej8U-HcD1WLZ21k6McIwjbCOUs5vb4lyRIjdmxde-0zy9FbkNAzAosd_74yNWm4qGDuZy8GdU7IKNg0cr8Km1XqQO0TH-LaV6KKuUSNg",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJpSHJfcDdFQzdyaXNJTGJZQ2t2Q0hGTzh1TDZPb2NnM05QNWFJMG5xOVRNIn0.eyJleHAiOjE3NTcxNTg3NjksImlhdCI6MTc1NzE1ODQ2OSwianRpIjoidHJydGNjOjA3YmMzOWYxLTc0ZDEtMDBlZi03NDQ1LTZlMzVlYzE5MDVmZCIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4OS9yZWFsbXMvUHJvamVjdExpZ2h0aG91c2VTb2NpYWxSZWFsbSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJmNDU0OTk2Ni00ZTdkLTRmMDktOTU2Ny03MzI1Mjk3ZGY5MDQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJsaWdodGhvdXNlLXNlcnZpY2UtY2xpZW50IiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIvKiJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1wcm9qZWN0bGlnaHRob3VzZXNvY2lhbHJlYWxtIiwib2ZmbGluZV9hY2Nlc3MiLCJ3ZWJhcGktdXNlciIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsImNsaWVudEhvc3QiOiIxNzIuMTguMC4xIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtbGlnaHRob3VzZS1zZXJ2aWNlLWNsaWVudCIsImNsaWVudEFkZHJlc3MiOiIxNzIuMTguMC4xIiwiY2xpZW50X2lkIjoibGlnaHRob3VzZS1zZXJ2aWNlLWNsaWVudCJ9.ap_2Xni9DptSGE6MKbAsZxo_jFutxcGdt1G1ZqQSeU0xiKdWqcVf2kIZ2yH8DlEHNNm6_l-my-a2-VXU6w36kP4KXRFHMaPGYRq0Np789o025Yhti63JbqN4kNPnESDHiX0ld6nShh3kIXcB9f2ZE-xVamqX1p8kJt0ITGw7Cmk_UZ9XJliU2XKUEAgZD00fVWGqChwx_cpKDcX0oQJ-JJgu4A3DfOF7MYENVFTkOv23GqYMhHBkWJUSx5slhewrSzP_c6U6u32J-tykage4vkqi8NX35h13fNMYwU12pcAz4pW5L6QjmlrHKY1E-PhaOx6HqTAMv0-ASuVspBUaPw",
 									"type": "text"
 								},
 								{
@@ -274,7 +274,7 @@
 								},
 								{
 									"key": "client_secret",
-									"value": "Lupgay1UcpJA7vRDOr7MsrBJN5B7bJoN",
+									"value": "XbqQmb74hMjTrOBukNWkeVG5HiHKG1PN",
 									"type": "text"
 								}
 							]
@@ -326,6 +326,37 @@
 					"response": []
 				},
 				{
+					"name": "Paged Content",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5072/api/lighthouse/paged?page=1&pageSize=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5072",
+							"path": [
+								"api",
+								"lighthouse",
+								"paged"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create Lighthouse",
 					"request": {
 						"auth": {
@@ -333,7 +364,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICItazV1ZGdaUlU2MUlqZGtVNndYU21iUzNtT1J6NENUejNvZWZJNDFVZ0pVIn0.eyJleHAiOjE3NTYwNjAxMTcsImlhdCI6MTc1NjA1OTgxNywianRpIjoidHJydGNjOmRiZGYxOWYzLTgwNjktNmFlZS04MzJhLTEzMWRhMGYyODFkNCIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4OS9yZWFsbXMvUHJvamVjdExpZ2h0aG91c2VTb2NpYWxSZWFsbSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJhYjNiNDI4NS0wZjJjLTQ0ZTMtODcyNS00OWUwOTUxMGE1NmIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJsaWdodGhvdXNlLXNlcnZpY2UtY2xpZW50IiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIvKiJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1wcm9qZWN0bGlnaHRob3VzZXNvY2lhbHJlYWxtIiwid2ViYXBpLXVzZXIiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiY2xpZW50SG9zdCI6IjE3Mi4xOC4wLjEiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtbGlnaHRob3VzZS1zZXJ2aWNlLWNsaWVudCIsImNsaWVudEFkZHJlc3MiOiIxNzIuMTguMC4xIiwiY2xpZW50X2lkIjoibGlnaHRob3VzZS1zZXJ2aWNlLWNsaWVudCJ9.hJNf36wgCOPpm1gPE_PJax9wO2-iZDVRvR9Sfn1xacwlcjVgfZ-cp1sRIz5tUsqG1RXpflpnnk4Vypf4GCwVHrRxgLHFa3vEFcEP-nki0OOQMJQtDjoAzpZ2Zq7tr5UVfihyhg7RWXObmKGMm_OvKqLbYs1Rzzb-4rWAl1JrnfqoHRNxOWqJMBSL3CDqRJ0bg6vus-87VbKI_2skFqoknhwGykRakVC0fbEH-J6D12Kp0uej8U-HcD1WLZ21k6McIwjbCOUs5vb4lyRIjdmxde-0zy9FbkNAzAosd_74yNWm4qGDuZy8GdU7IKNg0cr8Km1XqQO0TH-LaV6KKuUSNg",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICItazV1ZGdaUlU2MUlqZGtVNndYU21iUzNtT1J6NENUejNvZWZJNDFVZ0pVIn0.eyJleHAiOjE3NTY1NjE4NzEsImlhdCI6MTc1NjU2MTU3MSwianRpIjoidHJydGNjOjNmYzU5YjhkLWM5YTktOTQ4Mi1mNTQxLTAzN2VjY2M3YzExNyIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4OS9yZWFsbXMvUHJvamVjdExpZ2h0aG91c2VTb2NpYWxSZWFsbSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJhYjNiNDI4NS0wZjJjLTQ0ZTMtODcyNS00OWUwOTUxMGE1NmIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJsaWdodGhvdXNlLXNlcnZpY2UtY2xpZW50IiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIvKiJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1wcm9qZWN0bGlnaHRob3VzZXNvY2lhbHJlYWxtIiwid2ViYXBpLXVzZXIiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiY2xpZW50SG9zdCI6IjE3Mi4xOC4wLjEiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtbGlnaHRob3VzZS1zZXJ2aWNlLWNsaWVudCIsImNsaWVudEFkZHJlc3MiOiIxNzIuMTguMC4xIiwiY2xpZW50X2lkIjoibGlnaHRob3VzZS1zZXJ2aWNlLWNsaWVudCJ9.n1gmOrukzXJ7abE6c7nj8B4lw5xo8n-NDWA7V4KugNyuZjUCuqV-b6KJ1cjQCLACTLUWO2oODvrzit85zaTteJPafHwuEaRvpUq8Y2w10iH-cT8BmBDNzDBNCcRMyOVJ2n8e1i9VB24jIUTgC_irvf9--h3fWaTDEcN5eaINanc3DsAB52hf2Wgkx8TaNsa7OTJqCD2XSJMJXtuTg4Nvmi27HGWXwo6v7V4InKYQctQGJ4579RXBA6ByOy4IPEMDP1G5tjUDkTyNdHFePybmKeehHFTe3jlplfZMk_RXjsBW8eDMNDVCBf2sCSGmc27hOzdm-djkNfNiCQtWmeYpRg",
 									"type": "string"
 								}
 							]
@@ -381,7 +412,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5072/api/lighthouse/28ba560c-9dee-43ac-b54a-7dd843852019",
+							"raw": "http://localhost:5072/api/lighthouse/02986521-ec8c-481e-8b63-10c5220e139a",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -390,7 +421,7 @@
 							"path": [
 								"api",
 								"lighthouse",
-								"28ba560c-9dee-43ac-b54a-7dd843852019"
+								"02986521-ec8c-481e-8b63-10c5220e139a"
 							]
 						}
 					},
@@ -403,108 +434,351 @@
 			"item": [
 				{
 					"name": "Maintanance",
-					"item": []
+					"item": [
+						{
+							"name": "Create Index Template",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"index_patterns\": [\"lighthouse-social-logs-*\"],\r\n  \"data_stream\": {},\r\n  \"template\": {\r\n    \"mappings\": {\r\n      \"properties\": {\r\n        \"@timestamp\": {\r\n          \"type\": \"date\"\r\n        },\r\n        \"message\": {\r\n          \"type\": \"text\"\r\n        },\r\n        \"System\": {\r\n          \"type\": \"keyword\"\r\n        },\r\n        \"Environment\": {\r\n          \"type\": \"keyword\"\r\n        },\r\n        \"Level\": {\r\n          \"type\": \"keyword\"\r\n        },\r\n        \"SourceContext\": {\r\n          \"type\": \"keyword\"\r\n        }\r\n      }\r\n    }\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/_index_template/lighthouse-social-logs-template",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"_index_template",
+										"lighthouse-social-logs-template"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Index",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9200/_index_template/plh-index",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"_index_template",
+										"plh-index"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Data Stream",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9200/_data_stream/lighthouse-social-logs-template",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"_data_stream",
+										"lighthouse-social-logs-template"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Check data streams",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9200/_data_stream",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"_data_stream"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Check Index",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9200/_cat/indices/lighthouse-social-logs-*?v",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"_cat",
+										"indices",
+										"lighthouse-social-logs-*"
+									],
+									"query": [
+										{
+											"key": "v",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Healthy",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9200/_cluster/health",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"_cluster",
+										"health"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "Queries",
-					"item": []
-				},
-				{
-					"name": "Healthy",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:9200/_cluster/health",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9200",
-							"path": [
-								"_cluster",
-								"health"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "All Logs",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"query\": {\r\n        \"match_all\": {}\r\n    },\r\n    \"sort\": [\r\n        {\r\n            \"@timestamp\": {\r\n                \"order\": \"desc\"\r\n            }\r\n        }\r\n    ],\r\n    \"size\": 10\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"item": [
+						{
+							"name": "All Logs",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"query\": {\r\n        \"match_all\": {}\r\n    },\r\n    \"sort\": [\r\n        {\r\n            \"@timestamp\": {\r\n                \"order\": \"desc\"\r\n            }\r\n        }\r\n    ],\r\n    \"size\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/lighthouse-social-logs-generic-default/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"lighthouse-social-logs-generic-default",
+										"_search"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://localhost:9200/lighthouse-social-logs-generic-default/_search",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9200",
-							"path": [
-								"lighthouse-social-logs-generic-default",
-								"_search"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Index Template",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"index_patterns\": [\"lighthouse-social-logs-*\"],\r\n  \"data_stream\": {},\r\n  \"template\": {\r\n    \"mappings\": {\r\n      \"properties\": {\r\n        \"@timestamp\": {\r\n          \"type\": \"date\"\r\n        },\r\n        \"message\": {\r\n          \"type\": \"text\"\r\n        },\r\n        \"System\": {\r\n          \"type\": \"keyword\"\r\n        },\r\n        \"Environment\": {\r\n          \"type\": \"keyword\"\r\n        },\r\n        \"Level\": {\r\n          \"type\": \"keyword\"\r\n        },\r\n        \"SourceContext\": {\r\n          \"type\": \"keyword\"\r\n        }\r\n      }\r\n    }\r\n  }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "HTTP 404 logs",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"query\": {\r\n        \"term\": {\r\n            \"http.response.status_code\": 404\r\n        }\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/lighthouse-social-logs-generic-default/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"lighthouse-social-logs-generic-default",
+										"_search"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://localhost:9200/_index_template/lighthouse-social-logs-template",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9200",
-							"path": [
-								"_index_template",
-								"lighthouse-social-logs-template"
-							]
+						{
+							"name": "Error logs",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"query\": {\r\n        \"term\": {\r\n            \"log.level\": \"Error\"\r\n        }\r\n    },\r\n    \"sort\": [\r\n        {\r\n            \"@timestamp\": {\r\n                \"order\": \"desc\"\r\n            }\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/lighthouse-social-logs-generic-default/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"lighthouse-social-logs-generic-default",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Last 1 Hour Logs",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"query\": {\r\n    \"range\": {\r\n      \"@timestamp\": {\r\n        \"gte\": \"now-1h\"\r\n      }\r\n    }\r\n  },\r\n  \"sort\": [\r\n    {\r\n      \"@timestamp\": {\r\n        \"order\": \"desc\"\r\n      }\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/lighthouse-social-logs-generic-default/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"lighthouse-social-logs-generic-default",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With Query String Search",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"query\": {\r\n        \"query_string\": {\r\n            \"query\": \"*LighthouseController*\",\r\n            \"fields\": [\r\n                \"message\"\r\n            ]\r\n        }\r\n    },\r\n    \"size\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/lighthouse-social-logs-generic-default/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"lighthouse-social-logs-generic-default",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Slow Requests",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"query\": {\r\n        \"range\": {\r\n            \"event.duration\": {\r\n                \"gte\": 1000000000\r\n            }\r\n        }\r\n    },\r\n    \"sort\": [\r\n        {\r\n            \"event.duration\": {\r\n                \"order\": \"desc\"\r\n            }\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/lighthouse-social-logs-generic-default/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"lighthouse-social-logs-generic-default",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Aggregation",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"size\": 0,\r\n    \"aggs\": {\r\n        \"status_codes\": {\r\n            \"terms\": {\r\n                \"field\": \"http.response.status_code\"\r\n            }\r\n        }\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/lighthouse-social-logs-generic-default/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"lighthouse-social-logs-generic-default",
+										"_search"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "Check data streams",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:9200/_data_stream",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9200",
-							"path": [
-								"_data_stream"
-							]
-						}
-					},
-					"response": []
+					]
 				}
 			]
 		}
