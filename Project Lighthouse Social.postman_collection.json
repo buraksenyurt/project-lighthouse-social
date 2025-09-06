@@ -461,7 +461,7 @@
 							"formdata": [
 								{
 									"key": "FileName",
-									"value": "cape_espichel_sunset.png\n",
+									"value": "cape_espichel_sunset.png",
 									"type": "text"
 								},
 								{
@@ -507,6 +507,27 @@
 								"api",
 								"photo",
 								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Photo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5072/api/photo/cape_espichel_sunset.png",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5072",
+							"path": [
+								"api",
+								"photo",
+								"cape_espichel_sunset.png"
 							]
 						}
 					},
