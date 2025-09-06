@@ -42,7 +42,7 @@ public class CreateUserHandlerTests
     }
 
     [Fact]
-    public async Task HandleAsync_ShouldReturnFailure_WhenValidationFails()
+    public async Task HandleAsync_ShouldReturnFail_WhenValidationFails()
     {
         // Arrange
         var dto = new UserDto(Guid.NewGuid(), Guid.NewGuid(), "", "invalid-email");
@@ -65,7 +65,7 @@ public class CreateUserHandlerTests
     }
 
     [Fact]
-    public async Task HandleAsync_ShouldReturnFailure_WhenUserAlreadyExists()
+    public async Task HandleAsync_ShouldReturnFail_WhenUserAlreadyExists()
     {
         // Arrange
         var dto = new UserDto(Guid.NewGuid(), Guid.NewGuid(), "John Doe", "john.doe@plhsocial.com");

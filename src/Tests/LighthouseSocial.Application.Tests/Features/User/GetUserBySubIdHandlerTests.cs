@@ -39,7 +39,7 @@ public class GetUserBySubIdHandlerTests
     }
 
     [Fact]
-    public async Task HandleAsync_ShouldReturnFailure_WhenUserDoesNotExist()
+    public async Task HandleAsync_ShouldReturnFail_WhenUserDoesNotExist()
     {
         // Arrange
         var subId = Guid.NewGuid();
@@ -55,7 +55,7 @@ public class GetUserBySubIdHandlerTests
     }
 
     [Fact]
-    public async Task HandleAsync_ShouldReturnFailure_WhenUserIdIsEmpty()
+    public async Task HandleAsync_ShouldReturnFail_WhenUserIdIsEmpty()
     {
         // Arrange
         var userId = Guid.Empty;

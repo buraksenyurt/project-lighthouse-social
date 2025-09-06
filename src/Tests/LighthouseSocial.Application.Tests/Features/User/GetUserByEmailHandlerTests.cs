@@ -39,7 +39,7 @@ public class GetUserByEmailHandlerTests
     }
 
     [Fact]
-    public async Task HandleAsync_ShouldReturnFailure_WhenEmailIsEmpty()
+    public async Task HandleAsync_ShouldReturnFail_WhenEmailIsEmpty()
     {
         // Arrange
         var email = string.Empty;
@@ -54,7 +54,7 @@ public class GetUserByEmailHandlerTests
     }
 
     [Fact]
-    public async Task HandleAsync_ShouldReturnFailure_WhenUserDoesNotExist()
+    public async Task HandleAsync_ShouldReturnFail_WhenUserDoesNotExist()
     {
         // Arrange
         var email = "john.doe@plhsocial.com";
