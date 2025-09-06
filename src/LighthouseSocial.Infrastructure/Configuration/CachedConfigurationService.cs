@@ -153,6 +153,11 @@ public class CachedConfigurationService
                 return result;
             }
         }
+        catch(InvalidOperationException ex)
+        {
+            _logger.LogError("Critical error getting cached value for key: {Key}", key);
+            throw;
+        }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error getting cached value for key: {Key}", key);
