@@ -24,4 +24,9 @@ public class Photo
         UploadDate = DateTime.UtcNow;
         Metadata = metadata ?? throw new ArgumentNullException(nameof(metadata));
     }
+
+    public void SetFileName(string fileName)
+    {
+        Filename = fileName;
+    }
 }
