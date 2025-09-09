@@ -17,7 +17,11 @@ public class FileUploadStep(IPhotoStorageService photoStorageService, ILogger<Fi
             data.FileStream.Position = 0;
 
             var fileNameResult = await photoStorageService.SaveAsync(data.FileStream, data.FileName);
-            //TODO@buraksenyurt Result'u ele alalım
+            if(!fileNameResult.Success)
+            {
+                logger.LogError("File upload failed for PhotoId: {PhotoId}, Error: {Error}", data.PhotoId, fileNameResult.ErrorMessage);
+                return Result<PhotoUploadSagaData>.Fail($"File upload failed: {fileNameResult.ErrorMessage}");
+            }
 
             data.FileName = fileNameResult.Data!;
             data.IsFileUploaded = true;

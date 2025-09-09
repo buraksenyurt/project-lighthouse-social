@@ -8,9 +8,10 @@ public record UploadPhotoRequest(string FileName, string CameraType, Guid UserId
 
 [ApiController]
 [Route("api/[controller]")]
-public class PhotoController(ILogger<PhotoController> logger, IPhotoService photoService)
+public class PhotoController(ILogger<PhotoController> logger, IPhotoService photoService, IPhotoUploadService photoUploadService)
     : ControllerBase
 {
+    //todo@buraksenyurt S6990 bulgusunu çözmek için Interface bazında controller'ları ayrıştır.
     [HttpPost("upload")]
     public async Task<ActionResult<Guid>> UploadAsync([FromForm] UploadPhotoRequest request, IFormFile file)
     {
@@ -38,7 +39,10 @@ public class PhotoController(ILogger<PhotoController> logger, IPhotoService phot
                 request.Resolution,
                 request.Lens
             );
-            var result = await photoService.UploadAsync(dto, stream);
+            
+            // var result = await photoService.UploadAsync(dto, stream);
+
+            var result = await photoUploadService.UploadAsync(dto, stream);
 
             if (!result.Success)
                 return BadRequest(result.ErrorMessage);

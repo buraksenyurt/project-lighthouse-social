@@ -17,6 +17,8 @@ public class PhotoRepository(IDbConnectionFactory connFactory, ILogger<PhotoRepo
     {
         try
         {
+            // throw new ArgumentException(); SAGA Testi için eklendi.
+
             const string sql = @"
             INSERT INTO photos (id, user_id, lighthouse_id, filename, upload_date, lens, resolution, camera_model, taken_at)
             VALUES (@Id, @UserId, @LighthouseId, @FileName, @UploadDate, @Lens, @Resolution, @CameraModel, @TakenAt);";

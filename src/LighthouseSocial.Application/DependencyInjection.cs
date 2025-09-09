@@ -7,6 +7,8 @@ using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.Comment;
 using LighthouseSocial.Application.Features.Lighthouse;
 using LighthouseSocial.Application.Features.Photo;
+using LighthouseSocial.Application.Features.Photo.Saga;
+using LighthouseSocial.Application.Features.Photo.Saga.Steps;
 using LighthouseSocial.Application.Features.User;
 using LighthouseSocial.Application.Services;
 using LighthouseSocial.Application.Validators;
@@ -21,6 +23,7 @@ public static class DependencyInjection
         // Services
         services.AddScoped<ILighthouseService, LighthouseService>();
         services.AddScoped<IPhotoService, PhotoService>();
+        services.AddScoped<IPhotoUploadService, PhotoUploadService>();
 
         // Pipeline
         services.AddScoped<PipelineDispatcher>();
@@ -42,6 +45,9 @@ public static class DependencyInjection
         services.AddScoped<IHandler<UpdateLighthouseRequest, Result>, UpdateLighthouseHandler>();
         services.AddScoped<IHandler<GetPagedLighthouseRequest, Result<PagedResult<LighthouseDto>>>, GetPagedLighthouseHandler>();
         services.AddScoped<IHandler<CreateUserRequest, Result<Guid>>, CreateUserHandler>();
+        services.AddScoped<PhotoUploadSaga>();
+        services.AddScoped<FileUploadStep>();
+        services.AddScoped<MetadataSaveStep>();
 
 
         // Pipeline Behaviors

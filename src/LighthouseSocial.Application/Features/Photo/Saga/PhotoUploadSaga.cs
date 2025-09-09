@@ -8,7 +8,7 @@ namespace LighthouseSocial.Application.Features.Photo.Saga;
 
 public class PhotoUploadSaga(ILogger<PhotoUploadSaga> logger, FileUploadStep fileUploadStep, MetadataSaveStep metadataSaveStep) : ISaga<UploadPhotoRequest, Result<PhotoDto>>
 {
-    async Task<Result<PhotoDto>> ISaga<UploadPhotoRequest, Result<PhotoDto>>.ExecuteAsync(UploadPhotoRequest request, CancellationToken cancellationToken)
+    public async Task<Result<PhotoDto>> ExecuteAsync(UploadPhotoRequest request, CancellationToken cancellationToken = default)
     {
         var sagaId = Guid.NewGuid();
         logger.LogInformation("Starting PhotoUploadSaga {SagaId} for PhotoId {PhotoId}", sagaId, request.Photo.Id);
@@ -17,6 +17,7 @@ public class PhotoUploadSaga(ILogger<PhotoUploadSaga> logger, FileUploadStep fil
         {
             PhotoId = request.Photo.Id,
             FileStream = request.Content,
+            FileName = request.Photo.FileName,
             PhotoEntity = new Domain.Entities.Photo(
                 request.Photo.Id,
                 request.Photo.UserId,
@@ -50,7 +51,6 @@ public class PhotoUploadSaga(ILogger<PhotoUploadSaga> logger, FileUploadStep fil
                 await CompensateAsync(executedStpes, sagaData, cancellationToken);
                 return Result<PhotoDto>.Fail(Messages.Errors.Photo.FailedToAddPhoto);
             }
-
 
             var photoDto = new PhotoDto(
                 sagaData.PhotoEntity!.Id,

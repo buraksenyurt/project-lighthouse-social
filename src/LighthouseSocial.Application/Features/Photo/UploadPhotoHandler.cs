@@ -7,7 +7,7 @@ using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Domain.ValueObjects;
 
 namespace LighthouseSocial.Application.Features.Photo;
-internal record UploadPhotoRequest(PhotoDto Photo, Stream Content);
+public record UploadPhotoRequest(PhotoDto Photo, Stream Content);
 
 internal class UploadPhotoHandler(
     IPhotoRepository repository,
