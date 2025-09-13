@@ -28,8 +28,8 @@ public class CreateUserHandlerTests
         var dto = new UserDto(Guid.NewGuid(), Guid.NewGuid(), "John Doe", "john.doe@plhsocial.com");
 
         _validatorMock.Setup(v => v.Validate(It.IsAny<UserDto>())).Returns(new ValidationResult());
-        _userRepositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(Result<Domain.Entities.User>.Fail("User not found"));
-        _userRepositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.User>())).ReturnsAsync(Result.Ok());
+        _userRepositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>())).ReturnsAsync(Result<Domain.Entities.User>.Fail("User not found"));
+        _userRepositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.User>(), It.IsAny<CancellationToken>())).ReturnsAsync(Result.Ok());
 
         // Act
         var result = await _handler.HandleAsync(new CreateUserRequest(dto), CancellationToken.None);
@@ -37,8 +37,8 @@ public class CreateUserHandlerTests
         // Assert
         Assert.True(result.Success);
         Assert.Equal(dto.Id, result.Data);
-        _userRepositoryMock.Verify(r => r.GetByIdAsync(dto.Id), Times.Once);
-        _userRepositoryMock.Verify(r => r.AddAsync(It.IsAny<Domain.Entities.User>()), Times.Once);
+        _userRepositoryMock.Verify(r => r.GetByIdAsync(dto.Id, It.IsAny<CancellationToken>()), Times.Once);
+        _userRepositoryMock.Verify(r => r.AddAsync(It.IsAny<Domain.Entities.User>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -61,7 +61,7 @@ public class CreateUserHandlerTests
         Assert.Contains("Fullname is required", result.ErrorMessage);
         Assert.Contains("Email is not valid", result.ErrorMessage);
         _validatorMock.Verify(v => v.Validate(dto), Times.Once);
-        _userRepositoryMock.Verify(r => r.AddAsync(It.IsAny<Domain.Entities.User>()), Times.Never);
+        _userRepositoryMock.Verify(r => r.AddAsync(It.IsAny<Domain.Entities.User>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 
     [Fact]
@@ -70,7 +70,7 @@ public class CreateUserHandlerTests
         // Arrange
         var dto = new UserDto(Guid.NewGuid(), Guid.NewGuid(), "John Doe", "john.doe@plhsocial.com");
         _validatorMock.Setup(v => v.Validate(It.IsAny<UserDto>())).Returns(new ValidationResult());
-        _userRepositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<Guid>()))
+        _userRepositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result<Domain.Entities.User>.Ok(new Domain.Entities.User(Guid.NewGuid(), Guid.NewGuid(), "Existing User", "")));
 
         // Act
@@ -80,7 +80,7 @@ public class CreateUserHandlerTests
         Assert.False(result.Success);
         Assert.Equal("User already exists", result.ErrorMessage);
         _validatorMock.Verify(v => v.Validate(dto), Times.Once);
-        _userRepositoryMock.Verify(r => r.GetByIdAsync(dto.Id), Times.Once);
-        _userRepositoryMock.Verify(r => r.AddAsync(It.IsAny<Domain.Entities.User>()), Times.Never);
+        _userRepositoryMock.Verify(r => r.GetByIdAsync(dto.Id, It.IsAny<CancellationToken>()), Times.Once);
+        _userRepositoryMock.Verify(r => r.AddAsync(It.IsAny<Domain.Entities.User>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 }

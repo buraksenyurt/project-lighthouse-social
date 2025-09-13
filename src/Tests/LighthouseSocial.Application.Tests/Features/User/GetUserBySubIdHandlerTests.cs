@@ -22,7 +22,7 @@ public class GetUserBySubIdHandlerTests
         // Arrange
         var subId = Guid.NewGuid();
         var user = new Domain.Entities.User(Guid.NewGuid(), subId, "John Doe", "john.doe@plhsocial.com");
-        _userRepositoryMock.Setup(r => r.GetBySubIdAsync(subId)).ReturnsAsync(Result<Domain.Entities.User>.Ok(user));
+        _userRepositoryMock.Setup(r => r.GetBySubIdAsync(subId, It.IsAny<CancellationToken>())).ReturnsAsync(Result<Domain.Entities.User>.Ok(user));
 
         // Act
         var result = await _handler.HandleAsync(new GetUserBySubIdRequest(subId), CancellationToken.None);
@@ -35,7 +35,7 @@ public class GetUserBySubIdHandlerTests
         Assert.Equal(user.Fullname, result.Data.Fullname);
         Assert.Equal(user.Email, result.Data.Email);
 
-        _userRepositoryMock.Verify(r => r.GetBySubIdAsync(subId), Times.Once);
+        _userRepositoryMock.Verify(r => r.GetBySubIdAsync(subId, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -43,7 +43,7 @@ public class GetUserBySubIdHandlerTests
     {
         // Arrange
         var subId = Guid.NewGuid();
-        _userRepositoryMock.Setup(r => r.GetBySubIdAsync(subId)).ReturnsAsync(Result<Domain.Entities.User>.Fail("User not found"));
+        _userRepositoryMock.Setup(r => r.GetBySubIdAsync(subId, It.IsAny<CancellationToken>())).ReturnsAsync(Result<Domain.Entities.User>.Fail("User not found"));
 
         // Act
         var result = await _handler.HandleAsync(new GetUserBySubIdRequest(subId), CancellationToken.None);
@@ -51,7 +51,7 @@ public class GetUserBySubIdHandlerTests
         // Assert
         Assert.False(result.Success);
         Assert.Equal("User not found", result.ErrorMessage);
-        _userRepositoryMock.Verify(r => r.GetBySubIdAsync(subId), Times.Once);
+        _userRepositoryMock.Verify(r => r.GetBySubIdAsync(subId, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -66,6 +66,6 @@ public class GetUserBySubIdHandlerTests
         // Assert
         Assert.False(result.Success);
         Assert.Equal("UserId is required", result.ErrorMessage);
-        _userRepositoryMock.Verify(r => r.GetBySubIdAsync(It.IsAny<Guid>()), Times.Never);
+        _userRepositoryMock.Verify(r => r.GetBySubIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 }

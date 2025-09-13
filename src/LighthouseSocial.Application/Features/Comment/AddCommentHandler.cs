@@ -33,35 +33,35 @@ internal class AddCommentHandler(ICommentRepository repository,
             return Result<Guid>.Fail(errors);
         }
 
-        var userResult = await _userRepository.GetByIdAsync(dto.UserId);
+        var userResult = await _userRepository.GetByIdAsync(dto.UserId, cancellationToken);
         if (!userResult.Success)
             return Result<Guid>.Fail(userResult.ErrorMessage ?? "User does not exist");
 
-        var photoResult = await _photoRepository.GetByIdAsync(dto.PhotoId);
+        var photoResult = await _photoRepository.GetByIdAsync(dto.PhotoId, cancellationToken);
         if (!photoResult.Success)
             return Result<Guid>.Fail(photoResult.ErrorMessage!);
 
-        var existsResult = await _repository.ExistsForUserAsync(dto.UserId, dto.PhotoId);
+        var existsResult = await _repository.ExistsForUserAsync(dto.UserId, dto.PhotoId, cancellationToken);
         if (!existsResult.Success)
             return Result<Guid>.Fail(existsResult.ErrorMessage!);
 
         if (existsResult.Data!)
             return Result<Guid>.Fail("User has already commented...");
 
-        var isCommentCleanResult = await _commentAuditor.IsTextCleanAsync(dto.Text);
+        var isCommentCleanResult = await _commentAuditor.IsTextCleanAsync(dto.Text, cancellationToken);
         if (!isCommentCleanResult.Success)
         {
             return Result<Guid>.Fail(isCommentCleanResult.ErrorMessage!);
         }
 
-        if(!isCommentCleanResult.Data!)
+        if (!isCommentCleanResult.Data!)
         {
             return Result<Guid>.Fail("Comment text is not appropriate.");
         }
 
         var comment = new Domain.Entities.Comment(Guid.NewGuid(), dto.UserId, dto.PhotoId, dto.Text, Rating.FromValue(dto.Rating));
 
-        var result = await _repository.AddAsync(comment);
+        var result = await _repository.AddAsync(comment, cancellationToken);
         if (!result.Success)
         {
             return Result<Guid>.Fail(result.ErrorMessage!);

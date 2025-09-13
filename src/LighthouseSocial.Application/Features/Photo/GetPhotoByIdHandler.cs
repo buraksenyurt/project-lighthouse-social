@@ -12,7 +12,7 @@ internal class GetPhotoByIdHandler(IPhotoRepository photoRepository)
 {
     public async Task<Result<PhotoDto>> HandleAsync(GetPhotoByIdRequest request, CancellationToken cancellationToken)
     {
-        var photoResult = await photoRepository.GetByIdAsync(request.PhotoId);
+        var photoResult = await photoRepository.GetByIdAsync(request.PhotoId, cancellationToken);
 
         if (!photoResult.Success)
             return Result<PhotoDto>.Fail(photoResult.ErrorMessage!);

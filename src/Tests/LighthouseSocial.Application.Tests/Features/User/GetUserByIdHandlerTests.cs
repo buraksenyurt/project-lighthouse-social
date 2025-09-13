@@ -22,10 +22,10 @@ public class GetUserByIdHandlerTests
         // Arrange
         var userId = Guid.NewGuid();
         var user = new Domain.Entities.User(userId, Guid.NewGuid(), "John Doe", "john.doe@plhsocial.com");
-        _userRepositoryMock.Setup(r => r.GetByIdAsync(userId)).ReturnsAsync(Result<Domain.Entities.User>.Ok(user));
+        _userRepositoryMock.Setup(r => r.GetByIdAsync(userId, It.IsAny<CancellationToken>())).ReturnsAsync(Result<Domain.Entities.User>.Ok(user));
 
         // Act
-        var result = await _handler.HandleAsync(new GetUserByIdRequest(userId), CancellationToken.None);
+        var result = await _handler.HandleAsync(new GetUserByIdRequest(userId), It.IsAny<CancellationToken>());
 
         // Assert
         Assert.True(result.Success);
@@ -35,7 +35,7 @@ public class GetUserByIdHandlerTests
         Assert.Equal(user.Fullname, result.Data.Fullname);
         Assert.Equal(user.Email, result.Data.Email);
 
-        _userRepositoryMock.Verify(r => r.GetByIdAsync(userId), Times.Once);
+        _userRepositoryMock.Verify(r => r.GetByIdAsync(userId, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -43,15 +43,15 @@ public class GetUserByIdHandlerTests
     {
         // Arrange
         var userId = Guid.NewGuid();
-        _userRepositoryMock.Setup(r => r.GetByIdAsync(userId)).ReturnsAsync(Result<Domain.Entities.User>.Fail("User not found"));
+        _userRepositoryMock.Setup(r => r.GetByIdAsync(userId, It.IsAny<CancellationToken>())).ReturnsAsync(Result<Domain.Entities.User>.Fail("User not found"));
 
         // Act
-        var result = await _handler.HandleAsync(new GetUserByIdRequest(userId), CancellationToken.None);
+        var result = await _handler.HandleAsync(new GetUserByIdRequest(userId), It.IsAny<CancellationToken>());
 
         // Assert
         Assert.False(result.Success);
         Assert.Equal("User not found", result.ErrorMessage);
-        _userRepositoryMock.Verify(r => r.GetByIdAsync(userId), Times.Once);
+        _userRepositoryMock.Verify(r => r.GetByIdAsync(userId, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -61,11 +61,11 @@ public class GetUserByIdHandlerTests
         var userId = Guid.Empty;
 
         // Act
-        var result = await _handler.HandleAsync(new GetUserByIdRequest(userId), CancellationToken.None);
+        var result = await _handler.HandleAsync(new GetUserByIdRequest(userId), It.IsAny<CancellationToken>());
 
         // Assert
         Assert.False(result.Success);
         Assert.Equal("UserId is required", result.ErrorMessage);
-        _userRepositoryMock.Verify(r => r.GetByIdAsync(It.IsAny<Guid>()), Times.Never);
+        _userRepositoryMock.Verify(r => r.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 }

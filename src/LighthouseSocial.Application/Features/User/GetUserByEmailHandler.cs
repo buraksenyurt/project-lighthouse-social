@@ -16,7 +16,7 @@ internal class GetUserByEmailHandler(IUserRepository repository)
             return Result<UserDto>.Fail("Email is required");
         }
 
-        var userResult = await repository.GetByEmailAsync(request.Email);
+        var userResult = await repository.GetByEmailAsync(request.Email, cancellationToken);
         if (!userResult.Success)
         {
             return Result<UserDto>.Fail(userResult.ErrorMessage ?? "User not found");

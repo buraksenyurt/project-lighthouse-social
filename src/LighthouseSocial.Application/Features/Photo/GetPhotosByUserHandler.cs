@@ -12,7 +12,7 @@ internal class GetPhotosByUserHandler(IPhotoRepository photoRepository)
 {
     public async Task<Result<IEnumerable<PhotoDto>>> HandleAsync(GetPhotosByUserRequest request, CancellationToken cancellationToken)
     {
-        var photosResult = await photoRepository.GetByUserIdAsync(request.UserId);
+        var photosResult = await photoRepository.GetByUserIdAsync(request.UserId, cancellationToken);
 
         if (!photosResult.Success)
             return Result<IEnumerable<PhotoDto>>.Fail(photosResult.ErrorMessage!);

@@ -34,7 +34,7 @@ public class GetPhotosByUserHandlerTests
         new(Guid.NewGuid(), userId, lighthouseId2, "isengard.jpg", metadata2)
     };
 
-        _repositoryMock.Setup(r => r.GetByUserIdAsync(userId))
+        _repositoryMock.Setup(r => r.GetByUserIdAsync(userId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result<IEnumerable<Domain.Entities.Photo>>.Ok(photos));
 
         // Act
@@ -53,7 +53,7 @@ public class GetPhotosByUserHandlerTests
         Assert.Equal("Canon EOS Mark V", photosList[0].CameraType);
         Assert.Equal("Sony Alpha", photosList[1].CameraType);
 
-        _repositoryMock.Verify(r => r.GetByUserIdAsync(userId), Times.Once);
+        _repositoryMock.Verify(r => r.GetByUserIdAsync(userId, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -68,7 +68,7 @@ public class GetPhotosByUserHandlerTests
         new(Guid.NewGuid(), userId, lighthouseId, "ekinlik-adasi.jpg", metadata)
     };
 
-        _repositoryMock.Setup(r => r.GetByUserIdAsync(userId))
+        _repositoryMock.Setup(r => r.GetByUserIdAsync(userId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result<IEnumerable<Domain.Entities.Photo>>.Ok(photos));
 
         // Act
@@ -84,7 +84,7 @@ public class GetPhotosByUserHandlerTests
         Assert.Equal(userId, photo.UserId);
         Assert.Equal("Canon EOS R5", photo.CameraType);
 
-        _repositoryMock.Verify(r => r.GetByUserIdAsync(userId), Times.Once);
+        _repositoryMock.Verify(r => r.GetByUserIdAsync(userId, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -94,7 +94,7 @@ public class GetPhotosByUserHandlerTests
         var userId = Guid.NewGuid();
         var emptyPhotos = Enumerable.Empty<Domain.Entities.Photo>();
 
-        _repositoryMock.Setup(r => r.GetByUserIdAsync(userId))
+        _repositoryMock.Setup(r => r.GetByUserIdAsync(userId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result<IEnumerable<Domain.Entities.Photo>>.Ok(emptyPhotos));
 
         // Act
@@ -105,7 +105,7 @@ public class GetPhotosByUserHandlerTests
         Assert.Null(result.Data);
         Assert.Equal(Messages.Errors.Photo.NoPhotosFoundForUser, result.ErrorMessage);
 
-        _repositoryMock.Verify(r => r.GetByUserIdAsync(userId), Times.Once);
+        _repositoryMock.Verify(r => r.GetByUserIdAsync(userId, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -115,7 +115,7 @@ public class GetPhotosByUserHandlerTests
         var userId = Guid.NewGuid();
         var errorMessage = "Database connection failed";
 
-        _repositoryMock.Setup(r => r.GetByUserIdAsync(userId))
+        _repositoryMock.Setup(r => r.GetByUserIdAsync(userId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result<IEnumerable<Domain.Entities.Photo>>.Fail(errorMessage));
 
         // Act
@@ -126,7 +126,7 @@ public class GetPhotosByUserHandlerTests
         Assert.Null(result.Data);
         Assert.Equal(errorMessage, result.ErrorMessage);
 
-        _repositoryMock.Verify(r => r.GetByUserIdAsync(userId), Times.Once);
+        _repositoryMock.Verify(r => r.GetByUserIdAsync(userId, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -135,7 +135,7 @@ public class GetPhotosByUserHandlerTests
         // Arrange
         var emptyUserId = Guid.Empty;
 
-        _repositoryMock.Setup(r => r.GetByUserIdAsync(emptyUserId))
+        _repositoryMock.Setup(r => r.GetByUserIdAsync(emptyUserId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result<IEnumerable<Domain.Entities.Photo>>.Fail("Invalid user ID"));
 
         // Act
@@ -146,6 +146,6 @@ public class GetPhotosByUserHandlerTests
         Assert.Null(result.Data);
         Assert.Equal("Invalid user ID", result.ErrorMessage);
 
-        _repositoryMock.Verify(r => r.GetByUserIdAsync(emptyUserId), Times.Once);
+        _repositoryMock.Verify(r => r.GetByUserIdAsync(emptyUserId, It.IsAny<CancellationToken>()), Times.Once);
     }   
 }

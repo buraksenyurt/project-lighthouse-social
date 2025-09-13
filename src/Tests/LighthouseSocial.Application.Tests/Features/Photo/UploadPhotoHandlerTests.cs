@@ -37,7 +37,7 @@ public class UploadPhotoHandlerTests
             .Setup(v => v.Validate(It.IsAny<PhotoDto>()))
             .Returns(new ValidationResult());
 
-        _repositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.Photo>())).ReturnsAsync(Result.Ok());
+        _repositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.Photo>(), It.IsAny<CancellationToken>())).ReturnsAsync(Result.Ok());
 
         // Act
         var result = await _handler.HandleAsync(new UploadPhotoRequest(dto, stream), CancellationToken.None);
@@ -45,7 +45,7 @@ public class UploadPhotoHandlerTests
         // Assert
         Assert.True(result.Success);
         Assert.NotEqual(Guid.Empty, result.Data);
-        _repositoryMock.Verify(r => r.AddAsync(It.IsAny<Domain.Entities.Photo>()), Times.Once);
+        _repositoryMock.Verify(r => r.AddAsync(It.IsAny<Domain.Entities.Photo>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]

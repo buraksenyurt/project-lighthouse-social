@@ -14,7 +14,7 @@ internal class UpdateLighthouseHandler(ILighthouseRepository repository)
 {
     public async Task<Result> HandleAsync(UpdateLighthouseRequest request, CancellationToken cancellationToken)
     {
-        var existingLighthouseResult = await repository.GetByIdAsync(request.LighthouseId);
+        var existingLighthouseResult = await repository.GetByIdAsync(request.LighthouseId, cancellationToken);
         if (!existingLighthouseResult.Success)
         {
             return Result.Fail(existingLighthouseResult.ErrorMessage!);
@@ -34,7 +34,7 @@ internal class UpdateLighthouseHandler(ILighthouseRepository repository)
             coordinates
         );
 
-        var updateResult = await repository.UpdateAsync(updatedLighthouse);
+        var updateResult = await repository.UpdateAsync(updatedLighthouse, cancellationToken);
         if (!updateResult.Success)
         {
             return Result.Fail(updateResult.ErrorMessage!);

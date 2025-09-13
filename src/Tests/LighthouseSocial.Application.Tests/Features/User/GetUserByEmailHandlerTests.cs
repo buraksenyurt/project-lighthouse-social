@@ -22,10 +22,10 @@ public class GetUserByEmailHandlerTests
         // Arrange
         var email = "john.doe@plhsocial.com";
         var user = new Domain.Entities.User(Guid.NewGuid(), Guid.NewGuid(), "John Doe", email);
-        _userRepositoryMock.Setup(r => r.GetByEmailAsync(email)).ReturnsAsync(Result<Domain.Entities.User>.Ok(user));
+        _userRepositoryMock.Setup(r => r.GetByEmailAsync(email, It.IsAny<CancellationToken>())).ReturnsAsync(Result<Domain.Entities.User>.Ok(user));
 
         // Act
-        var result = await _handler.HandleAsync(new GetUserByEmailRequest(email), CancellationToken.None);
+        var result = await _handler.HandleAsync(new GetUserByEmailRequest(email), It.IsAny<CancellationToken>());
 
         // Assert
         Assert.True(result.Success);
@@ -35,7 +35,7 @@ public class GetUserByEmailHandlerTests
         Assert.Equal(user.Fullname, result.Data.Fullname);
         Assert.Equal(user.Email, result.Data.Email);
 
-        _userRepositoryMock.Verify(r => r.GetByEmailAsync(email), Times.Once);
+        _userRepositoryMock.Verify(r => r.GetByEmailAsync(email, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -45,12 +45,12 @@ public class GetUserByEmailHandlerTests
         var email = string.Empty;
 
         // Act
-        var result = await _handler.HandleAsync(new GetUserByEmailRequest(email), CancellationToken.None);
+        var result = await _handler.HandleAsync(new GetUserByEmailRequest(email), It.IsAny<CancellationToken>());
 
         // Assert
         Assert.False(result.Success);
         Assert.Equal("Email is required", result.ErrorMessage);
-        _userRepositoryMock.Verify(r => r.GetByEmailAsync(It.IsAny<string>()), Times.Never);
+        _userRepositoryMock.Verify(r => r.GetByEmailAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 
     [Fact]
@@ -58,14 +58,14 @@ public class GetUserByEmailHandlerTests
     {
         // Arrange
         var email = "john.doe@plhsocial.com";
-        _userRepositoryMock.Setup(r => r.GetByEmailAsync(email)).ReturnsAsync(Result<Domain.Entities.User>.Fail("User not found"));
+        _userRepositoryMock.Setup(r => r.GetByEmailAsync(email, It.IsAny<CancellationToken>())).ReturnsAsync(Result<Domain.Entities.User>.Fail("User not found"));
 
         // Act
-        var result = await _handler.HandleAsync(new GetUserByEmailRequest(email), CancellationToken.None);
+        var result = await _handler.HandleAsync(new GetUserByEmailRequest(email), It.IsAny<CancellationToken>());
 
         // Assert
         Assert.False(result.Success);
         Assert.Equal("User not found", result.ErrorMessage);
-        _userRepositoryMock.Verify(r => r.GetByEmailAsync(email), Times.Once);
+        _userRepositoryMock.Verify(r => r.GetByEmailAsync(email, It.IsAny<CancellationToken>()), Times.Once);
     }
 }

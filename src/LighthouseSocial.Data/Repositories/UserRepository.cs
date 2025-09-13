@@ -10,7 +10,7 @@ public class UserRepository(IDbConnectionFactory connFactory, ILogger<UserReposi
 {
     private readonly IDbConnectionFactory _connFactory = connFactory;
 
-    public async Task<Result> AddAsync(Domain.Entities.User user)
+    public async Task<Result> AddAsync(Domain.Entities.User user, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -37,7 +37,7 @@ public class UserRepository(IDbConnectionFactory connFactory, ILogger<UserReposi
         }
     }
 
-    public async Task<Result<Domain.Entities.User>> GetByIdAsync(Guid userId)
+    public async Task<Result<Domain.Entities.User>> GetByIdAsync(Guid userId, CancellationToken cancellationToken=default)
     {
         try
         {
@@ -60,7 +60,7 @@ public class UserRepository(IDbConnectionFactory connFactory, ILogger<UserReposi
         }
     }
 
-    public async Task<Result<Domain.Entities.User>> GetBySubIdAsync(Guid subId)
+    public async Task<Result<Domain.Entities.User>> GetBySubIdAsync(Guid subId, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -82,7 +82,7 @@ public class UserRepository(IDbConnectionFactory connFactory, ILogger<UserReposi
         }
     }
 
-    public async Task<Result<Domain.Entities.User>> GetByEmailAsync(string email)
+    public async Task<Result<Domain.Entities.User>> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
     {
         try
         {

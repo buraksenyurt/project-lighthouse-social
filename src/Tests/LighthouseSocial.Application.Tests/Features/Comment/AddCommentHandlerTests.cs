@@ -41,10 +41,10 @@ public class AddCommentHandlerTests
         var dto = new CommentDto(Guid.NewGuid(), Guid.NewGuid(), "Lovely photo", 5);
 
         _validatorMock.Setup(v => v.Validate(It.IsAny<CommentDto>())).Returns(new ValidationResult());
-        _userRepositoryMock.Setup(u => u.GetByIdAsync(It.IsAny<Guid>()))
+        _userRepositoryMock.Setup(u => u.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
        .ReturnsAsync(Result<Domain.Entities.User>.Ok(new Domain.Entities.User(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid().ToString(), "tester")));
 
-        _photoRepositoryMock.Setup(p => p.GetByIdAsync(It.IsAny<Guid>()))
+        _photoRepositoryMock.Setup(p => p.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(Result<Domain.Entities.Photo>.Ok(new Domain.Entities.Photo(
                 Guid.NewGuid(),
                 Guid.NewGuid(),
@@ -62,7 +62,7 @@ public class AddCommentHandlerTests
             .Returns(Task.FromResult(Result.Ok()));
 
         // Act
-        var result = await _handler.HandleAsync(new AddCommentRequest(dto), CancellationToken.None);
+        var result = await _handler.HandleAsync(new AddCommentRequest(dto), It.IsAny<CancellationToken>());
 
         // Assert
         Assert.True(result.Success);
@@ -89,7 +89,7 @@ public class AddCommentHandlerTests
             .Returns(new ValidationResult(validationFailures));
 
         // Act
-        var result = await _handler.HandleAsync(new AddCommentRequest(dto), CancellationToken.None);
+        var result = await _handler.HandleAsync(new AddCommentRequest(dto), It.IsAny<CancellationToken>());
 
         // Assert
         Assert.False(result.Success);
@@ -106,10 +106,10 @@ public class AddCommentHandlerTests
         var dto = new CommentDto(Guid.NewGuid(), Guid.NewGuid(), "Lovely photo", 5);
 
         _validatorMock.Setup(v => v.Validate(It.IsAny<CommentDto>())).Returns(new ValidationResult());
-        _userRepositoryMock.Setup(u => u.GetByIdAsync(It.IsAny<Guid>()))
+        _userRepositoryMock.Setup(u => u.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
        .ReturnsAsync(Result<Domain.Entities.User>.Ok(new Domain.Entities.User(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid().ToString(), "tester")));
 
-        _photoRepositoryMock.Setup(p => p.GetByIdAsync(It.IsAny<Guid>()))
+        _photoRepositoryMock.Setup(p => p.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(Result<Domain.Entities.Photo>.Ok(new Domain.Entities.Photo(
                 Guid.NewGuid(),
                 Guid.NewGuid(),
@@ -127,7 +127,7 @@ public class AddCommentHandlerTests
             .Returns(Task.FromResult(Result.Fail("Database error")));
 
         // Act
-        var result = await _handler.HandleAsync(new AddCommentRequest(dto), CancellationToken.None);
+        var result = await _handler.HandleAsync(new AddCommentRequest(dto), It.IsAny<CancellationToken>());
 
         // Assert
         Assert.False(result.Success);

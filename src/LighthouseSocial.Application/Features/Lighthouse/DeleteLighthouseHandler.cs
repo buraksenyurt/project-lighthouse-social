@@ -13,18 +13,18 @@ internal class DeleteLighthouseHandler(ILighthouseRepository repository)
 
     public async Task<Result> HandleAsync(DeleteLighthouseRequest request, CancellationToken cancellationToken)
     {
-        var lighthouseResult = await _repository.GetByIdAsync(request.LighthouseId);
+        var lighthouseResult = await _repository.GetByIdAsync(request.LighthouseId, cancellationToken);
         if (!lighthouseResult.Success)
         {
             return Result.Fail(lighthouseResult.ErrorMessage!);
         }
 
-        var deleteResult = await _repository.DeleteAsync(request.LighthouseId);
+        var deleteResult = await _repository.DeleteAsync(request.LighthouseId, cancellationToken);
         if (!deleteResult.Success)
         {
             return Result.Fail(deleteResult.ErrorMessage!);
         }
-        
+
         return Result.Ok();
     }
 }

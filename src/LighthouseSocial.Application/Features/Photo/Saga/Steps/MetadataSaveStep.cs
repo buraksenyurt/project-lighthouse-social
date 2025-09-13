@@ -21,8 +21,8 @@ public class MetadataSaveStep(IPhotoRepository photoRepository, ILogger<Metadata
 
             data.PhotoEntity.SetFileName(data.FileName);
 
-            var result = await photoRepository.AddAsync(data.PhotoEntity);
-            if(!result.Success)
+            var result = await photoRepository.AddAsync(data.PhotoEntity, cancellationToken);
+            if (!result.Success)
             {
                 logger.LogError("Metadata save failed for PhotoId: {PhotoId}, Error: {Error}", data.PhotoId, result.ErrorMessage);
                 return Result<PhotoUploadSagaData>.Fail($"Metadata save failed: {result.ErrorMessage}");
@@ -35,7 +35,7 @@ public class MetadataSaveStep(IPhotoRepository photoRepository, ILogger<Metadata
             return Result<PhotoUploadSagaData>.Ok(data);
 
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             logger.LogError(ex, "Metadata save failed for PhotoId: {PhotoId}", data.PhotoId);
             data.LastException = ex;
@@ -54,8 +54,8 @@ public class MetadataSaveStep(IPhotoRepository photoRepository, ILogger<Metadata
         {
             logger.LogInformation("Starting metadata deletion for PhotoId: {PhotoId}", data.PhotoId);
 
-            var result = await photoRepository.DeleteAsync(data.PhotoId);
-            if(!result.Success)
+            var result = await photoRepository.DeleteAsync(data.PhotoId, cancellationToken);
+            if (!result.Success)
             {
                 logger.LogError("Metadata deletion failed for PhotoId: {PhotoId}, Error: {Error}", data.PhotoId, result.ErrorMessage);
                 return;

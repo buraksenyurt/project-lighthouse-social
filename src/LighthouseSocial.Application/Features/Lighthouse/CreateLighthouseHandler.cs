@@ -26,8 +26,8 @@ internal class CreateLighthouseHandler(ILighthouseRepository repository, ICountr
             return Result<Guid>.Fail(errors);
         }
 
-        var countryResult = await _countryDataReader.GetByIdAsync(request.Lighthouse.CountryId);
-        if(!countryResult.Success)
+        var countryResult = await _countryDataReader.GetByIdAsync(request.Lighthouse.CountryId, cancellationToken);
+        if (!countryResult.Success)
         {
             return Result<Guid>.Fail(countryResult.ErrorMessage!);
         }
@@ -36,8 +36,8 @@ internal class CreateLighthouseHandler(ILighthouseRepository repository, ICountr
         var location = new Coordinates(request.Lighthouse.Latitude, request.Lighthouse.Longitude);
         var lighthouse = new Domain.Entities.Lighthouse(request.Lighthouse.Id, request.Lighthouse.Name, country, location);
 
-        var addResult = await _repository.AddAsync(lighthouse);
-        if(!addResult.Success)
+        var addResult = await _repository.AddAsync(lighthouse, cancellationToken);
+        if (!addResult.Success)
         {
             return Result<Guid>.Fail(addResult.ErrorMessage!);
         }

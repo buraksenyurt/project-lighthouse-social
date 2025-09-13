@@ -17,7 +17,7 @@ internal class GetUserByIdHandler(IUserRepository repository)
             return Result<UserDto>.Fail("UserId is required");
         }
 
-        var userResult = await repository.GetByIdAsync(request.UserId);
+        var userResult = await repository.GetByIdAsync(request.UserId, cancellationToken);
         if (!userResult.Success)
         {
             return Result<UserDto>.Fail(userResult.ErrorMessage ?? "User not found");

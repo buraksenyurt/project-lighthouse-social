@@ -62,7 +62,7 @@ public class CreateLighthouseHandlerTests
             .Returns(new ValidationResult(validationFailures));
 
         // Act
-        var result = await _handler.HandleAsync(new CreateLighthouseRequest(dto), CancellationToken.None);
+        var result = await _handler.HandleAsync(new CreateLighthouseRequest(dto), It.IsAny<CancellationToken>());
 
         // Assert
         Assert.False(result.Success);

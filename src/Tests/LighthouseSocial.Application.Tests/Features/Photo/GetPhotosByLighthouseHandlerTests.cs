@@ -31,7 +31,7 @@ public class GetPhotosByLighthouseHandlerTests
 
         };
 
-        _repositoryMock.Setup(r => r.GetByLighthouseIdAsync(lighthouseId))
+        _repositoryMock.Setup(r => r.GetByLighthouseIdAsync(lighthouseId, It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(Result<IEnumerable<Domain.Entities.Photo>>.Ok(photos)));
 
         // Act
@@ -51,7 +51,7 @@ public class GetPhotosByLighthouseHandlerTests
         Assert.Equal(photos[0].Metadata.Resolution, capeVerdePhoto.Resolution);
         Assert.Equal(photos[0].Metadata.Lens, capeVerdePhoto.Lens);
 
-        _repositoryMock.Verify(r => r.GetByLighthouseIdAsync(lighthouseId), Times.Once);
+        _repositoryMock.Verify(r => r.GetByLighthouseIdAsync(lighthouseId, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -61,7 +61,7 @@ public class GetPhotosByLighthouseHandlerTests
         var lighthouseId = Guid.NewGuid();
         var emptyPhotos = new List<Domain.Entities.Photo>();
 
-        _repositoryMock.Setup(r => r.GetByLighthouseIdAsync(lighthouseId))
+        _repositoryMock.Setup(r => r.GetByLighthouseIdAsync(lighthouseId, It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(Result<IEnumerable<Domain.Entities.Photo>>.Ok(emptyPhotos)));
 
         // Act
@@ -71,7 +71,7 @@ public class GetPhotosByLighthouseHandlerTests
         Assert.False(result.Success);
         Assert.Null(result.Data);
         Assert.Equal(Messages.Errors.Photo.NoPhotosFoundForLighthouse, result.ErrorMessage);
-        _repositoryMock.Verify(r => r.GetByLighthouseIdAsync(lighthouseId), Times.Once);
+        _repositoryMock.Verify(r => r.GetByLighthouseIdAsync(lighthouseId, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -80,7 +80,7 @@ public class GetPhotosByLighthouseHandlerTests
         // Arrange
         var lighthouseId = Guid.NewGuid();
 
-        _repositoryMock.Setup(r => r.GetByLighthouseIdAsync(lighthouseId))
+        _repositoryMock.Setup(r => r.GetByLighthouseIdAsync(lighthouseId, It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(Result<IEnumerable<Domain.Entities.Photo>>.Fail("Database error")));
 
         // Act
@@ -90,6 +90,6 @@ public class GetPhotosByLighthouseHandlerTests
         Assert.False(result.Success);
         Assert.Null(result.Data);
         Assert.Equal("Database error", result.ErrorMessage);
-        _repositoryMock.Verify(r => r.GetByLighthouseIdAsync(lighthouseId), Times.Once);
+        _repositoryMock.Verify(r => r.GetByLighthouseIdAsync(lighthouseId, It.IsAny<CancellationToken>()), Times.Once);
     }
 }

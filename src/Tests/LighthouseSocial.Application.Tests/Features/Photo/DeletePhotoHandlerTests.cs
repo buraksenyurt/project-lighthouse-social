@@ -35,13 +35,13 @@ public class DeletePhotoHandlerTests
             new PhotoMetadata("50mm", "1920x1080", "Nikon", DateTime.Now)
         );
 
-        _repositoryMock.Setup(r => r.GetByIdAsync(photoId))
+        _repositoryMock.Setup(r => r.GetByIdAsync(photoId, It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(Result<Domain.Entities.Photo>.Ok(photo)));
 
         _storageServiceMock.Setup(s => s.DeleteAsync(photo.Filename, It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result.Ok());
 
-        _repositoryMock.Setup(r => r.DeleteAsync(photoId))
+        _repositoryMock.Setup(r => r.DeleteAsync(photoId, It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(Result.Ok()));
 
         // Act
@@ -49,9 +49,9 @@ public class DeletePhotoHandlerTests
 
         // Assert
         Assert.True(result.Success);
-        _repositoryMock.Verify(r => r.GetByIdAsync(photoId), Times.Once);
+        _repositoryMock.Verify(r => r.GetByIdAsync(photoId, It.IsAny<CancellationToken>()), Times.Once);
         _storageServiceMock.Verify(s => s.DeleteAsync(photo.Filename, It.IsAny<CancellationToken>()), Times.Once);
-        _repositoryMock.Verify(r => r.DeleteAsync(photoId), Times.Once);
+        _repositoryMock.Verify(r => r.DeleteAsync(photoId, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -69,13 +69,13 @@ public class DeletePhotoHandlerTests
                 new PhotoMetadata("50mm", "1920x1080", "Nikon", DateTime.Now)
             );
 
-        _repositoryMock.Setup(r => r.GetByIdAsync(photoId))
+        _repositoryMock.Setup(r => r.GetByIdAsync(photoId, It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(Result<Domain.Entities.Photo>.Ok(photo)));
 
         _storageServiceMock.Setup(s => s.DeleteAsync(photo.Filename, It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result.Ok());
 
-        _repositoryMock.Setup(r => r.DeleteAsync(photoId))
+        _repositoryMock.Setup(r => r.DeleteAsync(photoId, It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(Result.Fail(Messages.Errors.Photo.FailedToDeletePhoto)));
 
         // Act
@@ -84,9 +84,9 @@ public class DeletePhotoHandlerTests
         // Assert
         Assert.False(result.Success);
         Assert.Equal(Messages.Errors.Photo.FailedToDeletePhoto, result.ErrorMessage);
-        _repositoryMock.Verify(r => r.GetByIdAsync(photoId), Times.Once);
+        _repositoryMock.Verify(r => r.GetByIdAsync(photoId, It.IsAny<CancellationToken>()), Times.Once);
         _storageServiceMock.Verify(s => s.DeleteAsync(photo.Filename, It.IsAny<CancellationToken>()), Times.Once);
-        _repositoryMock.Verify(r => r.DeleteAsync(photoId), Times.Once);
+        _repositoryMock.Verify(r => r.DeleteAsync(photoId, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -94,7 +94,7 @@ public class DeletePhotoHandlerTests
     {// Arrange
         var photoId = Guid.NewGuid();
 
-        _repositoryMock.Setup(r => r.GetByIdAsync(photoId))
+        _repositoryMock.Setup(r => r.GetByIdAsync(photoId, It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(Result<Domain.Entities.Photo>.Fail(Messages.Errors.Photo.PhotoNotFound)));
 
         // Act
@@ -103,8 +103,8 @@ public class DeletePhotoHandlerTests
         // Assert
         Assert.False(result.Success);
         Assert.Equal(Messages.Errors.Photo.PhotoNotFound, result.ErrorMessage);
-        _repositoryMock.Verify(r => r.GetByIdAsync(photoId), Times.Once);
+        _repositoryMock.Verify(r => r.GetByIdAsync(photoId, It.IsAny<CancellationToken>()), Times.Once);
         _storageServiceMock.Verify(s => s.DeleteAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Never);
-        _repositoryMock.Verify(r => r.DeleteAsync(It.IsAny<Guid>()), Times.Never);
+        _repositoryMock.Verify(r => r.DeleteAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 }

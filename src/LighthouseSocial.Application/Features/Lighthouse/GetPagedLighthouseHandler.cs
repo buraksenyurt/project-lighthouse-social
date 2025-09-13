@@ -12,8 +12,8 @@ internal class GetPagedLighthouseHandler(ILighthouseRepository lighthouseReposit
 {
     public async Task<Result<PagedResult<LighthouseDto>>> HandleAsync(GetPagedLighthouseRequest request, CancellationToken cancellationToken)
     {
-        var pagedResult = await lighthouseRepository.GetPagedAsync(request.PagingDto.Skip, request.PagingDto.PageSize);
-        
+        var pagedResult = await lighthouseRepository.GetPagedAsync(request.PagingDto.Skip, request.PagingDto.PageSize, cancellationToken);
+
         if (!pagedResult.Success)
         {
             return Result<PagedResult<LighthouseDto>>.Fail(pagedResult.ErrorMessage!);

@@ -13,7 +13,7 @@ internal class GetCommentsByPhotoHandler(ICommentRepository repository)
 
     public async Task<Result<IEnumerable<CommentDto>>> HandleAsync(GetCommentsByPhotoRequest request, CancellationToken cancellationToken)
     {
-        var commentsResult = await _repository.GetByPhotoIdAsync(request.PhotoId);
+        var commentsResult = await _repository.GetByPhotoIdAsync(request.PhotoId, cancellationToken);
         if (!commentsResult.Success)
         {
             return Result<IEnumerable<CommentDto>>.Fail(commentsResult.ErrorMessage!);

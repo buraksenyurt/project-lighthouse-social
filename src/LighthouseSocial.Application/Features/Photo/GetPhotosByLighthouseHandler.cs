@@ -12,7 +12,7 @@ internal class GetPhotosByLighthouseHandler(IPhotoRepository photoRepository)
 {
     public async Task<Result<IEnumerable<PhotoDto>>> HandleAsync(GetPhotosByLighthouseRequest request, CancellationToken cancellationToken)
     {
-        var photosResult = await photoRepository.GetByLighthouseIdAsync(request.LighthouseId);
+        var photosResult = await photoRepository.GetByLighthouseIdAsync(request.LighthouseId, cancellationToken);
         if (!photosResult.Success)
         {
             return Result<IEnumerable<PhotoDto>>.Fail(photosResult.ErrorMessage!);

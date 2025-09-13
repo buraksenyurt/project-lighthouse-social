@@ -13,7 +13,7 @@ public class PhotoRepository(IDbConnectionFactory connFactory, ILogger<PhotoRepo
 {
     private readonly IDbConnectionFactory _connFactory = connFactory;
 
-    public async Task<Result> AddAsync(Photo photo)
+    public async Task<Result> AddAsync(Photo photo, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -49,7 +49,7 @@ public class PhotoRepository(IDbConnectionFactory connFactory, ILogger<PhotoRepo
         }
     }
 
-    public async Task<Result> DeleteAsync(Guid id)
+    public async Task<Result> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -70,7 +70,7 @@ public class PhotoRepository(IDbConnectionFactory connFactory, ILogger<PhotoRepo
         }
     }
 
-    public async Task<Result<Photo>> GetByIdAsync(Guid id)
+    public async Task<Result<Photo>> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -95,7 +95,7 @@ public class PhotoRepository(IDbConnectionFactory connFactory, ILogger<PhotoRepo
         }
     }
 
-    public async Task<Result<IEnumerable<Photo>>> GetByLighthouseIdAsync(Guid lighthouseId)
+    public async Task<Result<IEnumerable<Photo>>> GetByLighthouseIdAsync(Guid lighthouseId, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -119,7 +119,7 @@ public class PhotoRepository(IDbConnectionFactory connFactory, ILogger<PhotoRepo
         }
     }
 
-    public async Task<Result<IEnumerable<Photo>>> GetByUserIdAsync(Guid userId)
+    public async Task<Result<IEnumerable<Photo>>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken = default)
     {
         try
         {

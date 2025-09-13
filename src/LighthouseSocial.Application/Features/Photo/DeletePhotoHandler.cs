@@ -16,14 +16,14 @@ internal class DeletePhotoHandler(
 
     public async Task<Result> HandleAsync(DeletePhotoRequest request, CancellationToken cancellationToken)
     {
-        var photoResult = await _repository.GetByIdAsync(request.PhotoId);
+        var photoResult = await _repository.GetByIdAsync(request.PhotoId, cancellationToken);
         if (!photoResult.Success)
             return Result.Fail(photoResult.ErrorMessage!);
 
         var photo = photoResult.Data!;
-        await _storage.DeleteAsync(photo.Filename);
+        await _storage.DeleteAsync(photo.Filename, cancellationToken);
 
-        var deleteResult = await _repository.DeleteAsync(request.PhotoId);
+        var deleteResult = await _repository.DeleteAsync(request.PhotoId, cancellationToken);
         if (!deleteResult.Success)
         {
             return Result.Fail(deleteResult.ErrorMessage!);

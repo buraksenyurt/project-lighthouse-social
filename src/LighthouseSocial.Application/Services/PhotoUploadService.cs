@@ -15,7 +15,7 @@ public class PhotoUploadService(PhotoUploadSaga photoUploadSaga, ILogger<PhotoUp
         try
         {
             logger.LogInformation("Starting photo upload for PhotoId {PhotoId}", dto.Id);
-            var result = await photoUploadSaga.ExecuteAsync(new UploadPhotoRequest(dto, fileContent), CancellationToken.None);
+            var result = await photoUploadSaga.ExecuteAsync(new UploadPhotoRequest(dto, fileContent));
 
             if (!result.Success)
             {

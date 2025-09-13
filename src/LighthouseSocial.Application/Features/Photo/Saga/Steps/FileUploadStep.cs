@@ -16,8 +16,8 @@ public class FileUploadStep(IPhotoStorageService photoStorageService, ILogger<Fi
 
             data.FileStream.Position = 0;
 
-            var fileNameResult = await photoStorageService.SaveAsync(data.FileStream, data.FileName);
-            if(!fileNameResult.Success)
+            var fileNameResult = await photoStorageService.SaveAsync(data.FileStream, data.FileName, cancellationToken);
+            if (!fileNameResult.Success)
             {
                 logger.LogError("File upload failed for PhotoId: {PhotoId}, Error: {Error}", data.PhotoId, fileNameResult.ErrorMessage);
                 return Result<PhotoUploadSagaData>.Fail($"File upload failed: {fileNameResult.ErrorMessage}");
@@ -49,7 +49,7 @@ public class FileUploadStep(IPhotoStorageService photoStorageService, ILogger<Fi
         {
             logger.LogInformation("Starting file deletion for PhotoId: {PhotoId}, FileName: {FileName}", data.PhotoId, data.FileName);
 
-            await photoStorageService.DeleteAsync(data.FileName);
+            await photoStorageService.DeleteAsync(data.FileName, cancellationToken);
             data.IsFileUploaded = false;
 
             logger.LogInformation("File deletion completed for PhotoId: {PhotoId}, FileName: {FileName}", data.PhotoId, data.FileName);

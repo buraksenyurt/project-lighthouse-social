@@ -29,7 +29,7 @@ internal class UploadPhotoHandler(
             return Result<Guid>.Fail(errors);
         }
 
-        var saveResult = await _storageService.SaveAsync(request.Content, dto.FileName);
+        var saveResult = await _storageService.SaveAsync(request.Content, dto.FileName, cancellationToken);
         if (!saveResult.Success)
         {
             return Result<Guid>.Fail(saveResult.ErrorMessage!);
@@ -44,7 +44,7 @@ internal class UploadPhotoHandler(
 
         var photo = new Domain.Entities.Photo(dto.Id, dto.UserId, dto.LighthouseId, saveResult.Data!, metadata);
 
-        var result = await _repository.AddAsync(photo);
+        var result = await _repository.AddAsync(photo, cancellationToken);
         if (!result.Success)
         {
             return Result<Guid>.Fail(result.ErrorMessage!);
