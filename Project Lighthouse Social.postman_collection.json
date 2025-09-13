@@ -497,7 +497,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:5072/api/photo/upload",
+							"raw": "http://localhost:5072/api/photoupload/upload",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -505,7 +505,7 @@
 							"port": "5072",
 							"path": [
 								"api",
-								"photo",
+								"photoupload",
 								"upload"
 							]
 						}
