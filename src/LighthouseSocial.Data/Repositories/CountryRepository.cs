@@ -12,7 +12,7 @@ public class CountryRepository(IDbConnectionFactory connFactory, ILogger<Country
 {
     private readonly IDbConnectionFactory _connFactory = connFactory;
 
-    public async Task<Result<IReadOnlyList<Country>>> GetAllAsync()
+    public async Task<Result<IReadOnlyList<Country>>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         try
         {
@@ -35,7 +35,7 @@ public class CountryRepository(IDbConnectionFactory connFactory, ILogger<Country
         }
     }
 
-    public async Task<Result<Country>> GetByIdAsync(int id)
+    public async Task<Result<Country>> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {
         try
         {

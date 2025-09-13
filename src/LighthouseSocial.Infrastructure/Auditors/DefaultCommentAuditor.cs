@@ -8,7 +8,7 @@ public class DefaultCommentAuditor(ILogger<DefaultCommentAuditor> logger)
     : ICommentAuditor
 {
     private static readonly string[] BannedWords = ["badword", "racist", "curse"];
-    public Task<Result<bool>> IsTextCleanAsync(string text)
+    public Task<Result<bool>> IsTextCleanAsync(string text, CancellationToken cancellationToken = default)
     {
         try
         {

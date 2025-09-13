@@ -8,7 +8,7 @@ namespace LighthouseSocial.Infrastructure.Auditors;
 public class ExternalCommentAuditor(HttpClient httpClient, ILogger<ExternalCommentAuditor> logger)
     : ICommentAuditor
 {
-    public async Task<Result<bool>> IsTextCleanAsync(string text)
+    public async Task<Result<bool>> IsTextCleanAsync(string text, CancellationToken cancellationToken = default)
     {
         try
         {

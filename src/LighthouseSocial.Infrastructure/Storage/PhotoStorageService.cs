@@ -14,7 +14,7 @@ public class PhotoStorageService
     private readonly IMinioClient _minioClient;
     private readonly string _bucket;
     private readonly ILogger<PhotoStorageService> _logger;
-    public PhotoStorageService(IOptions<MinioSettings> options, CachedConfigurationService configurationService, ILogger<PhotoStorageService> logger)
+    public PhotoStorageService(IOptions<MinioSettings> options, CachedConfigurationService configurationService, ILogger<PhotoStorageService> logger, CancellationToken cancellationToken = default)
     {
         _logger = logger;
         var credentials = configurationService.GetMinioCredentialsAsync().GetAwaiter().GetResult();
@@ -28,7 +28,7 @@ public class PhotoStorageService
             .Build();
         _logger = logger;
     }
-    public async Task<Result> DeleteAsync(string filePath)
+    public async Task<Result> DeleteAsync(string filePath, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -47,7 +47,7 @@ public class PhotoStorageService
         }
     }
 
-    public async Task<Result<Stream>> GetAsync(string filePath)
+    public async Task<Result<Stream>> GetAsync(string filePath, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -90,7 +90,7 @@ public class PhotoStorageService
         }
     }
 
-    public async Task<Result<string>> SaveAsync(Stream content, string fileName)
+    public async Task<Result<string>> SaveAsync(Stream content, string fileName, CancellationToken cancellationToken = default)
     {
         try
         {

@@ -10,7 +10,7 @@ public class CommentRepository(IDbConnectionFactory connFactory, ILogger<Comment
     : ICommentRepository
 {
     private readonly IDbConnectionFactory _connFactory = connFactory;
-    public async Task<Result> AddAsync(Comment comment)
+    public async Task<Result> AddAsync(Comment comment, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -39,7 +39,7 @@ public class CommentRepository(IDbConnectionFactory connFactory, ILogger<Comment
         }
     }
 
-    public async Task<Result> DeleteAsync(Guid commentId)
+    public async Task<Result> DeleteAsync(Guid commentId, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -58,7 +58,7 @@ public class CommentRepository(IDbConnectionFactory connFactory, ILogger<Comment
         }
     }
 
-    public async Task<Result<bool>> ExistsForUserAsync(Guid userId, Guid photoId)
+    public async Task<Result<bool>> ExistsForUserAsync(Guid userId, Guid photoId, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -78,7 +78,7 @@ public class CommentRepository(IDbConnectionFactory connFactory, ILogger<Comment
         }
     }
 
-    public async Task<Result<Comment>> GetByIdAsync(Guid commentId)
+    public async Task<Result<Comment>> GetByIdAsync(Guid commentId, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -100,7 +100,7 @@ public class CommentRepository(IDbConnectionFactory connFactory, ILogger<Comment
         }
     }
 
-    public async Task<Result<IEnumerable<Comment>>> GetByPhotoIdAsync(Guid photoId)
+    public async Task<Result<IEnumerable<Comment>>> GetByPhotoIdAsync(Guid photoId, CancellationToken cancellationToken = default)
     {
         try
         {

@@ -30,10 +30,10 @@ public class DeleteCommentHandlerTests
             Rating.FromValue(5)
         );
 
-        _repositoryMock.Setup(r => r.GetByIdAsync(commentId))
+        _repositoryMock.Setup(r => r.GetByIdAsync(commentId, It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(Result<Domain.Entities.Comment>.Ok(comment)));
 
-        _repositoryMock.Setup(r => r.DeleteAsync(commentId))
+        _repositoryMock.Setup(r => r.DeleteAsync(commentId, It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(Result.Ok()));
 
         // Act
@@ -41,8 +41,8 @@ public class DeleteCommentHandlerTests
 
         // Assert
         Assert.True(result.Success);
-        _repositoryMock.Verify(r => r.GetByIdAsync(commentId), Times.Once);
-        _repositoryMock.Verify(r => r.DeleteAsync(commentId), Times.Once);
+        _repositoryMock.Verify(r => r.GetByIdAsync(commentId, It.IsAny<CancellationToken>()), Times.Once);
+        _repositoryMock.Verify(r => r.DeleteAsync(commentId, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -58,10 +58,10 @@ public class DeleteCommentHandlerTests
             Rating.FromValue(4)
         );
 
-        _repositoryMock.Setup(r => r.GetByIdAsync(commentId))
+        _repositoryMock.Setup(r => r.GetByIdAsync(commentId, It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(Result<Domain.Entities.Comment>.Ok(comment)));
 
-        _repositoryMock.Setup(r => r.DeleteAsync(commentId))
+        _repositoryMock.Setup(r => r.DeleteAsync(commentId, It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(Result.Fail(Messages.Errors.Comment.FailedToDeleteComment)));
 
         // Act
@@ -70,8 +70,8 @@ public class DeleteCommentHandlerTests
         // Assert
         Assert.False(result.Success);
         Assert.Equal(Messages.Errors.Comment.FailedToDeleteComment, result.ErrorMessage);
-        _repositoryMock.Verify(r => r.GetByIdAsync(commentId), Times.Once);
-        _repositoryMock.Verify(r => r.DeleteAsync(commentId), Times.Once);
+        _repositoryMock.Verify(r => r.GetByIdAsync(commentId, It.IsAny<CancellationToken>()), Times.Once);
+        _repositoryMock.Verify(r => r.DeleteAsync(commentId, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -80,7 +80,7 @@ public class DeleteCommentHandlerTests
         // Arrange
         var commentId = Guid.NewGuid();
 
-        _repositoryMock.Setup(r => r.GetByIdAsync(commentId))
+        _repositoryMock.Setup(r => r.GetByIdAsync(commentId, It.IsAny<CancellationToken>()))
              .Returns(Task.FromResult(Result<Domain.Entities.Comment>.Fail(Messages.Errors.Comment.CommentNotFound)));
 
         // Act
@@ -89,7 +89,7 @@ public class DeleteCommentHandlerTests
         // Assert
         Assert.False(result.Success);
         Assert.Equal(Messages.Errors.Comment.CommentNotFound, result.ErrorMessage);
-        _repositoryMock.Verify(r => r.GetByIdAsync(commentId), Times.Once);
-        _repositoryMock.Verify(r => r.DeleteAsync(It.IsAny<Guid>()), Times.Never);
+        _repositoryMock.Verify(r => r.GetByIdAsync(commentId, It.IsAny<CancellationToken>()), Times.Once);
+        _repositoryMock.Verify(r => r.DeleteAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 }

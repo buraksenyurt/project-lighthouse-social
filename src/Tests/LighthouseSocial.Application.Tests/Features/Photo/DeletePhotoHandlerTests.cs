@@ -38,7 +38,7 @@ public class DeletePhotoHandlerTests
         _repositoryMock.Setup(r => r.GetByIdAsync(photoId))
             .Returns(Task.FromResult(Result<Domain.Entities.Photo>.Ok(photo)));
 
-        _storageServiceMock.Setup(s => s.DeleteAsync(photo.Filename))
+        _storageServiceMock.Setup(s => s.DeleteAsync(photo.Filename, It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result.Ok());
 
         _repositoryMock.Setup(r => r.DeleteAsync(photoId))
@@ -50,7 +50,7 @@ public class DeletePhotoHandlerTests
         // Assert
         Assert.True(result.Success);
         _repositoryMock.Verify(r => r.GetByIdAsync(photoId), Times.Once);
-        _storageServiceMock.Verify(s => s.DeleteAsync(photo.Filename), Times.Once);
+        _storageServiceMock.Verify(s => s.DeleteAsync(photo.Filename, It.IsAny<CancellationToken>()), Times.Once);
         _repositoryMock.Verify(r => r.DeleteAsync(photoId), Times.Once);
     }
 
@@ -72,7 +72,7 @@ public class DeletePhotoHandlerTests
         _repositoryMock.Setup(r => r.GetByIdAsync(photoId))
             .Returns(Task.FromResult(Result<Domain.Entities.Photo>.Ok(photo)));
 
-        _storageServiceMock.Setup(s => s.DeleteAsync(photo.Filename))
+        _storageServiceMock.Setup(s => s.DeleteAsync(photo.Filename, It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result.Ok());
 
         _repositoryMock.Setup(r => r.DeleteAsync(photoId))
@@ -85,7 +85,7 @@ public class DeletePhotoHandlerTests
         Assert.False(result.Success);
         Assert.Equal(Messages.Errors.Photo.FailedToDeletePhoto, result.ErrorMessage);
         _repositoryMock.Verify(r => r.GetByIdAsync(photoId), Times.Once);
-        _storageServiceMock.Verify(s => s.DeleteAsync(photo.Filename), Times.Once);
+        _storageServiceMock.Verify(s => s.DeleteAsync(photo.Filename, It.IsAny<CancellationToken>()), Times.Once);
         _repositoryMock.Verify(r => r.DeleteAsync(photoId), Times.Once);
     }
 
@@ -104,7 +104,7 @@ public class DeletePhotoHandlerTests
         Assert.False(result.Success);
         Assert.Equal(Messages.Errors.Photo.PhotoNotFound, result.ErrorMessage);
         _repositoryMock.Verify(r => r.GetByIdAsync(photoId), Times.Once);
-        _storageServiceMock.Verify(s => s.DeleteAsync(It.IsAny<string>()), Times.Never);
+        _storageServiceMock.Verify(s => s.DeleteAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Never);
         _repositoryMock.Verify(r => r.DeleteAsync(It.IsAny<Guid>()), Times.Never);
     }
 }

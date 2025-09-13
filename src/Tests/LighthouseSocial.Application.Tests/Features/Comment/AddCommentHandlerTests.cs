@@ -53,12 +53,12 @@ public class AddCommentHandlerTests
                 new Domain.ValueObjects.PhotoMetadata("50mm", "1280x1280", "Canon Mark 5", DateTime.Now.AddDays(-7))
             ))));
 
-        _repositoryMock.Setup(r => r.ExistsForUserAsync(It.IsAny<Guid>(), It.IsAny<Guid>()))
+        _repositoryMock.Setup(r => r.ExistsForUserAsync(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(Result<bool>.Ok(false)));
 
-        _commentAuditorMock.Setup(a => a.IsTextCleanAsync(dto.Text)).ReturnsAsync(Result<bool>.Ok(true));
+        _commentAuditorMock.Setup(a => a.IsTextCleanAsync(dto.Text, It.IsAny<CancellationToken>())).ReturnsAsync(Result<bool>.Ok(true));
 
-        _repositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.Comment>()))
+        _repositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.Comment>(), It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(Result.Ok()));
 
         // Act
@@ -68,7 +68,7 @@ public class AddCommentHandlerTests
         Assert.True(result.Success);
         Assert.NotEqual(Guid.Empty, result.Data);
 
-        _repositoryMock.Verify(r => r.AddAsync(It.IsAny<Domain.Entities.Comment>()), Times.Once);
+        _repositoryMock.Verify(r => r.AddAsync(It.IsAny<Domain.Entities.Comment>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -118,12 +118,12 @@ public class AddCommentHandlerTests
                 new Domain.ValueObjects.PhotoMetadata("50mm", "1280x1280", "Canon Mark 5", DateTime.Now.AddDays(-7))
             ))));
 
-        _repositoryMock.Setup(r => r.ExistsForUserAsync(It.IsAny<Guid>(), It.IsAny<Guid>()))
+        _repositoryMock.Setup(r => r.ExistsForUserAsync(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(Result<bool>.Ok(false)));
 
-        _commentAuditorMock.Setup(a => a.IsTextCleanAsync(dto.Text)).ReturnsAsync(Result<bool>.Ok(true));
+        _commentAuditorMock.Setup(a => a.IsTextCleanAsync(dto.Text, It.IsAny<CancellationToken>())).ReturnsAsync(Result<bool>.Ok(true));
 
-        _repositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.Comment>()))
+        _repositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.Comment>(), It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(Result.Fail("Database error")));
 
         // Act
@@ -132,6 +132,6 @@ public class AddCommentHandlerTests
         // Assert
         Assert.False(result.Success);
         Assert.Equal("Database error", result.ErrorMessage);
-        _repositoryMock.Verify(r => r.AddAsync(It.IsAny<Domain.Entities.Comment>()), Times.Once);
+        _repositoryMock.Verify(r => r.AddAsync(It.IsAny<Domain.Entities.Comment>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 }

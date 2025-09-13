@@ -5,6 +5,6 @@ namespace LighthouseSocial.Application.Contracts.Repositories;
 
 public interface ICountryDataReader
 {
-    Task<Result<Country>> GetByIdAsync(int id);
-    Task<Result<IReadOnlyList<Country>>> GetAllAsync();
+    Task<Result<Country>> GetByIdAsync(int id, CancellationToken cancellationToken = default);
+    Task<Result<IReadOnlyList<Country>>> GetAllAsync(CancellationToken cancellationToken = default);
 }

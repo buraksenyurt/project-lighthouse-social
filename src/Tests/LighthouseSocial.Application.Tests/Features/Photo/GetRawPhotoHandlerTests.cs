@@ -23,7 +23,7 @@ public class GetRawPhotoHandlerTests
         var fileName = "cape_espichel.jpg";
         var photoStream = new MemoryStream([10, 2, 3, 48, 51, 60]);
 
-        _photoStorageServiceMock.Setup(s => s.GetAsync(fileName))
+        _photoStorageServiceMock.Setup(s => s.GetAsync(fileName, It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result<Stream>.Ok(photoStream));
 
         // Act
@@ -33,7 +33,7 @@ public class GetRawPhotoHandlerTests
         Assert.True(result.Success);
         Assert.NotNull(result.Data);
         Assert.Equal(photoStream, result.Data);
-        _photoStorageServiceMock.Verify(s => s.GetAsync(fileName), Times.Once);
+        _photoStorageServiceMock.Verify(s => s.GetAsync(fileName, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -43,7 +43,7 @@ public class GetRawPhotoHandlerTests
         var fileName = "there-is-no-lighthouse.jpg";
         var emptyStream = new MemoryStream();
 
-        _photoStorageServiceMock.Setup(s => s.GetAsync(fileName))
+        _photoStorageServiceMock.Setup(s => s.GetAsync(fileName, It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result<Stream>.Ok(emptyStream));
 
         // Act
@@ -53,7 +53,7 @@ public class GetRawPhotoHandlerTests
         Assert.False(result.Success);
         Assert.Null(result.Data);
         Assert.Equal(Messages.Errors.Photo.PhotoNotFoundInStorage, result.ErrorMessage);
-        _photoStorageServiceMock.Verify(s => s.GetAsync(fileName), Times.Once);
+        _photoStorageServiceMock.Verify(s => s.GetAsync(fileName, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -62,7 +62,7 @@ public class GetRawPhotoHandlerTests
         // Arrange
         var fileName = "there-is-no-lighthouse.jpg";
 
-        _photoStorageServiceMock.Setup(s => s.GetAsync(fileName))
+        _photoStorageServiceMock.Setup(s => s.GetAsync(fileName, It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result<Stream>.Ok(null));
 
         // Act
@@ -72,6 +72,6 @@ public class GetRawPhotoHandlerTests
         Assert.False(result.Success);
         Assert.Null(result.Data);
         Assert.Equal(Messages.Errors.Photo.PhotoNotFoundInStorage, result.ErrorMessage);
-        _photoStorageServiceMock.Verify(s => s.GetAsync(fileName), Times.Once);
+        _photoStorageServiceMock.Verify(s => s.GetAsync(fileName, It.IsAny<CancellationToken>()), Times.Once);
     }
 }

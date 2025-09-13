@@ -12,7 +12,7 @@ public class CachedCountryDataReader(ICountryDataReader inner, ICacheService cac
     private static readonly TimeSpan CacheDuration = TimeSpan.FromDays(1);
     private readonly ILogger<CachedCountryDataReader> _logger = logger;
 
-    public async Task<Result<IReadOnlyList<Country>>> GetAllAsync()
+    public async Task<Result<IReadOnlyList<Country>>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         try
         {
@@ -41,7 +41,7 @@ public class CachedCountryDataReader(ICountryDataReader inner, ICacheService cac
         }
     }
 
-    public async Task<Result<Country>> GetByIdAsync(int id)
+    public async Task<Result<Country>> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {
         try
         {

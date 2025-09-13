@@ -29,7 +29,7 @@ public class GetCommentsByPhotoHandlerTests
         };
 
         _repositoryMock
-            .Setup(repo => repo.GetByPhotoIdAsync(photoId))
+            .Setup(repo => repo.GetByPhotoIdAsync(photoId, It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(Result<IEnumerable<Domain.Entities.Comment>>.Ok(comments)));
 
         // Act
@@ -41,7 +41,7 @@ public class GetCommentsByPhotoHandlerTests
         Assert.Equal(2, result.Data.Count());
         Assert.Equal(photoId, result.Data.First().PhotoId);
 
-        _repositoryMock.Verify(repo => repo.GetByPhotoIdAsync(photoId), Times.Once);
+        _repositoryMock.Verify(repo => repo.GetByPhotoIdAsync(photoId, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -52,7 +52,7 @@ public class GetCommentsByPhotoHandlerTests
         var emptyList = new List<Domain.Entities.Comment>();
 
         _repositoryMock
-            .Setup(repo => repo.GetByPhotoIdAsync(photoId))
+            .Setup(repo => repo.GetByPhotoIdAsync(photoId, It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(Result<IEnumerable<Domain.Entities.Comment>>.Ok(emptyList)));
 
         // Act
@@ -63,7 +63,7 @@ public class GetCommentsByPhotoHandlerTests
         Assert.True(result.Success);
         Assert.Empty(result.Data);
 
-        _repositoryMock.Verify(repo => repo.GetByPhotoIdAsync(photoId), Times.Once);
+        _repositoryMock.Verify(repo => repo.GetByPhotoIdAsync(photoId, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -73,7 +73,7 @@ public class GetCommentsByPhotoHandlerTests
         var photoId = Guid.NewGuid();
 
         _repositoryMock
-            .Setup(repo => repo.GetByPhotoIdAsync(photoId))
+            .Setup(repo => repo.GetByPhotoIdAsync(photoId, It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(Result<IEnumerable<Domain.Entities.Comment>>.Fail("Database error")));
 
         // Act
@@ -84,6 +84,6 @@ public class GetCommentsByPhotoHandlerTests
         Assert.False(result.Success);
         Assert.Equal("Database error", result.ErrorMessage);
 
-        _repositoryMock.Verify(repo => repo.GetByPhotoIdAsync(photoId), Times.Once);
+        _repositoryMock.Verify(repo => repo.GetByPhotoIdAsync(photoId, It.IsAny<CancellationToken>()), Times.Once);
     }
 }
