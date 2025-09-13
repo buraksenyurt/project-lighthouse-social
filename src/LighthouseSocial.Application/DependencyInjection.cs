@@ -51,6 +51,7 @@ public static class DependencyInjection
 
 
         // Pipeline Behaviors
+        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(CancellationBehavior<,>));
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(PerformanceBehavior<,>));
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ExceptionHandlingBehavior<,>));

@@ -8,11 +8,6 @@ public class ExceptionHandlingBehavior<TRequest, TResponse>(ILogger<PerformanceB
     public async Task<TResponse> HandleAsync(TRequest request, Func<Task<TResponse>> next, CancellationToken cancellationToken = default)
     {
         logger.LogInformation("Handling request of type {RequestType}", typeof(TRequest).Name);
-        if (cancellationToken.IsCancellationRequested)
-        {
-            logger.LogWarning("Request handling was cancelled.");
-            return default!;
-        }
 
         try
         {
