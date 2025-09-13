@@ -165,3 +165,23 @@ INSERT INTO comments (id, user_id, photo_id, text, rating) VALUES
 ('30000000-0000-0000-0000-000000000008', '00000000-0000-0000-0000-000000000008', '20000000-0000-0000-0000-000000000005', 'Güzel bir yer.', 3),
 ('30000000-0000-0000-0000-000000000009', '00000000-0000-0000-0000-000000000009', '20000000-0000-0000-0000-000000000006', 'Fena değil.', 3),
 ('30000000-0000-0000-0000-000000000010', '00000000-0000-0000-0000-000000000010', '20000000-0000-0000-0000-000000000007', 'Beğendim.', 4);
+
+-- Outbox Pattern kullanımı için
+CREATE TABLE IF NOT EXISTS outbox_events (
+    id UUID PRIMARY KEY,
+    occurred_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    event_type VARCHAR(255) NOT NULL,
+    event_data JSONB NOT NULL,
+    aggregate_id VARCHAR(255),
+    version INTEGER NOT NULL DEFAULT 1,
+    is_processed BOOLEAN NOT NULL DEFAULT FALSE,
+    processed_at TIMESTAMP WITH TIME ZONE,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE
+);
+
+CREATE INDEX IF NOT EXISTS idx_outbox_events_is_processed ON outbox_events(is_processed);
+CREATE INDEX IF NOT EXISTS idx_outbox_events_event_type ON outbox_events(event_type);
+CREATE INDEX IF NOT EXISTS idx_outbox_events_aggregate_id ON outbox_events(aggregate_id);
+CREATE INDEX IF NOT EXISTS idx_outbox_events_created_at ON outbox_events(created_at);
+CREATE INDEX IF NOT EXISTS idx_outbox_events_processed_at ON outbox_events(processed_at);
