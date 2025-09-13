@@ -6,7 +6,7 @@ namespace LighthouseSocial.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class PhotoController(ILogger<PhotoController> logger, IPhotoService photoService, IPhotoUploadService photoUploadService)
+public class PhotoController(ILogger<PhotoController> logger, IPhotoService photoService)
     : ControllerBase
 {
     [HttpGet("{fileName}")]
@@ -25,7 +25,7 @@ public class PhotoController(ILogger<PhotoController> logger, IPhotoService phot
         catch (Exception ex)
         {
             logger.LogError(ex, "Error retrieving photo {FileName}", fileName);
-            return StatusCode(500, "An unexpected error occurred. Please try again later.");
+            return StatusCode(500, Messages.Errors.UnexpectedErrorMessage);
         }
     }
 
@@ -44,7 +44,7 @@ public class PhotoController(ILogger<PhotoController> logger, IPhotoService phot
         catch (Exception ex)
         {
             logger.LogError(ex, "Error retrieving photos for UserId {UserId}", userId);
-            return StatusCode(500, "An unexpected error occurred. Please try again later.");
+            return StatusCode(500, Messages.Errors.UnexpectedErrorMessage);
         }
     }
 
@@ -63,7 +63,7 @@ public class PhotoController(ILogger<PhotoController> logger, IPhotoService phot
         catch (Exception ex)
         {
             logger.LogError(ex, "Error retrieving photo details for PhotoId {PhotoId}", photoId);
-            return StatusCode(500, "An unexpected error occurred. Please try again later.");
+            return StatusCode(500, Messages.Errors.UnexpectedErrorMessage);
         }
     }
 
@@ -82,7 +82,7 @@ public class PhotoController(ILogger<PhotoController> logger, IPhotoService phot
         catch (Exception ex)
         {
             logger.LogError(ex, "Error deleting photo {PhotoId}", photoId);
-            return StatusCode(500, "An unexpected error occurred. Please try again later.");
+            return StatusCode(500, Messages.Errors.UnexpectedErrorMessage);
         }
     }
 }

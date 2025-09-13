@@ -49,7 +49,7 @@ public class PhotoUploadController(ILogger<PhotoController> logger, IPhotoUpload
         catch (Exception ex)
         {
             logger.LogError(ex, "Error uploading photo for LighthouseId {LighthouseId}", request.LighthouseId);
-            return StatusCode(500, "An unexpected error occurred. Please try again later.");
+            return StatusCode(500, Messages.Errors.UnexpectedErrorMessage);
         }
     }
 }

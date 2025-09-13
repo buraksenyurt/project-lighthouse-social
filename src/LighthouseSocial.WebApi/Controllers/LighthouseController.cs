@@ -14,8 +14,6 @@ public record UpdateLighthouseRequest(string Name, int CountryId, double Latitud
 public class LighthouseController(ILogger<LighthouseController> logger, ILighthouseService lighthouseService)
     : ControllerBase
 {
-    public const string InternalServerErrorMessage = "An unexpected error occurred. Please try again later.";
-
     [HttpGet("{lighthouseId:guid}", Name = "GetLigthouseById")]
     public async Task<ActionResult<LighthouseDto>> GetByIdAsync(Guid lighthouseId)
     {
@@ -31,7 +29,7 @@ public class LighthouseController(ILogger<LighthouseController> logger, ILightho
         catch (Exception ex)
         {
             logger.LogError(ex, "Error retrieving lighthouse with ID {LighthouseId}", lighthouseId);
-            return StatusCode(500, InternalServerErrorMessage);
+            return StatusCode(500, Messages.Errors.InternalServerErrorMessage);
         }
     }
 
@@ -59,7 +57,7 @@ public class LighthouseController(ILogger<LighthouseController> logger, ILightho
         catch (Exception ex)
         {
             logger.LogError(ex, "Error creating lighthouse");
-            return StatusCode(500, InternalServerErrorMessage);
+            return StatusCode(500, Messages.Errors.InternalServerErrorMessage);
         }
     }
 
@@ -77,7 +75,7 @@ public class LighthouseController(ILogger<LighthouseController> logger, ILightho
         catch (Exception ex)
         {
             logger.LogError(ex, "Error retrieving top lighthouses");
-            return StatusCode(500, InternalServerErrorMessage);
+            return StatusCode(500, Messages.Errors.InternalServerErrorMessage);
         }
     }
 
@@ -97,7 +95,7 @@ public class LighthouseController(ILogger<LighthouseController> logger, ILightho
         catch (Exception ex)
         {
             logger.LogError(ex, "Error retrieving paged lighthouses");
-            return StatusCode(500, InternalServerErrorMessage);
+            return StatusCode(500, Messages.Errors.InternalServerErrorMessage);
         }
     }
 
@@ -115,7 +113,7 @@ public class LighthouseController(ILogger<LighthouseController> logger, ILightho
         catch (Exception ex)
         {
             logger.LogError(ex, "Error retrieving photos for lighthouse with ID {LighthouseId}", lighthouseId);
-            return StatusCode(500, InternalServerErrorMessage);
+            return StatusCode(500, Messages.Errors.InternalServerErrorMessage);
         }
     }
 
@@ -141,7 +139,7 @@ public class LighthouseController(ILogger<LighthouseController> logger, ILightho
         catch (Exception ex)
         {
             logger.LogError(ex, "Error updating lighthouse with ID {LighthouseId}", lighthouseId);
-            return StatusCode(500, InternalServerErrorMessage);
+            return StatusCode(500, Messages.Errors. InternalServerErrorMessage);
         }
     }
 
@@ -159,7 +157,7 @@ public class LighthouseController(ILogger<LighthouseController> logger, ILightho
         catch (Exception ex)
         {
             logger.LogError(ex, "Error deleting lighthouse with ID {LighthouseId}", lighthouseId);
-            return StatusCode(500, "Internal server error");
+            return StatusCode(500, Messages.Errors.InternalServerErrorMessage);
         }
     }
 }
