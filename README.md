@@ -96,7 +96,10 @@ Minimum Profil;
 - [x] [Bölüm 39 - Vault Bilgilerini Cache Üzerinde Tutmak *(Açtık Yine Dertsiz Başımıza Dert)*](https://youtu.be/t6nnL11wOnI)
 - [x] [Bölüm 40 - Daha İyi Bir Hata Yönetimi *(Result Pattern Refactoring)*](https://youtu.be/2GA8q-jjNGI)
 - [x] [Bölüm 41 - Gelen Bir Yorum Üzerine Sistemimize Graylog'u Adapte Ediyoruz](https://youtu.be/OmaopxCVLF8)
-- [ ] [Bölüm 42 - Retorspective ve PhotoController ile Sahalara Dönüş]
+- [x] [Bölüm 42 - Projedeki Son Durum ve PhotoController ile Dükkana Dönüş](https://youtu.be/Ng4Yuhqruyo)
+- [x] [Bölüm 43 - Photo Upload Sürecinde Dağıtık Transaction Yönetimi için SAGA Pattern](https://youtu.be/TA1CF6C4iyA)
+- [x] [Bölüm 44 - SAGA Deseninin Photo Upload Sürecine Uyarlanması](https://youtu.be/i1iln8Ym96U)
+- [x] [Bölüm 45 - Photo Upload Sürecinde SAGA Pattern Testleri](https://youtu.be/Q2SsV1HGa8A)
 
 ## Sonarqube
 
