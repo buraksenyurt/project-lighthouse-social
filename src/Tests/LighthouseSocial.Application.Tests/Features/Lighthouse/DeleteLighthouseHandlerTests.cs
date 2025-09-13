@@ -31,10 +31,10 @@ public class DeleteLighthouseHandlerTests
             new Coordinates(40.00, -4.00)
         );
 
-        _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId))
+        _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result<Domain.Entities.Lighthouse>.Ok(lighthouse));
 
-        _repositoryMock.Setup(r => r.DeleteAsync(lighthouseId))
+        _repositoryMock.Setup(r => r.DeleteAsync(lighthouseId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result.Ok());
 
         // Act
@@ -42,8 +42,8 @@ public class DeleteLighthouseHandlerTests
 
         // Assert
         Assert.True(result.Success);
-        _repositoryMock.Verify(r => r.GetByIdAsync(lighthouseId), Times.Once);
-        _repositoryMock.Verify(r => r.DeleteAsync(lighthouseId), Times.Once);
+        _repositoryMock.Verify(r => r.GetByIdAsync(lighthouseId, It.IsAny<CancellationToken>()), Times.Once);
+        _repositoryMock.Verify(r => r.DeleteAsync(lighthouseId, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -52,7 +52,7 @@ public class DeleteLighthouseHandlerTests
         // Arrange
         var lighthouseId = Guid.NewGuid();
 
-        _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId))
+        _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result<Domain.Entities.Lighthouse>.Fail(Messages.Errors.Lighthouse.LighthouseNotFound));
 
         // Act
@@ -61,8 +61,8 @@ public class DeleteLighthouseHandlerTests
         // Assert
         Assert.False(result.Success);
         Assert.Equal(Messages.Errors.Lighthouse.LighthouseNotFound, result.ErrorMessage);
-        _repositoryMock.Verify(r => r.GetByIdAsync(lighthouseId), Times.Once);
-        _repositoryMock.Verify(r => r.DeleteAsync(It.IsAny<Guid>()), Times.Never);
+        _repositoryMock.Verify(r => r.GetByIdAsync(lighthouseId, It.IsAny<CancellationToken>()), Times.Once);
+        _repositoryMock.Verify(r => r.DeleteAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 
     [Fact]
@@ -78,10 +78,10 @@ public class DeleteLighthouseHandlerTests
             new Coordinates(40.00, -4.00)
         );
 
-        _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId))
+        _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result<Domain.Entities.Lighthouse>.Ok(lighthouse));
 
-        _repositoryMock.Setup(r => r.DeleteAsync(lighthouseId))
+        _repositoryMock.Setup(r => r.DeleteAsync(lighthouseId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result.Fail(Messages.Errors.Lighthouse.FailedToDeleteLighthouse));
 
         // Act
@@ -90,7 +90,7 @@ public class DeleteLighthouseHandlerTests
         // Assert
         Assert.False(result.Success);
         Assert.Equal(Messages.Errors.Lighthouse.FailedToDeleteLighthouse, result.ErrorMessage);
-        _repositoryMock.Verify(r => r.GetByIdAsync(lighthouseId), Times.Once);
-        _repositoryMock.Verify(r => r.DeleteAsync(lighthouseId), Times.Once);
+        _repositoryMock.Verify(r => r.GetByIdAsync(lighthouseId, It.IsAny<CancellationToken>()), Times.Once);
+        _repositoryMock.Verify(r => r.DeleteAsync(lighthouseId, It.IsAny<CancellationToken>()), Times.Once);
     }
 }

@@ -28,7 +28,7 @@ public class GetTopLighthousesHandlerTests
             new() { Id = Guid.NewGuid(), Name = "Cape Varde", PhotoCount = 8, AverageScore = 3.8 },
             new() { Id = Guid.NewGuid(), Name = "Verdan Hope", PhotoCount = 6, AverageScore = 4.1 }
         ]);
-        _repositoryMock.Setup(r => r.GetTopAsync(3))
+        _repositoryMock.Setup(r => r.GetTopAsync(3, It.IsAny<CancellationToken>()))
             .ReturnsAsync(lighthousesWithStats);
 
         // Act
@@ -46,7 +46,7 @@ public class GetTopLighthousesHandlerTests
         Assert.Equal(lighthouseList[0].PhotoCount, firstLighthouse.PhotoCount);
         Assert.Equal(lighthouseList[0].AverageScore, firstLighthouse.AverageScore);
 
-        _repositoryMock.Verify(r => r.GetTopAsync(3), Times.Once);
+        _repositoryMock.Verify(r => r.GetTopAsync(3, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -55,7 +55,7 @@ public class GetTopLighthousesHandlerTests
         // Arrange
         var emptyStats = Result<IEnumerable<LighthouseWithStats>>.Ok([]);
 
-        _repositoryMock.Setup(r => r.GetTopAsync(5))
+        _repositoryMock.Setup(r => r.GetTopAsync(5, It.IsAny<CancellationToken>()))
             .ReturnsAsync(emptyStats);
 
         // Act
@@ -65,6 +65,6 @@ public class GetTopLighthousesHandlerTests
         Assert.False(result.Success);
         Assert.Null(result.Data);
         Assert.Equal(Messages.Errors.Lighthouse.NoLighthousesFound, result.ErrorMessage);
-        _repositoryMock.Verify(r => r.GetTopAsync(5), Times.Once);
+        _repositoryMock.Verify(r => r.GetTopAsync(5, It.IsAny<CancellationToken>()), Times.Once);
     }
 }

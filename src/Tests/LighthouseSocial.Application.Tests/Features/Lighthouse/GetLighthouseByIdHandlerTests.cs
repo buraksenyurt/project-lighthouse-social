@@ -30,7 +30,7 @@ public class GetLighthouseByIdHandlerTests
             country,
             new Coordinates(40.00, -4.00)
         );
-        _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId))
+        _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result<Domain.Entities.Lighthouse>.Ok(lighthouse));
 
         // Act
@@ -42,7 +42,7 @@ public class GetLighthouseByIdHandlerTests
         Assert.Equal(lighthouse.Id, result.Data.Id);
         Assert.Equal(lighthouse.Name, result.Data.Name);
         Assert.Equal(lighthouse.CountryId, result.Data.CountryId);
-        _repositoryMock.Verify(r => r.GetByIdAsync(lighthouseId), Times.Once);
+        _repositoryMock.Verify(r => r.GetByIdAsync(lighthouseId, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -50,7 +50,7 @@ public class GetLighthouseByIdHandlerTests
     {
         // Arrange
         var lighthouseId = Guid.NewGuid();
-        _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId))
+        _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result<Domain.Entities.Lighthouse>.Fail(Messages.Errors.Lighthouse.LighthouseNotFound));
 
         // Act
@@ -59,6 +59,6 @@ public class GetLighthouseByIdHandlerTests
         // Assert
         Assert.False(result.Success);
         Assert.Equal(Messages.Errors.Lighthouse.LighthouseNotFound, result.ErrorMessage);
-        _repositoryMock.Verify(r => r.GetByIdAsync(lighthouseId), Times.Once);
+        _repositoryMock.Verify(r => r.GetByIdAsync(lighthouseId, It.IsAny<CancellationToken>()), Times.Once);
     }
 }

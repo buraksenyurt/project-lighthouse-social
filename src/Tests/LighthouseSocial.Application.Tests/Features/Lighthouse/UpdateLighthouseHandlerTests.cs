@@ -38,9 +38,9 @@ public class UpdateLighthouseHandlerTests
             41.8781,
             -87.6298
             );
-        _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId))
+        _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result<Domain.Entities.Lighthouse>.Ok(lighthouse));
-        _repositoryMock.Setup(r => r.UpdateAsync(It.IsAny<Domain.Entities.Lighthouse>()))
+        _repositoryMock.Setup(r => r.UpdateAsync(It.IsAny<Domain.Entities.Lighthouse>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result.Ok());
 
         // Act
@@ -48,8 +48,8 @@ public class UpdateLighthouseHandlerTests
 
         // Assert
         Assert.True(result.Success);
-        _repositoryMock.Verify(r => r.GetByIdAsync(lighthouseId), Times.Once);
-        _repositoryMock.Verify(r => r.UpdateAsync(It.IsAny<Domain.Entities.Lighthouse>()), Times.Once);
+        _repositoryMock.Verify(r => r.GetByIdAsync(lighthouseId, It.IsAny<CancellationToken>()), Times.Once);
+        _repositoryMock.Verify(r => r.UpdateAsync(It.IsAny<Domain.Entities.Lighthouse>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -64,7 +64,7 @@ public class UpdateLighthouseHandlerTests
             41.8781,
             -87.6298
         );
-        _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId))
+        _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result<Domain.Entities.Lighthouse>.Fail(Messages.Errors.Lighthouse.LighthouseNotFound));
 
         // Act
@@ -73,8 +73,8 @@ public class UpdateLighthouseHandlerTests
         // Assert
         Assert.False(result.Success);
         Assert.Equal(Messages.Errors.Lighthouse.LighthouseNotFound, result.ErrorMessage);
-        _repositoryMock.Verify(r => r.GetByIdAsync(lighthouseId), Times.Once);
-        _repositoryMock.Verify(r => r.UpdateAsync(It.IsAny<Domain.Entities.Lighthouse>()), Times.Never);
+        _repositoryMock.Verify(r => r.GetByIdAsync(lighthouseId, It.IsAny<CancellationToken>()), Times.Once);
+        _repositoryMock.Verify(r => r.UpdateAsync(It.IsAny<Domain.Entities.Lighthouse>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 
     [Fact]
@@ -96,9 +96,9 @@ public class UpdateLighthouseHandlerTests
             41.8781,
             -87.6298
         );
-        _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId))
+        _repositoryMock.Setup(r => r.GetByIdAsync(lighthouseId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result<Domain.Entities.Lighthouse>.Ok(lighthouse));
-        _repositoryMock.Setup(r => r.UpdateAsync(It.IsAny<Domain.Entities.Lighthouse>()))
+        _repositoryMock.Setup(r => r.UpdateAsync(It.IsAny<Domain.Entities.Lighthouse>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result.Fail(Messages.Errors.Lighthouse.FailedToUpdateLighthouse));
 
         // Act
@@ -107,7 +107,7 @@ public class UpdateLighthouseHandlerTests
         // Assert
         Assert.False(result.Success);
         Assert.Equal(Messages.Errors.Lighthouse.FailedToUpdateLighthouse, result.ErrorMessage);
-        _repositoryMock.Verify(r => r.GetByIdAsync(lighthouseId), Times.Once);
-        _repositoryMock.Verify(r => r.UpdateAsync(It.IsAny<Domain.Entities.Lighthouse>()), Times.Once);
+        _repositoryMock.Verify(r => r.GetByIdAsync(lighthouseId, It.IsAny<CancellationToken>()), Times.Once);
+        _repositoryMock.Verify(r => r.UpdateAsync(It.IsAny<Domain.Entities.Lighthouse>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 }

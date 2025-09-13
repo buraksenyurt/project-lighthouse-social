@@ -32,7 +32,7 @@ public class CreateLighthouseHandlerTests
 
         _registryMock.Setup(r => r.GetByIdAsync(dto.CountryId, It.IsAny<CancellationToken>())).ReturnsAsync(Result<Country>.Ok(country));
         _validatorMock.Setup(v => v.Validate(It.IsAny<LighthouseDto>())).Returns(new ValidationResult());
-        _repositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.Lighthouse>())).ReturnsAsync(Result.Ok());
+        _repositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.Lighthouse>(), It.IsAny<CancellationToken>())).ReturnsAsync(Result.Ok());
 
         // Act
         var result = await _handler.HandleAsync(new CreateLighthouseRequest(dto), CancellationToken.None);
@@ -41,7 +41,7 @@ public class CreateLighthouseHandlerTests
         Assert.True(result.Success);
         Assert.NotEqual(Guid.Empty, result.Data);
 
-        _repositoryMock.Verify(r => r.AddAsync(It.IsAny<Domain.Entities.Lighthouse>()), Times.Once);
+        _repositoryMock.Verify(r => r.AddAsync(It.IsAny<Domain.Entities.Lighthouse>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]

@@ -7,7 +7,7 @@ namespace LighthouseSocial.Data.Repositories;
 
 public partial class LighthouseRepository
 {
-    public async Task<Result<IEnumerable<LighthouseWithStats>>> GetTopAsync(int count)
+    public async Task<Result<IEnumerable<LighthouseWithStats>>> GetTopAsync(int count, CancellationToken cancellationToken = default)
     {
         try
         {

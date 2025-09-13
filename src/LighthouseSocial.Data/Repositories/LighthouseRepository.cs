@@ -12,7 +12,7 @@ public partial class LighthouseRepository(IDbConnectionFactory connFactory, ILog
 {
     private readonly IDbConnectionFactory _connFactory = connFactory;
 
-    public async Task<Result> AddAsync(Lighthouse lighthouse)
+    public async Task<Result> AddAsync(Lighthouse lighthouse, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -42,7 +42,7 @@ public partial class LighthouseRepository(IDbConnectionFactory connFactory, ILog
         }
     }
 
-    public async Task<Result> UpdateAsync(Lighthouse lighthouse)
+    public async Task<Result> UpdateAsync(Lighthouse lighthouse, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -77,14 +77,14 @@ public partial class LighthouseRepository(IDbConnectionFactory connFactory, ILog
         }
     }
 
-    public async Task<Result> DeleteAsync(Guid id)
+    public async Task<Result> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
         try
         {
             const string sql = "DELETE FROM lighthouses WHERE id = @Id;";
             using var conn = _connFactory.CreateConnection();
             var deleted = await conn.ExecuteAsync(sql, new { Id = id });
-            
+
             return deleted > 0
                 ? Result.Ok()
                 : Result.Fail("Failed to delete lighthouse.");
@@ -96,7 +96,7 @@ public partial class LighthouseRepository(IDbConnectionFactory connFactory, ILog
         }
     }
 
-    public async Task<Result<Lighthouse>> GetByIdAsync(Guid id)
+    public async Task<Result<Lighthouse>> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -117,7 +117,7 @@ public partial class LighthouseRepository(IDbConnectionFactory connFactory, ILog
             var country = Country.Create((int)row.country_id, (string)row.country_name);
             var coordinates = new Coordinates((double)row.latitude, (double)row.longitude);
             var lighthouse = new Lighthouse((Guid)row.id, (string)row.name, country, coordinates);
-            
+
             return Result<Lighthouse>.Ok(lighthouse);
         }
         catch (Exception ex)
@@ -127,7 +127,7 @@ public partial class LighthouseRepository(IDbConnectionFactory connFactory, ILog
         }
     }
 
-    public async Task<Result<IEnumerable<Lighthouse>>> GetAllAsync()
+    public async Task<Result<IEnumerable<Lighthouse>>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         try
         {
@@ -160,7 +160,7 @@ public partial class LighthouseRepository(IDbConnectionFactory connFactory, ILog
         }
     }
 
-    public async Task<Result<(IEnumerable<Lighthouse> Lighthouses, int TotalCount)>> GetPagedAsync(int skip, int take)
+    public async Task<Result<(IEnumerable<Lighthouse> Lighthouses, int TotalCount)>> GetPagedAsync(int skip, int take, CancellationToken cancellationToken = default)
     {
         try
         {

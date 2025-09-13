@@ -6,11 +6,11 @@ namespace LighthouseSocial.Application.Contracts.Repositories;
 
 public interface ILighthouseRepository
 {
-    Task<Result> AddAsync(Lighthouse lighthouse);
-    Task<Result> UpdateAsync(Lighthouse lighthouse);
-    Task<Result> DeleteAsync(Guid id);
-    Task<Result<Lighthouse>> GetByIdAsync(Guid id);
-    Task<Result<IEnumerable<Lighthouse>>> GetAllAsync();
-    Task<Result<IEnumerable<LighthouseWithStats>>> GetTopAsync(int count);
-    Task<Result<(IEnumerable<Lighthouse> Lighthouses, int TotalCount)>> GetPagedAsync(int skip, int take);
-}    
+    Task<Result> AddAsync(Lighthouse lighthouse, CancellationToken cancellationToken = default);
+    Task<Result> UpdateAsync(Lighthouse lighthouse, CancellationToken cancellationToken = default);
+    Task<Result> DeleteAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<Result<Lighthouse>> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<Result<IEnumerable<Lighthouse>>> GetAllAsync(CancellationToken cancellationToken = default);
+    Task<Result<IEnumerable<LighthouseWithStats>>> GetTopAsync(int count, CancellationToken cancellationToken = default);
+    Task<Result<(IEnumerable<Lighthouse> Lighthouses, int TotalCount)>> GetPagedAsync(int skip, int take, CancellationToken cancellationToken = default);
+}
