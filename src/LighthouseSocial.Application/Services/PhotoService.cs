@@ -15,12 +15,6 @@ public class PhotoService(PipelineDispatcher pipelineDispatcher)
         return await pipelineDispatcher.SendAsync<DeletePhotoRequest, Result>(request);
     }
 
-    public async Task<Result<Guid>> UploadAsync(PhotoDto dto, Stream fileContent)
-    {
-        var request = new UploadPhotoRequest(dto, fileContent);
-        return await pipelineDispatcher.SendAsync<UploadPhotoRequest, Result<Guid>>(request);
-    }
-
     public async Task<Result<Stream>> GetRawPhotoAsync(string fileName)
     {
         var request = new GetRawPhotoRequest(fileName);

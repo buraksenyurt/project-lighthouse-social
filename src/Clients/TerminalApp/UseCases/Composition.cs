@@ -7,10 +7,12 @@ namespace TerminalApp.UseCases;
 
 public class Composition(
     ILighthouseService lighthouseService,
+    IPhotoUploadService photoUploadService,
     IPhotoService photoService,
     ILogger<Composition> logger)
 {
     private readonly ILighthouseService _lighthouseService = lighthouseService;
+    private readonly IPhotoUploadService _photoUploadService = photoUploadService;
     private readonly IPhotoService _photoService = photoService;
     private readonly ILogger<Composition> _logger = logger;
 
@@ -104,14 +106,17 @@ public class Composition(
                 Lens: "RF 24-105mm f/4L IS USM"
             );
 
-            var result = await _photoService.UploadAsync(photoDto, file);
+            var result = await _photoUploadService.UploadAsync(photoDto, file);
 
             Console.WriteLine($"Photo uploaded successfully");
             Console.WriteLine($"\tPhoto ID: {result.Data}");
             Console.WriteLine($"\tFilename: {photoDto.FileName}");
             Console.WriteLine($"\tCamera: {photoDto.CameraType}");
 
-            return result.Data;
+            if (result.Success && result.Data != null)
+                return result.Data.Id;
+
+            return Guid.Empty;
         }
         catch (Exception ex)
         {

@@ -6,10 +6,12 @@ namespace TerminalApp.UseCases;
 
 public class PhotoManagementUseCase(
     IPhotoService photoService,
+    IPhotoUploadService photoUploadService,
     ILighthouseService lighthouseService,
     ILogger<PhotoManagementUseCase> logger)
 {
     private readonly IPhotoService _photoService = photoService;
+    private readonly IPhotoUploadService _photoUploadService = photoUploadService;
     private readonly ILighthouseService _lighthouseService = lighthouseService;
     private readonly ILogger<PhotoManagementUseCase> _logger = logger;
 
@@ -43,7 +45,7 @@ public class PhotoManagementUseCase(
             );
 
             Console.WriteLine("Uploading photo...");
-            var uploadedPhotoId = await _photoService.UploadAsync(photoDto, file);
+            var uploadedPhotoId = await _photoUploadService.UploadAsync(photoDto, file);
 
             Console.WriteLine($"Photo uploaded successfully!");
             Console.WriteLine($"Photo ID: {uploadedPhotoId}");
