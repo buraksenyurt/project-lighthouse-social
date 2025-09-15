@@ -154,7 +154,9 @@ Path : **ProjectLighthouseSocial-Dev**
   "KeycloakValidateIssuerSigningKey": "true",
   "KeycloakValidateLifetime": "true",
   "MinIOAccessKey": "admin",
-  "MinIOSecretKey": "password"
+  "MinIOSecretKey": "password",
+  "RabbitMQUser": "admin",
+  "RabbitMQPassword": "admin1234"
 }
 ```
 

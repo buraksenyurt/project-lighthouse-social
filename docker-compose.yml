@@ -168,6 +168,36 @@ services:
       - "1514:1514/udp"
       - "12201:12201"
       - "12201:12201/udp"
+  
+  # Redis alternative single node key value store
+  kiwi-store-server:
+    image: burakselim/kiwi-store-server:latest
+    container_name: plh-kiwi-store-server
+    ports:
+      - "5555:5544" 
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: plh-rabbitmq
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "1883:1883"
+    environment:
+      RABBITMQ_HOST: '%'
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin1234
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test:
+        - CMD
+        - rabbitmq-diagnostics
+        - '-q'
+        - ping
+      retries: 3
+      timeout: 5s
 
 volumes:
   postgres_data:
@@ -175,3 +205,4 @@ volumes:
   mongodb_data:
   opensearch_data:
   elasticsearch_data:
+  rabbitmq_data:  
