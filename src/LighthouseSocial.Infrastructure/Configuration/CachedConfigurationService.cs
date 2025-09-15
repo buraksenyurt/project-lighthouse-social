@@ -17,6 +17,7 @@ public class CachedConfigurationService
     private const string SecretPath = "ProjectLighthouseSocial-Dev";
     private const string DatabaseConnectionKey = "vault:database_connection";
     private const string MinioCredentialsKey = "vault:minio_credentials";
+    private const string RabbitMqCredentials = "vault:rabbitmq_credentials";
     private const string KeycloakSettingsKey = "vault:keycloak_settings";
 
     public CachedConfigurationService(
@@ -70,6 +71,33 @@ public class CachedConfigurationService
 
                 _logger.LogDebug("MinIO credentials retrieved from Vault");
                 return new MinioCredentials(accessKeyResult.Data, secretKeyResult.Data);
+            },
+            TimeSpan.FromHours(1));
+    }
+
+    public async Task<RabbitMqSettings> GetRabbitMqSettingsAsync()
+    {
+        return await GetCachedValueAsync(RabbitMqCredentials,
+            async () =>
+            {
+                var username = await _secretManager.GetSecretAsync(SecretPath, "RabbitMQUser");
+                var password = await _secretManager.GetSecretAsync(SecretPath, "RabbitMQPassword");
+
+                if (!username.Success || string.IsNullOrEmpty(username.Data) ||
+                    !password.Success || string.IsNullOrEmpty(password.Data))
+                {
+                    _logger.LogWarning("RabbitMq credentials not found at path: {Username}. Password: {UsernameError}, Password: {PasswordError}",
+                        SecretPath, username.ErrorMessage, password.ErrorMessage);
+                    throw new InvalidOperationException(Messages.Errors.SecureVault.MinioCredentialsNotFound);
+                }
+
+                _logger.LogDebug("MinIO credentials retrieved from Vault");
+                var rabbitMqSettings = new RabbitMqSettings
+                {
+                    UserName = username.Data,
+                    Password = password.Data
+                };
+                return rabbitMqSettings;
             },
             TimeSpan.FromHours(1));
     }
@@ -153,7 +181,7 @@ public class CachedConfigurationService
                 return result;
             }
         }
-        catch(InvalidOperationException ex)
+        catch (InvalidOperationException ex)
         {
             _logger.LogError("Critical error getting cached value for key: {Key}", key);
             throw;
