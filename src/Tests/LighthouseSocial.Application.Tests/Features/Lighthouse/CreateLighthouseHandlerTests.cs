@@ -4,6 +4,7 @@ using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.Lighthouse;
+using LighthouseSocial.Domain.Common;
 using LighthouseSocial.Domain.Entities;
 using Moq;
 
@@ -14,13 +15,15 @@ public class CreateLighthouseHandlerTests
     private readonly Mock<ILighthouseRepository> _repositoryMock;
     private readonly Mock<ICountryDataReader> _registryMock;
     private readonly Mock<IValidator<LighthouseDto>> _validatorMock;
+    private readonly Mock<IEventPublisher> _eventPublisherMock;
     private readonly CreateLighthouseHandler _handler;
     public CreateLighthouseHandlerTests()
     {
         _repositoryMock = new Mock<ILighthouseRepository>();
         _registryMock = new Mock<ICountryDataReader>();
         _validatorMock = new Mock<IValidator<LighthouseDto>>();
-        _handler = new CreateLighthouseHandler(_repositoryMock.Object, _registryMock.Object, _validatorMock.Object);
+        _eventPublisherMock = new Mock<IEventPublisher>();
+        _handler = new CreateLighthouseHandler(_repositoryMock.Object, _registryMock.Object, _validatorMock.Object, _eventPublisherMock.Object);
     }
 
     [Fact]

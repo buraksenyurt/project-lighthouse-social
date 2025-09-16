@@ -2,9 +2,11 @@
 using Keycloak.AuthServices.Authentication;
 using Keycloak.AuthServices.Authorization;
 using LighthouseSocial.Application.Contracts;
+using LighthouseSocial.Domain.Common;
 using LighthouseSocial.Infrastructure.Auditors;
 using LighthouseSocial.Infrastructure.Caching;
 using LighthouseSocial.Infrastructure.Configuration;
+using LighthouseSocial.Infrastructure.Messaging;
 using LighthouseSocial.Infrastructure.SecretManager;
 using LighthouseSocial.Infrastructure.Services;
 using LighthouseSocial.Infrastructure.Storage;
@@ -176,6 +178,14 @@ public class InfrastructureBuilder(IServiceCollection services, IConfiguration c
         Log.Logger = loggerConfiguration.CreateLogger();
         services.AddSerilog();
 
+        return this;
+    }
+
+    public InfrastructureBuilder WithMessaging()
+    {
+        services.Configure<RabbitMqSettings>(configuration.GetSection(RabbitMqSettings.SectionName));
+
+        services.AddSingleton<IEventPublisher, RabbitMqEventPublisher>();
         return this;
     }
 

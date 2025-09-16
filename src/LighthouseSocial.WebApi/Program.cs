@@ -21,6 +21,7 @@ builder.Services
     .WithKeycloak()
     //.WithElasticsearchLogging(builder.Environment)
     .WithGraylog(builder.Environment)
+    .WithMessaging()
     .Build();
 builder.Host.UseSerilog();
 
