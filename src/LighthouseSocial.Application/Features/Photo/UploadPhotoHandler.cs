@@ -106,6 +106,18 @@ internal class UploadPhotoHandler(
             return Result<Guid>.Fail(result.ErrorMessage!);
         }
 
+        var savedToRepositoryEvent = new PhotoSavedToRepository(
+            photo.Id,
+            photo.Filename,
+            photo.UserId,
+            photo.LighthouseId,
+            photo.Metadata.CameraModel,
+            photo.Metadata.Resolution,
+            photo.Metadata.Lens,
+            photo.UploadDate
+        );
+        await _eventPublisher.PublishAsync(savedToRepositoryEvent, cancellationToken);
+
         var successEvent = new PhotoUploaded(
             photo.Id,
             photo.Filename,
