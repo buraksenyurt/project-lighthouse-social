@@ -101,8 +101,8 @@ Minimum Profil;
 - [x] [Bölüm 44 - SAGA Deseninin Photo Upload Sürecine Uyarlanması](https://youtu.be/i1iln8Ym96U)
 - [x] [Bölüm 45 - Photo Upload Sürecinde SAGA Pattern Testleri](https://youtu.be/Q2SsV1HGa8A)
 - [x] [Bölüm 46 - Event Based Sistem için Hazırlıklar](https://youtu.be/2Kdka9T9Gmo)
-- [x] [Bölüm 47 - RabbitMQ için Event Publisher Bileşeninin Geliştirilmesi]
-- [x] [Bölüm 48 - Event'ler RabbitMQ'ya Gidiyor mu?]
+- [x] [Bölüm 47 - RabbitMQ için Event Publisher Bileşeninin Geliştirilmesi](https://youtu.be/XglgWP3w37M)
+- [x] [Bölüm 48 - Event'ler RabbitMQ'ya Gidibilecek mi?](https://youtu.be/Ibfz3ScqgOc)
 
 ## Sonarqube
 
