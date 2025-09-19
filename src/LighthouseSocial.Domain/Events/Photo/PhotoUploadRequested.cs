@@ -1,9 +1,9 @@
 using LighthouseSocial.Domain.Common;
 
-namespace LighthouseSocial.Domain.Events;
+namespace LighthouseSocial.Domain.Events.Photo;
 
 public class PhotoUploadRequested(Guid photoId, string fileName, Guid userId, Guid lighthouseId, string cameraType, string resolution, string lens)
-        : EventBase(photoId)
+    : EventBase(photoId)
 {
     public string FileName { get; } = fileName ?? throw new ArgumentNullException(nameof(fileName));
     public Guid UserId { get; } = userId;

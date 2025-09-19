@@ -4,7 +4,7 @@ using LighthouseSocial.Application.Common.Pipeline;
 using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Domain.Common;
-using LighthouseSocial.Domain.Events;
+using LighthouseSocial.Domain.Events.Lighthouse;
 using LighthouseSocial.Domain.ValueObjects;
 
 namespace LighthouseSocial.Application.Features.Lighthouse;

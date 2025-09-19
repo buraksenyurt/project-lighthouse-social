@@ -5,7 +5,7 @@ using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Domain.Common;
-using LighthouseSocial.Domain.Events;
+using LighthouseSocial.Domain.Events.Comment;
 using LighthouseSocial.Domain.ValueObjects;
 
 namespace LighthouseSocial.Application.Features.Comment;

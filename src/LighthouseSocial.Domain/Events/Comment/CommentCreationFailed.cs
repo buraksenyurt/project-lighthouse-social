@@ -1,6 +1,6 @@
 using LighthouseSocial.Domain.Common;
 
-namespace LighthouseSocial.Domain.Events;
+namespace LighthouseSocial.Domain.Events.Comment;
 
 public class CommentCreationFailed(Guid commentId, Guid userId, Guid photoId, string text, int rating, string errorMessage, string? errorDetails = null)
     : EventBase(commentId)
