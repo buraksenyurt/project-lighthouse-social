@@ -5,6 +5,7 @@ using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.Comment;
+using LighthouseSocial.Domain.Common;
 using Moq;
 
 namespace LighthouseSocial.Application.Tests.Features.Comment;
@@ -16,6 +17,7 @@ public class AddCommentHandlerTests
     private readonly Mock<IUserRepository> _userRepositoryMock;
     private readonly Mock<IPhotoRepository> _photoRepositoryMock;
     private readonly Mock<ICommentAuditor> _commentAuditorMock;
+    private readonly Mock<IEventPublisher> _eventPublisherMock;
     private readonly AddCommentHandler _handler;
     public AddCommentHandlerTests()
     {
@@ -24,13 +26,15 @@ public class AddCommentHandlerTests
         _userRepositoryMock = new Mock<IUserRepository>();
         _photoRepositoryMock = new Mock<IPhotoRepository>();
         _commentAuditorMock = new Mock<ICommentAuditor>();
+        _eventPublisherMock = new Mock<IEventPublisher>();
 
         _handler = new AddCommentHandler(
             _repositoryMock.Object,
             _validatorMock.Object,
             _userRepositoryMock.Object,
             _photoRepositoryMock.Object,
-            _commentAuditorMock.Object
+            _commentAuditorMock.Object,
+            _eventPublisherMock.Object
             );
     }
 
