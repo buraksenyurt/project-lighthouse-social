@@ -5,6 +5,7 @@ using LighthouseSocial.Application.Contracts;
 using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.Photo;
+using LighthouseSocial.Domain.Common;
 using Moq;
 
 namespace LighthouseSocial.Application.Tests.Features.Photo;
@@ -14,13 +15,15 @@ public class UploadPhotoHandlerTests
     private readonly Mock<IPhotoStorageService> _storageMock;
     private readonly Mock<IPhotoRepository> _repositoryMock;
     private readonly Mock<IValidator<PhotoDto>> _validatorMock;
+    private readonly Mock<IEventPublisher> _eventPublisherMock;
     private readonly UploadPhotoHandler _handler;
     public UploadPhotoHandlerTests()
     {
         _storageMock = new Mock<IPhotoStorageService>();
         _repositoryMock = new Mock<IPhotoRepository>();
         _validatorMock = new Mock<IValidator<PhotoDto>>();
-        _handler = new UploadPhotoHandler(_repositoryMock.Object, _storageMock.Object, _validatorMock.Object);
+        _eventPublisherMock = new Mock<IEventPublisher>();
+        _handler = new UploadPhotoHandler(_repositoryMock.Object, _storageMock.Object, _validatorMock.Object, _eventPublisherMock.Object);
     }
     [Fact]
     public async Task HandleAsync_ShouldReturnSuccess_WhenValidInput()
