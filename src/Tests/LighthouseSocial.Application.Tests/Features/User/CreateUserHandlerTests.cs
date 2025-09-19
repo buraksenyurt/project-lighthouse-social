@@ -4,6 +4,7 @@ using LighthouseSocial.Application.Common;
 using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.User;
+using LighthouseSocial.Domain.Common;
 using Moq;
 
 namespace LighthouseSocial.Application.Tests.Features.User;
@@ -12,13 +13,15 @@ public class CreateUserHandlerTests
 {
     private readonly Mock<IValidator<UserDto>> _validatorMock;
     private readonly Mock<IUserRepository> _userRepositoryMock;
+    private readonly Mock<IEventPublisher> _eventPublisherMock;
     private readonly CreateUserHandler _handler;
 
     public CreateUserHandlerTests()
     {
         _validatorMock = new Mock<IValidator<UserDto>>();
         _userRepositoryMock = new Mock<IUserRepository>();
-        _handler = new CreateUserHandler(_userRepositoryMock.Object, _validatorMock.Object);
+        _eventPublisherMock = new Mock<IEventPublisher>();
+        _handler = new CreateUserHandler(_userRepositoryMock.Object, _validatorMock.Object, _eventPublisherMock.Object);
     }
 
     [Fact]

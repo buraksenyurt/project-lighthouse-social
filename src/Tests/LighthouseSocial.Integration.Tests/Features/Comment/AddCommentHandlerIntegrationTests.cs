@@ -56,8 +56,7 @@ public class AddCommentHandlerIntegrationTests
         if (Environment.GetEnvironmentVariable("CI") == "true")
             return;
 
-        //todo@buraksenyurt Sistemde var olan UserId, PhotoId bilgileri ile test edilebilir
-        var dto = new CommentDto(Guid.NewGuid(), Guid.NewGuid(), "It's a lovely day.", 7);
+        var dto = new CommentDto(Guid.Parse("00000000-0000-0000-0000-000000000002"), Guid.Parse("20000000-0000-0000-0000-000000000001"), "It's a lovely day.", 7);
         var result = await _handler.HandleAsync(new AddCommentRequest(dto), CancellationToken.None);
 
         Assert.True(result.Success);
@@ -69,8 +68,7 @@ public class AddCommentHandlerIntegrationTests
         if (Environment.GetEnvironmentVariable("CI") == "true")
             return;
 
-        //todo@buraksenyurt Sistemde var olan UserId, PhotoId bilgileri ile test edilebilir
-        var dto = new CommentDto(Guid.NewGuid(), Guid.NewGuid(), "I hate you.", 1);
+        var dto = new CommentDto(Guid.Parse("00000000-0000-0000-0000-000000000001"), Guid.Parse("20000000-0000-0000-0000-000000000001"), "I hate you.", 1);
         var result = await _handler.HandleAsync(new AddCommentRequest(dto), CancellationToken.None);
 
         Assert.False(result.Success);
