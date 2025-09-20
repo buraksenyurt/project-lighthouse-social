@@ -147,7 +147,7 @@ Path : **ProjectLighthouseSocial-Dev**
 {
   "DbConnStr": "Host=localhost;Port=5432;Database=lighthousedb;Username=johndoe;Password=somew0rds",
   "KeycloakAudience": "account",
-  "KeycloakAuthority": "http://localhost:8089/",
+  "KeycloakAuthority": "http://localhost:8400/",
   "KeycloakClientId": "lighthouse-service-client",
   "KeycloakClientSecret": "Lupgay1UcpJA7vRDOr7MsrBJN5B7bJoN",
   "KeycloakClockSkew": "5",

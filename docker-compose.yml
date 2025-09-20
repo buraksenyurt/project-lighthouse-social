@@ -57,10 +57,10 @@ services:
     image: hashicorp/vault:latest
     container_name: plh-vault
     ports:
-      - "8200:8200"
+      - "8300:8200"
     environment:
       VAULT_DEV_ROOT_TOKEN_ID: "root"
-      VAULT_ADDR: "http://localhost:8200"
+      VAULT_ADDR: "http://localhost:8300"
       VAULT_DEV_LISTEN_ADDRESS: "vault:8200"
     privileged: true
 
@@ -88,7 +88,7 @@ services:
       KC_HEALTH_ENABLED: true
       KC_METRICS_ENABLED: true
     ports:
-      - "8089:8080"
+      - "8400:8080"
     depends_on:
       - postgres
     command: start-dev

@@ -123,7 +123,7 @@
 							"host": [
 								"localhost"
 							],
-							"port": "8089",
+							"port": "8400",
 							"path": [
 								"realms",
 								"ProjectLighthouseSocialRealm",
@@ -173,12 +173,12 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8089/realms/ProjectLighthouseSocialRealm/protocol/openid-connect/token",
+							"raw": "http://localhost:8400/realms/ProjectLighthouseSocialRealm/protocol/openid-connect/token",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8089",
+							"port": "8400",
 							"path": [
 								"realms",
 								"ProjectLighthouseSocialRealm",
@@ -226,12 +226,12 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8089/realms/ProjectLighthouseSocialRealm/protocol/openid-connect/token/introspect",
+							"raw": "http://localhost:8400/realms/ProjectLighthouseSocialRealm/protocol/openid-connect/token/introspect",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8089",
+							"port": "8400",
 							"path": [
 								"realms",
 								"ProjectLighthouseSocialRealm",
@@ -280,7 +280,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8089/realms/ProjectLighthouseSocialRealm/protocol/openid-connect/token/introspect",
+							"raw": "http://localhost:8400/realms/ProjectLighthouseSocialRealm/protocol/openid-connect/token/introspect",
 							"protocol": "http",
 							"host": [
 								"localhost"
