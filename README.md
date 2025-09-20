@@ -103,6 +103,7 @@ Minimum Profil;
 - [x] [Bölüm 46 - Event Based Sistem için Hazırlıklar](https://youtu.be/2Kdka9T9Gmo)
 - [x] [Bölüm 47 - RabbitMQ için Event Publisher Bileşeninin Geliştirilmesi](https://youtu.be/XglgWP3w37M)
 - [x] [Bölüm 48 - Event'ler RabbitMQ'ya Gidibilecek mi?](https://youtu.be/Ibfz3ScqgOc)
+- [x] [Bölüm 49- Nerede Bu RabbitMQ Mesajları? (Queue Oluşturma ve Kod Üzerinden Dinleme](https://youtu.be/NzYOm4NJT5s)
 
 ## Sonarqube
 
