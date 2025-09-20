@@ -103,7 +103,10 @@ Minimum Profil;
 - [x] [Bölüm 46 - Event Based Sistem için Hazırlıklar](https://youtu.be/2Kdka9T9Gmo)
 - [x] [Bölüm 47 - RabbitMQ için Event Publisher Bileşeninin Geliştirilmesi](https://youtu.be/XglgWP3w37M)
 - [x] [Bölüm 48 - Event'ler RabbitMQ'ya Gidibilecek mi?](https://youtu.be/Ibfz3ScqgOc)
-- [x] [Bölüm 49- Nerede Bu RabbitMQ Mesajları? (Queue Oluşturma ve Kod Üzerinden Dinleme](https://youtu.be/NzYOm4NJT5s)
+- [x] [Bölüm 49 - Nerede Bu RabbitMQ Mesajları? (Queue Oluşturma ve Kod Üzerinden Dinleme)](https://youtu.be/NzYOm4NJT5s)
+- [ ] [Bölüm 50 - Razor Tabanlı Backoffice Uygulaması için İlk Adımlar]
+- [ ] [Bölüm 51 - Create ve List Sayfalarının Oluşturulması]
+- [ ] [Bölüm 52 - Ülke Listeleri için Api Service Düzenlemeleri ve Razor Sayfasında Kullanımı]
 
 ## Sonarqube
 
