@@ -1,0 +1,65 @@
+﻿@page
+@model LighthouseSocial.Backoffice.Pages.Lighthouse.ListModel
+@{
+    ViewData["Title"] = "Lighthouse List";
+}
+
+<h1>Lighthouse List</h1>
+<p>
+    <a href="/Lighthouse/Create">Create a New Lighthouse</a>
+</p>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <p><strong>HATA!</strong> @Model.ErrorMessage</p>
+}
+
+@if (Model.Lighthouses?.Any() == true)
+{
+    <p><strong>Total lighthouses count is @Model.Lighthouses.Count() </strong></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Country ID</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var lighthouse in Model.Lighthouses)
+            {
+                <tr>
+                    <td>@lighthouse.Id</td>
+                    <td>@lighthouse.Name</td>
+                    <td>@lighthouse.CountryId</td>
+                    <td>@lighthouse.Latitude.ToString("F6")</td>
+                    <td>@lighthouse.Longitude.ToString("F6")</td>
+                    <td>
+                        <a href="https://www.google.com/maps?q=@lighthouse.Latitude,@lighthouse.Longitude" target="_blank">View on Map</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h2>List View</h2>
+    @foreach (var lighthouse in Model.Lighthouses)
+    {
+        <hr />
+        <h3>@lighthouse.Name</h3>
+        <ul>
+            <li><strong>ID:</strong> @lighthouse.Id</li>
+            <li><strong>Country ID:</strong> @lighthouse.CountryId</li>
+            <li><strong>Latitude:</strong> @lighthouse.Latitude.ToString("F6")</li>
+            <li><strong>Longitude:</strong> @lighthouse.Longitude.ToString("F6")</li>
+            <li><a href="https://www.google.com/maps?q=@lighthouse.Latitude,@lighthouse.Longitude" target="_blank">View on Map</a>
+        </ul>
+    }
+}
+else
+{
+    <p>No lighthouses found.</p>
+}
