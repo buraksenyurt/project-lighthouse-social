@@ -34,7 +34,7 @@ public class LighthouseController(ILogger<LighthouseController> logger, ILightho
     }
 
     [HttpPost]
-    [Authorize(Policy = "ApiScope")]
+    //[Authorize(Policy = "ApiScope")]
     public async Task<ActionResult<Guid>> Create([FromBody] CreateLighthouseRequest request)
     {
         try

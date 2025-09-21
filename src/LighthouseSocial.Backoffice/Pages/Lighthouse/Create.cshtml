@@ -1,0 +1,72 @@
+﻿@page
+@model LighthouseSocial.Backoffice.Pages.Lighthouse.CreateModel
+@{
+    ViewData["Title"] = "Create a New Lighthouse";
+}
+
+<h1>Create a New Lighthouse</h1>
+
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <p><strong>BAŞARILI!</strong></p>
+}
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <p><strong>HATA!</strong> @Model.ErrorMessage</p>
+}
+
+<form method="post">
+    <fieldset>
+        <legend>Lighthouse Details</legend>
+
+        <table>
+            <tr>
+                <td><label asp-for="LighthouseForm.Name">Lighthouse Name</label></td>
+                <td><input asp-for="LighthouseForm.Name" placeholder="Example: Şile Deniz Feneri" /></td>
+                <td><span asp-validation-for="LighthouseForm.Name" class="text-danger"></span></td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label asp-for="LighthouseForm.CountryId">Country Id</label>
+                </td>
+                <td>
+                    <input asp-for="LighthouseForm.CountryId" type="number" placeholder="Example: 1" />
+                    <span asp-validation-for="LighthouseForm.CountryId" class="text-danger"></span>
+                    <br /><small>For Türkiye use 49</small>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label asp-for="LighthouseForm.Latitude">Latitude</label>
+                </td>
+                <td>
+                    <input asp-for="LighthouseForm.Latitude" type="number" step="0.000001" placeholder="Example: 41.175278" />
+                    <span asp-validation-for="LighthouseForm.Latitude" class="text-danger"></span>
+                    <small>Between -90.0 and 90.0</small>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label asp-for="LighthouseForm.Longitude">Longitude</label>
+                </td>
+                <td>
+                    <input asp-for="LighthouseForm.Longitude" type="number" step="0.000001" placeholder="Example: 29.533611" />
+                    <span asp-validation-for="LighthouseForm.Longitude" class="text-danger"></span>
+                    <small>Between -180.0 and 180.0</small>
+                </td>
+            </tr>
+
+            <hr />
+
+            <p>
+                <a asp-page="/Lighthouse/List">Go Back To List</a>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </p>
+
+        </table>
+    </fieldset>
+</form>
