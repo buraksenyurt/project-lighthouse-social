@@ -26,6 +26,7 @@ internal class GetLighthouseByIdHandler(ILighthouseRepository repository)
             lighthouse.Id,
             lighthouse.Name,
             lighthouse.CountryId,
+            lighthouse.Country.Name,
             lighthouse.Location.Latitude,
             lighthouse.Location.Longitude
         );

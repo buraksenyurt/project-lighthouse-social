@@ -31,7 +31,7 @@ public class UpdateLighthouseHandlerTests
             country,
             new Coordinates(40.00, -4.00)
         );
-        var dto = new LighthouseDto(
+        var dto = new LighthouseUpsertDto(
             lighthouseId,
             "Cape Espicel",
             42,
@@ -57,7 +57,7 @@ public class UpdateLighthouseHandlerTests
     {
         // Arrange
         var lighthouseId = Guid.NewGuid();
-        var dto = new LighthouseDto(
+        var dto = new LighthouseUpsertDto(
             lighthouseId,
             "Cape Espicel",
             42,
@@ -89,7 +89,7 @@ public class UpdateLighthouseHandlerTests
             country,
             new Coordinates(40.00, -4.00)
         );
-        var dto = new LighthouseDto(
+        var dto = new LighthouseUpsertDto(
             lighthouseId,
             "Cape Espicel",
             42,

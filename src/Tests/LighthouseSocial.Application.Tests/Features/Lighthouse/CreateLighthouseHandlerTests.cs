@@ -14,14 +14,14 @@ public class CreateLighthouseHandlerTests
 {
     private readonly Mock<ILighthouseRepository> _repositoryMock;
     private readonly Mock<ICountryDataReader> _registryMock;
-    private readonly Mock<IValidator<LighthouseDto>> _validatorMock;
+    private readonly Mock<IValidator<LighthouseUpsertDto>> _validatorMock;
     private readonly Mock<IEventPublisher> _eventPublisherMock;
     private readonly CreateLighthouseHandler _handler;
     public CreateLighthouseHandlerTests()
     {
         _repositoryMock = new Mock<ILighthouseRepository>();
         _registryMock = new Mock<ICountryDataReader>();
-        _validatorMock = new Mock<IValidator<LighthouseDto>>();
+        _validatorMock = new Mock<IValidator<LighthouseUpsertDto>>();
         _eventPublisherMock = new Mock<IEventPublisher>();
         _handler = new CreateLighthouseHandler(_repositoryMock.Object, _registryMock.Object, _validatorMock.Object, _eventPublisherMock.Object);
     }
@@ -30,11 +30,11 @@ public class CreateLighthouseHandlerTests
     public async Task HandleAsync_ShouldReturnSuccess_WhenInputIsValid()
     {
         // Arrange
-        var dto = new LighthouseDto(Guid.Empty, "Roman Rock", 27, 34.10, 34.13);
+        var dto = new LighthouseUpsertDto(Guid.Empty, "Roman Rock", 27, 34.10, 34.13);
         var country = new Country(27, "South Africa");
 
         _registryMock.Setup(r => r.GetByIdAsync(dto.CountryId, It.IsAny<CancellationToken>())).ReturnsAsync(Result<Country>.Ok(country));
-        _validatorMock.Setup(v => v.Validate(It.IsAny<LighthouseDto>())).Returns(new ValidationResult());
+        _validatorMock.Setup(v => v.Validate(It.IsAny<LighthouseUpsertDto>())).Returns(new ValidationResult());
         _repositoryMock.Setup(r => r.AddAsync(It.IsAny<Domain.Entities.Lighthouse>(), It.IsAny<CancellationToken>())).ReturnsAsync(Result.Ok());
 
         // Act
@@ -51,7 +51,7 @@ public class CreateLighthouseHandlerTests
     public async Task HandleAsync_ShouldReturnFail_WhenValidationFails()
     {
         // Arrange
-        var dto = new LighthouseDto(Guid.Empty, string.Empty, 999, 91.0, -181.0);
+        var dto = new LighthouseUpsertDto(Guid.Empty, string.Empty, 999, 91.0, -181.0);
         var validationFailures = new List<ValidationFailure>
         {
             new("Name","Name is required"),
@@ -61,7 +61,7 @@ public class CreateLighthouseHandlerTests
         };
 
         _validatorMock
-            .Setup(v => v.Validate(It.IsAny<LighthouseDto>()))
+            .Setup(v => v.Validate(It.IsAny<LighthouseUpsertDto>()))
             .Returns(new ValidationResult(validationFailures));
 
         // Act
@@ -72,36 +72,4 @@ public class CreateLighthouseHandlerTests
         Assert.Contains("Name is required", result.ErrorMessage);
         Assert.Contains("CountryId must be between 0 and 255", result.ErrorMessage);
     }
-
-    // [Fact]
-    // public async Task HandleAsync_ShouldReturnFail_WhenCountryNotFound()
-    // {
-    //     // Arrange
-    //     var dto = new LighthouseDto(Guid.Empty, "Green Point", 999, 0, 0);
-    //     _registryMock.Setup(r => r.GetById(It.IsAny<int>())).Throws(new Exception("Not found"));
-
-    //     // Act
-    //     var result = await _handler.HandleAsync(dto);
-
-    //     // Assert
-    //     Assert.False(result.Success);
-    //     Assert.Contains("Invalid country", result.ErrorMessage);
-    // }
-
-    // [Fact]
-    // public async Task HandleAsync_ShouldReturnFail_WhenLighthouseNameIsEmpty()
-    // {
-    //     // Arrange
-    //     var dto = new LighthouseDto(Guid.Empty, string.Empty, 27, 0, 0);
-    //     var country = new Country(27, "South Africa");
-
-    //     _registryMock.Setup(r => r.GetById(dto.CountryId)).Returns(country);
-
-    //     // Act
-    //     var result = await _handler.HandleAsync(dto);
-
-    //     // Assert
-    //     Assert.False(result.Success);
-    //     Assert.Contains("Lighthouse name is required", result.ErrorMessage);
-    // }
 }

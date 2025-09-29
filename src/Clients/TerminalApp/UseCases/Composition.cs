@@ -52,7 +52,7 @@ public class Composition(
         try
         {
             var lighthouseId = Guid.NewGuid();
-            var lighthouse = new LighthouseDto(
+            var lighthouse = new LighthouseUpsertDto(
                 Id: lighthouseId,
                 Name: "Farol da Guia",
                 CountryId: 42,

@@ -49,7 +49,6 @@ public static class DependencyInjection
         services.AddScoped<FileUploadStep>();
         services.AddScoped<MetadataSaveStep>();
 
-
         // Pipeline Behaviors
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(CancellationBehavior<,>));
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
@@ -57,7 +56,7 @@ public static class DependencyInjection
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ExceptionHandlingBehavior<,>));
 
         // Validators
-        services.AddScoped<IValidator<LighthouseDto>, LighthouseDtoValidator>();
+        services.AddScoped<IValidator<LighthouseUpsertDto>, LighthouseDtoValidator>();
         services.AddScoped<IValidator<PhotoDto>, PhotoDtoValidator>();
         services.AddScoped<IValidator<CommentDto>, CommentDtoValidator>();
         services.AddScoped<IValidator<UserDto>, UserDtoValidator>();

@@ -9,14 +9,14 @@ using LighthouseSocial.Domain.ValueObjects;
 
 namespace LighthouseSocial.Application.Features.Lighthouse;
 
-internal record CreateLighthouseRequest(LighthouseDto Lighthouse);
+internal record CreateLighthouseRequest(LighthouseUpsertDto Lighthouse);
 
-internal class CreateLighthouseHandler(ILighthouseRepository repository, ICountryDataReader countryDataReader, IValidator<LighthouseDto> validator, IEventPublisher eventPublisher)
+internal class CreateLighthouseHandler(ILighthouseRepository repository, ICountryDataReader countryDataReader, IValidator<LighthouseUpsertDto> validator, IEventPublisher eventPublisher)
     : IHandler<CreateLighthouseRequest, Result<Guid>>
 {
     private readonly ILighthouseRepository _repository = repository;
     private readonly ICountryDataReader _countryDataReader = countryDataReader;
-    private readonly IValidator<LighthouseDto> _validator = validator;
+    private readonly IValidator<LighthouseUpsertDto> _validator = validator;
 
     public async Task<Result<Guid>> HandleAsync(CreateLighthouseRequest request, CancellationToken cancellationToken)
     {

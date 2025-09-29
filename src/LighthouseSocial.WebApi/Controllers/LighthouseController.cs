@@ -39,7 +39,7 @@ public class LighthouseController(ILogger<LighthouseController> logger, ILightho
     {
         try
         {
-            var dto = new LighthouseDto
+            var dto = new LighthouseUpsertDto
             (
                 Guid.NewGuid(),
                 request.Name,
@@ -122,7 +122,7 @@ public class LighthouseController(ILogger<LighthouseController> logger, ILightho
     {
         try
         {
-            var dto = new LighthouseDto
+            var dto = new LighthouseUpsertDto
             (
                 lighthouseId,
                 request.Name,

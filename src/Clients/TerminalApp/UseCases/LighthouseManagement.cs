@@ -24,7 +24,7 @@ public class LighthouseManagement(
             await _lighthouseService.DeleteAsync(id);
 
             Console.WriteLine("Creating new lighthouse...");
-            var newLighthouse = new LighthouseDto(
+            var newLighthouse = new LighthouseUpsertDto(
                 Id: id,
                 Name: "Cape Espichel",
                 CountryId: 42,
@@ -84,7 +84,7 @@ public class LighthouseManagement(
         if (lighthouse == null)
         {
             Console.WriteLine("Creating sample lighthouse for testing...");
-            var newLighthouse = new LighthouseDto(
+            var newLighthouse = new LighthouseUpsertDto(
                 Id: id,
                 Name: "Cape Espichel",
                 CountryId: 42,

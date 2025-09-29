@@ -4,7 +4,7 @@ using LighthouseSocial.Application.Dtos;
 namespace LighthouseSocial.Application.Validators;
 
 public class LighthouseDtoValidator
-    : AbstractValidator<LighthouseDto>
+    : AbstractValidator<LighthouseUpsertDto>
 {
     public LighthouseDtoValidator()
     {

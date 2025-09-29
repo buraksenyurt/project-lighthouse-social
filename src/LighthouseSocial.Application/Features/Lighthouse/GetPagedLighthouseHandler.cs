@@ -26,6 +26,7 @@ internal class GetPagedLighthouseHandler(ILighthouseRepository lighthouseReposit
             l.Id,
             l.Name,
             l.CountryId,
+            l.Country.Name,
             l.Location.Latitude,
             l.Location.Longitude
         )).ToList();

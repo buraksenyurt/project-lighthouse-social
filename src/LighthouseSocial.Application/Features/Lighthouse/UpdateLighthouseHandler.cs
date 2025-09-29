@@ -7,7 +7,7 @@ using LighthouseSocial.Domain.ValueObjects;
 
 namespace LighthouseSocial.Application.Features.Lighthouse;
 
-internal record UpdateLighthouseRequest(Guid LighthouseId, LighthouseDto Dto);
+internal record UpdateLighthouseRequest(Guid LighthouseId, LighthouseUpsertDto Dto);
 
 internal class UpdateLighthouseHandler(ILighthouseRepository repository)
     : IHandler<UpdateLighthouseRequest, Result>

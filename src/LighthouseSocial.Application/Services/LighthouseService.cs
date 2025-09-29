@@ -12,7 +12,7 @@ public class LighthouseService(PipelineDispatcher pipelineDispatcher)
 {
     private readonly PipelineDispatcher _pipelineDispatcher = pipelineDispatcher;
 
-    public async Task<Result<Guid>> CreateAsync(LighthouseDto dto)
+    public async Task<Result<Guid>> CreateAsync(LighthouseUpsertDto dto)
     {
         return await _pipelineDispatcher.SendAsync<CreateLighthouseRequest, Result<Guid>>(new CreateLighthouseRequest(dto));
     }
@@ -42,7 +42,7 @@ public class LighthouseService(PipelineDispatcher pipelineDispatcher)
         return await _pipelineDispatcher.SendAsync<GetTopLighthousesRequest, Result<IEnumerable<LighthouseTopDto>>>(new GetTopLighthousesRequest(topDto.Count));
     }
 
-    public async Task<Result> UpdateAsync(Guid lighthouseId, LighthouseDto dto)
+    public async Task<Result> UpdateAsync(Guid lighthouseId, LighthouseUpsertDto dto)
     {
         return await _pipelineDispatcher.SendAsync<UpdateLighthouseRequest, Result>(new UpdateLighthouseRequest(lighthouseId, dto));
     }
