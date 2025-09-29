@@ -6,16 +6,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LighthouseSocial.Backoffice.Pages.Lighthouse;
 
-public class CreateModel : PageModel
+public class CreateModel(ILigthouseServiceClient ligthouseServiceClient, ILogger<CreateModel> logger) : PageModel
 {
-    private readonly ILigthouseServiceClient _lighthouseServiceClient;
-    private readonly ILogger<CreateModel> _logger;
-    public CreateModel(ILigthouseServiceClient ligthouseServiceClient, ILogger<CreateModel> logger)
-    {
-        _lighthouseServiceClient = ligthouseServiceClient;
-        _logger = logger;
-    }
-
     [TempData]
     public string? SuccessMessage { get; set; }
 
@@ -46,7 +38,7 @@ public class CreateModel : PageModel
                 LighthouseForm.Longitude
             );
 
-            var result = await _lighthouseServiceClient.CreateAsync(request);
+            var result = await ligthouseServiceClient.CreateAsync(request);
 
             if (result.Success)
             {
@@ -61,7 +53,7 @@ public class CreateModel : PageModel
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error creating lighthouse");
+            logger.LogError(ex, "Error creating lighthouse");
             ErrorMessage = "An unexpected error occurred. Please try again later.";
 
             return Page();

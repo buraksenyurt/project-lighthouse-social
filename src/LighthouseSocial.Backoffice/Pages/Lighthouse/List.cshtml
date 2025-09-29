@@ -36,7 +36,7 @@
                         <div class="d-flex align-items-center justify-content-center">
                             <i class="fas fa-lighthouse text-primary fs-2 me-3"></i>
                             <div>
-                                <h4 class="mb-0">@Model.Lighthouses.Count()</h4>
+                                <h4 class="mb-0">@Model.TotalCount</h4>
                                 <small class="text-muted">Total Lighthouses</small>
                             </div>
                         </div>
@@ -124,6 +124,80 @@
                     </table>
                 </div>
             </div>
+
+            @if (Model.TotalPages > 1)
+            {
+                <div class="card-footer bg-light">
+                    <nav aria-label="Lighthouse pagination">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <small class="text-muted">
+                                    Showing @((Model.CurrentPage - 1) * Model.PageSize + 1) to
+                                    @(Math.Min(Model.CurrentPage * Model.PageSize, Model.TotalCount))
+                                    of @Model.TotalCount lighthouses
+                                </small>
+                            </div>
+                            <ul class="pagination pagination-sm mb-0">
+                                <li class="page-item @(!Model.HasPreviousPage ? "disabled" : "")">
+                                    <a class="page-link"
+                                       href="@(Model.HasPreviousPage ? $"/Lighthouse/List?page={Model.CurrentPage - 1}" : "#")"
+                                       aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+
+                                @{
+                                    int startPage = Math.Max(1, Model.CurrentPage - 2);
+                                    int endPage = Math.Min(Model.TotalPages, Model.CurrentPage + 2);
+                                }
+
+                                @if (startPage > 1)
+                                {
+                                    <li class="page-item">
+                                        <a class="page-link" href="/Lighthouse/List?page=1">1</a>
+                                    </li>
+                                    @if (startPage > 2)
+                                    {
+                                        <li class="page-item disabled">
+                                            <span class="page-link">...</span>
+                                        </li>
+                                    }
+                                }
+
+                                @for (int i = startPage; i <= endPage; i++)
+                                {
+                                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                        <a class="page-link" href="/Lighthouse/List?page=@i">@i</a>
+                                    </li>
+                                }
+
+                                @if (endPage < Model.TotalPages)
+                                {
+                                    @if (endPage < Model.TotalPages - 1)
+                                    {
+                                        <li class="page-item disabled">
+                                            <span class="page-link">...</span>
+                                        </li>
+                                    }
+                                    <li class="page-item">
+                                        <a class="page-link" href="/Lighthouse/List?page=@Model.TotalPages">@Model.TotalPages</a>
+                                    </li>
+                                }
+
+                                <li class="page-item @(!Model.HasNextPage ? "disabled" : "")">
+                                    <a class="page-link"
+                                       href="@(Model.HasNextPage ? $"/Lighthouse/List?page={Model.CurrentPage + 1}" : "#")"
+                                       aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            }
         </div>
     }
     else

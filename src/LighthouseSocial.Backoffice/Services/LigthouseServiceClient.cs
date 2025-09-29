@@ -7,7 +7,7 @@ namespace LighthouseSocial.Backoffice.Services;
 public interface ILigthouseServiceClient
 {
     Task<ApiResponse<Guid>> CreateAsync(CreateLighthouseRequest request);
-    Task<ApiResponse<IEnumerable<LighthouseDto>>> GetPagedAsync(int pageNumber, int pageSize);
+    Task<ApiResponse<PagedResult<LighthouseDto>>> GetPagedAsync(int pageNumber, int pageSize);
 }
 
 public class LigthouseServiceClient
@@ -68,7 +68,7 @@ public class LigthouseServiceClient
         }
     }
 
-    public async Task<ApiResponse<IEnumerable<LighthouseDto>>> GetPagedAsync(int pageNumber, int pageSize)
+    public async Task<ApiResponse<PagedResult<LighthouseDto>>> GetPagedAsync(int pageNumber, int pageSize)
     {
         try
         {
@@ -79,15 +79,15 @@ public class LigthouseServiceClient
                 var jsonContent = await response.Content.ReadAsStringAsync();
                 var pagedResult = JsonSerializer.Deserialize<PagedResult<LighthouseDto>>(jsonContent, _jsonSerializerOptions);
 
-                return new ApiResponse<IEnumerable<LighthouseDto>>
+                return new ApiResponse<PagedResult<LighthouseDto>>
                 {
                     Success = true,
-                    Data = pagedResult?.Items ?? []
+                    Data = pagedResult ?? new PagedResult<LighthouseDto>()
                 };
             }
 
             var errorContent = await response.Content.ReadAsStringAsync();
-            return new ApiResponse<IEnumerable<LighthouseDto>>
+            return new ApiResponse<PagedResult<LighthouseDto>>
             {
                 Success = false,
                 ErrorMessage = $"API Error: {response.StatusCode} - {errorContent}"
@@ -96,7 +96,7 @@ public class LigthouseServiceClient
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error fetching lighthouses");
-            return new ApiResponse<IEnumerable<LighthouseDto>>
+            return new ApiResponse<PagedResult<LighthouseDto>>
             {
                 Success = false,
                 ErrorMessage = "Connection error occurred while fetching lighthouses"
