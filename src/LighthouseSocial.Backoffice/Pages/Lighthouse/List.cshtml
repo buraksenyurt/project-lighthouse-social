@@ -4,62 +4,139 @@
     ViewData["Title"] = "Lighthouse List";
 }
 
-<h1>Lighthouse List</h1>
-<p>
-    <a href="/Lighthouse/Create">Create a New Lighthouse</a>
-</p>
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0">
+                <i class="fas fa-lighthouse text-primary me-2"></i>
+                Lighthouse Directory
+            </h1>
+            <p class="text-muted mb-0">Manage and view all lighthouses in the system</p>
+        </div>
+        <a href="/Lighthouse/Create" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i>Add New Lighthouse
+        </a>
+    </div>
 
-@if (!string.IsNullOrEmpty(Model.ErrorMessage))
-{
-    <p><strong>HATA!</strong> @Model.ErrorMessage</p>
-}
-
-@if (Model.Lighthouses?.Any() == true)
-{
-    <p><strong>Total lighthouses count is @Model.Lighthouses.Count() </strong></p>
-
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Country ID</th>
-                <th>Latitude</th>
-                <th>Longitude</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var lighthouse in Model.Lighthouses)
-            {
-                <tr>
-                    <td>@lighthouse.Id</td>
-                    <td>@lighthouse.Name</td>
-                    <td>@lighthouse.CountryId</td>
-                    <td>@lighthouse.Latitude.ToString("F6")</td>
-                    <td>@lighthouse.Longitude.ToString("F6")</td>
-                    <td>
-                        <a href="https://www.google.com/maps?q=@lighthouse.Latitude,@lighthouse.Longitude" target="_blank">View on Map</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-    <h2>List View</h2>
-    @foreach (var lighthouse in Model.Lighthouses)
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
     {
-        <hr />
-        <h3>@lighthouse.Name</h3>
-        <ul>
-            <li><strong>ID:</strong> @lighthouse.Id</li>
-            <li><strong>Country ID:</strong> @lighthouse.CountryId</li>
-            <li><strong>Latitude:</strong> @lighthouse.Latitude.ToString("F6")</li>
-            <li><strong>Longitude:</strong> @lighthouse.Longitude.ToString("F6")</li>
-            <li><a href="https://www.google.com/maps?q=@lighthouse.Latitude,@lighthouse.Longitude" target="_blank">View on Map</a>
-        </ul>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <strong>Error!</strong> @Model.ErrorMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
     }
-}
-else
-{
-    <p>No lighthouses found.</p>
-}
+
+    @if (Model.Lighthouses?.Any() == true)
+    {
+        <div class="card bg-light mb-4">
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <i class="fas fa-lighthouse text-primary fs-2 me-3"></i>
+                            <div>
+                                <h4 class="mb-0">@Model.Lighthouses.Count()</h4>
+                                <small class="text-muted">Total Lighthouses</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <i class="fas fa-globe text-success fs-2 me-3"></i>
+                            <div>
+                                <h4 class="mb-0">@Model.Lighthouses.Select(l => l.CountryId).Distinct().Count()</h4>
+                                <small class="text-muted">Countries</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <i class="fas fa-map-marked-alt text-info fs-2 me-3"></i>
+                            <div>
+                                <h4 class="mb-0">Active</h4>
+                                <small class="text-muted">Status</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-table me-2"></i>
+                    Lighthouse Database
+                </h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col">
+                                    <i class="fas fa-hashtag me-2"></i>ID
+                                </th>
+                                <th scope="col">
+                                    <i class="fas fa-lighthouse me-2"></i>Name
+                                </th>
+                                <th scope="col">
+                                    <i class="fas fa-flag me-2"></i>Country ID
+                                </th>
+                                <th scope="col">
+                                    <i class="fas fa-map-marker-alt me-2"></i>Coordinates
+                                </th>
+                                <th scope="col">
+                                    <i class="fas fa-cog me-2"></i>Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var lighthouse in Model.Lighthouses)
+                            {
+                                <tr>
+                                    <td>
+                                        <span class="badge bg-secondary">@lighthouse.Id</span>
+                                    </td>
+                                    <td>
+                                        <strong>@lighthouse.Name</strong>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-info">@lighthouse.CountryId</span>
+                                    </td>
+                                    <td>
+                                        <small class="text-muted">
+                                            <i class="fas fa-compass me-1"></i>
+                                            @lighthouse.Latitude.ToString("F6"), @lighthouse.Longitude.ToString("F6")
+                                        </small>
+                                    </td>
+                                    <td>
+                                        <a href="https://www.google.com/maps?q=@lighthouse.Latitude,@lighthouse.Longitude"
+                                           target="_blank"
+                                           class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-map me-1"></i>View on Map
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-5">
+            <div class="mb-4">
+                <i class="fas fa-lighthouse text-muted" style="font-size: 4rem;"></i>
+            </div>
+            <h4 class="text-muted">No Lighthouses Found</h4>
+            <p class="text-muted mb-4">Get started by adding your first lighthouse to the database.</p>
+            <a href="/Lighthouse/Create" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>Add Your First Lighthouse
+            </a>
+        </div>
+    }
+</div>
