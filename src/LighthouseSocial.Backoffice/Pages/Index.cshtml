@@ -1,10 +1,130 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Lighthouse Management Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="mb-4">
+    <div class="text-center">
+        <h1 class="h2 mb-3 text-primary">
+            <i class="fas fa-anchor me-2"></i>Project Lighthouse Social - Backoffice
+        </h1>
+        <p class="lead text-muted">Lighthouse Management System</p>
+    </div>
+</div>
+
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-body text-center p-5">
+                <i class="fas fa-lighthouse fa-4x text-primary mb-4"></i>
+                <h3 class="card-title text-dark mb-3">About This Application</h3>
+                <p class="card-text text-muted mb-4">
+                    This backoffice application is designed to perform all management operations related to lighthouses.
+                    System administrators can add, update, and manage lighthouse information through this platform.
+                </p>
+                <div class="row text-start">
+                    <div class="col-md-6">
+                        <h5 class="text-primary">
+                            <i class="fas fa-check-circle me-2"></i>Main Features
+                        </h5>
+                        <ul class="list-unstyled ms-4">
+                            <li class="mb-2"><i class="fas fa-plus text-success me-2"></i>Add new lighthouses</li>
+                            <li class="mb-2"><i class="fas fa-edit text-info me-2"></i>Update existing lighthouse information</li>
+                            <li class="mb-2"><i class="fas fa-list text-primary me-2"></i>View lighthouse listings</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="text-primary">
+                            <i class="fas fa-users me-2"></i>Content Management
+                        </h5>
+                        <ul class="list-unstyled ms-4">
+                            <li class="mb-2"><i class="fas fa-camera text-warning me-2"></i>Approve user photos</li>
+                            <li class="mb-2"><i class="fas fa-comments text-info me-2"></i>Moderate user comments</li>
+                            <li class="mb-2"><i class="fas fa-shield-alt text-success me-2"></i>Content quality control</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h4 class="text-center mb-4">
+            <i class="fas fa-bolt text-primary me-2"></i>Quick Actions
+        </h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <i class="fas fa-plus-circle fa-3x text-success mb-3"></i>
+                <h5 class="card-title">Add Lighthouse</h5>
+                <p class="card-text text-muted">Add new lighthouse information</p>
+                <a asp-page="/Lighthouse/Create" class="btn btn-success">
+                    <i class="fas fa-plus me-2"></i>Add
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <i class="fas fa-list fa-3x text-info mb-3"></i>
+                <h5 class="card-title">Lighthouses</h5>
+                <p class="card-text text-muted">List all lighthouses</p>
+                <a asp-page="/Lighthouse/List" class="btn btn-info">
+                    <i class="fas fa-list me-2"></i>List
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <i class="fas fa-camera fa-3x text-warning mb-3"></i>
+                <h5 class="card-title">Photo Review</h5>
+                <p class="card-text text-muted">Review user photos</p>
+                <button class="btn btn-warning" disabled>
+                    <i class="fas fa-camera me-2"></i>Coming Soon
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <i class="fas fa-comments fa-3x text-secondary mb-3"></i>
+                <h5 class="card-title">Comment Moderation</h5>
+                <p class="card-text text-muted">Manage user comments</p>
+                <button class="btn btn-secondary" disabled>
+                    <i class="fas fa-comments me-2"></i>Coming Soon
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-12">
+        <div class="alert alert-info" role="alert">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-info-circle fa-2x me-3"></i>
+                <div>
+                    <h5 class="alert-heading mb-1">Information</h5>
+                    <p class="mb-0">
+                        This system has been developed for educational purposes.
+                        It is a sample application designed to manage real lighthouse data.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

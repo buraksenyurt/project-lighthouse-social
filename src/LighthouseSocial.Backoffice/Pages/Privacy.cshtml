@@ -3,6 +3,141 @@
 @{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="text-center mb-5">
+                <h1 class="h2 mb-3 text-primary">
+                    <i class="fas fa-shield-alt me-2"></i>Privacy Policy
+                </h1>
+                <p class="lead text-muted">Project Lighthouse Social - Backoffice System</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-info-circle fa-3x text-primary mb-3"></i>
+                        <h3 class="text-dark">About This Policy</h3>
+                    </div>
+
+                    <p class="text-muted mb-4">
+                        This privacy policy explains in simple terms how the Project Lighthouse Social Backoffice system works and
+                        what data is collected.
+                    </p>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-3">
+                            <div class="border rounded p-3 h-100">
+                                <h5 class="text-primary mb-3">
+                                    <i class="fas fa-database me-2"></i>What Data?
+                                </h5>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><i class="fas fa-dot-circle text-primary me-2 small"></i>Lighthouse information</li>
+                                    <li class="mb-2"><i class="fas fa-dot-circle text-primary me-2 small"></i>User photos</li>
+                                    <li class="mb-2"><i class="fas fa-dot-circle text-primary me-2 small"></i>User comments</li>
+                                    <li class="mb-2"><i class="fas fa-dot-circle text-primary me-2 small"></i>System logs</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="border rounded p-3 h-100">
+                                <h5 class="text-success mb-3">
+                                    <i class="fas fa-lock me-2"></i>How Protected?
+                                </h5>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><i class="fas fa-dot-circle text-success me-2 small"></i>Secure connection (HTTPS)</li>
+                                    <li class="mb-2"><i class="fas fa-dot-circle text-success me-2 small"></i>Encrypted data storage</li>
+                                    <li class="mb-2"><i class="fas fa-dot-circle text-success me-2 small"></i>Authorized access only</li>
+                                    <li class="mb-2"><i class="fas fa-dot-circle text-success me-2 small"></i>Regular security checks</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info mb-4" role="alert">
+                        <div class="d-flex">
+                            <i class="fas fa-lightbulb fa-2x me-3 text-info"></i>
+                            <div>
+                                <h5 class="alert-heading">Important Information</h5>
+                                <p class="mb-0">
+                                    This system is for educational purposes only. No real personal data is stored.
+                                    All content consists of general information about lighthouses.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-users me-2"></i>User Rights
+                            </h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2">✓ Right to view your data</li>
+                                <li class="mb-2">✓ Right to request corrections</li>
+                                <li class="mb-2">✓ Right to request deletion</li>
+                                <li class="mb-2">✓ Right to information</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="text-warning mb-3">
+                                <i class="fas fa-check-square me-2"></i>Content Control
+                            </h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2">✓ Photo approval process</li>
+                                <li class="mb-2">✓ Comment moderation</li>
+                                <li class="mb-2">✓ Quality controls</li>
+                                <li class="mb-2">✓ Security scans</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-body text-center p-4">
+                    <h5 class="text-primary mb-3">
+                        <i class="fas fa-envelope me-2"></i>Contact
+                    </h5>
+                    <p class="text-muted mb-3">
+                        If you have any questions about our privacy policy, you can contact us.
+                    </p>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <i class="fas fa-envelope fa-2x text-primary mb-2"></i>
+                            <p class="small text-muted">Email</p>
+                            <p class="fw-bold">privacy@lighthouse.com</p>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <i class="fas fa-phone fa-2x text-success mb-2"></i>
+                            <p class="small text-muted">Phone</p>
+                            <p class="fw-bold">+90 555 123 45 67</p>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <i class="fas fa-clock fa-2x text-info mb-2"></i>
+                            <p class="small text-muted">Working Hours</p>
+                            <p class="fw-bold">09:00 - 17:00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="text-center">
+                <small class="text-muted">
+                    Last updated: @DateTime.Now.ToString("dd MMMM yyyy") |
+                    Version: 1.0 |
+                    Educational System
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
