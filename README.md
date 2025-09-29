@@ -104,9 +104,9 @@ Minimum Profil;
 - [x] [Bölüm 47 - RabbitMQ için Event Publisher Bileşeninin Geliştirilmesi](https://youtu.be/XglgWP3w37M)
 - [x] [Bölüm 48 - Event'ler RabbitMQ'ya Gidibilecek mi?](https://youtu.be/Ibfz3ScqgOc)
 - [x] [Bölüm 49 - Nerede Bu RabbitMQ Mesajları? (Queue Oluşturma ve Kod Üzerinden Dinleme)](https://youtu.be/NzYOm4NJT5s)
-- [ ] [Bölüm 50 - Razor Tabanlı Backoffice Uygulaması için İlk Adımlar]
-- [ ] [Bölüm 51 - Create ve List Sayfalarının Oluşturulması]
-- [ ] [Bölüm 52 - Ülke Listeleri için Api Service Düzenlemeleri ve Razor Sayfasında Kullanımı]
+- [x] [Bölüm 50 - Razor Tabanlı Backoffice Uygulaması için İlk Adımlar](https://youtu.be/h1PFUQ20g90)
+- [x] [Bölüm 51 - Yeni Deniz Feneri Eklemek için Create Sayfasının Oluşturulması](https://youtu.be/CpPu6jPQW2c)
+- [x] [Bölüm 52 - Deniz Fenerlerini Listeleme Sayfasının Oluşturulması](https://youtu.be/edF1Cg-cnjs)
 
 ## Sonarqube
 
