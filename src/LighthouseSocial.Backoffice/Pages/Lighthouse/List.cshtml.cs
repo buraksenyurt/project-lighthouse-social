@@ -1,5 +1,6 @@
 ﻿using LighthouseSocial.Backoffice.Models;
 using LighthouseSocial.Backoffice.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace LighthouseSocial.Backoffice.Pages.Lighthouse;
@@ -56,6 +57,36 @@ public class ListModel(ILigthouseServiceClient ligthouseServiceClient, ILogger<L
 
             ErrorMessage = "An unexpected error occurred. Please try again later.";
             Lighthouses = [];
+        }
+    }
+
+    public async Task<IActionResult> OnPostDeleteAsync(Guid id)
+    {
+        try
+        {
+            var result = await ligthouseServiceClient.DeleteByIdAsync(id);
+            if (result.Success)
+            {
+                var pageParam = Request.Query["page"].FirstOrDefault();
+                if (!string.IsNullOrEmpty(pageParam))
+                {
+                    return RedirectToPage("/Lighthouse/List", new { page = pageParam });
+                }
+                return RedirectToPage("/Lighthouse/List");
+            }
+            else
+            {
+                ErrorMessage = result.ErrorMessage ?? "An error occurred while deleting the lighthouse.";
+                await OnGetAsync();
+                return Page();
+            }
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "An unexpected error occurred while deleting lighthouse with ID {LighthouseId}.", id);
+            ErrorMessage = "An unexpected error occurred while deleting the lighthouse. Please try again later.";
+            await OnGetAsync();
+            return Page();
         }
     }
 }

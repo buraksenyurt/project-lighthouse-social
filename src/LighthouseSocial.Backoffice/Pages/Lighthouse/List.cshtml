@@ -76,9 +76,6 @@
                         <thead class="table-light">
                             <tr>
                                 <th scope="col">
-                                    <i class="fas fa-hashtag me-2"></i>ID
-                                </th>
-                                <th scope="col">
                                     <i class="fas fa-lighthouse me-2"></i>Name
                                 </th>
                                 <th scope="col">
@@ -97,9 +94,6 @@
                             {
                                 <tr>
                                     <td>
-                                        <span class="badge bg-secondary">@lighthouse.Id</span>
-                                    </td>
-                                    <td>
                                         <strong>@lighthouse.Name</strong>
                                     </td>
                                     <td>
@@ -112,11 +106,24 @@
                                         </small>
                                     </td>
                                     <td>
-                                        <a href="https://www.google.com/maps?q=@lighthouse.Latitude,@lighthouse.Longitude"
-                                           target="_blank"
-                                           class="btn btn-sm btn-outline-primary">
-                                            <i class="fas fa-map me-1"></i>View on Map
-                                        </a>
+                                        <div class="btn-group">
+                                            <a href="https://www.google.com/maps?q=@lighthouse.Latitude,@lighthouse.Longitude"
+                                               target="_blank"
+                                               class="btn btn-sm btn-outline-primary"
+                                               title="View on Google Maps">
+                                                <i class="fas fa-map me-1"></i>Map
+                                            </a>
+                                            <form method="post" style="display: inline;"
+                                                  onsubmit="return confirm('Are you sure you want to delete @lighthouse.Name?');">
+                                                <input type="hidden" name="id" value="@lighthouse.Id" />
+                                                <button type="submit"
+                                                        asp-page-handler="Delete"
+                                                        class="btn btn-sm btn-outline-danger"
+                                                        title="Delete lighthouse">
+                                                    <i class="fas fa-trash me-1"></i>Delete
+                                                </button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                             }

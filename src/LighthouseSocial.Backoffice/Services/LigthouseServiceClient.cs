@@ -8,6 +8,7 @@ public interface ILigthouseServiceClient
 {
     Task<ApiResponse<Guid>> CreateAsync(CreateLighthouseRequest request);
     Task<ApiResponse<PagedResult<LighthouseDto>>> GetPagedAsync(int pageNumber, int pageSize);
+    Task<ApiResponse<bool>> DeleteByIdAsync(Guid lighthouseId);
 }
 
 public class LigthouseServiceClient
@@ -100,6 +101,38 @@ public class LigthouseServiceClient
             {
                 Success = false,
                 ErrorMessage = "Connection error occurred while fetching lighthouses"
+            };
+        }
+    }
+
+    public async Task<ApiResponse<bool>> DeleteByIdAsync(Guid lighthouseId)
+    {
+        try
+        {
+            var response = await _httpClient.DeleteAsync($"lighthouse/{lighthouseId}");
+            if (response.IsSuccessStatusCode)
+            {
+                return new ApiResponse<bool>
+                {
+                    Success = true,
+                    Data = true
+                };
+            }
+
+            var errorContent = await response.Content.ReadAsStringAsync();
+            return new ApiResponse<bool>
+            {
+                Success = false,
+                ErrorMessage = $"API Error: {response.StatusCode} - {errorContent}"
+            };
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error deleting lighthouse with ID {LighthouseId}", lighthouseId);
+            return new ApiResponse<bool>
+            {
+                Success = false,
+                ErrorMessage = "Connection error occurred while deleting lighthouse"
             };
         }
     }
