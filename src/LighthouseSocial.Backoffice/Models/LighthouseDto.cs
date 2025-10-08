@@ -16,6 +16,11 @@ public record LighthouseDto(
     double Longitude
 );
 
+public record CountryDto(
+    int Id,
+    string Name
+);
+
 public record ApiResponse<T>
 {
     public bool Success { get; set; }

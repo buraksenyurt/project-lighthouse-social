@@ -2,11 +2,14 @@ using LighthouseSocial.Backoffice.Models;
 using LighthouseSocial.Backoffice.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace LighthouseSocial.Backoffice.Pages.Lighthouse;
 
-public class CreateModel(ILigthouseServiceClient ligthouseServiceClient, ILogger<CreateModel> logger) : PageModel
+public class CreateModel(ILigthouseServiceClient ligthouseServiceClient, ICountryServiceClient countryServiceClient, ILogger<CreateModel> logger)
+    : PageModel
 {
     [TempData]
     public string? SuccessMessage { get; set; }
@@ -17,9 +20,40 @@ public class CreateModel(ILigthouseServiceClient ligthouseServiceClient, ILogger
     [BindProperty]
     public LighthouseFormModel LighthouseForm { get; set; } = new LighthouseFormModel();
 
-    public void OnGet()
+    public List<SelectListItem> Countries { get; set; } = [];
+
+    public async Task OnGet()
     {
         LighthouseForm = new LighthouseFormModel();
+        await LoadCountriesAsync();
+    }
+
+    private async Task LoadCountriesAsync()
+    {
+        try
+        {
+            var response = await countryServiceClient.GetAllAsync();
+
+            if (response.Success && response.Data != null)
+            {
+                Countries = response.Data
+                    .OrderBy(c => c.Name)
+                    .Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name })
+                    .ToList();
+            }
+            else
+            {
+                Countries = [];
+                logger.LogWarning("Failed to load countries: {ErrorMessage}", response.ErrorMessage);
+                ErrorMessage = response.ErrorMessage ?? "Failed to load countries.";
+            }
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error loading countries");
+            Countries= [];
+            ErrorMessage = "An unexpected error occurred while loading countries.";
+        }
     }
 
     public async Task<IActionResult> OnPostAsync()

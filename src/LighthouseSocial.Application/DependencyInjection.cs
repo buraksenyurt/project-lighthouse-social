@@ -5,6 +5,7 @@ using LighthouseSocial.Application.Common.Pipeline.Behaviors;
 using LighthouseSocial.Application.Contracts.ExternalServices;
 using LighthouseSocial.Application.Dtos;
 using LighthouseSocial.Application.Features.Comment;
+using LighthouseSocial.Application.Features.Country;
 using LighthouseSocial.Application.Features.Lighthouse;
 using LighthouseSocial.Application.Features.Photo;
 using LighthouseSocial.Application.Features.Photo.Saga;
@@ -46,6 +47,7 @@ public static class DependencyInjection
         services.AddScoped<IHandler<UpdateLighthouseRequest, Result>, UpdateLighthouseHandler>();
         services.AddScoped<IHandler<GetPagedLighthouseRequest, Result<PagedResult<LighthouseDto>>>, GetPagedLighthouseHandler>();
         services.AddScoped<IHandler<CreateUserRequest, Result<Guid>>, CreateUserHandler>();
+        services.AddScoped<IHandler<GetAllCountriesRequest, Result<IReadOnlyList<CountryDto>>>, GetAllCountriesHandler>();
         services.AddScoped<PhotoUploadSaga>();
         services.AddScoped<FileUploadStep>();
         services.AddScoped<MetadataSaveStep>();

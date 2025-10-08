@@ -62,11 +62,12 @@
                             <i class="fas fa-flag text-success me-2"></i>
                             Country ID
                         </label>
-                        <input asp-for="LighthouseForm.CountryId"
-                               type="number"
-                               class="form-control"
-                               placeholder="Example: 1"
-                               id="LighthouseForm_CountryId" />
+                        <select asp-for="LighthouseForm.CountryId"
+                                asp-items="Model.Countries"
+                                class="form-select"
+                                id="LighthouseForm_CountryId">
+                            <option value="">-- Select Country --</option>
+                        </select>
                         <div class="form-text">
                             <i class="fas fa-info-circle me-1"></i>
                             For Türkiye use 49

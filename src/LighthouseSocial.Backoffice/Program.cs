@@ -11,6 +11,7 @@ builder.Services.AddHttpClient("LighthouseServiceClient", client =>
 });
 
 builder.Services.AddScoped<ILigthouseServiceClient, LigthouseServiceClient>();
+builder.Services.AddScoped<ICountryServiceClient, CountryServiceClient>();
 
 var app = builder.Build();
 
