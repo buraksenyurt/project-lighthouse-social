@@ -2,7 +2,6 @@
 using LighthouseSocial.Application.Common.Pipeline;
 using LighthouseSocial.Application.Contracts.Repositories;
 using LighthouseSocial.Application.Dtos;
-using LighthouseSocial.Domain.Entities;
 using LighthouseSocial.Domain.ValueObjects;
 
 namespace LighthouseSocial.Application.Features.Lighthouse;
@@ -20,7 +19,7 @@ internal class UpdateLighthouseHandler(ILighthouseRepository repository)
             return Result.Fail(existingLighthouseResult.ErrorMessage!);
         }
 
-        var country = Country.Create(
+        var country = Domain.Entities.Country.Create(
             request.Dto.CountryId, ""
         );
         var coordinates = new Coordinates(

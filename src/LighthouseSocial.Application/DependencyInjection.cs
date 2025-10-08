@@ -24,6 +24,7 @@ public static class DependencyInjection
         services.AddScoped<ILighthouseService, LighthouseService>();
         services.AddScoped<IPhotoService, PhotoService>();
         services.AddScoped<IPhotoUploadService, PhotoUploadService>();
+        services.AddScoped<ICountryService, CountryService>();
 
         // Pipeline
         services.AddScoped<PipelineDispatcher>();
