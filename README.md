@@ -107,6 +107,8 @@ Minimum Profil;
 - [x] [Bölüm 50 - Razor Tabanlı Backoffice Uygulaması için İlk Adımlar](https://youtu.be/h1PFUQ20g90)
 - [x] [Bölüm 51 - Yeni Deniz Feneri Eklemek için Create Sayfasının Oluşturulması](https://youtu.be/CpPu6jPQW2c)
 - [x] [Bölüm 52 - Deniz Fenerlerini Listeleme Sayfasının Oluşturulması](https://youtu.be/edF1Cg-cnjs)
+- [] [Bölüm 53 - Ülke Bilgilerini Çekmek için Application Katmanında Geliştirmeler]
+- [] [Bölüm 54 - Razor Sayfasındaki Select Kontrolünü Servis Katmanına Bağladık]
 
 ## Sonarqube
 
