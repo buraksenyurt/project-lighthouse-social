@@ -3,6 +3,7 @@ using LighthouseSocial.Backoffice.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
+builder.Services.AddMemoryCache();
 
 builder.Services.AddHttpClient("LighthouseServiceClient", client =>
 {
