@@ -21,6 +21,15 @@ public record CountryDto(
     string Name
 );
 
+public record PhotoUploadRequest(
+    string FileName,
+    string CameraType,
+    Guid UserId,
+    Guid LighthouseId,
+    string Resolution,
+    string Lens
+);
+
 public record ApiResponse<T>
 {
     public bool Success { get; set; }
