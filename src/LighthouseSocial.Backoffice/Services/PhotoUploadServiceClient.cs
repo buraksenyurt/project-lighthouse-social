@@ -7,9 +7,11 @@ public interface IPhotoUploadServiceClient
     Task<ApiResponse<Guid>> UploadPhotoAsync(PhotoUploadRequest request, Stream fileStream, string fileName);
 }
 
-public class PhotoUploadServiceClient(HttpClient httpClient, ILogger<PhotoUploadServiceClient> logger)
-        : IPhotoUploadServiceClient
+public class PhotoUploadServiceClient(IHttpClientFactory httpClientFactory, ILogger<PhotoUploadServiceClient> logger)
+    : IPhotoUploadServiceClient
 {
+    private readonly HttpClient httpClient = httpClientFactory.CreateClient("LighthouseServiceClient");
+
     public async Task<ApiResponse<Guid>> UploadPhotoAsync(PhotoUploadRequest request, Stream fileStream, string fileName)
     {
         try
@@ -49,8 +51,6 @@ public class PhotoUploadServiceClient(HttpClient httpClient, ILogger<PhotoUpload
                 Success = false,
                 ErrorMessage = $"Failed to upload photo: {errorContent}"
             };
-
-
         }
         catch (Exception ex)
         {

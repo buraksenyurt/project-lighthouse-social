@@ -44,7 +44,7 @@ public class PhotoUploadController(ILogger<PhotoController> logger, IPhotoUpload
             if (!result.Success)
                 return BadRequest(result.ErrorMessage);
 
-            return Ok(result.Data);
+            return Ok(result.Data.Id);
         }
         catch (Exception ex)
         {

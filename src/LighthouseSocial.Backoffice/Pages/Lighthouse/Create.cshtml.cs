@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LighthouseSocial.Backoffice.Pages.Lighthouse;
 
-public class CreateModel(ILigthouseServiceClient ligthouseServiceClient, ICountryServiceClient countryServiceClient, ILogger<CreateModel> logger)
+public class CreateModel(ILigthouseServiceClient ligthouseServiceClient, ICountryServiceClient countryServiceClient, IPhotoUploadServiceClient photoUploadServiceClient, ILogger<CreateModel> logger)
     : PageModel
 {
     [TempData]
@@ -19,6 +19,10 @@ public class CreateModel(ILigthouseServiceClient ligthouseServiceClient, ICountr
 
     [BindProperty]
     public LighthouseFormModel LighthouseForm { get; set; } = new LighthouseFormModel();
+
+    [BindProperty]
+    [Required(ErrorMessage = "Photo is required")]
+    public IFormFile? PhotoFile { get; set; }
 
     public List<SelectListItem> Countries { get; set; } = [];
 
@@ -51,7 +55,7 @@ public class CreateModel(ILigthouseServiceClient ligthouseServiceClient, ICountr
         catch (Exception ex)
         {
             logger.LogError(ex, "Error loading countries");
-            Countries= [];
+            Countries = [];
             ErrorMessage = "An unexpected error occurred while loading countries.";
         }
     }
@@ -60,6 +64,29 @@ public class CreateModel(ILigthouseServiceClient ligthouseServiceClient, ICountr
     {
         if (!ModelState.IsValid)
         {
+            var errors = ModelState.Where(ms => ms.Value?.Errors.Count > 0)
+                                   .SelectMany(kvp => kvp.Value.Errors)
+                                   .Select(e => e.ErrorMessage)
+                                   .ToList();
+
+            logger.LogWarning("ModelState validation failed. Errors: {@Errors}", errors);
+
+            var errorDetails = string.Join("; ", errors.Select(err => $"{err}"));
+            ErrorMessage = "Please fix the following errors: " + errorDetails;
+
+            return Page();
+        }
+
+        if (PhotoFile == null)
+        {
+            ErrorMessage = "Photo is required.";
+            return Page();
+        }
+
+        var (isValidPhoto, photoErrorMessage) = Helpers.PhotoValidator.Validate(PhotoFile);
+        if (!isValidPhoto)
+        {
+            ErrorMessage = photoErrorMessage;
             return Page();
         }
 
@@ -74,16 +101,38 @@ public class CreateModel(ILigthouseServiceClient ligthouseServiceClient, ICountr
 
             var result = await ligthouseServiceClient.CreateAsync(request);
 
-            if (result.Success)
-            {
-                SuccessMessage = "Lighthouse created successfully.";
-                return RedirectToPage("/Lighthouse/List");
-            }
-            else
+            if (!result.Success)
             {
                 ErrorMessage = result.ErrorMessage ?? "An error occurred while creating the lighthouse.";
                 return Page();
             }
+
+            var lighthouseId = result.Data;
+
+            using var stream = PhotoFile.OpenReadStream();
+            var fileName = PhotoFile.FileName;
+
+            //todo@buraksenyurt: replace "unknown" fields with actual data
+            var photoRequest = new PhotoUploadRequest(
+                fileName,
+                "Unknown",
+                Guid.NewGuid(),
+                lighthouseId,
+                "Unknown",
+                "Unknown"
+            );
+
+            var uploadResult = await photoUploadServiceClient.UploadPhotoAsync(photoRequest, stream, fileName);
+
+            if (!uploadResult.Success)
+            {
+                logger.LogWarning("Photo upload failed for LighthouseId {LighthouseId}: {ErrorMessage}", lighthouseId, uploadResult.ErrorMessage);
+                ErrorMessage = "Lighthouse created, but photo upload failed: " + (uploadResult.ErrorMessage ?? "Unknown error");
+                return RedirectToPage("/Lighthouse/List");
+            }
+
+            SuccessMessage = "Lighthouse and photo uploaded successfully.";
+            return RedirectToPage("/Lighthouse/List");
         }
         catch (Exception ex)
         {

@@ -43,7 +43,7 @@
             </h5>
         </div>
         <div class="card-body">
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label asp-for="LighthouseForm.Name" class="form-label">
@@ -112,6 +112,40 @@
                     </div>
                 </div>
 
+                <div class="col-12 mb-3">
+                    <label asp-for="PhotoFile" class="form-label">
+                        <i class="fas fa-camera text-danger me-2"></i>
+                        Lighthouse Photo
+                    </label>
+                    <input asp-for="PhotoFile"
+                           type="file"
+                           class="form-control"
+                           accept=".jpg,.jpeg,.png"
+                           id="PhotoFile"
+                           onchange="previewPhoto(event)" />
+                    <div class="form-text">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Required: JPG or PNG format, max 5MB, 1:1 aspect ratio (square image)
+                    </div>
+                    <span asp-validation-for="PhotoFile" class="text-danger small"></span>
+
+                    <div id="photoPreview" class="mt-3" style="display: none;">
+                        <div class="card" style="max-width: 300px;">
+                            <div class="card-header bg-light">
+                                <small class="text-muted">
+                                    <i class="fas fa-eye me-1"></i>Preview
+                                </small>
+                            </div>
+                            <div class="card-body p-2">
+                                <img id="previewImage" src="" alt="Photo Preview" class="img-fluid rounded" />
+                            </div>
+                            <div class="card-footer bg-light">
+                                <small class="text-muted" id="photoInfo"></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="d-flex justify-content-between mt-4 pt-3 border-top">
                     <a asp-page="/Lighthouse/List" class="btn btn-outline-secondary">
                         <i class="fas fa-times me-2"></i>Cancel
@@ -124,3 +158,59 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        function previewPhoto(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('photoPreview');
+            const previewImage = document.getElementById('previewImage');
+            const photoInfo = document.getElementById('photoInfo');
+
+            if (!file) {
+                preview.style.display = 'none';
+                return;
+            }
+
+            const maxSize = 5 * 1024 * 1024;
+            if (file.size > maxSize) {
+                alert('File size exceeds 5 MB limit.');
+                event.target.value = '';
+                preview.style.display = 'none';
+                return;
+            }
+
+            const allowedTypes = ['image/jpeg', 'image.jpg', 'image/png'];
+            if (!allowedTypes.includes(file.type)) {
+                alert('Invalid file type. Only JPG, PNG, and GIF are allowed.');
+                event.target.value = '';
+                preview.style.display = 'none';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImage.src = e.target.result;
+
+                const img = new Image();
+                img.onload = function() {
+                    const aspectRatio = img.width / img.height;
+                    const tolerance = 0.05;
+
+                    if (Math.abs(aspectRatio - 1) > tolerance) {
+                        alert('Image must be approximately square (1:1 aspect ratio).');
+                        event.target.value = '';
+                        preview.style.display = 'none';
+                        return;
+                    }
+
+                    const sizeKB = (file.size / 1024).toFixed(2);
+                    photoInfo.textContent = `Dimensions: ${img.width}x${img.height}px, Size: ${sizeKB} KB`;
+                    preview.style.display = 'block';
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    </script>
+}
