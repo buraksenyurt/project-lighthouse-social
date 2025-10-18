@@ -48,6 +48,23 @@ public class PhotoController(ILogger<PhotoController> logger, IPhotoService phot
         }
     }
 
+    [HttpGet("lighthouse/{lighthouseId}")]
+    public async Task<ActionResult<IEnumerable<PhotoDto>>> GetByLighthouseIdAsync(Guid lighthouseId)
+    {
+        try
+        {
+            var result = await photoService.GetByLighthouseIdAsync(lighthouseId);
+            if (!result.Success)
+                return NotFound(result.ErrorMessage);
+            return Ok(result.Data);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error retrieving photos for LighthouseId {LighthouseId}", lighthouseId);
+            return StatusCode(500, Messages.Errors.UnexpectedErrorMessage);
+        }
+    }
+
     [HttpGet("details/{photoId:guid}")]
     public async Task<ActionResult<PhotoDto>> GetByIdAsync(Guid photoId)
     {

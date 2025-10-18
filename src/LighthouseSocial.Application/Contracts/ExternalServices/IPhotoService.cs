@@ -9,4 +9,5 @@ public interface IPhotoService
     Task<Result<Stream>> GetRawPhotoAsync(string fileName);
     Task<Result<PhotoDto>> GetByIdAsync(Guid photoId);
     Task<Result<IEnumerable<PhotoDto>>> GetByUserIdAsync(Guid userId);
+    Task<Result<IEnumerable<PhotoDto>>> GetByLighthouseIdAsync(Guid lighthouseId);
 }

@@ -32,4 +32,10 @@ public class PhotoService(PipelineDispatcher pipelineDispatcher)
         var request = new GetPhotosByUserRequest(userId);
         return await pipelineDispatcher.SendAsync<GetPhotosByUserRequest, Result<IEnumerable<PhotoDto>>>(request);
     }
+
+    public async Task<Result<IEnumerable<PhotoDto>>> GetByLighthouseIdAsync(Guid lighthouseId)
+    {
+        var request = new GetPhotosByLighthouseRequest(lighthouseId);
+        return await pipelineDispatcher.SendAsync<GetPhotosByLighthouseRequest, Result<IEnumerable<PhotoDto>>>(request);
+    }
 }
