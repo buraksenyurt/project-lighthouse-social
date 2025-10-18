@@ -4,6 +4,54 @@ C# ile uçtan uca bir Web projesi geliştirilmesi. Konu, dünya üzerindeki deni
 
 ---
 
+## Güncel Görev Listesi *(10.18.2025 itibariyle)*
+
+### Domain Katmanı İyileştirmeleri
+
+- [ ] **EntityBase - Audit Alanları:** `EntityBase` sınıfına `CreatedAt`, `ModifiedAt`, `DeletedAt` gibi audit alanları eklenebilir. *(EntityBase.cs:6)*
+
+### Application Katmanı İyileştirmeleri
+
+- [ ] **AddCommentHandler - Bileşen Yapılandırması:** İhtiyaç duyulan bileşenlerin daha temiz bir şekilde yapılandırılması gerekiyor. *(AddCommentHandler.cs:22)*
+
+- [ ] **CreateLighthouseHandler - User ID Yönetimi:** Gerçek bir uygulamada kullanıcı ID'si authentication context'ten alınmalı. Şu an `Guid.Empty` kullanılıyor. *(CreateLighthouseHandler.cs:29, 47, 65, 87)*
+
+- [ ] **CreateUserHandler - User ID Yönetimi:** Gerçek bir uygulamada kullanıcı ID'si authentication context'ten alınmalı. Şu an `Guid.Empty` kullanılıyor. *(CreateUserHandler.cs:25, 41, 58, 76)*
+
+- [ ] **LighthouseDtoValidator - Primary Key Tasarımı:** Tablodaki Primary Key tasarımı gözden geçirilmeli. *(LighthouseDtoValidator.cs:17)*
+
+### Data Katmanı İyileştirmeleri
+
+- [ ] **PhotoRepository - Reflection ile ID Atama:** `PhotoRepository.MapPhoto` metodunda reflection kullanarak ID ataması yapılıyor. Bu yaklaşım terk edilmeli, daha temiz bir çözüm bulunmalı. *(PhotoRepository.cs:151)*
+
+- [ ] **CachedCountryDataReader - Mapper Kullanımı:** Country ve CountryDto arasında mapper kullanımı değerlendirilmeli. *(CachedCountryDataReader.cs:74)*
+
+### Infrastructure Katmanı İyileştirmeleri
+
+- [ ] **ExternalCommentAuditor - Runtime Service Discovery:** Servis adresi runtime'da bulunmalı, hardcoded olmamalı. *(ExternalCommentAuditor.cs:15)*
+
+- [ ] **ExternalCommentAuditor - HashiCorp Consul Entegrasyonu:** HashiCorp Consul ile Service Discovery mekanizması kurulabilir. *(ExternalCommentAuditor.cs:16)*
+
+- [ ] **CachedConfigurationService - Cache Invalidation:** Cache Invalidation fonksiyonları düzenlenebilir ve iyileştirilebilir. *(CachedConfigurationService.cs:242)*
+
+### Backoffice Geliştirmeleri
+
+- [ ] **Lighthouse Create - Unknown Alanlar:** Deniz feneri oluştururken fotoğraf yükleme sırasında "Unknown" olarak işaretlenen alanlar (CameraType, Resolution, Lens, UserId) gerçek verilerle doldurulmalı. *(Create.cshtml.cs:114)*
+
+- [ ] **Lighthouse Delete - Photo İlişkisi:** Deniz feneri silinirken o deniz fenerine ait ana (primary) fotoğrafın ID'si bulunmalı ve silinmeli. Şu an lighthouse ID ile photo ID aynı varsayılıyor. *(List.cshtml.cs:70)*
+
+- [ ] **Photo Deletion Error Handling:** Deniz feneri silme işlemi başarılı olup fotoğraf silme başarısız olduğunda kullanıcıya bilgi verilmesi ve ne yapılacağına karar verilmesi gerekiyor. *(List.cshtml.cs:75)*
+
+### Photo Management İyileştirmeleri
+
+- [ ] **IsPrimary İş Kuralı:** Bir deniz fenerinin birden fazla fotoğrafı olabilir ancak sadece bir tanesi primary olabilir. Bu iş kuralının implementasyonu için geliştirme gerekiyor.
+
+- [ ] **Photo Validation:** Bir lighthouse için birden fazla primary fotoğraf olmaması için validation katmanında kontrol mekanizması eklenebilir.
+
+- [ ] **Backoffice Photo Gallery:** Deniz fenerlerinin tüm fotoğraflarını görüntüleme ve primary fotoğrafı değiştirme özelliği eklenebilir.
+
+---
+
 ## Proje Konusu
 
 Deniz Feneri meraklıları için bir sosyal paylaşım platformu geliştirmek.
@@ -214,14 +262,14 @@ TTL user:Service
 
 - [ ] **Yorum Denetiminde Caching:** **JudjeDredd** servisi bir metin içeriğini denetlemek için **OpenAI Moderation API**'sine gidiyor. Saldırı türünden aynı yorumun defalarca gönderildiği bir durumda, **OpenAI** servisine sayısız kez gidilebilir. Gelen isteklerden aynı olanlar için daha önceden alınmış cevaplar _(Örneğin zaten flagged=true olanları)_ belli süreliğini cache'te tutulup anında cevap dönülebilir.
   - [ ] Aynı isteğin birden fazla defa gönderilmesi bir saldırı işareti de olabilir. Bunu tespit edip tedbir alan ve uyarı veren bir düzenek de geliştirilebilir.
-- [ ] **Repository Sözleşmeleri:** Repository sözleşmelerinin **Domain** katmanında durması doğru mu? Ya da domain katmanında duracaklarsa hangi davranışları içeren sözleşmeler konulmalı? Sadece **Create, Retrieve, Update, Delete** fonksiyonelliklerini taşıyan ve Domain'i doğrudan ilgilendiren sözleşmeler buraya konup **Business Rules** içeren sözleşmeler farklı bir yere mi alınmalıdır?
-- [ ] **Handler Bileşenlerine Erişim:** Projenin çekirdek katmanı **Appliacation** kütüphanesi. Bu katman içinden UI, Api, Terminal gibi istemcilere açtığımız sözleşmeler _(Contracts klasörü)_ düşünüldüğünde **Handler** sınıfları dışarıya kapatılmalı mıdır?
+- [x] **Repository Sözleşmeleri:** Repository sözleşmelerinin **Domain** katmanında durması doğru mu? Ya da domain katmanında duracaklarsa hangi davranışları içeren sözleşmeler konulmalı? Sadece **Create, Retrieve, Update, Delete** fonksiyonelliklerini taşıyan ve Domain'i doğrudan ilgilendiren sözleşmeler buraya konup **Business Rules** içeren sözleşmeler farklı bir yere mi alınmalıdır?
+- [x] **Handler Bileşenlerine Erişim:** Projenin çekirdek katmanı **Appliacation** kütüphanesi. Bu katman içinden UI, Api, Terminal gibi istemcilere açtığımız sözleşmeler _(Contracts klasörü)_ düşünüldüğünde **Handler** sınıfları dışarıya kapatılmalı mıdır?
 - [ ] **Unit of Work:** Handler bileşenlerindeki **HandleAsync** metotları belli bir akışa sahip kodları işletmekte. **DTO** doğrulamaları, farklı iş kuralları, transaction'a dahil işlemler, loglama vs Bu akış deseni bir üst yapıda mı toplanmalı? _(Bir unit of work içerisinde mesela)_
-- [ ] **Photo Storage:** Projede fiziksel alan olarak en çok yer kaplayacak ve en çabuk büyüyecek kısım deniz feneri fotoğrafları. Fotoğrafların depolanacağı yer olarak local bir container kullanılabilir mi? Örneğin **AWS S3 Api** uyumlu [MinIO](https://min.io/docs/minio/container/index.html) veya muadili başka bir depo.
-- [ ] **Persistence:** Proje domaininde yer alan Entity'ler sayıca çok veya içerik olarak karmaşık değiller. Veriler şema bazlı bir veritabanı sisteminde tutulabilir _(Örn: **Postgresql**)_. İlk etapta **Entity Framework Core** ve **Code-First** yerine **Database First** modelde ilerlenebilir ve erişimler için **Dapper**'dan yararlanılabilir.
+- [x] **Photo Storage:** Projede fiziksel alan olarak en çok yer kaplayacak ve en çabuk büyüyecek kısım deniz feneri fotoğrafları. Fotoğrafların depolanacağı yer olarak local bir container kullanılabilir mi? Örneğin **AWS S3 Api** uyumlu [MinIO](https://min.io/docs/minio/container/index.html) veya muadili başka bir depo.
+- [x] **Persistence:** Proje domaininde yer alan Entity'ler sayıca çok veya içerik olarak karmaşık değiller. Veriler şema bazlı bir veritabanı sisteminde tutulabilir _(Örn: **Postgresql**)_. İlk etapta **Entity Framework Core** ve **Code-First** yerine **Database First** modelde ilerlenebilir ve erişimler için **Dapper**'dan yararlanılabilir.
 - [ ] **Service Health Check/Discovery:** **JudgeDredd** gibi harici servislerin sayısı artacak. Ayrıca sistem büyüdükçe **Postgresql Server**, **Storage Service**, **RabbitMQ**, **Keycloak** vb birçok enstrüman da çözüme dahil edilecek. Bu servislerin ayakta olup olmadıklarının kontrolü ve hatta ortamlara göre değişecek port veya ip bilgilerinin kolayca yönetimi gerekecek. Bu amaçla [HashiCorp'un Consul](https://developer.hashicorp.com/consul/docs/intro) aracından yararlanılabilir.
 - [ ] **Membership Management:** Sisteme dahil olacak abonelerin doğrulama _(Authentication)_ işlemleri için hibrit bir model tercih edilebilir. **Identity Provider** olarak **[Keycloak](https://www.keycloak.org/)** kullanılabilir, kullanıcı profil bilgileri veritabanında saklanabilir. Projemiz **authentication** detayları ile uğraşmak zorunda kalmaz.
-- [ ] **Secret Keys:** Projede veritabanı adresi, api key, api secret gibi şifrelenmesi ve ele geçirilmemesi gereken bilgiler yer alacak. Bunların daha güvenli bir ortamda tutulup çalışma zamanında çözümlenerek kullanılması yerinde olacaktır. Gizli değerlerin yönetimi içim bir Vault sisteminden yararlanılabilir. **[Hashicorp Vault](https://developer.hashicorp.com/vault)** veya **[Localstack](https://github.com/localstack/localstack)** olabilir.
+- [x] **Secret Keys:** Projede veritabanı adresi, api key, api secret gibi şifrelenmesi ve ele geçirilmemesi gereken bilgiler yer alacak. Bunların daha güvenli bir ortamda tutulup çalışma zamanında çözümlenerek kullanılması yerinde olacaktır. Gizli değerlerin yönetimi içim bir Vault sisteminden yararlanılabilir. **[Hashicorp Vault](https://developer.hashicorp.com/vault)** veya **[Localstack](https://github.com/localstack/localstack)** olabilir.
 - [ ] **CLI Aracı:** CLI _(Command Line Interface)_ kullanma bilgisi olanlar son kullanıcılar için bir terminal aracı geliştirilebilir mi?
 - [ ] **Public API:** Projenin genel kullanıma açık bir API hizmeti olabilir mi? Örneğin, deniz feneri bilgilerini dış dünyaya açabiliriz. Bu, standart web arayüzü dışında bir hizmettir, farklı uygulamaların işine de yarar.
 - [ ] **Raporlama:** Projemiz ne tür raporlar sunabilir? Dünyanın en popüler fotoğraflarına sahip deniz fenerleri, en iyi fotoğraflara sahip kullanıcılar, en çok uğranılan deniz fenerlerinin olduğu ülkeler, faal olan deniz fenerleri listesi vb Bu raporlar nasıl bir uygulama baz alınabilir.
@@ -232,14 +280,14 @@ TTL user:Service
 
 Proje ve video anlatım serisi sona erdiğinde aşağıdaki sorulara cevap verebiliyor olmalıyız.
 
-- [ ] **C#** dilinin temel özelliklerine yer verildi mi?
-- [ ] **OOP** _(Object Oriented Programming)_ prensipleri uygulandı mı?
-- [ ] **SOLID** prensiplerine yer verildi mi?
+- [x] **C#** dilinin temel özelliklerine yer verildi mi?
+- [x] **OOP** _(Object Oriented Programming)_ prensipleri uygulandı mı?
+- [x] **SOLID** prensiplerine yer verildi mi?
 - [ ] Kod bazlı **teknik borç**lardan arındırıldı mı?
 - [ ] Belli bir yazılım mimari stiline evrildi mi?
-- [ ] Projede en az bir **Rest** tabanlı Web Api kullanıldı mı?
+- [x] Projede en az bir **Rest** tabanlı Web Api kullanıldı mı?
 - [ ] Projede **gRPC** tabanlı bir servis kullanıldı mı?
-- [ ] **Razor** tabanlı Web uygulaması geliştirildi mi?
+- [x] **Razor** tabanlı Web uygulaması geliştirildi mi?
 - [ ] Farklı dillerde yazılmış servisler kullanıldı mı?
 - [ ] Bir dağıtık sistem kurgusu tesis edildi mi?
 - [ ] Dağıtık sistem kurgusu tesis edildiyse **resilience** için gerekli tedbirler alındı mı?
