@@ -110,7 +110,7 @@ Minimum Profil;
 - [x] [Bölüm 53 - Ülke Bilgilerini Çekmek için Application Katmanında Geliştirmeler](https://youtu.be/mBG8Wj74h10)
 - [x] [Bölüm 54 - Razor Sayfasındaki Select Kontrolünü Servis Katmanına Bağladık](https://youtu.be/oGSCAO27UwI)
 - [x] [Bölüm 55 - Ülke Listesi için Her Seferinde Servis Çağrısı mı yapacağız?](https://youtu.be/WM1tk8TiTNw)
-- [ ] [Bölüm 56 - Razor Sayfasında Yeni Bir Deniz Feneri Oluşturmayı Başardık. Peki Fotoğraf?]
+- [x] [Bölüm 56 - Razor Sayfasında Yeni Bir Deniz Feneri Oluşturmayı Başardık. Peki Fotoğraf?](https://youtu.be/CjS6Wrq2lLg)
 - [ ] [Bölüm 57 - Fotoğraf Kaydetme ve Doğrulama İşlemleri İçin Razor Kod Tarafında Geliştirmeler]
 - [ ] [Bölüm 58 - En Sonunda Backoffice Uygulamasından Fotoğraf Yüklemeyi Başardık!]
 
