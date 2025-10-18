@@ -42,7 +42,8 @@ public class PhotoUploadSaga(ILogger<PhotoUploadSaga> logger, FileUploadStep fil
                     request.Photo.Resolution,
                     request.Photo.CameraType,
                     request.Photo.UploadedAt
-                )
+                ),
+                request.Photo.IsPrimary
             )
         };
 
@@ -106,7 +107,8 @@ public class PhotoUploadSaga(ILogger<PhotoUploadSaga> logger, FileUploadStep fil
                 sagaData.PhotoEntity.UserId,
                 sagaData.PhotoEntity.LighthouseId,
                 sagaData.PhotoEntity.Metadata.Resolution,
-                sagaData.PhotoEntity.Metadata.Lens
+                sagaData.PhotoEntity.Metadata.Lens,
+                sagaData.PhotoEntity.IsPrimary
             );
 
             var sagaCompletedEvent = new PhotoUploadSagaCompleted(

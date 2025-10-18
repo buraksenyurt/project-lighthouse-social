@@ -20,8 +20,8 @@ public class PhotoRepository(IDbConnectionFactory connFactory, ILogger<PhotoRepo
             // throw new ArgumentException(); SAGA Testi için eklendi.
 
             const string sql = @"
-            INSERT INTO photos (id, user_id, lighthouse_id, filename, upload_date, lens, resolution, camera_model, taken_at)
-            VALUES (@Id, @UserId, @LighthouseId, @FileName, @UploadDate, @Lens, @Resolution, @CameraModel, @TakenAt);";
+            INSERT INTO photos (id, user_id, lighthouse_id, filename, upload_date, lens, resolution, camera_model, taken_at, is_primary)
+            VALUES (@Id, @UserId, @LighthouseId, @FileName, @UploadDate, @Lens, @Resolution, @CameraModel, @TakenAt, @IsPrimary);";
 
             using var conn = _connFactory.CreateConnection();
 
@@ -35,6 +35,7 @@ public class PhotoRepository(IDbConnectionFactory connFactory, ILogger<PhotoRepo
             parameters.Add("Resolution", photo.Metadata?.Resolution);
             parameters.Add("CameraModel", photo.Metadata?.CameraModel);
             parameters.Add("TakenAt", photo.Metadata?.TakenAt);
+            parameters.Add("IsPrimary", photo.IsPrimary);
 
             var added = await conn.ExecuteAsync(sql, parameters);
 
@@ -75,7 +76,7 @@ public class PhotoRepository(IDbConnectionFactory connFactory, ILogger<PhotoRepo
         try
         {
             const string sql = @"
-            SELECT id, user_id, lighthouse_id, filename, upload_date, lens, resolution, camera_model, taken_at 
+            SELECT id, user_id, lighthouse_id, filename, upload_date, lens, resolution, camera_model, taken_at, is_primary 
             FROM photos 
             WHERE id = @Id;";
 
@@ -100,7 +101,7 @@ public class PhotoRepository(IDbConnectionFactory connFactory, ILogger<PhotoRepo
         try
         {
             const string sql = @"
-            SELECT id, user_id, lighthouse_id, filename, upload_date, lens, resolution, camera_model, taken_at 
+            SELECT id, user_id, lighthouse_id, filename, upload_date, lens, resolution, camera_model, taken_at, is_primary 
             FROM photos 
             WHERE lighthouse_id = @LighthouseId 
             ORDER BY upload_date DESC;";
@@ -124,7 +125,7 @@ public class PhotoRepository(IDbConnectionFactory connFactory, ILogger<PhotoRepo
         try
         {
             const string sql = @"
-            SELECT id, user_id, lighthouse_id, filename, upload_date, lens, resolution, camera_model, taken_at
+            SELECT id, user_id, lighthouse_id, filename, upload_date, lens, resolution, camera_model, taken_at, is_primary
             FROM photos 
             WHERE user_id = @UserId 
             ORDER BY upload_date DESC;";
@@ -146,7 +147,7 @@ public class PhotoRepository(IDbConnectionFactory connFactory, ILogger<PhotoRepo
     private static Photo MapPhoto(dynamic row)
     {
         var metadata = new PhotoMetadata((string)row.lens, (string)row.resolution, (string)row.camera_model, (DateTime)row.taken_at);
-        var photo = new Photo((Guid)row.id, (Guid)row.user_id, (Guid)row.lighthouse_id, (string)row.filename, metadata);
+        var photo = new Photo((Guid)row.id, (Guid)row.user_id, (Guid)row.lighthouse_id, (string)row.filename, metadata, (bool)row.is_primary);
         //todo@buraksenyurt Refection ile ID atamayı terk edelim
         typeof(EntityBase).GetProperty(nameof(EntityBase.Id))?.SetValue(photo, (Guid)row.id);
         return photo;

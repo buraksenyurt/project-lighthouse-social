@@ -33,7 +33,8 @@ internal class GetPhotosByLighthouseHandler(IPhotoRepository photoRepository)
                 p.UserId,
                 p.LighthouseId,
                 p.Metadata.Resolution,
-                p.Metadata.Lens)
+                p.Metadata.Lens,
+                p.IsPrimary)
         ).ToList();
 
         return Result<IEnumerable<PhotoDto>>.Ok(photoDtos);

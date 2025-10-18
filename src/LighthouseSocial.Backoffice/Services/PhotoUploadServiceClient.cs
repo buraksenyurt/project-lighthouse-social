@@ -28,6 +28,7 @@ public class PhotoUploadServiceClient(IHttpClientFactory httpClientFactory, ILog
             content.Add(new StringContent(request.LighthouseId.ToString()), "lighthouseId");
             content.Add(new StringContent(request.Resolution), "resolution");
             content.Add(new StringContent(request.Lens), "lens");
+            content.Add(new StringContent(request.IsPrimary.ToString()), "isPrimary");
 
             var response = await httpClient.PostAsync("PhotoUpload/upload", content);
 

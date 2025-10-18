@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
 
 namespace LighthouseSocial.Backoffice.Pages.Lighthouse;
 
@@ -119,7 +118,8 @@ public class CreateModel(ILigthouseServiceClient ligthouseServiceClient, ICountr
                 Guid.NewGuid(),
                 lighthouseId,
                 "Unknown",
-                "Unknown"
+                "Unknown",
+                true
             );
 
             var uploadResult = await photoUploadServiceClient.UploadPhotoAsync(photoRequest, stream, fileName);

@@ -27,7 +27,8 @@ internal class GetPhotoByIdHandler(IPhotoRepository photoRepository)
             photo.UserId,
             photo.LighthouseId,
             photo.Metadata.Resolution,
-            photo.Metadata.Lens
+            photo.Metadata.Lens,
+            photo.IsPrimary
         );
 
         return Result<PhotoDto>.Ok(dto);

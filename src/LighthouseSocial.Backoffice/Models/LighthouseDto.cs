@@ -27,7 +27,8 @@ public record PhotoUploadRequest(
     Guid UserId,
     Guid LighthouseId,
     string Resolution,
-    string Lens
+    string Lens,
+    bool IsPrimary = false
 );
 
 public record ApiResponse<T>

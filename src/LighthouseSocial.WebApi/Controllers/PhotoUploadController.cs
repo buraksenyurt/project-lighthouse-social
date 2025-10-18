@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LighthouseSocial.WebApi.Controllers;
 
-public record UploadPhotoRequest(string FileName, string CameraType, Guid UserId, Guid LighthouseId, string Resolution, string Lens);
+public record UploadPhotoRequest(string FileName, string CameraType, Guid UserId, Guid LighthouseId, string Resolution, string Lens, bool IsPrimary = false);
 
 [ApiController]
 [Route("api/[controller]")]
@@ -36,7 +36,8 @@ public class PhotoUploadController(ILogger<PhotoController> logger, IPhotoUpload
                 request.UserId,
                 request.LighthouseId,
                 request.Resolution,
-                request.Lens
+                request.Lens,
+                request.IsPrimary
             );
             
             var result = await photoUploadService.UploadAsync(dto, stream);
