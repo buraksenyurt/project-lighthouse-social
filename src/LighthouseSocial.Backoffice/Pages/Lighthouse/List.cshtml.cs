@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace LighthouseSocial.Backoffice.Pages.Lighthouse;
 
-public class ListModel(ILigthouseServiceClient ligthouseServiceClient, ILogger<ListModel> logger) : PageModel
+public class ListModel(ILigthouseServiceClient ligthouseServiceClient, IPhotoServiceClient photoServiceClient, ILogger<ListModel> logger) : PageModel
 {
     public IEnumerable<LighthouseDto> Lighthouses { get; set; } = [];
     public string? ErrorMessage { get; set; }
@@ -67,6 +67,14 @@ public class ListModel(ILigthouseServiceClient ligthouseServiceClient, ILogger<L
             var result = await ligthouseServiceClient.DeleteByIdAsync(id);
             if (result.Success)
             {
+                //todo@buraksenyurt: Find the main photo id associated with the lighthouse id
+                var photoDeleteResult = await photoServiceClient.DeleteByIdAsync(id);
+                if(!photoDeleteResult.Success)
+                {
+                    logger.LogWarning("Lighthouse with ID {LighthouseId} was deleted, but failed to delete associated photos: {ErrorMessage}", id, photoDeleteResult.ErrorMessage);
+                    //todo@buraksenyurt: Decide if we need to inform the user about photo deletion failure and what action to take
+                }
+
                 var pageParam = Request.Query["page"].FirstOrDefault();
                 if (!string.IsNullOrEmpty(pageParam))
                 {

@@ -14,6 +14,7 @@ builder.Services.AddHttpClient("LighthouseServiceClient", client =>
 builder.Services.AddScoped<ILigthouseServiceClient, LigthouseServiceClient>();
 builder.Services.AddScoped<ICountryServiceClient, CountryServiceClient>();
 builder.Services.AddScoped<IPhotoUploadServiceClient, PhotoUploadServiceClient>();
+builder.Services.AddScoped<IPhotoServiceClient, PhotoServiceClient>();
 
 var app = builder.Build();
 
