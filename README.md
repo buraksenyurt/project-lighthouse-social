@@ -50,6 +50,12 @@ C# ile uçtan uca bir Web projesi geliştirilmesi. Konu, dünya üzerindeki deni
 
 - [ ] **Backoffice Photo Gallery:** Deniz fenerlerinin tüm fotoğraflarını görüntüleme ve primary fotoğrafı değiştirme özelliği eklenebilir.
 
+### Worker Service Geliştirmeleri
+
+- [ ] **Event Handler - Switch Case Yapısı:** `RabbitMqEventConsumerService.ProcessEventAsync` metodunda farklı event tiplerini switch case ile yönetme yerine daha esnek bir yapı kurulmalı. *(RabbitMqEventConsumerService.cs:122)*
+
+- [ ] **PhotoUploadedEventHandler - İş Mantığı Eksikliği:** `PhotoUploadedEventHandler.HandleAsync` metodunda gerçek iş mantığı implementasyonu yapılmalı. Şu anda sadece loglama yapılıyor. *(PhotoUploadedEventHandler.cs:23)*
+
 ---
 
 ## Proje Konusu
@@ -161,6 +167,10 @@ Minimum Profil;
 - [x] [Bölüm 56 - Razor Sayfasında Yeni Bir Deniz Feneri Oluşturmayı Başardık. Peki Fotoğraf?](https://youtu.be/CjS6Wrq2lLg)
 - [ ] [Bölüm 57 - Fotoğraf Kaydetme ve Doğrulama İşlemleri İçin Razor Kod Tarafında Geliştirmeler]
 - [ ] [Bölüm 58 - En Sonunda Backoffice Uygulamasından Fotoğraf Yüklemeyi Başardık!]
+- [ ] [Bölüm 59 - Sistemde Oluşan Event'leri Tüketmek İçin Bir Worker Service Projesi Oluşturalım]
+- [ ] [Bölüm 60 - Worker Service Projemize RabbitMQ Entegrerasyonunu Ekleyelim]
+- [ ] [Bölüm 61 - Kod Hatalarını Düzeltip Worker Service Projemizi İşler Hale Getirelim]
+- [ ] [Bölüm 62 - Handler Sayısı Artacak. Switch Case'lerden Kurtulalım!]
 
 ## Sonarqube
 
