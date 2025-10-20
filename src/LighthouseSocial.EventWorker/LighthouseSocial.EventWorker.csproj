@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-LighthouseSocial.EventWorker-70987fc8-c897-480d-8929-c71200f29739</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.10" />
+    <PackageReference Include="RabbitMQ.Client" Version="7.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LighthouseSocial.Domain\LighthouseSocial.Domain.csproj" />
+    <ProjectReference Include="..\LighthouseSocial.Infrastructure\LighthouseSocial.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>
