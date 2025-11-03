@@ -61,6 +61,7 @@ public class CreateModel(ILigthouseServiceClient ligthouseServiceClient, ICountr
 
     public async Task<IActionResult> OnPostAsync()
     {
+        await LoadCountriesAsync();
         if (!ModelState.IsValid)
         {
             var errors = ModelState.Where(ms => ms.Value?.Errors.Count > 0)
