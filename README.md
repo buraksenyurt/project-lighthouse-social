@@ -165,9 +165,9 @@ Minimum Profil;
 - [x] [Bölüm 54 - Razor Sayfasındaki Select Kontrolünü Servis Katmanına Bağladık](https://youtu.be/oGSCAO27UwI)
 - [x] [Bölüm 55 - Ülke Listesi için Her Seferinde Servis Çağrısı mı yapacağız?](https://youtu.be/WM1tk8TiTNw)
 - [x] [Bölüm 56 - Razor Sayfasında Yeni Bir Deniz Feneri Oluşturmayı Başardık. Peki Fotoğraf?](https://youtu.be/CjS6Wrq2lLg)
-- [ ] [Bölüm 57 - Fotoğraf Kaydetme ve Doğrulama İşlemleri İçin Razor Kod Tarafında Geliştirmeler]
-- [ ] [Bölüm 58 - En Sonunda Backoffice Uygulamasından Fotoğraf Yüklemeyi Başardık!]
-- [ ] [Bölüm 59 - Sistemde Oluşan Event'leri Tüketmek İçin Bir Worker Service Projesi Oluşturalım]
+- [x] [Bölüm 57 - Fotoğraf Kaydetme ve Doğrulama İşlemleri İçin Razor Kod Tarafında Geliştirmeler](https://youtu.be/7JOnD7Q0F7c)
+- [x] [Bölüm 58 - En Sonunda Backoffice Uygulamasından Fotoğraf Yüklemeyi Başardık!](https://youtu.be/UYExTeffZws)
+- [x] [Bölüm 59 - Sistemde Oluşan Event'leri Tüketmek İçin Bir Worker Service Projesi Oluşturalım](https://youtu.be/eERBKN6ZZ9Y)
 - [ ] [Bölüm 60 - Worker Service Projemize RabbitMQ Entegrerasyonunu Ekleyelim]
 - [ ] [Bölüm 61 - Kod Hatalarını Düzeltip Worker Service Projemizi İşler Hale Getirelim]
 - [ ] [Bölüm 62 - Handler Sayısı Artacak. Switch Case'lerden Kurtulalım!]
