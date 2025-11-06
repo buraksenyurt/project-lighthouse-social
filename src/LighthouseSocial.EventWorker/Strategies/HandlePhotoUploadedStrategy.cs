@@ -6,7 +6,7 @@ namespace LighthouseSocial.EventWorker.Strategies;
 
 public class HandlePhotoUploadedStrategy : IEventStrategy
 {
-    public string EventType { get; set; } = "PhotoUploaded";
+    public string EventType { get; } = "PhotoUploaded";
 
     private readonly ILogger<HandlePhotoUploadedStrategy> _logger;
     private readonly IServiceProvider _serviceProvider;
