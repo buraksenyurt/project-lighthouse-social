@@ -6,13 +6,15 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 using System.Text.Json;
+using LighthouseSocial.EventWorker.Strategies;
 
 namespace LighthouseSocial.EventWorker.Services;
 
 public class RabbitMqEventConsumerService
     : BackgroundService
 {
-    private class EventMessage
+    //Changed from private to public
+    public class EventMessage
     {
         public Guid EventId { get; set; }
         public string EventType { get; set; } = string.Empty;
@@ -27,12 +29,14 @@ public class RabbitMqEventConsumerService
     private IConnection? _connection;
     private IChannel? _channel;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
+    private readonly EventDispatcher _dispatcher;
 
-    public RabbitMqEventConsumerService(ILogger<RabbitMqEventConsumerService> logger, IOptions<RabbitMqSettings> settings, IServiceProvider serviceProvider)
+    public RabbitMqEventConsumerService(ILogger<RabbitMqEventConsumerService> logger, IOptions<RabbitMqSettings> settings, IServiceProvider serviceProvider, EventDispatcher dispatcher)
     {
         _logger = logger;
         _settings = settings.Value;
         _serviceProvider = serviceProvider;
+        _dispatcher = dispatcher;
         _jsonSerializerOptions = new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -92,7 +96,7 @@ public class RabbitMqEventConsumerService
         }
     }
 
-    private async Task HandlePhotoUploadedEventAsync(EventMessage eventMessage, CancellationToken cancellationToken)
+    /*private async Task HandlePhotoUploadedEventAsync(EventMessage eventMessage, CancellationToken cancellationToken)
     {
         try
         {
@@ -126,7 +130,7 @@ public class RabbitMqEventConsumerService
         {
             _logger.LogError(ex, "Error handling PhotoUploaded event. EventId: {EventId}", eventMessage.EventId);
         }
-    }
+    }*/
 
     private async Task ProcessEventAsync(string message, string routingKey, CancellationToken cancellationToken)
     {
@@ -140,7 +144,7 @@ public class RabbitMqEventConsumerService
             }
 
             //todo@buraksenyurt handle different event types without switch case
-            switch (eventMessage.EventType)
+            /*switch (eventMessage.EventType)
             {
                 case "PhotoUploaded":
                     await HandlePhotoUploadedEventAsync(eventMessage, cancellationToken);
@@ -152,7 +156,9 @@ public class RabbitMqEventConsumerService
                 default:
                     _logger.LogWarning("Unhandled event type: {EventType}. EventId: {EventId}", eventMessage.EventType, eventMessage.EventId);
                     break;
-            }
+            }*/
+
+            await _dispatcher.DispatchAsync(eventMessage, cancellationToken);
         }
         catch (Exception ex)
         {
