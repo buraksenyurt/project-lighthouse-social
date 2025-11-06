@@ -14,7 +14,7 @@ public class EventDispatcher
             .Where(g => g.Count() > 1)
             .Select(g => g.Key)
             .ToList();
-        if (duplicateEventTypes.Any())
+        if (duplicateEventTypes.Count != 0)
         {
             throw new InvalidOperationException(
                 $"Duplicate EventType(s) found in strategies: {string.Join(", ", duplicateEventTypes)}"

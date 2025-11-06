@@ -1,12 +1,10 @@
-﻿using LighthouseSocial.Domain.Events.Photo;
-using LighthouseSocial.EventWorker.EventHandlers;
+﻿using LighthouseSocial.EventWorker.Strategies;
 using LighthouseSocial.Infrastructure.Configuration;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 using System.Text.Json;
-using LighthouseSocial.EventWorker.Strategies;
 
 namespace LighthouseSocial.EventWorker.Services;
 
@@ -25,7 +23,6 @@ public class RabbitMqEventConsumerService
 
     private readonly ILogger<RabbitMqEventConsumerService> _logger;
     private readonly RabbitMqSettings _settings;
-    private readonly IServiceProvider _serviceProvider;
     private IConnection? _connection;
     private IChannel? _channel;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
@@ -35,7 +32,6 @@ public class RabbitMqEventConsumerService
     {
         _logger = logger;
         _settings = settings.Value;
-        _serviceProvider = serviceProvider;
         _dispatcher = dispatcher;
         _jsonSerializerOptions = new JsonSerializerOptions
         {
@@ -96,42 +92,6 @@ public class RabbitMqEventConsumerService
         }
     }
 
-    /*private async Task HandlePhotoUploadedEventAsync(EventMessage eventMessage, CancellationToken cancellationToken)
-    {
-        try
-        {
-            var dataElement = eventMessage.Data;
-
-            var fileName = dataElement.GetProperty("fileName").GetString() ?? string.Empty;
-            var userId = dataElement.GetProperty("userId").GetGuid();
-            var lighthouseId = dataElement.GetProperty("lighthouseId").GetGuid();
-            var cameraType = dataElement.GetProperty("cameraType").GetString() ?? string.Empty;
-            var resolution = dataElement.GetProperty("resolution").GetString() ?? string.Empty;
-            var lens = dataElement.GetProperty("lens").GetString() ?? string.Empty;
-            var uploadedAt = dataElement.GetProperty("uploadedAt").GetDateTime();
-
-            var photoUploadedEvent = new PhotoUploaded(
-                photoId: eventMessage.AggregateId,
-                fileName: fileName,
-                userId: userId,
-                lighthouseId: lighthouseId,
-                cameraType: cameraType,
-                resolution: resolution,
-                lens: lens,
-                uploadedAt: uploadedAt);
-
-            using var scope = _serviceProvider.CreateScope();
-            var handler = scope.ServiceProvider.GetRequiredService<IPhotoUploadedEventHander>();
-            await handler.HandleAsync(photoUploadedEvent, cancellationToken);
-
-            _logger.LogInformation("Processed PhotoUploaded event. EventId: {EventId} PhotoId: {PhotoId}", eventMessage.EventId, eventMessage.AggregateId);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error handling PhotoUploaded event. EventId: {EventId}", eventMessage.EventId);
-        }
-    }*/
-
     private async Task ProcessEventAsync(string message, string routingKey, CancellationToken cancellationToken)
     {
         try
@@ -143,21 +103,6 @@ public class RabbitMqEventConsumerService
                 return;
             }
 
-            //todo@buraksenyurt handle different event types without switch case
-            /*switch (eventMessage.EventType)
-            {
-                case "PhotoUploaded":
-                    await HandlePhotoUploadedEventAsync(eventMessage, cancellationToken);
-                    break;
-                case "LighthouseCreated":
-                    // Implement LighthouseCreated event handling here
-                    _logger.LogInformation("LighthouseCreated event received. EventId: {EventId}", eventMessage.EventId);
-                    break;
-                default:
-                    _logger.LogWarning("Unhandled event type: {EventType}. EventId: {EventId}", eventMessage.EventType, eventMessage.EventId);
-                    break;
-            }*/
-
             await _dispatcher.DispatchAsync(eventMessage, cancellationToken);
         }
         catch (Exception ex)
@@ -168,7 +113,7 @@ public class RabbitMqEventConsumerService
     }
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        if(stoppingToken.IsCancellationRequested)
+        if (stoppingToken.IsCancellationRequested)
         {
             _logger.LogInformation("Cancellation requested before starting RabbitMqEventConsumerService.");
             return;
