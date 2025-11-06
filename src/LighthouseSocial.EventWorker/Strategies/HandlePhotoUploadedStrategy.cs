@@ -42,7 +42,7 @@ public class HandlePhotoUploadedStrategy : IEventStrategy
                 uploadedAt: uploadedAt);
 
             using var scope = _serviceProvider.CreateScope();
-            var handler = scope.ServiceProvider.GetRequiredService<IPhotoUploadedEventHander>();
+            var handler = scope.ServiceProvider.GetRequiredService<IPhotoUploadedEventHandler>();
             await handler.HandleAsync(photoUploadedEvent, cancellationToken);
 
             _logger.LogInformation("Processed PhotoUploaded event. EventId: {EventId} PhotoId: {PhotoId}", eventMessage.EventId, eventMessage.AggregateId);
