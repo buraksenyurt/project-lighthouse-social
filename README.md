@@ -168,7 +168,7 @@ Minimum Profil;
 - [x] [Bölüm 57 - Fotoğraf Kaydetme ve Doğrulama İşlemleri İçin Razor Kod Tarafında Geliştirmeler](https://youtu.be/7JOnD7Q0F7c)
 - [x] [Bölüm 58 - En Sonunda Backoffice Uygulamasından Fotoğraf Yüklemeyi Başardık!](https://youtu.be/UYExTeffZws)
 - [x] [Bölüm 59 - Sistemde Oluşan Event'leri Tüketmek İçin Bir Worker Service Projesi Oluşturalım](https://youtu.be/eERBKN6ZZ9Y)
-- [ ] [Bölüm 60 - Worker Service Projemize RabbitMQ Entegrerasyonunu Ekleyelim]
+- [x] [Bölüm 60 - Worker Service Projemize RabbitMQ Entegrerasyonunu Ekleyelim](https://youtu.be/Ymc7_OpvB_Y)
 - [ ] [Bölüm 61 - Kod Hatalarını Düzeltip Worker Service Projemizi İşler Hale Getirelim]
 - [ ] [Bölüm 62 - Handler Sayısı Artacak. Switch Case'lerden Kurtulalım!]
 
