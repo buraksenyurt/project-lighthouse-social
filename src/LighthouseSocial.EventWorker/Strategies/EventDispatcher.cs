@@ -8,6 +8,18 @@ public class EventDispatcher
 
     public EventDispatcher(IEnumerable<IEventStrategy> strategies)
     {
+        // Validate for duplicate EventType values
+        var duplicateEventTypes = strategies
+            .GroupBy(s => s.EventType)
+            .Where(g => g.Count() > 1)
+            .Select(g => g.Key)
+            .ToList();
+        if (duplicateEventTypes.Any())
+        {
+            throw new InvalidOperationException(
+                $"Duplicate EventType(s) found in strategies: {string.Join(", ", duplicateEventTypes)}"
+            );
+        }
         _strategies = strategies.ToDictionary(s => s.EventType, s => s);
     }
 
