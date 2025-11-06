@@ -49,6 +49,11 @@ public class HandlePhotoUploadedStrategy : IEventStrategy
         }
         catch (Exception ex)
         {
+            // Rethrow critical exceptions
+            if (ex is OutOfMemoryException || ex is StackOverflowException || ex is ThreadAbortException)
+            {
+                throw;
+            }
             _logger.LogError(ex, "Error handling PhotoUploaded event. EventId: {EventId}", eventMessage.EventId);
         }
     }
