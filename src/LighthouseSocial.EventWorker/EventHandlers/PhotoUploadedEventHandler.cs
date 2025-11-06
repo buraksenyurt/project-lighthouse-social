@@ -3,7 +3,7 @@
 namespace LighthouseSocial.EventWorker.EventHandlers;
 
 public class PhotoUploadedEventHandler(ILogger<PhotoUploadedEventHandler> logger)
-    : IPhotoUploadedEventHander
+    : IPhotoUploadedEventHandler
 {
     public async Task HandleAsync(PhotoUploaded photoUploadedEvent, CancellationToken cancellationToken = default)
     {

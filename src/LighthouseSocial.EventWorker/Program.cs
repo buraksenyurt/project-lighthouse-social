@@ -11,7 +11,7 @@ builder.Services.AddInfrastructure(builder.Configuration)
     .WithMessaging()
     .Build();
 
-builder.Services.AddScoped<IPhotoUploadedEventHander, PhotoUploadedEventHandler>();
+builder.Services.AddScoped<IPhotoUploadedEventHandler, PhotoUploadedEventHandler>();
 
 builder.Services.AddHostedService<RabbitMqEventConsumerService>();
 

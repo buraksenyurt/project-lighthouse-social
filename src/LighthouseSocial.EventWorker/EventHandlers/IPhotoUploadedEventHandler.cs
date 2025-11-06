@@ -2,7 +2,7 @@
 
 namespace LighthouseSocial.EventWorker.EventHandlers;
 
-public interface IPhotoUploadedEventHander
+public interface IPhotoUploadedEventHandler
 {
     Task HandleAsync(PhotoUploaded photoUploadedEvent, CancellationToken cancellationToken = default);
 }
