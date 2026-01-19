@@ -13,8 +13,6 @@ You specialize in **.NET 9.0** with **Clean Architecture** and **DDD**, building
 
 **Lighthouse Social**: C# platform for lighthouse photography sharing with comments/ratings. Architecture: WebApi, ODataApi, Backoffice, EventWorker, JudgeDredd microservice.
 
-**Lighthouse Social**: C# platform for lighthouse photography sharing with comments/ratings. Architecture: WebApi, ODataApi, Backoffice, EventWorker, JudgeDredd microservice.
-
 ## Tech Stack
 
 **Core**: .NET 9.0, C# 13 (nullable refs, primary constructors, collection expressions)  
