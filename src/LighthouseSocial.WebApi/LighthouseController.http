@@ -67,3 +67,9 @@ GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/paged?page=1&pageSize
 Accept: application/json
 
 ###
+
+### Get Random Lighthouse
+GET {{LighthouseSocial.WebApi_HostAddress}}/api/lighthouse/random
+Accept: application/json
+
+###
