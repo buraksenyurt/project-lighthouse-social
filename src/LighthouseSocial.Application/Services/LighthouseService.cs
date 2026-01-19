@@ -46,4 +46,9 @@ public class LighthouseService(PipelineDispatcher pipelineDispatcher)
     {
         return await _pipelineDispatcher.SendAsync<UpdateLighthouseRequest, Result>(new UpdateLighthouseRequest(lighthouseId, dto));
     }
+
+    public async Task<Result<LighthouseDto>> GetRandomAsync()
+    {
+        return await _pipelineDispatcher.SendAsync<GetRandomLighthouseRequest, Result<LighthouseDto>>(new GetRandomLighthouseRequest());
+    }
 }
