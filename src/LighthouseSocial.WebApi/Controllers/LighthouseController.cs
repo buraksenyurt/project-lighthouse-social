@@ -33,6 +33,25 @@ public class LighthouseController(ILogger<LighthouseController> logger, ILightho
         }
     }
 
+    [HttpGet("random")]
+    public async Task<ActionResult<LighthouseDto>> GetRandomAsync()
+    {
+        try
+        {
+            var result = await lighthouseService.GetRandomAsync();
+
+            if (!result.Success)
+                return NotFound(result.ErrorMessage);
+
+            return Ok(result.Data);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error retrieving random lighthouse");
+            return StatusCode(500, Messages.Errors.InternalServerErrorMessage);
+        }
+    }
+
     [HttpPost]
     //[Authorize(Policy = "ApiScope")]
     public async Task<ActionResult<Guid>> Create([FromBody] CreateLighthouseRequest request)

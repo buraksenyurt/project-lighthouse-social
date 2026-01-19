@@ -197,4 +197,36 @@ public partial class LighthouseRepository(IDbConnectionFactory connFactory, ILog
             return Result<(IEnumerable<Lighthouse> Lighthouses, int TotalCount)>.Fail($"Exception occurred while getting paged lighthouses: {ex.Message}");
         }
     }
+
+    public async Task<Result<Lighthouse>> GetRandomAsync(CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            const string sql = @"
+                SELECT l.id, l.name, l.country_id, c.name AS country_name, l.latitude, l.longitude
+                FROM lighthouses l
+                INNER JOIN countries c ON l.country_id = c.id
+                ORDER BY RANDOM()
+                LIMIT 1;
+            ";
+
+            using var conn = _connFactory.CreateConnection();
+
+            var row = await conn.QuerySingleOrDefaultAsync(sql);
+
+            if (row == null)
+                return Result<Lighthouse>.Fail("No lighthouses found.");
+
+            var country = Country.Create((int)row.country_id, (string)row.country_name);
+            var coordinates = new Coordinates((double)row.latitude, (double)row.longitude);
+            var lighthouse = new Lighthouse((Guid)row.id, (string)row.name, country, coordinates);
+
+            return Result<Lighthouse>.Ok(lighthouse);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error retrieving random lighthouse");
+            return Result<Lighthouse>.Fail($"Exception occurred while getting random lighthouse: {ex.Message}");
+        }
+    }
 }

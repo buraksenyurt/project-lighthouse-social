@@ -13,4 +13,5 @@ public interface ILighthouseRepository
     Task<Result<IEnumerable<Lighthouse>>> GetAllAsync(CancellationToken cancellationToken = default);
     Task<Result<IEnumerable<LighthouseWithStats>>> GetTopAsync(int count, CancellationToken cancellationToken = default);
     Task<Result<(IEnumerable<Lighthouse> Lighthouses, int TotalCount)>> GetPagedAsync(int skip, int take, CancellationToken cancellationToken = default);
+    Task<Result<Lighthouse>> GetRandomAsync(CancellationToken cancellationToken = default);
 }
